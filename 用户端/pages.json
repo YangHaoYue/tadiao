@@ -57,6 +57,96 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/projectClues/projectClues",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "项目线索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+            "path" : "pages/mine/projectClues/createNew/createNew",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增线索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/projectManagement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "项目管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/bankCardManagement/bankCardManagement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "银行卡管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/createNew/map",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择定位",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "线索详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "合同详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/bankCardManagement/addBankCard/addBankCard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新建银行卡",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/withdrawal/withdrawal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "申请提现",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/withdrawal/detailed",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "明细",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

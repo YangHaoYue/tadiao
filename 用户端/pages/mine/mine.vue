@@ -1,22 +1,95 @@
 <template>
 	<view>
-		
+		<view class="u-p-22">
+			<!-- 头像 -->
+			<view class="u-flex u-col-center u-p-l-14 u-p-t-60 u-p-b-40">
+				<u-avatar :src="avaterSrc" size="132"></u-avatar>
+				<view class="u-m-l-30 u-font-36 text-black text-bold">孙权</view>
+			</view>
+			<!-- 项目奖金 -->
+			<view class="bg-white" style="border-radius: 10rpx;height: 305rpx;padding: 70rpx 20rpx 40rpx 60rpx;">
+				<view class="u-flex u-col-center u-row-between">
+					<view class="text-bold" style="font-size: 52rpx;color: #FE9127;">{{price}}</view>
+					<navigator open-type="navigate" url="/pages/mine/withdrawal/withdrawal"
+					class="round u-font-28 u-text-center text-white" style="background-color: #FE9127;padding: 13rpx 26rpx;">
+						申请提现
+					</navigator>
+				</view>
+				<view class="u-font-28 u-m-t-12 u-m-b-30" style="color: #999999;">项目奖金(元)</view>
+				<navigator open-type="navigate" hover-class="none" url="/pages/mine/withdrawal/detailed">
+					<view class="u-font-24 u-m-l-4" style="color: #FD8F24;">查看明细</view>
+				</navigator>
+			</view>
+			<!-- 列表1 -->
+			<view class="cu-list menu sm-border card-menu margin-top" style="margin-left: 0;margin-right: 0;">
+				<block v-for="(item,index) in cellList1" :key="index">
+					<view class="cu-item arrow" @click="navgate(item.url)">
+						<view class="content">
+							<text class="cuIcon-circlefill text-grey"></text>
+							<text class="u-font-28" style="color: #404E60;">{{item.name}}</text>
+						</view>
+					</view>
+				</block>
+			</view>
+			<!-- 列表2 -->
+			<view class="cu-list menu sm-border card-menu margin-top" style="margin-left: 0;margin-right: 0;">
+				<block v-for="(item,index) in cellList2" :key="index">
+					<view class="cu-item arrow" @click="navgate(item.url)">
+						<view class="content">
+							<text class="cuIcon-circlefill text-grey"></text>
+							<text class="u-font-28" style="color: #404E60;">{{item.name}}</text>
+						</view>
+					</view>
+				</block>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		onLoad() {
+		},
 		data() {
 			return {
-				
+				avaterSrc: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
+				price:'234.00',
+				cellList1:[{
+					name:'项目线索',
+					img:'../../../static/uiImg/khglicon.png',
+					url:'/pages/mine/projectClues/projectClues'
+				},{
+					name:'项目管理',
+					img:'../../../static/uiImg/User-folder.png',
+					url:'/pages/mine/projectManagement/projectManagement'
+				},{
+					name:'银行卡管理',
+					img:'../../../static/uiImg/add-users.png',
+					url:'/pages/mine/bankCardManagement/bankCardManagement'
+				}],
+				cellList2:[{
+					name:'申请成为业务员',
+					img:'../../../static/uiImg/khglicon.png',
+					url:'/pages/mine/projectClues/projectClues'
+				},{
+					name:'申请成为维修师傅',
+					img:'../../../static/uiImg/User-folder.png',
+					url:'/pages/mine/projectManagement/projectManagement'
+				}],
 			}
 		},
 		methods: {
-			
+			navgate(url){
+				uni.navigateTo({
+					url:url
+				})
+			}
 		}
 	}
 </script>
 
-<style>
-
+<style scoped>
+	page{
+		background-color: #F8F8F8;
+	}
 </style>

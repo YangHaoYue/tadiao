@@ -1,0 +1,52 @@
+<template>
+	<view class="u-p-25">
+		<view class="u-flex">
+			<u-image width="50" height="61" src=""></u-image>
+			<view class="u-font-32 text-bold text-black">{{entryName}}</view>
+		</view>
+		<view class="u-p-20 bg-white">
+			<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,index) in list" :key="index">
+				<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
+				<view class="u-font-28 text-bold" style="color: #333333;" v-if="item.value.constructor == String">{{item.value}}</view>
+				<view class="u-font-28 text-bold" style="color: #333333;" v-else>
+					<view v-for="(son,i) in item.value" :key="i" >{{son.name}}{{son.number}}</view>
+				</view>
+			</view>
+		</view>
+		<u-button class="u-m-t-30" type="primary">修改线索</u-button>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				entryName:'湘东滨河新区未来城项目',
+				list:[
+					{name:'施工单位',value:'黄龙体育馆'},
+					{name:'地址',value:'浙江省杭州市西湖区黄龙中心'},
+					{name:'塔机型号及数量',value:[{name:'6273477',number:'(10台)'},{name:'6273477',number:'(10台)'}]},
+					{name:'项目建设单位',value:'XXXX建设单位有限公司'},
+					{name:'备注',value:'这是备注这是备注这是备注'},
+					{name:'联系人',value:'张三'},
+					{name:'联系电话',value:'16273734223'},
+					{name:'联系人1',value:'三三'},
+					{name:'联系电话1',value:'16273734223'},
+					{name:'线索信息员',value:'李四'},
+					{name:'合同协调员',value:'张三'},
+					{name:'创建时间',value:'2021-04-21 13:00:00'},
+					{name:'审核通过时间',value:'2021-04-21 13:00:00'},
+				]
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style scoped>
+	page{
+		background-color: #F3F3F3;
+	}
+</style>

@@ -82,6 +82,13 @@
         "template" : "template.h5.html",
         "router" : {
             "mode" : "history"
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "NW7BZ-BVXC2-AFYUX-C57BF-PZED6-WTBY4"
+                }
+            }
         }
     }
 }

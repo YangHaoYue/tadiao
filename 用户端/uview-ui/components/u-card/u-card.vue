@@ -48,6 +48,7 @@
 							fontSize: subTitleSize + 'rpx',
 							color: subTitleColor
 						}"
+						style="font-weight: bold !important;"
 					>
 						{{ subTitle }}
 					</text>
