@@ -1,0 +1,5 @@
+
+.wrap{
+	background: -webkit-linear-gradient(top,#FBFBFD,#F5F6FA);
+}
+

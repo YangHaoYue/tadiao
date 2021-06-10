@@ -2,7 +2,7 @@
 	<view>
 		<!-- 项目信息 -->
 		<view class="u-flex u-p-l-30 u-p-t-14 u-p-b-14 u-font-28" style="color: #666666;">
-			<u-image class="u-m-r-10" height="29" width="32" src=""></u-image>项目信息
+			<text class="cuIcon-album u-font-32 u-m-r-10"></text>项目信息
 		</view>
 		<view class="u-p-l-50 u-p-r-20 bg-white" style="border-radius: 10rpx;">
 			<u-form :model="model" ref="uForm" :errorType="errorType">
@@ -32,7 +32,7 @@
 								<view v-else class="bg-white u-m-l-24" style="height: 52rpx;width: 52rpx;"></view>
 							</view>
 						</block>
-						<view class="u-flex u-font-24 add" @click="addNewEquipment">
+						<view class="u-flex u-font-24 add u-row-center" @click="addNewEquipment">
 							<u-icon class="u-m-8" name="plus" color="#0F58FB" size="24" label="添加型号" label-color="#0F58FB" label-size="22"></u-icon>
 						</view>
 					</view>
@@ -41,14 +41,14 @@
 		</view>
 		<!-- 备注 -->
 		<view class="u-flex u-p-l-30 u-p-t-14 u-p-b-14 u-font-28" style="color: #666666;">
-			<u-image class="u-m-r-10" height="29" width="32" src=""></u-image>备注
+			<u-icon name="edit-pen" size="32" class="u-m-r-10"></u-icon>备注
 		</view>
 		<view class="u-p-l-50 u-p-40 bg-white" style="border-radius: 10rpx;">
 			<u-input v-model="model.remark" type="textarea" :border="true" height="184" :auto-height="true" />
 		</view>
 		<!-- 联系人 -->
 		<view class="u-flex u-p-l-30 u-p-t-14 u-p-b-14 u-font-28" style="color: #666666;">
-			<u-image class="u-m-r-10" height="29" width="32" src=""></u-image>联系人
+			<text class="cuIcon-peoplelist u-font-32 u-m-r-10"></text>联系人
 		</view>
 		<view class="u-p-l-50 u-p-r-40 bg-white" style="border-radius: 10rpx;">
 			<u-form :model="model" ref="uForm" :errorType="errorType">
@@ -175,7 +175,7 @@
 		border-radius: 10rpx;
 		line-height: 1;
 		padding: 10rpx 15rpx;
-		width: 170rpx;
+		width: 180rpx;
 		height: 50rpx;
 	}
 </style>

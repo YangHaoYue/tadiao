@@ -147,16 +147,35 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/applicationSalesman/applicationSalesman",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "申请业务员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/ApplyRepairman/ApplyRepairman",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "申请维修员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "嗒嗒租赁",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+		/* "navigationStyle":"custom" */
 	},
 	"tabBar": {
 	    "color": "#909399",
-	    "selectedColor": "#303133",
+	    "selectedColor": "#0F58FB",
 	    "borderStyle": "black",
 	    "backgroundColor": "#ffffff",
 	    "list": [{

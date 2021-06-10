@@ -154,7 +154,7 @@
 					this.$u.toast('倒计时结束后再发送');
 				}
 			},
-			// 选择商品类型回调
+			// 选择公司回调
 			selectConfirm(e) {
 				this.model.companie = '';
 				e.map((val, index) => {

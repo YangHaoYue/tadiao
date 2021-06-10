@@ -42,7 +42,7 @@
   "compileType": "miniprogram",
   "libVersion": "",
   "appid": "wx473124bb9aa91829",
-  "projectname": "%E5%A1%94%E5%90%8A%E7%A7%9F%E8%81%98",
+  "projectname": "uView-demo",
   "condition": {
     "search": {
       "list": []

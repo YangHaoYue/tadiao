@@ -14,11 +14,15 @@
 				<u-card :title="item.title" title-size="24" title-color="#666666"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :border="false"
 				 @click="toDetail()">
-					<view class="text-bold u-font-28 text-black" slot="body">
-						{{item.desc}}
+					<view class="u-flex u-row-between" slot="body">
+						<view class="text-bold u-font-28 text-black">{{item.desc}}</view>
+						<view @tap.stop="openModal(index)">
+							<u-image src="../../../static/mine/shanchu@2x.png" width="36" height="36" :fade="false" v-if="current == 3" ></u-image>
+						</view>
 					</view>
-					<view class="" slot="foot">
+					<view class="u-flex u-row-between" slot="foot">
 						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
+						<u-button type="primary" size="mini" style="margin-right: 0;">修改线索</u-button>
 						<!-- <view>
 							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
 							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.desc}}</view>
@@ -27,6 +31,9 @@
 				</u-card>
 			</block>
 		</view>
+		
+		<u-modal v-model="showModal" content="是否删除该条线索" :async-close="true" @confirm="del"
+		 :show-cancel-button="true" :show-title="false" :content-style="{margin: '30rpx 0'}" width="500"></u-modal>
 		
 		<navigator open-type="navigate" url="/pages/mine/projectClues/createNew/createNew" hover-class="none" class="u-flex cNew round u-p-22">
 			<view class="u-flex-1">新增</view>
@@ -93,7 +100,10 @@
 					subTitleColor:'#0F58FB',
 					desc:'湘东滨河新区未来城项目',
 					thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-				},]
+				},],
+				//删除哪一个线索
+				whichone:'',
+				showModal:false
 			}
 		},
 		methods: {
@@ -102,6 +112,13 @@
 			},
 			toDetail(){
 				uni.navigateTo({url: 'detail/detail'});
+			},
+			openModal(index){
+				this.showModal = true;
+				this.whichone = index;
+			},
+			del(index){
+				this.showModal = false;
 			}
 		}
 	}

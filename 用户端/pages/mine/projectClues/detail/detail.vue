@@ -1,19 +1,23 @@
 <template>
-	<view class="u-p-25">
-		<view class="u-flex">
-			<u-image width="50" height="61" src=""></u-image>
-			<view class="u-font-32 text-bold text-black">{{entryName}}</view>
-		</view>
-		<view class="u-p-20 bg-white">
-			<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,index) in list" :key="index">
-				<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
-				<view class="u-font-28 text-bold" style="color: #333333;" v-if="item.value.constructor == String">{{item.value}}</view>
-				<view class="u-font-28 text-bold" style="color: #333333;" v-else>
-					<view v-for="(son,i) in item.value" :key="i" >{{son.name}}{{son.number}}</view>
+	<view>
+		<view class="bg"></view>
+		<view class="u-m-25 card">
+			<view class="u-flex u-p-40 u-p-l-60 u-p-t-60">
+				<u-image width="42" height="41" src="../../../../static/mine/cluesicon@2x.png"></u-image>
+				<view class="u-font-32 text-bold text-black">{{entryName}}</view>
+			</view>
+			<u-line color="#ECECEE" border-style="dashed" length="625rpx" margin="30rpx 40rpx"></u-line>
+			<view class="u-p-20">
+				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,index) in list" :key="index">
+					<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
+					<view class="u-font-28 text-bold" style="color: #333333;" v-if="item.value.constructor == String">{{item.value}}</view>
+					<view class="u-font-28 text-bold" style="color: #333333;" v-else>
+						<view v-for="(son,i) in item.value" :key="i" >{{son.name}}{{son.number}}</view>
+					</view>
 				</view>
 			</view>
 		</view>
-		<u-button class="u-m-t-30" type="primary">修改线索</u-button>
+		<u-button class="u-m-25" type="primary" style="transform: translateY(-120rpx);">修改线索</u-button>
 	</view>
 </template>
 
@@ -48,5 +52,18 @@
 <style scoped>
 	page{
 		background-color: #F3F3F3;
+	}
+	.bg{
+		background-color: #0F58FB;
+		height: 198rpx;
+		width: 100%;
+	}
+	.card{
+		background-image: url(../../../../static/mine/cluesImg.png); 
+		height: 1057rpx;
+		width: 700rpx;
+		background-size: 100% 100%;
+		margin-top: 0;
+		transform: translateY(-120rpx);
 	}
 </style>

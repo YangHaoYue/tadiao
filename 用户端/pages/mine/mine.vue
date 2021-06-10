@@ -1,13 +1,13 @@
 <template>
 	<view>
-		<view class="u-p-22">
+		<view class="bgImg">
 			<!-- 头像 -->
-			<view class="u-flex u-col-center u-p-l-14 u-p-t-60 u-p-b-40">
+			<view class="u-flex u-col-center u-p-l-14 u-p-t-60 u-p-b-40" >
 				<u-avatar :src="avaterSrc" size="132"></u-avatar>
-				<view class="u-m-l-30 u-font-36 text-black text-bold">孙权</view>
+				<view class="u-m-l-30 u-font-36 text-white text-bold">孙权</view>
 			</view>
 			<!-- 项目奖金 -->
-			<view class="bg-white" style="border-radius: 10rpx;height: 305rpx;padding: 70rpx 20rpx 40rpx 60rpx;">
+			<view class="bg-white" style="border-radius: 10rpx;height: 305rpx;padding: 70rpx 20rpx 40rpx 60rpx; background-image: url(../../static/mine/bg_jiangjin@2x.png);background-size: 100% 100%;">
 				<view class="u-flex u-col-center u-row-between">
 					<view class="text-bold" style="font-size: 52rpx;color: #FE9127;">{{price}}</view>
 					<navigator open-type="navigate" url="/pages/mine/withdrawal/withdrawal"
@@ -20,13 +20,15 @@
 					<view class="u-font-24 u-m-l-4" style="color: #FD8F24;">查看明细</view>
 				</navigator>
 			</view>
+		</view>
+		<view class="u-p-22">
 			<!-- 列表1 -->
 			<view class="cu-list menu sm-border card-menu margin-top" style="margin-left: 0;margin-right: 0;">
 				<block v-for="(item,index) in cellList1" :key="index">
 					<view class="cu-item arrow" @click="navgate(item.url)">
-						<view class="content">
-							<text class="cuIcon-circlefill text-grey"></text>
-							<text class="u-font-28" style="color: #404E60;">{{item.name}}</text>
+						<view class="content u-flex">
+							<u-image :src="item.img" width="44" height="44" :fade="false"></u-image>
+							<text class="u-font-28 u-m-l-20" style="color: #404E60;">{{item.name}}</text>
 						</view>
 					</view>
 				</block>
@@ -35,9 +37,9 @@
 			<view class="cu-list menu sm-border card-menu margin-top" style="margin-left: 0;margin-right: 0;">
 				<block v-for="(item,index) in cellList2" :key="index">
 					<view class="cu-item arrow" @click="navgate(item.url)">
-						<view class="content">
-							<text class="cuIcon-circlefill text-grey"></text>
-							<text class="u-font-28" style="color: #404E60;">{{item.name}}</text>
+						<view class="content u-flex">
+							<u-image :src="item.img" width="44" height="44" :fade="false"></u-image>
+							<text class="u-font-28 u-m-l-20" style="color: #404E60;">{{item.name}}</text>
 						</view>
 					</view>
 				</block>
@@ -56,25 +58,25 @@
 				price:'234.00',
 				cellList1:[{
 					name:'项目线索',
-					img:'../../../static/uiImg/khglicon.png',
+					img:'../../static/mine/shezhi-2@2x.png',
 					url:'/pages/mine/projectClues/projectClues'
 				},{
 					name:'项目管理',
-					img:'../../../static/uiImg/User-folder.png',
+					img:'../../static/mine/yjfk@2x.png',
 					url:'/pages/mine/projectManagement/projectManagement'
 				},{
 					name:'银行卡管理',
-					img:'../../../static/uiImg/add-users.png',
+					img:'../../static/mine/yinhangka@2x.png',
 					url:'/pages/mine/bankCardManagement/bankCardManagement'
 				}],
 				cellList2:[{
 					name:'申请成为业务员',
-					img:'../../../static/uiImg/khglicon.png',
-					url:'/pages/mine/projectClues/projectClues'
+					img:'../../static/mine/yewuyuan@2x.png',
+					url:'/pages/mine/applicationSalesman/applicationSalesman'
 				},{
 					name:'申请成为维修师傅',
-					img:'../../../static/uiImg/User-folder.png',
-					url:'/pages/mine/projectManagement/projectManagement'
+					img:'../../static/mine/weixiuyuan@2x.png',
+					url:'/pages/mine/ApplyRepairman/ApplyRepairman'
 				}],
 			}
 		},
@@ -91,5 +93,12 @@
 <style scoped>
 	page{
 		background-color: #F8F8F8;
+	}
+	.bgImg{
+		width: 100%;
+		height: 528rpx;
+		padding: 0 22rpx;
+		background-image: url(../../static/mine/bg_wode@2x.png);
+		background-size: 100% 100%;
 	}
 </style>
