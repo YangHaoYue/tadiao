@@ -23,7 +23,7 @@
 						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
 						<view>
 							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toRelation">关联塔吊</u-button>
-							<u-button type="primary" size="mini" style="margin-right: 0;">创建项目</u-button>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate">创建项目</u-button>
 						</view>
 					</view>
 				</u-card>
@@ -119,6 +119,10 @@
 			},
 			toRelation(){
 				uni.navigateTo({url: 'relation/associated'});
+			},
+			/* 新建项目 */
+			toCreate(){
+				uni.navigateTo({url: 'newProject/newProject'});
 			}
 		}
 	}

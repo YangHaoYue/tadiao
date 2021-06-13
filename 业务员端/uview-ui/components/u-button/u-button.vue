@@ -378,8 +378,8 @@ export default {
 	
 	&--primary {
 		color: #ffffff;
-		border-color: $u-type-primary;
-		background-color: $u-type-primary;
+		border-color: #0F58FB;
+		background-color: #0F58FB;
 	}
 	
 	&--success {

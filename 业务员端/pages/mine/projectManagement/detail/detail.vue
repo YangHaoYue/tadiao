@@ -37,9 +37,14 @@
 							</template>
 							<template v-slot:content>
 								<view>
-									<view class="u-flex u-row-between u-font-28 u-m-t-20">
+									<view class="u-flex u-row-between u-font-28 u-m-t-10">
 										<view class="text-black">{{item.title}}</view>
 										<view class="text-black">{{item.people}}</view>
+									</view>
+									<view class="u-flex u-flex-wrap">
+										<block class="u-p-10" v-for="(son,k) in item.imgList" :key="k">
+											<u-image :src="son" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+										</block>
 									</view>
 									<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{item.time}}</view>
 								</view>
@@ -66,6 +71,11 @@
 										<view class="text-black">{{item.title}}</view>
 										<view class="text-black">{{item.people}}</view>
 									</view>
+									<view class="u-flex u-flex-wrap">
+										<block class="u-p-10" v-for="(son,k) in item.imgList" :key="k">
+											<u-image :src="son" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+										</block>
+									</view>
 									<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{item.time}}</view>
 								</view>
 							</template>
@@ -86,7 +96,7 @@
 					<view class="u-flex u-row-between u-font-28 u-m-t-10">
 						<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.time}}</view>
 						<view class="text-black" v-if="item.price">已支付</view>
-						<u-button style="margin-right: 0;" v-else type="primary" size="mini">收款</u-button>
+						<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection">收款</u-button>
 					</view>
 				</view>
 			</template>
@@ -125,8 +135,15 @@
 		</view>
 		<!-- 结束 -->
 		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white">
-			<u-button type="primary" style="margin-right: 0;" size="medium">结束</u-button>
+			<u-button type="primary" style="margin-right: 0;" size="medium" @click="showModal = true">结束</u-button>
 		</view>
+		<!-- modal弹窗 -->
+		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="405">
+			<view class="u-p-60 u-p-b-40 u-flex" style="flex-direction: column;">
+				<u-icon name="checkmark-circle-fill" size="100" color="#0F58FB" label="等待审核" label-color="#333333" label-size="30" label-pos="bottom" margin-top="20"></u-icon>
+				<u-button class="u-m-t-50" style="width: 100%;" size="medium" type="primary" @click="showModal = false">关闭</u-button>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -218,11 +235,19 @@
 					{title:'付款方式',value:'月结'},
 				],
 				/* 总金额 */
-				totalPrice:'489832.00'
+				totalPrice:'489832.00',
+				showModal:false
 			}
 		},
 		methods: {
-			
+			Collection(收款){
+				this.http.modal('','是否确认收款',true,(res) => {
+					if(res){
+						
+					}
+				},'#0F58FB')
+				
+			}
 		}
 	}
 </script>

@@ -39,6 +39,15 @@
 		    }
 		    
 		}
+		,{
+		    "path" : "pages/mine/projectClues/detail/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "线索详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/mine/setting/setting",
             "style" :                                                                                    
@@ -84,6 +93,33 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/mine/projectClues/newProject/newProject",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增项目",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/newProject/chooseEquipment/chooseEquipment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "匹配塔吊",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/detail/addRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增跟进记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
