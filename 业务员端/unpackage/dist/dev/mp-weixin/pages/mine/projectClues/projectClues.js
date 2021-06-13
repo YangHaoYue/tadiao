@@ -96,16 +96,19 @@ var components
 try {
   components = {
     uTabs: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 202))
+      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 322))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 160))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 280))
     },
     uCard: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 209))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 329))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 108))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 228))
+    },
+    uIcon: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 287))
     }
   }
 } catch (e) {
@@ -200,60 +203,77 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      tabList: [{
-        name: '我的线索' },
-      {
-        name: '公海池' },
-      {
-        name: '别人的线索' }],
-
       current: 0,
-      list: [{
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '审核中',
-        subTitleColor: '#FE5E10',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+      tabList: [{
+        name: '我的线索',
+        list: [{
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '待跟进',
+          subTitleColor: '#FE5E10',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '跟进中',
+          subTitleColor: '#2DA016',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] },
+
       {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#333333',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        name: '公海池',
+        list: [{
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] },
+
       {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '未通过',
-        subTitleColor: '#999999',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] };
+        name: '别人的线索',
+        list: [] }] };
+
 
 
   },
@@ -263,6 +283,13 @@ var _default =
     },
     toDetail: function toDetail() {
       uni.navigateTo({ url: 'detail/detail' });
+    },
+    toRelation: function toRelation() {
+      uni.navigateTo({ url: 'relation/associated' });
+    },
+    /* 新建项目 */
+    toCreate: function toCreate() {
+      uni.navigateTo({ url: 'newProject/newProject' });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

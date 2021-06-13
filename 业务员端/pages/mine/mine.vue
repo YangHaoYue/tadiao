@@ -22,8 +22,12 @@
 				<view class="u-font-23">今日收益(元) {{profit}}</view>
 			</view>
 			<view class="u-text-right">
-				<view class="applyBtn">申请提现</view>
-				<view class="text-white u-font-23 u-m-r-16">查看明细</view>
+				<navigator open-type="navigate" url="withdrawal/withdrawal">
+					<view class="applyBtn">申请提现</view>
+				</navigator>
+				<navigator open-type="navigate" url="withdrawal/detailed" hover-class="none">
+					<view class="text-white u-font-23 u-m-r-16">查看明细</view>
+				</navigator>
 			</view>
 		</view>
 		<!-- 数据统计 -->
@@ -77,7 +81,7 @@
 			<view class="u-font-32 text-bold u-m-b-30" style="color: #404E60;">项目</view>
 		</view>
 		<view class="u-flex u-row-around u-p-l-20 u-p-r-20">
-			<navigator open-type="navigate" :url="item.url"
+			<navigator open-type="navigate" :url="item.url" hover-class="none"
 			class="u-flex u-row-center u-col-center" style="flex-direction: column;" v-for="(item,index) in list" :key="index">
 				<u-image :src="item.img" width="80" height="80"></u-image>
 				<view class="u-font-28" style="color: #404E60;">{{item.name}}</view>
@@ -120,8 +124,8 @@
 				list:[
 					{img:'../../static/xiangmuxiansuo@2x.png',name:'项目线索',url:'/pages/mine/projectClues/projectClues'},
 					{img:'../../static/xiangmugaunli@2x.png',name:'项目管理',url:'/pages/mine/projectManagement/projectManagement'},
-					{img:'../../static/weibaojilu@2x.png',name:'维保记录',url:''},
-					{img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:''}
+					{img:'../../static/weibaojilu@2x.png',name:'维保记录',url:'/pages/mine/maintenance/maintenance'},
+					{img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'}
 				]
 			}
 		},

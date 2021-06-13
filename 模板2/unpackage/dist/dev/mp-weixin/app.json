@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/register/register",
+    "pages/register/agreement",
+    "pages/mine/mine",
+    "pages/mine/projectClues/projectClues"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "嗒嗒租赁",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom",
+    "equipment-item": "/components/equipment-item"
+  },
+  "sitemapLocation": "sitemap.json"
+}
