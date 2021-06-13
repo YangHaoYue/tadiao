@@ -1,37 +1,20 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/center/index"
+    "pages/register/register",
+    "pages/register/agreement",
+    "pages/mine/mine",
+    "pages/mine/projectClues/projectClues"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uView",
+    "navigationBarTitleText": "嗒嗒租赁",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
-  "tabBar": {
-    "color": "#909399",
-    "selectedColor": "#303133",
-    "borderStyle": "black",
-    "backgroundColor": "#ffffff",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "iconPath": "static/index.png",
-        "selectedIconPath": "static/index-selected.png",
-        "text": "首页"
-      },
-      {
-        "pagePath": "pages/center/index",
-        "iconPath": "static/center.png",
-        "selectedIconPath": "static/center-selected.png",
-        "text": "我"
-      }
-    ]
-  },
   "usingComponents": {
-    "cu-custom": "/colorui/components/cu-custom"
+    "cu-custom": "/colorui/components/cu-custom",
+    "equipment-item": "/components/equipment-item"
   },
   "sitemapLocation": "sitemap.json"
 }

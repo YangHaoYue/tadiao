@@ -44,6 +44,7 @@
 				<view class="u-card__head--right u-line-1" v-if="subTitle">
 					<text
 						class="u-card__head__title__text"
+						:class="isBold?'text-bold':''"
 						:style="{
 							fontSize: subTitleSize + 'rpx',
 							color: subTitleColor
@@ -140,6 +141,11 @@ export default {
 		subTitleSize: {
 			type: [Number, String],
 			default: '26'
+		},
+		//副标题是否加粗
+		isBold:{
+			type:Boolean,
+			default:false
 		},
 		// 是否显示外部边框，只对full=false时有效(卡片与边框有空隙时)
 		border: {

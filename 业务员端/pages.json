@@ -183,6 +183,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/perfection/perfection",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "完善资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

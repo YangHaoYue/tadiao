@@ -1,0 +1,203 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+		    "path" : "pages/register/register",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "注册",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/register/agreement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户协议",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/mine",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "我的",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/mine/projectClues/projectClues",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "项目线索",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/mine/projectClues/detail/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "线索详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/mine/setting/setting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/relation/relation",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "关联塔吊",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/relation/associated",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "已关联塔吊",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/mine/projectManagement/projectManagement",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "项目管理",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/mine/projectManagement/detail/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "项目详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/mine/projectClues/newProject/newProject",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增项目",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/newProject/chooseEquipment/chooseEquipment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "匹配塔吊",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectClues/detail/addRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增跟进记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/maintenance/maintenance",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "维修记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/maintenance/projectDetail/projectDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "项目列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/maintenance/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设备详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/mine/bankCardManagement/bankCardManagement",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "银行卡管理",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+            "path" : "pages/mine/bankCardManagement/addBankCard/addBankCard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新建银行卡",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/withdrawal/withdrawal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "申请提现",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/withdrawal/detailed",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "明细",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/mine/perfection/perfection",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "完善资料",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "嗒嗒租赁",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+		
+	}
+}

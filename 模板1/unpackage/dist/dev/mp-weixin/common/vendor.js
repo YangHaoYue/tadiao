@@ -8,7 +8,57 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.createSubpackageApp = createSubpackageApp;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
+Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.createPlugin = createPlugin;exports.createSubpackageApp = createSubpackageApp;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArrayLimit(arr, i) {if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;}
+
+function b64DecodeUnicode(str) {
+  return decodeURIComponent(atob(str).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+}
+
+function getCurrentUserInfo() {
+  var token = wx.getStorageSync('uni_id_token') || '';
+  var tokenArr = token.split('.');
+  if (!token || tokenArr.length !== 3) {
+    return {
+      uid: null,
+      role: [],
+      permission: [],
+      tokenExpired: 0 };
+
+  }
+  var userInfo;
+  try {
+    userInfo = JSON.parse(b64DecodeUnicode(tokenArr[1]));
+  } catch (error) {
+    throw new Error('获取当前用户信息出错，详细错误信息为：' + error.message);
+  }
+  userInfo.tokenExpired = userInfo.exp * 1000;
+  delete userInfo.exp;
+  delete userInfo.iat;
+  return userInfo;
+}
+
+function uniIdMixin(Vue) {
+  Vue.prototype.uniIDHasRole = function (roleId) {var _getCurrentUserInfo =
+
+
+    getCurrentUserInfo(),role = _getCurrentUserInfo.role;
+    return role.indexOf(roleId) > -1;
+  };
+  Vue.prototype.uniIDHasPermission = function (permissionId) {var _getCurrentUserInfo2 =
+
+
+    getCurrentUserInfo(),permission = _getCurrentUserInfo2.permission;
+    return this.uniIDHasRole('admin') || permission.indexOf(permissionId) > -1;
+  };
+  Vue.prototype.uniIDTokenValid = function () {var _getCurrentUserInfo3 =
+
+
+    getCurrentUserInfo(),tokenExpired = _getCurrentUserInfo3.tokenExpired;
+    return tokenExpired > Date.now();
+  };
+}
 
 var _toString = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -681,7 +731,7 @@ var customize = cached(function (str) {
 
 function initTriggerEvent(mpInstance) {
   {
-    if (!wx.canIUse('nextTick')) {
+    if (!wx.canIUse || !wx.canIUse('nextTick')) {
       return;
     }
   }
@@ -822,7 +872,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -1295,14 +1345,67 @@ function initEventChannel() {
   };
 }
 
+function initScopedSlotsParams() {
+  var center = {};
+  var parents = {};
+
+  _vue.default.prototype.$hasScopedSlotsParams = function (vueId) {
+    var has = center[vueId];
+    if (!has) {
+      parents[vueId] = this;
+      this.$on('hook:destory', function () {
+        delete parents[vueId];
+      });
+    }
+    return has;
+  };
+
+  _vue.default.prototype.$getScopedSlotsParams = function (vueId, name, key) {
+    var data = center[vueId];
+    if (data) {
+      var object = data[name] || {};
+      return key ? object[key] : object;
+    } else {
+      parents[vueId] = this;
+      this.$on('hook:destory', function () {
+        delete parents[vueId];
+      });
+    }
+  };
+
+  _vue.default.prototype.$setScopedSlotsParams = function (name, value) {
+    var vueId = this.$options.propsData.vueId;
+    var object = center[vueId] = center[vueId] || {};
+    object[name] = value;
+    if (parents[vueId]) {
+      parents[vueId].$forceUpdate();
+    }
+  };
+
+  _vue.default.mixin({
+    destroyed: function destroyed() {
+      var propsData = this.$options.propsData;
+      var vueId = propsData && propsData.vueId;
+      if (vueId) {
+        delete center[vueId];
+        delete parents[vueId];
+      }
+    } });
+
+}
+
 function parseBaseApp(vm, _ref3)
 
 
 {var mocks = _ref3.mocks,initRefs = _ref3.initRefs;
   initEventChannel();
+  {
+    initScopedSlotsParams();
+  }
   if (vm.$options.store) {
     _vue.default.prototype.$store = vm.$options.store;
   }
+  uniIdMixin(_vue.default);
 
   _vue.default.prototype.mpHost = "mp-weixin";
 
@@ -1323,7 +1426,7 @@ function parseBaseApp(vm, _ref3)
 
       delete this.$options.mpType;
       delete this.$options.mpInstance;
-      if (this.mpType === 'page') {// hack vue-i18n
+      if (this.mpType === 'page' && typeof getApp === 'function') {// hack vue-i18n
         var app = getApp();
         if (app.$vm && app.$vm.$i18n) {
           this._i18n = app.$vm.$i18n;
@@ -1342,7 +1445,7 @@ function parseBaseApp(vm, _ref3)
         return;
       }
       {
-        if (!wx.canIUse('nextTick')) {// 事实 上2.2.3 即可，简单使用 2.3.0 的 nextTick 判断
+        if (wx.canIUse && !wx.canIUse('nextTick')) {// 事实 上2.2.3 即可，简单使用 2.3.0 的 nextTick 判断
           console.error('当前微信基础库版本过低，请将 微信开发者工具-详情-项目设置-调试基础库版本 更换为`2.3.0`以上');
         }
       }
@@ -1711,6 +1814,25 @@ function createSubpackageApp(vm) {
   return vm;
 }
 
+function createPlugin(vm) {
+  var appOptions = parseApp(vm);
+  if (isFn(appOptions.onShow) && wx.onAppShow) {
+    wx.onAppShow(function () {for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {args[_key7] = arguments[_key7];}
+      appOptions.onShow.apply(vm, args);
+    });
+  }
+  if (isFn(appOptions.onHide) && wx.onAppHide) {
+    wx.onAppHide(function () {for (var _len8 = arguments.length, args = new Array(_len8), _key8 = 0; _key8 < _len8; _key8++) {args[_key8] = arguments[_key8];}
+      appOptions.onHide.apply(vm, args);
+    });
+  }
+  if (isFn(appOptions.onLaunch)) {
+    var args = wx.getLaunchOptionsSync && wx.getLaunchOptionsSync();
+    appOptions.onLaunch.call(vm, args);
+  }
+  return vm;
+}
+
 todos.forEach(function (todoApi) {
   protocols[todoApi] = false;
 });
@@ -1791,6 +1913,7 @@ wx.createApp = createApp;
 wx.createPage = createPage;
 wx.createComponent = createComponent;
 wx.createSubpackageApp = createSubpackageApp;
+wx.createPlugin = createPlugin;
 
 var uni$1 = uni;var _default =
 
@@ -7323,7 +7446,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -7344,14 +7467,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -7437,7 +7560,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -7613,7 +7736,7 @@ function internalMixin(Vue) {
     Vue.util.warn(("Error in " + info + ": \"" + (err.toString()) + "\""), vm);
     console.error(err);
     /* eslint-disable no-undef */
-    var app = getApp();
+    var app = typeof getApp === 'function' && getApp();
     if (app && app.onError) {
       app.onError(err);
     }
@@ -7875,9 +7998,9 @@ module.exports = g;
 
 /***/ }),
 /* 4 */
-/*!****************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/pages.json ***!
-  \****************************************************************/
+/*!*******************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages.json ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -8018,9 +8141,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 11 */
-/*!***************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/common/httpRequest.js ***!
-  \***************************************************************************/
+/*!******************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/common/httpRequest.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8274,9 +8397,9 @@ tui;exports.default = _default;
 
 /***/ }),
 /* 12 */
-/*!***********************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/index.js ***!
-  \***********************************************************************/
+/*!**************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/index.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8425,9 +8548,9 @@ var install = function install(Vue) {
 
 /***/ }),
 /* 13 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/mixin/mixin.js ***!
-  \**********************************************************************************/
+/*!*************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/mixin/mixin.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8498,9 +8621,9 @@ var install = function install(Vue) {
 
 /***/ }),
 /* 14 */
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/request/index.js ***!
-  \************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/request/index.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8678,9 +8801,9 @@ new Request();exports.default = _default;
 
 /***/ }),
 /* 15 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/deepMerge.js ***!
-  \*****************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/deepMerge.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8718,9 +8841,9 @@ deepMerge;exports.default = _default;
 
 /***/ }),
 /* 16 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/deepClone.js ***!
-  \*****************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/deepClone.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8751,9 +8874,9 @@ deepClone;exports.default = _default;
 
 /***/ }),
 /* 17 */
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/test.js ***!
-  \************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/test.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8992,9 +9115,9 @@ function code(value) {var len = arguments.length > 1 && arguments[1] !== undefin
 
 /***/ }),
 /* 18 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/queryParams.js ***!
-  \*******************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/queryParams.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9060,9 +9183,9 @@ queryParams;exports.default = _default;
 
 /***/ }),
 /* 19 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/route.js ***!
-  \*************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/route.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -9981,9 +10104,9 @@ if (hadRuntime) {
 
 /***/ }),
 /* 23 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/timeFormat.js ***!
-  \******************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/timeFormat.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10042,9 +10165,9 @@ timeFormat;exports.default = _default;
 
 /***/ }),
 /* 24 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/timeFrom.js ***!
-  \****************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/timeFrom.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10099,9 +10222,9 @@ timeFrom;exports.default = _default;
 
 /***/ }),
 /* 25 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/colorGradient.js ***!
-  \*********************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/colorGradient.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10242,9 +10365,9 @@ function colorToRgba(color) {var alpha = arguments.length > 1 && arguments[1] !=
 
 /***/ }),
 /* 26 */
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/guid.js ***!
-  \************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/guid.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10293,9 +10416,9 @@ guid;exports.default = _default;
 
 /***/ }),
 /* 27 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/color.js ***!
-  \*************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/color.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10340,9 +10463,9 @@ color;exports.default = _default;
 
 /***/ }),
 /* 28 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/type2icon.js ***!
-  \*****************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/type2icon.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10385,9 +10508,9 @@ type2icon;exports.default = _default;
 
 /***/ }),
 /* 29 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/randomArray.js ***!
-  \*******************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/randomArray.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10402,9 +10525,9 @@ randomArray;exports.default = _default;
 
 /***/ }),
 /* 30 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/addUnit.js ***!
-  \***************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/addUnit.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10420,9 +10543,9 @@ function addUnit() {var value = arguments.length > 0 && arguments[0] !== undefin
 
 /***/ }),
 /* 31 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/random.js ***!
-  \**************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/random.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10440,9 +10563,9 @@ random;exports.default = _default;
 
 /***/ }),
 /* 32 */
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/trim.js ***!
-  \************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/trim.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10465,9 +10588,9 @@ trim;exports.default = _default;
 
 /***/ }),
 /* 33 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/toast.js ***!
-  \*************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/toast.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10485,9 +10608,9 @@ toast;exports.default = _default;
 
 /***/ }),
 /* 34 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/getParent.js ***!
-  \*****************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/getParent.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10542,9 +10665,9 @@ function getParent(name, keys) {
 
 /***/ }),
 /* 35 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/$parent.js ***!
-  \***************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/$parent.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10570,9 +10693,9 @@ function $parent() {var name = arguments.length > 0 && arguments[0] !== undefine
 
 /***/ }),
 /* 36 */
-/*!***********************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/sys.js ***!
-  \***********************************************************************************/
+/*!**************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/sys.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10588,9 +10711,9 @@ function sys() {
 
 /***/ }),
 /* 37 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/debounce.js ***!
-  \****************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/debounce.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10627,9 +10750,9 @@ debounce;exports.default = _default;
 
 /***/ }),
 /* 38 */
-/*!****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/function/throttle.js ***!
-  \****************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/function/throttle.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10669,9 +10792,9 @@ throttle;exports.default = _default;
 
 /***/ }),
 /* 39 */
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/config/config.js ***!
-  \************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/config/config.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10692,9 +10815,9 @@ var version = '1.8.3';var _default =
 
 /***/ }),
 /* 40 */
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/config/zIndex.js ***!
-  \************************************************************************************/
+/*!***************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/config/zIndex.js ***!
+  \***************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10753,10 +10876,31 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 71 */,
 /* 72 */,
 /* 73 */,
-/* 74 */
-/*!***********************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/util/emitter.js ***!
-  \***********************************************************************************/
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */,
+/* 88 */,
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */
+/*!**************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/util/emitter.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10812,10 +10956,10 @@ function _broadcast(componentName, eventName, params) {
     } } };exports.default = _default;
 
 /***/ }),
-/* 75 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊租聘/uview-ui/libs/util/async-validator.js ***!
-  \*******************************************************************************************/
+/* 96 */
+/*!**********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/libs/util/async-validator.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10842,7 +10986,7 @@ function _broadcast(componentName, eventName, params) {
 var formatRegExp = /%[sdj%]/g;
 var warning = function warning() {}; // don't print warning message when in production env or node runtime
 
-if (typeof process !== 'undefined' && Object({"NODE_ENV":"development","VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}) && "development" !== 'production' && typeof window !==
+if (typeof process !== 'undefined' && Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}) && "development" !== 'production' && typeof window !==
 'undefined' && typeof document !== 'undefined') {
   warning = function warning(type, errors) {
     if (typeof console !== 'undefined' && console.warn) {
@@ -12175,10 +12319,10 @@ Schema.warning = warning;
 Schema.messages = messages;var _default =
 
 Schema;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 76)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 97)))
 
 /***/ }),
-/* 76 */
+/* 97 */
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -12209,7 +12353,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 77);
+        if (!path) path = __webpack_require__(/*! path */ 98);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -12222,7 +12366,7 @@ exports.features = {};
 
 
 /***/ }),
-/* 77 */
+/* 98 */
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -12532,7 +12676,844 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 76)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 97)))
+
+/***/ }),
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */,
+/* 135 */,
+/* 136 */,
+/* 137 */,
+/* 138 */,
+/* 139 */,
+/* 140 */,
+/* 141 */,
+/* 142 */,
+/* 143 */,
+/* 144 */,
+/* 145 */,
+/* 146 */,
+/* 147 */,
+/* 148 */
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/components/u-parse/libs/MpHtmlParser.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {/**
+ * html 解析器
+ * @tutorial https://github.com/jin-yufeng/Parser
+ * @version 20201029
+ * @author JinYufeng
+ * @listens MIT
+ */
+var cfg = __webpack_require__(/*! ./config.js */ 149),
+blankChar = cfg.blankChar,
+CssHandler = __webpack_require__(/*! ./CssHandler.js */ 150),
+windowWidth = uni.getSystemInfoSync().windowWidth;
+var emoji;
+
+function MpHtmlParser(data) {var _this = this;var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  this.attrs = {};
+  this.CssHandler = new CssHandler(options.tagStyle, windowWidth);
+  this.data = data;
+  this.domain = options.domain;
+  this.DOM = [];
+  this.i = this.start = this.audioNum = this.imgNum = this.videoNum = 0;
+  options.prot = (this.domain || '').includes('://') ? this.domain.split('://')[0] : 'http';
+  this.options = options;
+  this.state = this.Text;
+  this.STACK = [];
+  // 工具函数
+  this.bubble = function () {
+    for (var i = _this.STACK.length, item; item = _this.STACK[--i];) {
+      if (cfg.richOnlyTags[item.name]) return false;
+      item.c = 1;
+    }
+    return true;
+  };
+  this.decode = function (val, amp) {
+    var i = -1,
+    j,en;
+    while (1) {
+      if ((i = val.indexOf('&', i + 1)) == -1) break;
+      if ((j = val.indexOf(';', i + 2)) == -1) break;
+      if (val[i + 1] == '#') {
+        en = parseInt((val[i + 2] == 'x' ? '0' : '') + val.substring(i + 2, j));
+        if (!isNaN(en)) val = val.substr(0, i) + String.fromCharCode(en) + val.substr(j + 1);
+      } else {
+        en = val.substring(i + 1, j);
+        if (cfg.entities[en] || en == amp)
+        val = val.substr(0, i) + (cfg.entities[en] || '&') + val.substr(j + 1);
+      }
+    }
+    return val;
+  };
+  this.getUrl = function (url) {
+    if (url[0] == '/') {
+      if (url[1] == '/') url = _this.options.prot + ':' + url;else
+      if (_this.domain) url = _this.domain + url;
+    } else if (_this.domain && url.indexOf('data:') != 0 && !url.includes('://'))
+    url = _this.domain + '/' + url;
+    return url;
+  };
+  this.isClose = function () {return _this.data[_this.i] == '>' || _this.data[_this.i] == '/' && _this.data[_this.i + 1] == '>';};
+  this.section = function () {return _this.data.substring(_this.start, _this.i);};
+  this.parent = function () {return _this.STACK[_this.STACK.length - 1];};
+  this.siblings = function () {return _this.STACK.length ? _this.parent().children : _this.DOM;};
+}
+MpHtmlParser.prototype.parse = function () {
+  if (emoji) this.data = emoji.parseEmoji(this.data);
+  for (var c; c = this.data[this.i]; this.i++) {
+    this.state(c);}
+  if (this.state == this.Text) this.setText();
+  while (this.STACK.length) {this.popNode(this.STACK.pop());}
+  return this.DOM;
+};
+// 设置属性
+MpHtmlParser.prototype.setAttr = function () {
+  var name = this.attrName.toLowerCase(),
+  val = this.attrVal;
+  if (cfg.boolAttrs[name]) this.attrs[name] = 'T';else
+  if (val) {
+    if (name == 'src' || name == 'data-src' && !this.attrs.src) this.attrs.src = this.getUrl(this.decode(val, 'amp'));else
+    if (name == 'href' || name == 'style') this.attrs[name] = this.decode(val, 'amp');else
+    if (name.substr(0, 5) != 'data-') this.attrs[name] = val;
+  }
+  this.attrVal = '';
+  while (blankChar[this.data[this.i]]) {this.i++;}
+  if (this.isClose()) this.setNode();else
+  {
+    this.start = this.i;
+    this.state = this.AttrName;
+  }
+};
+// 设置文本节点
+MpHtmlParser.prototype.setText = function () {
+  var back,text = this.section();
+  if (!text) return;
+  text = cfg.onText && cfg.onText(text, function () {return back = true;}) || text;
+  if (back) {
+    this.data = this.data.substr(0, this.start) + text + this.data.substr(this.i);
+    var j = this.start + text.length;
+    for (this.i = this.start; this.i < j; this.i++) {this.state(this.data[this.i]);}
+    return;
+  }
+  if (!this.pre) {
+    // 合并空白符
+    var flag,tmp = [];
+    for (var i = text.length, c; c = text[--i];) {
+      if (!blankChar[c]) {
+        tmp.unshift(c);
+        if (!flag) flag = 1;
+      } else {
+        if (tmp[0] != ' ') tmp.unshift(' ');
+        if (c == '\n' && flag == void 0) flag = 0;
+      }}
+    if (flag == 0) return;
+    text = tmp.join('');
+  }
+  this.siblings().push({
+    type: 'text',
+    text: this.decode(text) });
+
+};
+// 设置元素节点
+MpHtmlParser.prototype.setNode = function () {
+  var node = {
+    name: this.tagName.toLowerCase(),
+    attrs: this.attrs },
+
+  close = cfg.selfClosingTags[node.name];
+  if (this.options.nodes.length) node.type = 'node';
+  this.attrs = {};
+  if (!cfg.ignoreTags[node.name]) {
+    // 处理属性
+    var attrs = node.attrs,
+    style = this.CssHandler.match(node.name, attrs, node) + (attrs.style || ''),
+    styleObj = {};
+    if (attrs.id) {
+      if (this.options.compress & 1) attrs.id = void 0;else
+      if (this.options.useAnchor) this.bubble();
+    }
+    if (this.options.compress & 2 && attrs.class) attrs.class = void 0;
+    switch (node.name) {
+      case 'a':
+      case 'ad':
+
+
+        this.bubble();
+        break;
+      case 'font':
+        if (attrs.color) {
+          styleObj['color'] = attrs.color;
+          attrs.color = void 0;
+        }
+        if (attrs.face) {
+          styleObj['font-family'] = attrs.face;
+          attrs.face = void 0;
+        }
+        if (attrs.size) {
+          var size = parseInt(attrs.size);
+          if (size < 1) size = 1;else
+          if (size > 7) size = 7;
+          var map = ['xx-small', 'x-small', 'small', 'medium', 'large', 'x-large', 'xx-large'];
+          styleObj['font-size'] = map[size - 1];
+          attrs.size = void 0;
+        }
+        break;
+      case 'embed':
+
+        var src = node.attrs.src || '',
+        type = node.attrs.type || '';
+        if (type.includes('video') || src.includes('.mp4') || src.includes('.3gp') || src.includes('.m3u8'))
+        node.name = 'video';else
+        if (type.includes('audio') || src.includes('.m4a') || src.includes('.wav') || src.includes('.mp3') || src.includes(
+        '.aac'))
+        node.name = 'audio';else
+        break;
+        if (node.attrs.autostart)
+        node.attrs.autoplay = 'T';
+        node.attrs.controls = 'T';
+
+
+
+
+
+      case 'video':
+      case 'audio':
+        if (!attrs.id) attrs.id = node.name + ++this["".concat(node.name, "Num")];else
+        this["".concat(node.name, "Num")]++;
+        if (node.name == 'video') {
+          if (this.videoNum > 3)
+          node.lazyLoad = 1;
+          if (attrs.width) {
+            styleObj.width = parseFloat(attrs.width) + (attrs.width.includes('%') ? '%' : 'px');
+            attrs.width = void 0;
+          }
+          if (attrs.height) {
+            styleObj.height = parseFloat(attrs.height) + (attrs.height.includes('%') ? '%' : 'px');
+            attrs.height = void 0;
+          }
+        }
+        if (!attrs.controls && !attrs.autoplay) attrs.controls = 'T';
+        attrs.source = [];
+        if (attrs.src) {
+          attrs.source.push(attrs.src);
+          attrs.src = void 0;
+        }
+        this.bubble();
+        break;
+      case 'td':
+      case 'th':
+        if (attrs.colspan || attrs.rowspan)
+        for (var k = this.STACK.length, item; item = this.STACK[--k];) {
+          if (item.name == 'table') {
+            item.flag = 1;
+            break;
+          }}}
+
+    if (attrs.align) {
+      if (node.name == 'table') {
+        if (attrs.align == 'center') styleObj['margin-inline-start'] = styleObj['margin-inline-end'] = 'auto';else
+        styleObj['float'] = attrs.align;
+      } else styleObj['text-align'] = attrs.align;
+      attrs.align = void 0;
+    }
+    // 压缩 style
+    var styles = style.split(';');
+    style = '';
+    for (var i = 0, len = styles.length; i < len; i++) {
+      var info = styles[i].split(':');
+      if (info.length < 2) continue;
+      var _key = info[0].trim().toLowerCase(),
+      _value = info.slice(1).join(':').trim();
+      if (_value[0] == '-' || _value.includes('safe'))
+      style += ";".concat(_key, ":").concat(_value);else
+      if (!styleObj[_key] || _value.includes('import') || !styleObj[_key].includes('import'))
+      styleObj[_key] = _value;
+    }
+    if (node.name == 'img') {
+      if (attrs.src && !attrs.ignore) {
+        if (this.bubble())
+        attrs.i = (this.imgNum++).toString();else
+        attrs.ignore = 'T';
+      }
+      if (attrs.ignore) {
+        style += ';-webkit-touch-callout:none';
+        styleObj['max-width'] = '100%';
+      }
+      var width;
+      if (styleObj.width) width = styleObj.width;else
+      if (attrs.width) width = attrs.width.includes('%') ? attrs.width : parseFloat(attrs.width) + 'px';
+      if (width) {
+        styleObj.width = width;
+        attrs.width = '100%';
+        if (parseInt(width) > windowWidth) {
+          styleObj.height = '';
+          if (attrs.height) attrs.height = void 0;
+        }
+      }
+      if (styleObj.height) {
+        attrs.height = styleObj.height;
+        styleObj.height = '';
+      } else if (attrs.height && !attrs.height.includes('%'))
+      attrs.height = parseFloat(attrs.height) + 'px';
+    }
+    for (var key in styleObj) {
+      var value = styleObj[key];
+      if (!value) continue;
+      if (key.includes('flex') || key == 'order' || key == 'self-align') node.c = 1;
+      // 填充链接
+      if (value.includes('url')) {
+        var j = value.indexOf('(');
+        if (j++ != -1) {
+          while (value[j] == '"' || value[j] == "'" || blankChar[value[j]]) {j++;}
+          value = value.substr(0, j) + this.getUrl(value.substr(j));
+        }
+      }
+      // 转换 rpx
+      else if (value.includes('rpx'))
+        value = value.replace(/[0-9.]+\s*rpx/g, function ($) {return parseFloat($) * windowWidth / 750 + 'px';});else
+        if (key == 'white-space' && value.includes('pre') && !close)
+        this.pre = node.pre = true;
+      style += ";".concat(key, ":").concat(value);
+    }
+    style = style.substr(1);
+    if (style) attrs.style = style;
+    if (!close) {
+      node.children = [];
+      if (node.name == 'pre' && cfg.highlight) {
+        this.remove(node);
+        this.pre = node.pre = true;
+      }
+      this.siblings().push(node);
+      this.STACK.push(node);
+    } else if (!cfg.filter || cfg.filter(node, this) != false)
+    this.siblings().push(node);
+  } else {
+    if (!close) this.remove(node);else
+    if (node.name == 'source') {
+      var parent = this.parent();
+      if (parent && (parent.name == 'video' || parent.name == 'audio') && node.attrs.src)
+      parent.attrs.source.push(node.attrs.src);
+    } else if (node.name == 'base' && !this.domain) this.domain = node.attrs.href;
+  }
+  if (this.data[this.i] == '/') this.i++;
+  this.start = this.i + 1;
+  this.state = this.Text;
+};
+// 移除标签
+MpHtmlParser.prototype.remove = function (node) {var _this2 = this;
+  var name = node.name,
+  j = this.i;
+  // 处理 svg
+  var handleSvg = function handleSvg() {
+    var src = _this2.data.substring(j, _this2.i + 1);
+    node.attrs.xmlns = 'http://www.w3.org/2000/svg';
+    for (var key in node.attrs) {
+      if (key == 'viewbox') src = " viewBox=\"".concat(node.attrs.viewbox, "\"") + src;else
+      if (key != 'style') src = " ".concat(key, "=\"").concat(node.attrs[key], "\"") + src;
+    }
+    src = '<svg' + src;
+    var parent = _this2.parent();
+    if (node.attrs.width == '100%' && parent && (parent.attrs.style || '').includes('inline'))
+    parent.attrs.style = 'width:300px;max-width:100%;' + parent.attrs.style;
+    _this2.siblings().push({
+      name: 'img',
+      attrs: {
+        src: 'data:image/svg+xml;utf8,' + src.replace(/#/g, '%23'),
+        style: node.attrs.style,
+        ignore: 'T' } });
+
+
+  };
+  if (node.name == 'svg' && this.data[j] == '/') return handleSvg(this.i++);
+  while (1) {
+    if ((this.i = this.data.indexOf('</', this.i + 1)) == -1) {
+      if (name == 'pre' || name == 'svg') this.i = j;else
+      this.i = this.data.length;
+      return;
+    }
+    this.start = this.i += 2;
+    while (!blankChar[this.data[this.i]] && !this.isClose()) {this.i++;}
+    if (this.section().toLowerCase() == name) {
+      // 代码块高亮
+      if (name == 'pre') {
+        this.data = this.data.substr(0, j + 1) + cfg.highlight(this.data.substring(j + 1, this.i - 5), node.attrs) + this.data.
+        substr(this.i - 5);
+        return this.i = j;
+      } else if (name == 'style')
+      this.CssHandler.getStyle(this.data.substring(j + 1, this.i - 7));else
+      if (name == 'title')
+      this.DOM.title = this.data.substring(j + 1, this.i - 7);
+      if ((this.i = this.data.indexOf('>', this.i)) == -1) this.i = this.data.length;
+      if (name == 'svg') handleSvg();
+      return;
+    }
+  }
+};
+// 节点出栈处理
+MpHtmlParser.prototype.popNode = function (node) {
+  // 空白符处理
+  if (node.pre) {
+    node.pre = this.pre = void 0;
+    for (var i = this.STACK.length; i--;) {
+      if (this.STACK[i].pre)
+      this.pre = true;}
+  }
+  var siblings = this.siblings(),
+  len = siblings.length,
+  childs = node.children;
+  if (node.name == 'head' || cfg.filter && cfg.filter(node, this) == false)
+  return siblings.pop();
+  var attrs = node.attrs;
+  // 替换一些标签名
+  if (cfg.blockTags[node.name]) node.name = 'div';else
+  if (!cfg.trustTags[node.name]) node.name = 'span';
+  // 处理列表
+  if (node.c && (node.name == 'ul' || node.name == 'ol')) {
+    if ((node.attrs.style || '').includes('list-style:none')) {
+      for (var _i = 0, child; child = childs[_i++];) {
+        if (child.name == 'li')
+        child.name = 'div';}
+    } else if (node.name == 'ul') {
+      var floor = 1;
+      for (var _i2 = this.STACK.length; _i2--;) {
+        if (this.STACK[_i2].name == 'ul') floor++;}
+      if (floor != 1)
+      for (var _i3 = childs.length; _i3--;) {
+        childs[_i3].floor = floor;}
+    } else {
+      for (var _i4 = 0, num = 1, _child; _child = childs[_i4++];) {
+        if (_child.name == 'li') {
+          _child.type = 'ol';
+          _child.num = function (num, type) {
+            if (type == 'a') return String.fromCharCode(97 + (num - 1) % 26);
+            if (type == 'A') return String.fromCharCode(65 + (num - 1) % 26);
+            if (type == 'i' || type == 'I') {
+              num = (num - 1) % 99 + 1;
+              var one = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
+              ten = ['X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'],
+              res = (ten[Math.floor(num / 10) - 1] || '') + (one[num % 10 - 1] || '');
+              if (type == 'i') return res.toLowerCase();
+              return res;
+            }
+            return num;
+          }(num++, attrs.type) + '.';
+        }}
+    }
+  }
+  // 处理表格
+  if (node.name == 'table') {
+    var padding = parseFloat(attrs.cellpadding),
+    spacing = parseFloat(attrs.cellspacing),
+    border = parseFloat(attrs.border);
+    if (node.c) {
+      if (isNaN(padding)) padding = 2;
+      if (isNaN(spacing)) spacing = 2;
+    }
+    if (border) attrs.style = "border:".concat(border, "px solid gray;").concat(attrs.style || '');
+    if (node.flag && node.c) {
+      // 有 colspan 或 rowspan 且含有链接的表格转为 grid 布局实现
+      attrs.style = "".concat(attrs.style || '', ";").concat(spacing ? ";grid-gap:".concat(spacing, "px") : ';border-left:0;border-top:0');
+      var row = 1,
+      col = 1,
+      colNum,
+      trs = [],
+      children = [],
+      map = {};
+      (function f(ns) {
+        for (var i = 0; i < ns.length; i++) {
+          if (ns[i].name == 'tr') trs.push(ns[i]);else
+          f(ns[i].children || []);
+        }
+      })(node.children);
+      for (var _i5 = 0; _i5 < trs.length; _i5++) {
+        for (var j = 0, td; td = trs[_i5].children[j]; j++) {
+          if (td.name == 'td' || td.name == 'th') {
+            while (map[row + '.' + col]) {col++;}
+            var cell = {
+              name: 'div',
+              c: 1,
+              attrs: {
+                style: (td.attrs.style || '') + (border ? ";border:".concat(border, "px solid gray") + (spacing ? '' :
+                ';border-right:0;border-bottom:0') : '') + (padding ? ";padding:".concat(padding, "px") : '') },
+
+              children: td.children };
+
+            if (td.attrs.colspan) {
+              cell.attrs.style += ';grid-column-start:' + col + ';grid-column-end:' + (col + parseInt(td.attrs.colspan));
+              if (!td.attrs.rowspan) cell.attrs.style += ';grid-row-start:' + row + ';grid-row-end:' + (row + 1);
+              col += parseInt(td.attrs.colspan) - 1;
+            }
+            if (td.attrs.rowspan) {
+              cell.attrs.style += ';grid-row-start:' + row + ';grid-row-end:' + (row + parseInt(td.attrs.rowspan));
+              if (!td.attrs.colspan) cell.attrs.style += ';grid-column-start:' + col + ';grid-column-end:' + (col + 1);
+              for (var k = 1; k < td.attrs.rowspan; k++) {map[row + k + '.' + col] = 1;}
+            }
+            children.push(cell);
+            col++;
+          }
+        }
+        if (!colNum) {
+          colNum = col - 1;
+          attrs.style += ";grid-template-columns:repeat(".concat(colNum, ",auto)");
+        }
+        col = 1;
+        row++;
+      }
+      node.children = children;
+    } else {
+      attrs.style = "border-spacing:".concat(spacing, "px;").concat(attrs.style || '');
+      if (border || padding)
+      (function f(ns) {
+        for (var i = 0, n; n = ns[i]; i++) {
+          if (n.name == 'th' || n.name == 'td') {
+            if (border) n.attrs.style = "border:".concat(border, "px solid gray;").concat(n.attrs.style || '');
+            if (padding) n.attrs.style = "padding:".concat(padding, "px;").concat(n.attrs.style || '');
+          } else f(n.children || []);
+        }
+      })(childs);
+    }
+    if (this.options.autoscroll) {
+      var table = Object.assign({}, node);
+      node.name = 'div';
+      node.attrs = {
+        style: 'overflow:scroll' };
+
+      node.children = [table];
+    }
+  }
+  this.CssHandler.pop && this.CssHandler.pop(node);
+  // 自动压缩
+  if (node.name == 'div' && !Object.keys(attrs).length && childs.length == 1 && childs[0].name == 'div')
+  siblings[len - 1] = childs[0];
+};
+// 状态机
+MpHtmlParser.prototype.Text = function (c) {
+  if (c == '<') {
+    var next = this.data[this.i + 1],
+    isLetter = function isLetter(c) {return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';};
+    if (isLetter(next)) {
+      this.setText();
+      this.start = this.i + 1;
+      this.state = this.TagName;
+    } else if (next == '/') {
+      this.setText();
+      if (isLetter(this.data[++this.i + 1])) {
+        this.start = this.i + 1;
+        this.state = this.EndTag;
+      } else this.Comment();
+    } else if (next == '!' || next == '?') {
+      this.setText();
+      this.Comment();
+    }
+  }
+};
+MpHtmlParser.prototype.Comment = function () {
+  var key;
+  if (this.data.substring(this.i + 2, this.i + 4) == '--') key = '-->';else
+  if (this.data.substring(this.i + 2, this.i + 9) == '[CDATA[') key = ']]>';else
+  key = '>';
+  if ((this.i = this.data.indexOf(key, this.i + 2)) == -1) this.i = this.data.length;else
+  this.i += key.length - 1;
+  this.start = this.i + 1;
+  this.state = this.Text;
+};
+MpHtmlParser.prototype.TagName = function (c) {
+  if (blankChar[c]) {
+    this.tagName = this.section();
+    while (blankChar[this.data[this.i]]) {this.i++;}
+    if (this.isClose()) this.setNode();else
+    {
+      this.start = this.i;
+      this.state = this.AttrName;
+    }
+  } else if (this.isClose()) {
+    this.tagName = this.section();
+    this.setNode();
+  }
+};
+MpHtmlParser.prototype.AttrName = function (c) {
+  if (c == '=' || blankChar[c] || this.isClose()) {
+    this.attrName = this.section();
+    if (blankChar[c])
+    while (blankChar[this.data[++this.i]]) {;}
+    if (this.data[this.i] == '=') {
+      while (blankChar[this.data[++this.i]]) {;}
+      this.start = this.i--;
+      this.state = this.AttrValue;
+    } else this.setAttr();
+  }
+};
+MpHtmlParser.prototype.AttrValue = function (c) {
+  if (c == '"' || c == "'") {
+    this.start++;
+    if ((this.i = this.data.indexOf(c, this.i + 1)) == -1) return this.i = this.data.length;
+    this.attrVal = this.section();
+    this.i++;
+  } else {
+    for (; !blankChar[this.data[this.i]] && !this.isClose(); this.i++) {;}
+    this.attrVal = this.section();
+  }
+  this.setAttr();
+};
+MpHtmlParser.prototype.EndTag = function (c) {
+  if (blankChar[c] || c == '>' || c == '/') {
+    var name = this.section().toLowerCase();
+    for (var i = this.STACK.length; i--;) {
+      if (this.STACK[i].name == name) break;}
+    if (i != -1) {
+      var node;
+      while ((node = this.STACK.pop()).name != name) {this.popNode(node);}
+      this.popNode(node);
+    } else if (name == 'p' || name == 'br')
+    this.siblings().push({
+      name: name,
+      attrs: {} });
+
+    this.i = this.data.indexOf('>', this.i);
+    this.start = this.i + 1;
+    if (this.i == -1) this.i = this.data.length;else
+    this.state = this.Text;
+  }
+};
+module.exports = MpHtmlParser;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+/* 149 */
+/*!***************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/components/u-parse/libs/config.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* 配置文件 */
+var cfg = {
+  // 出错占位图
+  errorImg: null,
+  // 过滤器函数
+  filter: null,
+  // 代码高亮函数
+  highlight: null,
+  // 文本处理函数
+  onText: null,
+  // 实体编码列表
+  entities: {
+    quot: '"',
+    apos: "'",
+    semi: ';',
+    nbsp: '\xA0',
+    ensp: "\u2002",
+    emsp: "\u2003",
+    ndash: '–',
+    mdash: '—',
+    middot: '·',
+    lsquo: '‘',
+    rsquo: '’',
+    ldquo: '“',
+    rdquo: '”',
+    bull: '•',
+    hellip: '…' },
+
+  blankChar: makeMap(' ,\xA0,\t,\r,\n,\f'),
+  boolAttrs: makeMap('allowfullscreen,autoplay,autostart,controls,ignore,loop,muted'),
+  // 块级标签，将被转为 div
+  blockTags: makeMap('address,article,aside,body,caption,center,cite,footer,header,html,nav,pre,section'),
+  // 将被移除的标签
+  ignoreTags: makeMap('area,base,canvas,frame,iframe,input,link,map,meta,param,script,source,style,svg,textarea,title,track,wbr'),
+  // 只能被 rich-text 显示的标签
+  richOnlyTags: makeMap('a,colgroup,fieldset,legend'),
+  // 自闭合的标签
+  selfClosingTags: makeMap('area,base,br,col,circle,ellipse,embed,frame,hr,img,input,line,link,meta,param,path,polygon,rect,source,track,use,wbr'),
+  // 信任的标签
+  trustTags: makeMap('a,abbr,ad,audio,b,blockquote,br,code,col,colgroup,dd,del,dl,dt,div,em,fieldset,h1,h2,h3,h4,h5,h6,hr,i,img,ins,label,legend,li,ol,p,q,source,span,strong,sub,sup,table,tbody,td,tfoot,th,thead,tr,title,ul,video'),
+  // 默认的标签样式
+  userAgentStyles: {
+    address: 'font-style:italic',
+    big: 'display:inline;font-size:1.2em',
+    blockquote: 'background-color:#f6f6f6;border-left:3px solid #dbdbdb;color:#6c6c6c;padding:5px 0 5px 10px',
+    caption: 'display:table-caption;text-align:center',
+    center: 'text-align:center',
+    cite: 'font-style:italic',
+    dd: 'margin-left:40px',
+    mark: 'background-color:yellow',
+    pre: 'font-family:monospace;white-space:pre;overflow:scroll',
+    s: 'text-decoration:line-through',
+    small: 'display:inline;font-size:0.8em',
+    u: 'text-decoration:underline' } };
+
+
+
+function makeMap(str) {
+  var map = Object.create(null),
+  list = str.split(',');
+  for (var i = list.length; i--;) {
+    map[list[i]] = true;}
+  return map;
+}
+
+
+if (wx.canIUse('editor')) {
+  cfg.blockTags.pre = void 0;
+  cfg.ignoreTags.rp = true;
+  Object.assign(cfg.richOnlyTags, makeMap('bdi,bdo,caption,rt,ruby'));
+  Object.assign(cfg.trustTags, makeMap('bdi,bdo,caption,pre,rt,ruby'));
+}
+
+
+
+
+
+
+
+module.exports = cfg;
+
+/***/ }),
+/* 150 */
+/*!*******************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/uview-ui/components/u-parse/libs/CssHandler.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var cfg = __webpack_require__(/*! ./config.js */ 149),
+isLetter = function isLetter(c) {return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';};
+
+function CssHandler(tagStyle) {
+  var styles = Object.assign(Object.create(null), cfg.userAgentStyles);
+  for (var item in tagStyle) {
+    styles[item] = (styles[item] ? styles[item] + ';' : '') + tagStyle[item];}
+  this.styles = styles;
+}
+CssHandler.prototype.getStyle = function (data) {
+  this.styles = new parser(data, this.styles).parse();
+};
+CssHandler.prototype.match = function (name, attrs) {
+  var tmp,matched = (tmp = this.styles[name]) ? tmp + ';' : '';
+  if (attrs.class) {
+    var items = attrs.class.split(' ');
+    for (var i = 0, item; item = items[i]; i++) {
+      if (tmp = this.styles['.' + item])
+      matched += tmp + ';';}
+  }
+  if (tmp = this.styles['#' + attrs.id])
+  matched += tmp + ';';
+  return matched;
+};
+module.exports = CssHandler;
+
+function parser(data, init) {
+  this.data = data;
+  this.floor = 0;
+  this.i = 0;
+  this.list = [];
+  this.res = init;
+  this.state = this.Space;
+}
+parser.prototype.parse = function () {
+  for (var c; c = this.data[this.i]; this.i++) {
+    this.state(c);}
+  return this.res;
+};
+parser.prototype.section = function () {
+  return this.data.substring(this.start, this.i);
+};
+// 状态机
+parser.prototype.Space = function (c) {
+  if (c == '.' || c == '#' || isLetter(c)) {
+    this.start = this.i;
+    this.state = this.Name;
+  } else if (c == '/' && this.data[this.i + 1] == '*')
+  this.Comment();else
+  if (!cfg.blankChar[c] && c != ';')
+  this.state = this.Ignore;
+};
+parser.prototype.Comment = function () {
+  this.i = this.data.indexOf('*/', this.i) + 1;
+  if (!this.i) this.i = this.data.length;
+  this.state = this.Space;
+};
+parser.prototype.Ignore = function (c) {
+  if (c == '{') this.floor++;else
+  if (c == '}' && ! --this.floor) {
+    this.list = [];
+    this.state = this.Space;
+  }
+};
+parser.prototype.Name = function (c) {
+  if (cfg.blankChar[c]) {
+    this.list.push(this.section());
+    this.state = this.NameSpace;
+  } else if (c == '{') {
+    this.list.push(this.section());
+    this.Content();
+  } else if (c == ',') {
+    this.list.push(this.section());
+    this.Comma();
+  } else if (!isLetter(c) && (c < '0' || c > '9') && c != '-' && c != '_')
+  this.state = this.Ignore;
+};
+parser.prototype.NameSpace = function (c) {
+  if (c == '{') this.Content();else
+  if (c == ',') this.Comma();else
+  if (!cfg.blankChar[c]) this.state = this.Ignore;
+};
+parser.prototype.Comma = function () {
+  while (cfg.blankChar[this.data[++this.i]]) {;}
+  if (this.data[this.i] == '{') this.Content();else
+  {
+    this.start = this.i--;
+    this.state = this.Name;
+  }
+};
+parser.prototype.Content = function () {
+  this.start = ++this.i;
+  if ((this.i = this.data.indexOf('}', this.i)) == -1) this.i = this.data.length;
+  var content = this.section();
+  for (var i = 0, item; item = this.list[i++];) {
+    if (this.res[item]) this.res[item] += ';' + content;else
+    this.res[item] = content;}
+  this.list = [];
+  this.state = this.Space;
+};
 
 /***/ })
 ]]);

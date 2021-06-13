@@ -3,30 +3,47 @@
 		<view class="text-bold" style="font-size: 60rpx;">注册</view>
 		<view class="text-gray u-font-36 u-m-b-20">注册登陆后体验更精彩</view>
 		<u-form :model="model" :rules="rules" ref="uForm" :errorType="errorType">
-			<u-form-item :label-style="labelStyle" :required="true" label-width="120" :label-position="labelPosition" label="姓名" prop="name">
+			<u-form-item :label-style="labelStyle" :required="true" label-width="120" :label-position="labelPosition"
+				label="姓名" prop="name">
 				<u-input :border="border" placeholder="请输入姓名" v-model="model.name" type="text"></u-input>
 			</u-form-item>
-			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="手机" prop="phone">
+			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="手机"
+				prop="phone">
 				<u-input :border="border" type="text" v-model="model.phone" placeholder="请输入手机号"></u-input>
 			</u-form-item>
-			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="验证码" prop="code" label-width="150">
+			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="验证码"
+				prop="code" label-width="150">
 				<u-input :border="border" placeholder="请输入验证码" v-model="model.code" type="text"></u-input>
-				<u-button slot="right"  type="primary" plain size="medium" @click="getCode">{{codeTips}}</u-button>
+				<u-button slot="right" type="primary" plain size="medium" @click="getCode">{{codeTips}}</u-button>
 				<!-- <view class="codeType" slot="right" @click="getCode">{{codeTips}}</view> -->
 			</u-form-item>
-			<u-form-item :label-style="labelStyle" :required="false" right-icon="arrow-right" :label-position="labelPosition" label="所属公司(本选项普通用户可不选)" prop="companie" label-width="150">
-				<u-input :border="border" :disabled="true" v-model="model.companie" placeholder="请选择公司" @click="selectShow = true"></u-input>
+			<u-form-item :label-style="labelStyle" :required="false" right-icon="arrow-right"
+				:label-position="labelPosition" label="所属公司(本选项普通用户可不选)" prop="companie" label-width="150">
+				<u-input :border="border" :disabled="true" v-model="model.companie" placeholder="请选择公司"
+					@click="selectShow = true"></u-input>
+			</u-form-item>
+			<u-form-item :label-style="labelStyle" :required="false" right-icon="arrow-right"
+				:label-position="labelPosition" label="所属岗位" label-width="150">
+				<u-input :border="border" :disabled="true" v-model="model.position" placeholder="请选择所属岗位"
+					@click="selectShow = true"></u-input>
 			</u-form-item>
 		</u-form>
-		<u-checkbox class="u-m-t-10 u-m-b-10" @change="checkboxChange" name="ceshi" v-model="isChecked" size="27rpx" label-size="27rpx" active-color="#0F58FB" shape="circle">
-			<text class="text-gray">我已阅读并同意</text><text style="color: #0F58FB;" @click="toAgreement">《嗒嗒用户服务及隐私协议》</text>
+		<u-checkbox class="u-m-t-10 u-m-b-10" @change="checkboxChange" name="ceshi" v-model="isChecked" size="27rpx"
+			label-size="27rpx" active-color="#0F58FB" shape="circle">
+			<text class="text-gray">我已阅读并同意</text><text style="color: #0F58FB;"
+				@click="toAgreement">《嗒嗒用户服务及隐私协议》</text>
 		</u-checkbox>
-		
+
 		<u-button class="u-m-t-30" type="primary" :disabled="disabled" @click="submit">注册</u-button>
-		
+
 		<u-verification-code seconds="60" ref="uCode" @change="codeChange"></u-verification-code>
 		<u-toast ref="uToast"></u-toast>
-		<u-select mode="single-column" confirm-color="#0F58FB" :list="selectList" v-model="selectShow" @confirm="selectConfirm"></u-select>
+		<!-- 公司列表 -->
+		<u-select mode="single-column" confirm-color="#0F58FB" :list="selectList" v-model="selectShow"
+			@confirm="selectConfirm"></u-select>
+		<!-- 岗位列表 -->
+		<u-select mode="single-column" confirm-color="#0F58FB" :list="typeList" v-model="typeShow"
+			@confirm="typeConfirm"></u-select>
 	</view>
 </template>
 
@@ -34,24 +51,27 @@
 	export default {
 		data() {
 			return {
-				border:false,
-				labelStyle:{fontSize: '28rpx',fontWeight: 'bold'},
+				border: false,
+				labelStyle: {
+					fontSize: '28rpx',
+					fontWeight: 'bold'
+				},
 				labelPosition: 'top',
 				codeTips: '',
-				errorType: ['message','border-bottom'],
-				
-				model:{
-					name:'',
-					phone:'',
-					code:'',
-					companie:''
+				errorType: ['message', 'border-bottom'],
+
+				model: {
+					name: '',
+					phone: '',
+					code: '',
+					companie: '',
+					position: ''
 				},
 				rules: {
-					name: [
-						{
+					name: [{
 							required: true,
 							message: '请输入姓名',
-							trigger: 'blur' ,
+							trigger: 'blur',
 						},
 						{
 							// 此为同步验证，可以直接返回true或者false，如果是异步验证，稍微不同，见下方说明
@@ -61,14 +81,13 @@
 							},
 							message: '姓名必须为中文',
 							// 触发器可以同时用blur和change，二者之间用英文逗号隔开
-							trigger: ['change','blur'],
+							trigger: ['change', 'blur'],
 						},
 					],
-					phone: [
-						{
+					phone: [{
 							required: true,
 							message: '请输入手机号',
-							trigger: ['change','blur'],
+							trigger: ['change', 'blur'],
 						},
 						{
 							validator: (rule, value, callback) => {
@@ -77,7 +96,7 @@
 							},
 							message: '手机号码不正确',
 							// 触发器可以同时用blur和change，二者之间用英文逗号隔开
-							trigger: ['change','blur'],
+							trigger: ['change', 'blur'],
 						},
 						// 异步验证，用途：比如用户注册时输入完账号，后端检查账号是否已存在
 						// {
@@ -97,13 +116,12 @@
 						// 	},
 						// }
 					],
-					code:[]
+					code: []
 				},
 				//选择所属公司
-				selectShow:false,
+				selectShow: false,
 				//公司列表
-				selectList: [
-					{
+				selectList: [{
 						value: '实体店铺',
 						label: '实体店铺'
 					},
@@ -116,7 +134,20 @@
 						label: '其他'
 					}
 				],
-				isChecked:false
+				//选择岗位
+				typeShow: false,
+				//岗位列表
+				typeList: [
+					{
+						value: '业务员',
+						label: '业务员'
+					},
+					{
+						value: '维修员',
+						label: '维修员'
+					}
+				],
+				isChecked: false
 			}
 		},
 		onReady() {
@@ -137,7 +168,7 @@
 			},
 			// 获取验证码
 			getCode() {
-				if(this.$refs.uCode.canGetCode) {
+				if (this.$refs.uCode.canGetCode) {
 					// 模拟向后端请求验证码
 					uni.showLoading({
 						title: '正在获取验证码',
@@ -161,17 +192,31 @@
 					this.model.companie += this.model.companie == '' ? val.label : '-' + val.label;
 				})
 			},
-			// 选中某个单选框时，由checkbox时触发
+			typeConfirm(e) {
+				this.model.position = '';
+				e.map((val, index) => {
+					this.model.position += this.model.position == '' ? val.label : '-' + val.label;
+				})
+			},
+
+selectConfirm(e) {
+				this.model.companie = '';
+				e.map((val, index) => {
+					this.model.companie += this.model.companie == '' ? val.label : '-' + val.label;
+				})
+			},			// 选中某个单选框时，由checkbox时触发
 			checkboxChange(e) {
 				console.log(e);
 			},
 			//跳转到协议
-			toAgreement(){
-				uni.navigateTo({url: 'agreement'});
+			toAgreement() {
+				uni.navigateTo({
+					url: 'agreement'
+				});
 			},
-			submit(){
-				uni.switchTab({
-					url:'../home/home'
+			submit() {
+				uni.reLaunch({
+					url: '../mine/mine'
 				})
 				/* this.$refs.uForm.validate(valid => {
 					if (valid) {
@@ -214,7 +259,7 @@
 </script>
 
 <style scoped>
-	.codeType{
+	.codeType {
 		/* padding: 20rpx 10rpx; */
 		border: #0F58FB solid 1rpx;
 		border-radius: 5rpx;
