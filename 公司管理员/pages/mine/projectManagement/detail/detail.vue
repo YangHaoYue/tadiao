@@ -134,9 +134,9 @@
 			<view class="u-font-28 text-bold">订单总金额:<text style="color: #FE5E10;">￥{{totalPrice}}</text></view>
 		</view>
 		<!-- 结束 -->
-		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white">
+		<!-- <view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white">
 			<u-button type="primary" style="margin-right: 0;" size="medium" @click="showModal = true">结束</u-button>
-		</view>
+		</view> -->
 		<!-- modal弹窗 -->
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="405">
 			<view class="u-p-60 u-p-b-40 u-flex" style="flex-direction: column;">

@@ -80,25 +80,29 @@
 		<view style="padding: 0 30rpx 30rpx 30rpx;">
 			<view class="u-font-32 text-bold u-m-b-30" style="color: #404E60;">项目</view>
 		</view>
-		<view class="u-flex u-row-around u-p-l-20 u-p-r-20">
-			<navigator open-type="navigate" :url="item.url"
-			class="u-flex u-row-center u-col-center" style="flex-direction: column;" v-for="(item,index) in list" :key="index">
-				<u-image :src="item.img" width="80" height="80"></u-image>
-				<view class="u-font-28" style="color: #404E60;">{{item.name}}</view>
-			</navigator>
-		</view>
+		<u-row gutter="10" justify="between">
+			<u-col span="3" v-for="(item,index) in list" :key="index">
+				<navigator open-type="navigate" :url="item.url" hover-class="none"
+				class="u-flex u-row-center u-col-center u-m-b-20" style="flex-direction: column;">
+					<u-image :src="item.img" width="80" height="80"></u-image>
+					<view class="u-font-28" style="color: #404E60;">{{item.name}}</view>
+				</navigator>
+			</u-col>
+		</u-row>
 		
 		<!-- 员工 -->
 		<view style="padding: 0 30rpx 30rpx 30rpx;" class="u-m-t-30">
 			<view class="u-font-32 text-bold u-m-b-30" style="color: #404E60;">员工</view>
 		</view>
-		<view class="u-flex u-row-around u-p-l-20 u-p-r-20">
-			<navigator open-type="navigate" :url="item.url"
-			class="u-flex u-row-center u-col-center" style="flex-direction: column;" v-for="(item,i) in staff" :key="i">
-				<u-image :src="item.img" width="80" height="80"></u-image>
-				<view class="u-font-28" style="color: #404E60;">{{item.name}}</view>
-			</navigator>
-		</view>
+		<u-row gutter="10" justify="between">
+			<u-col span="3"  v-for="(item,i) in staff" :key="i">
+				<navigator open-type="navigate" :url="item.url" hover-class="none"
+				class="u-flex u-row-center u-col-center" style="flex-direction: column;">
+					<u-image :src="item.img" width="80" height="80"></u-image>
+					<view class="u-font-28" style="color: #404E60;">{{item.name}}</view>
+				</navigator>
+			</u-col>
+		</u-row>
 		<u-gap bg-color="#ffffff"></u-gap>
 		
 		<!-- 日历/月 -->
@@ -139,10 +143,11 @@
 					{img:'../../static/xiangmuxiansuo@2x.png',name:'项目线索',url:'/pages/mine/projectClues/projectClues'},
 					{img:'../../static/xiangmugaunli@2x.png',name:'项目管理',url:'/pages/mine/projectManagement/projectManagement'},
 					{img:'../../static/weibaojilu@2x.png',name:'维保记录',url:'/pages/mine/maintenance/maintenance'},
-					{img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'}
+					{img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'},
+					{img:'../../static/shebeibaojia@2x.png',name:'设备报价',url:'/pages/mine/offer/offer'}
 				],
 				staff:[
-					{img:'../../static/yuangonggaunli@2x.png',name:'员工管理',url:'/pages/mine/projectClues/projectClues'},
+					{img:'../../static/yuangonggaunli@2x.png',name:'员工管理',url:'/pages/mine/StaffManagement/StaffManagement'},
 					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/projectManagement/projectManagement'},
 					{img:'../../static/dingdanjine@2x.png',name:'订单金额排名',url:'/pages/mine/maintenance/maintenance'},
 					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/bankCardManagement/bankCardManagement'}

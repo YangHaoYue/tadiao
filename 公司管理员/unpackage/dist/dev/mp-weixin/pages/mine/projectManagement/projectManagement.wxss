@@ -1,0 +1,19 @@
+
+page.data-v-0fc35f34{
+	background-color: #F8F8F8;
+}
+.idot.data-v-0fc35f34{
+	padding: 8rpx 16rpx;
+	border: 1rpx solid #0F58FB;
+	border-radius: 8rpx;
+	margin: 10rpx ;
+}
+.selected.data-v-0fc35f34{
+	color: #FFFFFF;
+	background-color: #0F58FB;
+}
+.nomal.data-v-0fc35f34{
+	color: #0F58FB;
+	background-color: #F8F8F8;
+}
+

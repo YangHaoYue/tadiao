@@ -17,7 +17,7 @@
 				</view>
 			</view>
 			<block v-for="(item,index) in list" :key="index">
-				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false">
+				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false" @tap="toDetail()">
 					<view class="u-flex u-col-top u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.desc}}</view>
 						<view class="u-text-right">
@@ -29,17 +29,13 @@
 					<view class="u-flex u-row-between" slot="foot">
 						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
 						<view class="u-flex" v-if="idot != 1">
-							<u-button class="u-m-r-10" type="primary" :plain="true" size="mini" v-if="current === 1" @click="toDetail()">增加付款时间</u-button>
-							<u-button class="u-m-r-0" type="primary" size="mini"  @click="toDetail()">创建维保</u-button>
+							<u-button class="u-m-r-10" type="primary" :plain="true" size="mini" v-if="current === 1" @tap.stop="toAddTime()">增加付款时间</u-button>
+							<u-button class="u-m-r-0" type="primary" size="mini"  @tap.stop="toMaintenance()">创建维保</u-button>
 						</view>
 					</view>
 				</u-card>
 			</block>
 		</view>
-		
-		
-		<!-- 日历 -->
-		<u-calendar v-model="show" mode="range" @change="chooseDayRange" :safe-area-inset-bottom="true"></u-calendar>
 	</view>
 </template>
 
@@ -111,6 +107,12 @@
 			},
 			toDetail(){
 				uni.navigateTo({url: 'detail/detail'});
+			},
+			toMaintenance(){
+				uni.navigateTo({url: 'createMaintenance/createMaintenance'});
+			},
+			toAddTime(){
+				uni.navigateTo({url: 'addRecord/addRecord'});
 			}
 		}
 	}

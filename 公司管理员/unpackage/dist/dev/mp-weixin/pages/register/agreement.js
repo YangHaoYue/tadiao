@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/register/agreement"],{
 
 /***/ 49:
-/*!********************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/main.js?{"page":"pages%2Fregister%2Fagreement"} ***!
-  \********************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/main.js?{"page":"pages%2Fregister%2Fagreement"} ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_agreement.default);
 /***/ }),
 
 /***/ 50:
-/*!*************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/agreement.vue ***!
-  \*************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/agreement.vue ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -56,9 +56,9 @@ component.options.__file = "pages/register/agreement.vue"
 /***/ }),
 
 /***/ 51:
-/*!********************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/agreement.vue?vue&type=template&id=ebacc252& ***!
-  \********************************************************************************************************************/
+/*!*********************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/agreement.vue?vue&type=template&id=ebacc252& ***!
+  \*********************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -78,9 +78,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 52:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/agreement.vue?vue&type=template&id=ebacc252& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/agreement.vue?vue&type=template&id=ebacc252& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -94,7 +94,7 @@ var components
 try {
   components = {
     uParse: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-parse/u-parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-parse/u-parse")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-parse/u-parse.vue */ 143))
+      return Promise.all(/*! import() | uview-ui/components/u-parse/u-parse */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-parse/u-parse")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-parse/u-parse.vue */ 271))
     }
   }
 } catch (e) {
@@ -128,9 +128,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 53:
-/*!**************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/agreement.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/agreement.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -144,9 +144,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 54:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/agreement.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/agreement.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

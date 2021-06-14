@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "项目管理",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-tabs": "/uview-ui/components/u-tabs/u-tabs",
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-card": "/uview-ui/components/u-card/u-card",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-calendar": "/uview-ui/components/u-calendar/u-calendar"
+  }
+}

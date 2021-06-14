@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/mine/projectClues/projectClues"],{
 
 /***/ 63:
-/*!**********************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/main.js?{"page":"pages%2Fmine%2FprojectClues%2FprojectClues"} ***!
-  \**********************************************************************************************************************/
+/*!***********************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/main.js?{"page":"pages%2Fmine%2FprojectClues%2FprojectClues"} ***!
+  \***********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_projectClues.default);
 /***/ }),
 
 /***/ 64:
-/*!*************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue ***!
-  \*************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/mine/projectClues/projectClues.vue"
 /***/ }),
 
 /***/ 65:
-/*!********************************************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue?vue&type=template&id=ec9e9468&scoped=true& ***!
-  \********************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue?vue&type=template&id=ec9e9468&scoped=true& ***!
+  \*********************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 66:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue?vue&type=template&id=ec9e9468&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue?vue&type=template&id=ec9e9468&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96,16 +96,19 @@ var components
 try {
   components = {
     uTabs: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 202))
+      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 337))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 160))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 288))
     },
     uCard: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 209))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 344))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 108))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 236))
+    },
+    uIcon: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 295))
     }
   }
 } catch (e) {
@@ -139,9 +142,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 67:
-/*!**************************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************/
+/*!***************************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -155,9 +158,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 68:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -200,60 +203,101 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      tabList: [{
-        name: '我的线索' },
-      {
-        name: '公海池' },
-      {
-        name: '别人的线索' }],
-
       current: 0,
-      list: [{
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '审核中',
-        subTitleColor: '#FE5E10',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+      tabList: [{
+        name: '我的线索',
+        list: [{
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '待跟进',
+          subTitleColor: '#FE5E10',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '跟进中',
+          subTitleColor: '#2DA016',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] },
+
       {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#333333',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        name: '公司线索',
+        list: [{
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '待跟进',
+          subTitleColor: '#FE5E10',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '跟进中',
+          subTitleColor: '#2DA016',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] },
+
       {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        name: '公海池',
+        list: [{
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+        {
+          title: '创建时间：2021-04-21 13:0',
+          subTitle: '审核中',
+          subTitleColor: '#0F58FB',
+          desc: '湘东滨河新区未来城项目',
+          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] },
+
       {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '未通过',
-        subTitleColor: '#999999',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] };
+        name: '别人的线索',
+        list: [] }] };
+
 
 
   },
@@ -263,15 +307,22 @@ var _default =
     },
     toDetail: function toDetail() {
       uni.navigateTo({ url: 'detail/detail' });
+    },
+    toRelation: function toRelation() {
+      uni.navigateTo({ url: 'relation/associated' });
+    },
+    /* 新建项目 */
+    toCreate: function toCreate() {
+      uni.navigateTo({ url: 'newProject/newProject' });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 69:
-/*!**********************************************************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue?vue&type=style&index=0&id=ec9e9468&scoped=true&lang=css& ***!
-  \**********************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue?vue&type=style&index=0&id=ec9e9468&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -285,9 +336,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 70:
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/mine/projectClues/projectClues.vue?vue&type=style&index=0&id=ec9e9468&scoped=true&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/mine/projectClues/projectClues.vue?vue&type=style&index=0&id=ec9e9468&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

@@ -192,6 +192,87 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/mine/projectManagement/createMaintenance/createMaintenance",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "创建维保",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/offer/offer",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设备报价",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/StaffManagement/StaffManagement",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "员工管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/StaffManagement/staffDetail/staffDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/StaffManagement/staffDetail/clueDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/StaffManagement/staffDetail/projectDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/addRecord/addRecord",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "增加付款时间",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/createMaintenance/apply",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "创建维保",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/createMaintenance/chooseRepairman",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "维修员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

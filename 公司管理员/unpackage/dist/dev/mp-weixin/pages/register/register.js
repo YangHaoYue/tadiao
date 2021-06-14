@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/register/register"],{
 
 /***/ 41:
-/*!*******************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/main.js?{"page":"pages%2Fregister%2Fregister"} ***!
-  \*******************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/main.js?{"page":"pages%2Fregister%2Fregister"} ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17,9 +17,9 @@ createPage(_register.default);
 /***/ }),
 
 /***/ 42:
-/*!************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue ***!
-  \************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -58,9 +58,9 @@ component.options.__file = "pages/register/register.vue"
 /***/ }),
 
 /***/ 43:
-/*!*******************************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue?vue&type=template&id=891c2434&scoped=true& ***!
-  \*******************************************************************************************************************************/
+/*!********************************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue?vue&type=template&id=891c2434&scoped=true& ***!
+  \********************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,9 +80,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 44:
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue?vue&type=template&id=891c2434&scoped=true& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue?vue&type=template&id=891c2434&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -96,28 +96,28 @@ var components
 try {
   components = {
     uForm: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-form/u-form */ "uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form/u-form.vue */ 83))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-form/u-form */ "uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form/u-form.vue */ 211))
     },
     uFormItem: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form-item/u-form-item.vue */ 90))
+      return Promise.all(/*! import() | uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form-item/u-form-item.vue */ 218))
     },
     uInput: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 101))
+      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 229))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 108))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 236))
     },
     uCheckbox: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-checkbox/u-checkbox */ "uview-ui/components/u-checkbox/u-checkbox").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox/u-checkbox.vue */ 115))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-checkbox/u-checkbox */ "uview-ui/components/u-checkbox/u-checkbox").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox/u-checkbox.vue */ 243))
     },
     uVerificationCode: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-verification-code/u-verification-code */ "uview-ui/components/u-verification-code/u-verification-code").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-verification-code/u-verification-code.vue */ 122))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-verification-code/u-verification-code */ "uview-ui/components/u-verification-code/u-verification-code").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-verification-code/u-verification-code.vue */ 250))
     },
     uToast: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-toast/u-toast */ "uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-toast/u-toast.vue */ 129))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-toast/u-toast */ "uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-toast/u-toast.vue */ 257))
     },
     uSelect: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-select/u-select */ "uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-select/u-select.vue */ 136))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-select/u-select */ "uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-select/u-select.vue */ 264))
     }
   }
 } catch (e) {
@@ -160,9 +160,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 45:
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -176,9 +176,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 46:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -444,9 +444,9 @@ var _default =
 /***/ }),
 
 /***/ 47:
-/*!*********************************************************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue?vue&type=style&index=0&id=891c2434&scoped=true&lang=css& ***!
-  \*********************************************************************************************************************************************/
+/*!**********************************************************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue?vue&type=style&index=0&id=891c2434&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -460,9 +460,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 48:
-/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/业务员端/pages/register/register.vue?vue&type=style&index=0&id=891c2434&scoped=true&lang=css& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/pages/register/register.vue?vue&type=style&index=0&id=891c2434&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
