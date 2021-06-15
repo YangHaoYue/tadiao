@@ -273,6 +273,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/ranking/ranking",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "员工线索排名",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

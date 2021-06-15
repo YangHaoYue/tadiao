@@ -148,9 +148,9 @@
 				],
 				staff:[
 					{img:'../../static/yuangonggaunli@2x.png',name:'员工管理',url:'/pages/mine/StaffManagement/StaffManagement'},
-					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/projectManagement/projectManagement'},
-					{img:'../../static/dingdanjine@2x.png',name:'订单金额排名',url:'/pages/mine/maintenance/maintenance'},
-					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/bankCardManagement/bankCardManagement'}
+					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/ranking/ranking'},
+					{img:'../../static/dingdanjine@2x.png',name:'订单金额排名',url:'/pages/mine/ranking/ranking'},
+					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/ranking/ranking'}
 				]
 			}
 		},
