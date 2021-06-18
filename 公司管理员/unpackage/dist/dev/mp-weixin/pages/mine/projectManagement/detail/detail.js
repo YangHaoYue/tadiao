@@ -96,22 +96,22 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 288))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
     },
     uTimeLine: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 358))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 446))
     },
     uTimeLineItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 365))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 453))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 295))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 236))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 330))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 418))
     }
   }
 } catch (e) {
@@ -137,10 +137,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.showModal = true
-    }
-
-    _vm.e1 = function($event) {
       _vm.showModal = false
     }
   }
@@ -177,7 +173,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 393));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 467));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

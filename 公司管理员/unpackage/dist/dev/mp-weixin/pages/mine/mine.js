@@ -96,31 +96,37 @@ var components
 try {
   components = {
     uAvatar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 281))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 355))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 288))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 295))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
     },
     uGrid: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid/u-grid */ "uview-ui/components/u-grid/u-grid").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid/u-grid.vue */ 302))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid/u-grid */ "uview-ui/components/u-grid/u-grid").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid/u-grid.vue */ 376))
     },
     uGridItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid-item/u-grid-item */ "uview-ui/components/u-grid-item/u-grid-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid-item/u-grid-item.vue */ 309))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid-item/u-grid-item */ "uview-ui/components/u-grid-item/u-grid-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid-item/u-grid-item.vue */ 383))
+    },
+    uRow: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 390))
+    },
+    uCol: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 397))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 316))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 404))
     },
     uCalendar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 323))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 411))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 330))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 418))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 236))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
     }
   }
 } catch (e) {
@@ -312,6 +318,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -335,13 +345,14 @@ var _default =
       { img: '../../static/xiangmuxiansuo@2x.png', name: '项目线索', url: '/pages/mine/projectClues/projectClues' },
       { img: '../../static/xiangmugaunli@2x.png', name: '项目管理', url: '/pages/mine/projectManagement/projectManagement' },
       { img: '../../static/weibaojilu@2x.png', name: '维保记录', url: '/pages/mine/maintenance/maintenance' },
-      { img: '../../static/yinhangkaguanli@2x.png', name: '银行卡管理', url: '/pages/mine/bankCardManagement/bankCardManagement' }],
+      { img: '../../static/yinhangkaguanli@2x.png', name: '银行卡管理', url: '/pages/mine/bankCardManagement/bankCardManagement' },
+      { img: '../../static/shebeibaojia@2x.png', name: '设备报价', url: '/pages/mine/offer/offer' }],
 
       staff: [
-      { img: '../../static/yuangonggaunli@2x.png', name: '员工管理', url: '/pages/mine/projectClues/projectClues' },
-      { img: '../../static/xiansuopaiming@2x.png', name: '线索排名', url: '/pages/mine/projectManagement/projectManagement' },
-      { img: '../../static/dingdanjine@2x.png', name: '订单金额排名', url: '/pages/mine/maintenance/maintenance' },
-      { img: '../../static/yingshoukuan@2x.png', name: '应收款排名', url: '/pages/mine/bankCardManagement/bankCardManagement' }] };
+      { img: '../../static/yuangonggaunli@2x.png', name: '员工管理', url: '/pages/mine/StaffManagement/StaffManagement' },
+      { img: '../../static/xiansuopaiming@2x.png', name: '线索排名', url: '/pages/mine/ranking/ranking' },
+      { img: '../../static/dingdanjine@2x.png', name: '订单金额排名', url: '/pages/mine/ranking/ranking' },
+      { img: '../../static/yingshoukuan@2x.png', name: '应收款排名', url: '/pages/mine/ranking/ranking' }] };
 
 
   },

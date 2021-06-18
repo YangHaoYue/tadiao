@@ -19,7 +19,11 @@
     "pages/mine/bankCardManagement/bankCardManagement",
     "pages/mine/bankCardManagement/addBankCard/addBankCard",
     "pages/mine/withdrawal/withdrawal",
-    "pages/mine/withdrawal/detailed"
+    "pages/mine/withdrawal/detailed",
+    "pages/mine/perfection/perfection",
+    "pages/mine/equipmentList/equipmentList",
+    "pages/mine/equipmentList/detail/detail",
+    "pages/mine/equipmentList/detail/repair"
   ],
   "subPackages": [],
   "window": {

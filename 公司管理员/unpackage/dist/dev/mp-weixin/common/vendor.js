@@ -872,7 +872,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"嗒嗒租赁","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8760,7 +8760,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"嗒嗒租赁","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8781,14 +8781,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"嗒嗒租赁","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"嗒嗒租赁","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8874,7 +8874,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"嗒嗒租赁","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -10073,7 +10073,435 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 223:
+/***/ 23:
+/*!**********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/timeFormat.js ***!
+  \**********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // padStart 的 polyfill，因为某些机型或情况，还无法支持es7的padStart，比如电脑版的微信小程序
+// 所以这里做一个兼容polyfill的兼容处理
+if (!String.prototype.padStart) {
+  // 为了方便表示这里 fillString 用了ES6 的默认参数，不影响理解
+  String.prototype.padStart = function (maxLength) {var fillString = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ' ';
+    if (Object.prototype.toString.call(fillString) !== "[object String]") throw new TypeError(
+    'fillString must be String');
+    var str = this;
+    // 返回 String(str) 这里是为了使返回的值是字符串字面量，在控制台中更符合直觉
+    if (str.length >= maxLength) return String(str);
+
+    var fillLength = maxLength - str.length,
+    times = Math.ceil(fillLength / fillString.length);
+    while (times >>= 1) {
+      fillString += fillString;
+      if (times === 1) {
+        fillString += fillString;
+      }
+    }
+    return fillString.slice(0, fillLength) + str;
+  };
+}
+
+// 其他更多是格式化有如下:
+// yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合
+function timeFormat() {var dateTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;var fmt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'yyyy-mm-dd';
+  // 如果为null,则格式化当前时间
+  if (!dateTime) dateTime = Number(new Date());
+  // 如果dateTime长度为10或者13，则为秒和毫秒的时间戳，如果超过13位，则为其他的时间格式
+  if (dateTime.toString().length == 10) dateTime *= 1000;
+  var date = new Date(dateTime);
+  var ret;
+  var opt = {
+    "y+": date.getFullYear().toString(), // 年
+    "m+": (date.getMonth() + 1).toString(), // 月
+    "d+": date.getDate().toString(), // 日
+    "h+": date.getHours().toString(), // 时
+    "M+": date.getMinutes().toString(), // 分
+    "s+": date.getSeconds().toString() // 秒
+    // 有其他格式化字符需求可以继续添加，必须转化成字符串
+  };
+  for (var k in opt) {
+    ret = new RegExp("(" + k + ")").exec(fmt);
+    if (ret) {
+      fmt = fmt.replace(ret[1], ret[1].length == 1 ? opt[k] : opt[k].padStart(ret[1].length, "0"));
+    };
+  };
+  return fmt;
+}var _default =
+
+timeFormat;exports.default = _default;
+
+/***/ }),
+
+/***/ 24:
+/*!********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/timeFrom.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _timeFormat = _interopRequireDefault(__webpack_require__(/*! ../../libs/function/timeFormat.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+/**
+                                                                                                                                                                                                                                                                                          * 时间戳转为多久之前
+                                                                                                                                                                                                                                                                                          * @param String timestamp 时间戳
+                                                                                                                                                                                                                                                                                          * @param String | Boolean format 如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
+                                                                                                                                                                                                                                                                                          * 如果为布尔值false，无论什么时间，都返回多久以前的格式
+                                                                                                                                                                                                                                                                                          */
+function timeFrom() {var dateTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'yyyy-mm-dd';
+  // 如果为null,则格式化当前时间
+  if (!dateTime) dateTime = Number(new Date());
+  // 如果dateTime长度为10或者13，则为秒和毫秒的时间戳，如果超过13位，则为其他的时间格式
+  if (dateTime.toString().length == 10) dateTime *= 1000;
+  var timestamp = +new Date(Number(dateTime));
+
+  var timer = (Number(new Date()) - timestamp) / 1000;
+  // 如果小于5分钟,则返回"刚刚",其他以此类推
+  var tips = '';
+  switch (true) {
+    case timer < 300:
+      tips = '刚刚';
+      break;
+    case timer >= 300 && timer < 3600:
+      tips = parseInt(timer / 60) + '分钟前';
+      break;
+    case timer >= 3600 && timer < 86400:
+      tips = parseInt(timer / 3600) + '小时前';
+      break;
+    case timer >= 86400 && timer < 2592000:
+      tips = parseInt(timer / 86400) + '天前';
+      break;
+    default:
+      // 如果format为false，则无论什么时间戳，都显示xx之前
+      if (format === false) {
+        if (timer >= 2592000 && timer < 365 * 86400) {
+          tips = parseInt(timer / (86400 * 30)) + '个月前';
+        } else {
+          tips = parseInt(timer / (86400 * 365)) + '年前';
+        }
+      } else {
+        tips = (0, _timeFormat.default)(timestamp, format);
+      }}
+
+  return tips;
+}var _default =
+
+timeFrom;exports.default = _default;
+
+/***/ }),
+
+/***/ 25:
+/*!*************************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/colorGradient.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 求两个颜色之间的渐变值
+                                                                                                      * @param {string} startColor 开始的颜色
+                                                                                                      * @param {string} endColor 结束的颜色
+                                                                                                      * @param {number} step 颜色等分的份额
+                                                                                                      * */
+function colorGradient() {var startColor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'rgb(0, 0, 0)';var endColor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'rgb(255, 255, 255)';var step = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
+  var startRGB = hexToRgb(startColor, false); //转换为rgb数组模式
+  var startR = startRGB[0];
+  var startG = startRGB[1];
+  var startB = startRGB[2];
+
+  var endRGB = hexToRgb(endColor, false);
+  var endR = endRGB[0];
+  var endG = endRGB[1];
+  var endB = endRGB[2];
+
+  var sR = (endR - startR) / step; //总差值
+  var sG = (endG - startG) / step;
+  var sB = (endB - startB) / step;
+  var colorArr = [];
+  for (var i = 0; i < step; i++) {
+    //计算每一步的hex值 
+    var hex = rgbToHex('rgb(' + Math.round(sR * i + startR) + ',' + Math.round(sG * i + startG) + ',' + Math.round(sB *
+    i + startB) + ')');
+    colorArr.push(hex);
+  }
+  return colorArr;
+}
+
+// 将hex表示方式转换为rgb表示方式(这里返回rgb数组模式)
+function hexToRgb(sColor) {var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+  sColor = sColor.toLowerCase();
+  if (sColor && reg.test(sColor)) {
+    if (sColor.length === 4) {
+      var sColorNew = "#";
+      for (var i = 1; i < 4; i += 1) {
+        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
+      }
+      sColor = sColorNew;
+    }
+    //处理六位的颜色值
+    var sColorChange = [];
+    for (var _i = 1; _i < 7; _i += 2) {
+      sColorChange.push(parseInt("0x" + sColor.slice(_i, _i + 2)));
+    }
+    if (!str) {
+      return sColorChange;
+    } else {
+      return "rgb(".concat(sColorChange[0], ",").concat(sColorChange[1], ",").concat(sColorChange[2], ")");
+    }
+  } else if (/^(rgb|RGB)/.test(sColor)) {
+    var arr = sColor.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
+    return arr.map(function (val) {return Number(val);});
+  } else {
+    return sColor;
+  }
+};
+
+// 将rgb表示方式转换为hex表示方式
+function rgbToHex(rgb) {
+  var _this = rgb;
+  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+  if (/^(rgb|RGB)/.test(_this)) {
+    var aColor = _this.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
+    var strHex = "#";
+    for (var i = 0; i < aColor.length; i++) {
+      var hex = Number(aColor[i]).toString(16);
+      hex = String(hex).length == 1 ? 0 + '' + hex : hex; // 保证每个rgb的值为2位
+      if (hex === "0") {
+        hex += hex;
+      }
+      strHex += hex;
+    }
+    if (strHex.length !== 7) {
+      strHex = _this;
+    }
+    return strHex;
+  } else if (reg.test(_this)) {
+    var aNum = _this.replace(/#/, "").split("");
+    if (aNum.length === 6) {
+      return _this;
+    } else if (aNum.length === 3) {
+      var numHex = "#";
+      for (var _i2 = 0; _i2 < aNum.length; _i2 += 1) {
+        numHex += aNum[_i2] + aNum[_i2];
+      }
+      return numHex;
+    }
+  } else {
+    return _this;
+  }
+}
+
+
+/**
+  * JS颜色十六进制转换为rgb或rgba,返回的格式为 rgba（255，255，255，0.5）字符串
+  * sHex为传入的十六进制的色值
+  * alpha为rgba的透明度
+  */
+function colorToRgba(color) {var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.3;
+  color = rgbToHex(color);
+  // 十六进制颜色值的正则表达式
+  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+  /* 16进制颜色转为RGB格式 */
+  var sColor = color.toLowerCase();
+  if (sColor && reg.test(sColor)) {
+    if (sColor.length === 4) {
+      var sColorNew = '#';
+      for (var i = 1; i < 4; i += 1) {
+        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
+      }
+      sColor = sColorNew;
+    }
+    // 处理六位的颜色值
+    var sColorChange = [];
+    for (var _i3 = 1; _i3 < 7; _i3 += 2) {
+      sColorChange.push(parseInt('0x' + sColor.slice(_i3, _i3 + 2)));
+    }
+    // return sColorChange.join(',')
+    return 'rgba(' + sColorChange.join(',') + ',' + alpha + ')';
+  } else
+  {
+    return sColor;
+  }
+}var _default =
+
+{
+  colorGradient: colorGradient,
+  hexToRgb: hexToRgb,
+  rgbToHex: rgbToHex,
+  colorToRgba: colorToRgba };exports.default = _default;
+
+/***/ }),
+
+/***/ 26:
+/*!****************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/guid.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 本算法来源于简书开源代码，详见：https://www.jianshu.com/p/fdbf293d0a85
+                                                                                                      * 全局唯一标识符（uuid，Globally Unique Identifier）,也称作 uuid(Universally Unique IDentifier) 
+                                                                                                      * 一般用于多个组件之间,给它一个唯一的标识符,或者v-for循环的时候,如果使用数组的index可能会导致更新列表出现问题
+                                                                                                      * 最可能的情况是左滑删除item或者对某条信息流"不喜欢"并去掉它的时候,会导致组件内的数据可能出现错乱
+                                                                                                      * v-for的时候,推荐使用后端返回的id而不是循环的index
+                                                                                                      * @param {Number} len uuid的长度
+                                                                                                      * @param {Boolean} firstU 将返回的首字母置为"u"
+                                                                                                      * @param {Nubmer} radix 生成uuid的基数(意味着返回的字符串都是这个基数),2-二进制,8-八进制,10-十进制,16-十六进制
+                                                                                                      */
+function guid() {var len = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 32;var firstU = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;var radix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+  var uuid = [];
+  radix = radix || chars.length;
+
+  if (len) {
+    // 如果指定uuid长度,只是取随机的字符,0|x为位运算,能去掉x的小数位,返回整数位
+    for (var i = 0; i < len; i++) {uuid[i] = chars[0 | Math.random() * radix];}
+  } else {
+    var r;
+    // rfc4122标准要求返回的uuid中,某些位为固定的字符
+    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+    uuid[14] = '4';
+
+    for (var _i = 0; _i < 36; _i++) {
+      if (!uuid[_i]) {
+        r = 0 | Math.random() * 16;
+        uuid[_i] = chars[_i == 19 ? r & 0x3 | 0x8 : r];
+      }
+    }
+  }
+  // 移除第一个字符,并用u替代,因为第一个字符为数值时,该guuid不能用作id或者class
+  if (firstU) {
+    uuid.shift();
+    return 'u' + uuid.join('');
+  } else {
+    return uuid.join('');
+  }
+}var _default =
+
+guid;exports.default = _default;
+
+/***/ }),
+
+/***/ 27:
+/*!*****************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/color.js ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 为了让用户能够自定义主题，会逐步弃用此文件，各颜色通过css提供
+// 为了给某些特殊场景使用和向后兼容，无需删除此文件(2020-06-20)
+var color = {
+  primary: "#2979ff",
+  primaryDark: "#2b85e4",
+  primaryDisabled: "#a0cfff",
+  primaryLight: "#ecf5ff",
+  bgColor: "#f3f4f6",
+
+  info: "#909399",
+  infoDark: "#82848a",
+  infoDisabled: "#c8c9cc",
+  infoLight: "#f4f4f5",
+
+  warning: "#ff9900",
+  warningDark: "#f29100",
+  warningDisabled: "#fcbd71",
+  warningLight: "#fdf6ec",
+
+  error: "#fa3534",
+  errorDark: "#dd6161",
+  errorDisabled: "#fab6b6",
+  errorLight: "#fef0f0",
+
+  success: "#19be6b",
+  successDark: "#18b566",
+  successDisabled: "#71d5a1",
+  successLight: "#dbf1e1",
+
+  mainColor: "#303133",
+  contentColor: "#606266",
+  tipsColor: "#909399",
+  lightColor: "#c0c4cc",
+  borderColor: "#e4e7ed" };var _default =
+
+
+color;exports.default = _default;
+
+/***/ }),
+
+/***/ 28:
+/*!*********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/type2icon.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
+                                                                                                      * 根据主题type值,获取对应的图标
+                                                                                                      * @param String type 主题名称,primary|info|error|warning|success
+                                                                                                      * @param String fill 是否使用fill填充实体的图标  
+                                                                                                      */
+function type2icon() {var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'success';var fill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  // 如果非预置值,默认为success
+  if (['primary', 'info', 'error', 'warning', 'success'].indexOf(type) == -1) type = 'success';
+  var iconName = '';
+  // 目前(2019-12-12),info和primary使用同一个图标
+  switch (type) {
+    case 'primary':
+      iconName = 'info-circle';
+      break;
+    case 'info':
+      iconName = 'info-circle';
+      break;
+    case 'error':
+      iconName = 'close-circle';
+      break;
+    case 'warning':
+      iconName = 'error-circle';
+      break;
+    case 'success':
+      iconName = 'checkmark-circle';
+      break;
+    default:
+      iconName = 'checkmark-circle';}
+
+  // 是否是实体类型,加上-fill,在icon组件库中,实体的类名是后面加-fill的
+  if (fill) iconName += '-fill';
+  return iconName;
+}var _default =
+
+type2icon;exports.default = _default;
+
+/***/ }),
+
+/***/ 29:
+/*!***********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/randomArray.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 打乱数组
+function randomArray() {var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  // 原理是sort排序,Math.random()产生0<= x < 1之间的数,会导致x-0.05大于或者小于0
+  return array.sort(function () {return Math.random() - 0.5;});
+}var _default =
+
+randomArray;exports.default = _default;
+
+/***/ }),
+
+/***/ 297:
 /*!***************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/util/emitter.js ***!
   \***************************************************************************************/
@@ -10133,7 +10561,7 @@ function _broadcast(componentName, eventName, params) {
 
 /***/ }),
 
-/***/ 224:
+/***/ 298:
 /*!***********************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/util/async-validator.js ***!
   \***********************************************************************************************/
@@ -10163,7 +10591,7 @@ function _broadcast(componentName, eventName, params) {
 var formatRegExp = /%[sdj%]/g;
 var warning = function warning() {}; // don't print warning message when in production env or node runtime
 
-if (typeof process !== 'undefined' && Object({"VUE_APP_NAME":"uView-demo","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}) && "development" !== 'production' && typeof window !==
+if (typeof process !== 'undefined' && Object({"VUE_APP_NAME":"嗒嗒租赁","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}) && "development" !== 'production' && typeof window !==
 'undefined' && typeof document !== 'undefined') {
   warning = function warning(type, errors) {
     if (typeof console !== 'undefined' && console.warn) {
@@ -11496,11 +11924,11 @@ Schema.warning = warning;
 Schema.messages = messages;var _default =
 
 Schema;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 225)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/node-libs-browser/mock/process.js */ 299)))
 
 /***/ }),
 
-/***/ 225:
+/***/ 299:
 /*!********************************************************!*\
   !*** ./node_modules/node-libs-browser/mock/process.js ***!
   \********************************************************/
@@ -11531,7 +11959,7 @@ exports.binding = function (name) {
     var path;
     exports.cwd = function () { return cwd };
     exports.chdir = function (dir) {
-        if (!path) path = __webpack_require__(/*! path */ 226);
+        if (!path) path = __webpack_require__(/*! path */ 300);
         cwd = path.resolve(dir, cwd);
     };
 })();
@@ -11545,7 +11973,57 @@ exports.features = {};
 
 /***/ }),
 
-/***/ 226:
+/***/ 3:
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 30:
+/*!*******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/addUnit.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = addUnit;var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+// 添加单位，如果有rpx，%，px等单位结尾或者值为auto，直接返回，否则加上rpx单位结尾
+function addUnit() {var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'auto';var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'rpx';
+  value = String(value);
+  // 用uView内置验证规则中的number判断是否为数值
+  return _test.default.number(value) ? "".concat(value).concat(unit) : value;
+}
+
+/***/ }),
+
+/***/ 300:
 /*!***********************************************!*\
   !*** ./node_modules/path-browserify/index.js ***!
   \***********************************************/
@@ -11855,375 +12333,166 @@ var substr = 'ab'.substr(-1) === 'b'
     }
 ;
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 225)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node-libs-browser/mock/process.js */ 299)))
 
 /***/ }),
 
-/***/ 23:
-/*!**********************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/timeFormat.js ***!
-  \**********************************************************************************************/
+/***/ 31:
+/*!******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/random.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // padStart 的 polyfill，因为某些机型或情况，还无法支持es7的padStart，比如电脑版的微信小程序
-// 所以这里做一个兼容polyfill的兼容处理
-if (!String.prototype.padStart) {
-  // 为了方便表示这里 fillString 用了ES6 的默认参数，不影响理解
-  String.prototype.padStart = function (maxLength) {var fillString = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ' ';
-    if (Object.prototype.toString.call(fillString) !== "[object String]") throw new TypeError(
-    'fillString must be String');
-    var str = this;
-    // 返回 String(str) 这里是为了使返回的值是字符串字面量，在控制台中更符合直觉
-    if (str.length >= maxLength) return String(str);
-
-    var fillLength = maxLength - str.length,
-    times = Math.ceil(fillLength / fillString.length);
-    while (times >>= 1) {
-      fillString += fillString;
-      if (times === 1) {
-        fillString += fillString;
-      }
-    }
-    return fillString.slice(0, fillLength) + str;
-  };
-}
-
-// 其他更多是格式化有如下:
-// yyyy:mm:dd|yyyy:mm|yyyy年mm月dd日|yyyy年mm月dd日 hh时MM分等,可自定义组合
-function timeFormat() {var dateTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;var fmt = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'yyyy-mm-dd';
-  // 如果为null,则格式化当前时间
-  if (!dateTime) dateTime = Number(new Date());
-  // 如果dateTime长度为10或者13，则为秒和毫秒的时间戳，如果超过13位，则为其他的时间格式
-  if (dateTime.toString().length == 10) dateTime *= 1000;
-  var date = new Date(dateTime);
-  var ret;
-  var opt = {
-    "y+": date.getFullYear().toString(), // 年
-    "m+": (date.getMonth() + 1).toString(), // 月
-    "d+": date.getDate().toString(), // 日
-    "h+": date.getHours().toString(), // 时
-    "M+": date.getMinutes().toString(), // 分
-    "s+": date.getSeconds().toString() // 秒
-    // 有其他格式化字符需求可以继续添加，必须转化成字符串
-  };
-  for (var k in opt) {
-    ret = new RegExp("(" + k + ")").exec(fmt);
-    if (ret) {
-      fmt = fmt.replace(ret[1], ret[1].length == 1 ? opt[k] : opt[k].padStart(ret[1].length, "0"));
-    };
-  };
-  return fmt;
-}var _default =
-
-timeFormat;exports.default = _default;
-
-/***/ }),
-
-/***/ 24:
-/*!********************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/timeFrom.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _timeFormat = _interopRequireDefault(__webpack_require__(/*! ../../libs/function/timeFormat.js */ 23));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-/**
-                                                                                                                                                                                                                                                                                          * 时间戳转为多久之前
-                                                                                                                                                                                                                                                                                          * @param String timestamp 时间戳
-                                                                                                                                                                                                                                                                                          * @param String | Boolean format 如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
-                                                                                                                                                                                                                                                                                          * 如果为布尔值false，无论什么时间，都返回多久以前的格式
-                                                                                                                                                                                                                                                                                          */
-function timeFrom() {var dateTime = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;var format = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'yyyy-mm-dd';
-  // 如果为null,则格式化当前时间
-  if (!dateTime) dateTime = Number(new Date());
-  // 如果dateTime长度为10或者13，则为秒和毫秒的时间戳，如果超过13位，则为其他的时间格式
-  if (dateTime.toString().length == 10) dateTime *= 1000;
-  var timestamp = +new Date(Number(dateTime));
-
-  var timer = (Number(new Date()) - timestamp) / 1000;
-  // 如果小于5分钟,则返回"刚刚",其他以此类推
-  var tips = '';
-  switch (true) {
-    case timer < 300:
-      tips = '刚刚';
-      break;
-    case timer >= 300 && timer < 3600:
-      tips = parseInt(timer / 60) + '分钟前';
-      break;
-    case timer >= 3600 && timer < 86400:
-      tips = parseInt(timer / 3600) + '小时前';
-      break;
-    case timer >= 86400 && timer < 2592000:
-      tips = parseInt(timer / 86400) + '天前';
-      break;
-    default:
-      // 如果format为false，则无论什么时间戳，都显示xx之前
-      if (format === false) {
-        if (timer >= 2592000 && timer < 365 * 86400) {
-          tips = parseInt(timer / (86400 * 30)) + '个月前';
-        } else {
-          tips = parseInt(timer / (86400 * 365)) + '年前';
-        }
-      } else {
-        tips = (0, _timeFormat.default)(timestamp, format);
-      }}
-
-  return tips;
-}var _default =
-
-timeFrom;exports.default = _default;
-
-/***/ }),
-
-/***/ 25:
-/*!*************************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/colorGradient.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      * 求两个颜色之间的渐变值
-                                                                                                      * @param {string} startColor 开始的颜色
-                                                                                                      * @param {string} endColor 结束的颜色
-                                                                                                      * @param {number} step 颜色等分的份额
-                                                                                                      * */
-function colorGradient() {var startColor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'rgb(0, 0, 0)';var endColor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'rgb(255, 255, 255)';var step = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
-  var startRGB = hexToRgb(startColor, false); //转换为rgb数组模式
-  var startR = startRGB[0];
-  var startG = startRGB[1];
-  var startB = startRGB[2];
-
-  var endRGB = hexToRgb(endColor, false);
-  var endR = endRGB[0];
-  var endG = endRGB[1];
-  var endB = endRGB[2];
-
-  var sR = (endR - startR) / step; //总差值
-  var sG = (endG - startG) / step;
-  var sB = (endB - startB) / step;
-  var colorArr = [];
-  for (var i = 0; i < step; i++) {
-    //计算每一步的hex值 
-    var hex = rgbToHex('rgb(' + Math.round(sR * i + startR) + ',' + Math.round(sG * i + startG) + ',' + Math.round(sB *
-    i + startB) + ')');
-    colorArr.push(hex);
-  }
-  return colorArr;
-}
-
-// 将hex表示方式转换为rgb表示方式(这里返回rgb数组模式)
-function hexToRgb(sColor) {var str = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-  sColor = sColor.toLowerCase();
-  if (sColor && reg.test(sColor)) {
-    if (sColor.length === 4) {
-      var sColorNew = "#";
-      for (var i = 1; i < 4; i += 1) {
-        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-      }
-      sColor = sColorNew;
-    }
-    //处理六位的颜色值
-    var sColorChange = [];
-    for (var _i = 1; _i < 7; _i += 2) {
-      sColorChange.push(parseInt("0x" + sColor.slice(_i, _i + 2)));
-    }
-    if (!str) {
-      return sColorChange;
-    } else {
-      return "rgb(".concat(sColorChange[0], ",").concat(sColorChange[1], ",").concat(sColorChange[2], ")");
-    }
-  } else if (/^(rgb|RGB)/.test(sColor)) {
-    var arr = sColor.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
-    return arr.map(function (val) {return Number(val);});
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function random(min, max) {
+  if (min >= 0 && max > 0 && max >= min) {
+    var gab = max - min + 1;
+    return Math.floor(Math.random() * gab + min);
   } else {
-    return sColor;
-  }
-};
-
-// 将rgb表示方式转换为hex表示方式
-function rgbToHex(rgb) {
-  var _this = rgb;
-  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-  if (/^(rgb|RGB)/.test(_this)) {
-    var aColor = _this.replace(/(?:\(|\)|rgb|RGB)*/g, "").split(",");
-    var strHex = "#";
-    for (var i = 0; i < aColor.length; i++) {
-      var hex = Number(aColor[i]).toString(16);
-      hex = String(hex).length == 1 ? 0 + '' + hex : hex; // 保证每个rgb的值为2位
-      if (hex === "0") {
-        hex += hex;
-      }
-      strHex += hex;
-    }
-    if (strHex.length !== 7) {
-      strHex = _this;
-    }
-    return strHex;
-  } else if (reg.test(_this)) {
-    var aNum = _this.replace(/#/, "").split("");
-    if (aNum.length === 6) {
-      return _this;
-    } else if (aNum.length === 3) {
-      var numHex = "#";
-      for (var _i2 = 0; _i2 < aNum.length; _i2 += 1) {
-        numHex += aNum[_i2] + aNum[_i2];
-      }
-      return numHex;
-    }
-  } else {
-    return _this;
-  }
-}
-
-
-/**
-  * JS颜色十六进制转换为rgb或rgba,返回的格式为 rgba（255，255，255，0.5）字符串
-  * sHex为传入的十六进制的色值
-  * alpha为rgba的透明度
-  */
-function colorToRgba(color) {var alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0.3;
-  color = rgbToHex(color);
-  // 十六进制颜色值的正则表达式
-  var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-  /* 16进制颜色转为RGB格式 */
-  var sColor = color.toLowerCase();
-  if (sColor && reg.test(sColor)) {
-    if (sColor.length === 4) {
-      var sColorNew = '#';
-      for (var i = 1; i < 4; i += 1) {
-        sColorNew += sColor.slice(i, i + 1).concat(sColor.slice(i, i + 1));
-      }
-      sColor = sColorNew;
-    }
-    // 处理六位的颜色值
-    var sColorChange = [];
-    for (var _i3 = 1; _i3 < 7; _i3 += 2) {
-      sColorChange.push(parseInt('0x' + sColor.slice(_i3, _i3 + 2)));
-    }
-    // return sColorChange.join(',')
-    return 'rgba(' + sColorChange.join(',') + ',' + alpha + ')';
-  } else
-  {
-    return sColor;
+    return 0;
   }
 }var _default =
 
-{
-  colorGradient: colorGradient,
-  hexToRgb: hexToRgb,
-  rgbToHex: rgbToHex,
-  colorToRgba: colorToRgba };exports.default = _default;
+random;exports.default = _default;
 
 /***/ }),
 
-/***/ 26:
+/***/ 32:
 /*!****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/guid.js ***!
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/trim.js ***!
   \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      * 本算法来源于简书开源代码，详见：https://www.jianshu.com/p/fdbf293d0a85
-                                                                                                      * 全局唯一标识符（uuid，Globally Unique Identifier）,也称作 uuid(Universally Unique IDentifier) 
-                                                                                                      * 一般用于多个组件之间,给它一个唯一的标识符,或者v-for循环的时候,如果使用数组的index可能会导致更新列表出现问题
-                                                                                                      * 最可能的情况是左滑删除item或者对某条信息流"不喜欢"并去掉它的时候,会导致组件内的数据可能出现错乱
-                                                                                                      * v-for的时候,推荐使用后端返回的id而不是循环的index
-                                                                                                      * @param {Number} len uuid的长度
-                                                                                                      * @param {Boolean} firstU 将返回的首字母置为"u"
-                                                                                                      * @param {Nubmer} radix 生成uuid的基数(意味着返回的字符串都是这个基数),2-二进制,8-八进制,10-十进制,16-十六进制
-                                                                                                      */
-function guid() {var len = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 32;var firstU = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;var radix = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
-  var uuid = [];
-  radix = radix || chars.length;
-
-  if (len) {
-    // 如果指定uuid长度,只是取随机的字符,0|x为位运算,能去掉x的小数位,返回整数位
-    for (var i = 0; i < len; i++) {uuid[i] = chars[0 | Math.random() * radix];}
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function trim(str) {var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'both';
+  if (pos == 'both') {
+    return str.replace(/^\s+|\s+$/g, "");
+  } else if (pos == "left") {
+    return str.replace(/^\s*/, '');
+  } else if (pos == 'right') {
+    return str.replace(/(\s*$)/g, "");
+  } else if (pos == 'all') {
+    return str.replace(/\s+/g, "");
   } else {
-    var r;
-    // rfc4122标准要求返回的uuid中,某些位为固定的字符
-    uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
-    uuid[14] = '4';
-
-    for (var _i = 0; _i < 36; _i++) {
-      if (!uuid[_i]) {
-        r = 0 | Math.random() * 16;
-        uuid[_i] = chars[_i == 19 ? r & 0x3 | 0x8 : r];
-      }
-    }
-  }
-  // 移除第一个字符,并用u替代,因为第一个字符为数值时,该guuid不能用作id或者class
-  if (firstU) {
-    uuid.shift();
-    return 'u' + uuid.join('');
-  } else {
-    return uuid.join('');
+    return str;
   }
 }var _default =
 
-guid;exports.default = _default;
+trim;exports.default = _default;
 
 /***/ }),
 
-/***/ 27:
+/***/ 33:
 /*!*****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/color.js ***!
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/toast.js ***!
   \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 为了让用户能够自定义主题，会逐步弃用此文件，各颜色通过css提供
-// 为了给某些特殊场景使用和向后兼容，无需删除此文件(2020-06-20)
-var color = {
-  primary: "#2979ff",
-  primaryDark: "#2b85e4",
-  primaryDisabled: "#a0cfff",
-  primaryLight: "#ecf5ff",
-  bgColor: "#f3f4f6",
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function toast(title) {var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1500;
+  uni.showToast({
+    title: title,
+    icon: 'none',
+    duration: duration });
 
-  info: "#909399",
-  infoDark: "#82848a",
-  infoDisabled: "#c8c9cc",
-  infoLight: "#f4f4f5",
+}var _default =
 
-  warning: "#ff9900",
-  warningDark: "#f29100",
-  warningDisabled: "#fcbd71",
-  warningLight: "#fdf6ec",
-
-  error: "#fa3534",
-  errorDark: "#dd6161",
-  errorDisabled: "#fab6b6",
-  errorLight: "#fef0f0",
-
-  success: "#19be6b",
-  successDark: "#18b566",
-  successDisabled: "#71d5a1",
-  successLight: "#dbf1e1",
-
-  mainColor: "#303133",
-  contentColor: "#606266",
-  tipsColor: "#909399",
-  lightColor: "#c0c4cc",
-  borderColor: "#e4e7ed" };var _default =
-
-
-color;exports.default = _default;
+toast;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
-/***/ 276:
+/***/ 34:
+/*!*********************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/getParent.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = getParent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
+// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
+function getParent(name, keys) {
+  var parent = this.$parent;
+  // 通过while历遍，这里主要是为了H5需要多层解析的问题
+  while (parent) {
+    // 父组件
+    if (parent.$options.name !== name) {
+      // 如果组件的name不相等，继续上一级寻找
+      parent = parent.$parent;
+    } else {var _ret = function () {
+        var data = {};
+        // 判断keys是否数组，如果传过来的是一个数组，那么直接使用数组元素值当做键值去父组件寻找
+        if (Array.isArray(keys)) {
+          keys.map(function (val) {
+            data[val] = parent[val] ? parent[val] : '';
+          });
+        } else {
+          // 历遍传过来的对象参数
+          for (var i in keys) {
+            // 如果子组件有此值则用，无此值则用父组件的值
+            // 判断是否空数组，如果是，则用父组件的值，否则用子组件的值
+            if (Array.isArray(keys[i])) {
+              if (keys[i].length) {
+                data[i] = keys[i];
+              } else {
+                data[i] = parent[i];
+              }
+            } else if (keys[i].constructor === Object) {
+              // 判断是否对象，如果是对象，且有属性，那么使用子组件的值，否则使用父组件的值
+              if (Object.keys(keys[i]).length) {
+                data[i] = keys[i];
+              } else {
+                data[i] = parent[i];
+              }
+            } else {
+              // 只要子组件有传值，即使是false值，也是“传值”了，也需要覆盖父组件的同名参数
+              data[i] = keys[i] || keys[i] === false ? keys[i] : parent[i];
+            }
+          }
+        }
+        return { v: data };}();if (typeof _ret === "object") return _ret.v;
+    }
+  }
+
+  return {};
+}
+
+/***/ }),
+
+/***/ 35:
+/*!*******************************************************************************************!*\
+  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/$parent.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = $parent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
+// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
+// 这里默认值等于undefined有它的含义，因为最顶层元素(组件)的$parent就是undefined，意味着不传name
+// 值(默认为undefined)，就是查找最顶层的$parent
+function $parent() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+  var parent = this.$parent;
+  // 通过while历遍，这里主要是为了H5需要多层解析的问题
+  while (parent) {
+    // 父组件
+    if (parent.$options && parent.$options.name !== name) {
+      // 如果组件的name不相等，继续上一级寻找
+      parent = parent.$parent;
+    } else {
+      return parent;
+    }
+  }
+  return false;
+}
+
+/***/ }),
+
+/***/ 350:
 /*!**********************************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/components/u-parse/libs/MpHtmlParser.js ***!
   \**********************************************************************************************************/
@@ -12237,9 +12506,9 @@ color;exports.default = _default;
  * @author JinYufeng
  * @listens MIT
  */
-var cfg = __webpack_require__(/*! ./config.js */ 277),
+var cfg = __webpack_require__(/*! ./config.js */ 351),
 blankChar = cfg.blankChar,
-CssHandler = __webpack_require__(/*! ./CssHandler.js */ 278),
+CssHandler = __webpack_require__(/*! ./CssHandler.js */ 352),
 windowWidth = uni.getSystemInfoSync().windowWidth;
 var emoji;
 
@@ -12814,7 +13083,7 @@ module.exports = MpHtmlParser;
 
 /***/ }),
 
-/***/ 277:
+/***/ 351:
 /*!****************************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/components/u-parse/libs/config.js ***!
   \****************************************************************************************************/
@@ -12904,14 +13173,14 @@ module.exports = cfg;
 
 /***/ }),
 
-/***/ 278:
+/***/ 352:
 /*!********************************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/components/u-parse/libs/CssHandler.js ***!
   \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var cfg = __webpack_require__(/*! ./config.js */ 277),
+var cfg = __webpack_require__(/*! ./config.js */ 351),
 isLetter = function isLetter(c) {return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z';};
 
 function CssHandler(tagStyle) {
@@ -13011,275 +13280,6 @@ parser.prototype.Content = function () {
   this.list = [];
   this.state = this.Space;
 };
-
-/***/ }),
-
-/***/ 28:
-/*!*********************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/type2icon.js ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; /**
-                                                                                                      * 根据主题type值,获取对应的图标
-                                                                                                      * @param String type 主题名称,primary|info|error|warning|success
-                                                                                                      * @param String fill 是否使用fill填充实体的图标  
-                                                                                                      */
-function type2icon() {var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'success';var fill = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  // 如果非预置值,默认为success
-  if (['primary', 'info', 'error', 'warning', 'success'].indexOf(type) == -1) type = 'success';
-  var iconName = '';
-  // 目前(2019-12-12),info和primary使用同一个图标
-  switch (type) {
-    case 'primary':
-      iconName = 'info-circle';
-      break;
-    case 'info':
-      iconName = 'info-circle';
-      break;
-    case 'error':
-      iconName = 'close-circle';
-      break;
-    case 'warning':
-      iconName = 'error-circle';
-      break;
-    case 'success':
-      iconName = 'checkmark-circle';
-      break;
-    default:
-      iconName = 'checkmark-circle';}
-
-  // 是否是实体类型,加上-fill,在icon组件库中,实体的类名是后面加-fill的
-  if (fill) iconName += '-fill';
-  return iconName;
-}var _default =
-
-type2icon;exports.default = _default;
-
-/***/ }),
-
-/***/ 29:
-/*!***********************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/randomArray.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; // 打乱数组
-function randomArray() {var array = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  // 原理是sort排序,Math.random()产生0<= x < 1之间的数,会导致x-0.05大于或者小于0
-  return array.sort(function () {return Math.random() - 0.5;});
-}var _default =
-
-randomArray;exports.default = _default;
-
-/***/ }),
-
-/***/ 3:
-/*!***********************************!*\
-  !*** (webpack)/buildin/global.js ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ 30:
-/*!*******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/addUnit.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = addUnit;var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 17));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
-// 添加单位，如果有rpx，%，px等单位结尾或者值为auto，直接返回，否则加上rpx单位结尾
-function addUnit() {var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'auto';var unit = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'rpx';
-  value = String(value);
-  // 用uView内置验证规则中的number判断是否为数值
-  return _test.default.number(value) ? "".concat(value).concat(unit) : value;
-}
-
-/***/ }),
-
-/***/ 31:
-/*!******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/random.js ***!
-  \******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function random(min, max) {
-  if (min >= 0 && max > 0 && max >= min) {
-    var gab = max - min + 1;
-    return Math.floor(Math.random() * gab + min);
-  } else {
-    return 0;
-  }
-}var _default =
-
-random;exports.default = _default;
-
-/***/ }),
-
-/***/ 32:
-/*!****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/trim.js ***!
-  \****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function trim(str) {var pos = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'both';
-  if (pos == 'both') {
-    return str.replace(/^\s+|\s+$/g, "");
-  } else if (pos == "left") {
-    return str.replace(/^\s*/, '');
-  } else if (pos == 'right') {
-    return str.replace(/(\s*$)/g, "");
-  } else if (pos == 'all') {
-    return str.replace(/\s+/g, "");
-  } else {
-    return str;
-  }
-}var _default =
-
-trim;exports.default = _default;
-
-/***/ }),
-
-/***/ 33:
-/*!*****************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/toast.js ***!
-  \*****************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function toast(title) {var duration = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1500;
-  uni.showToast({
-    title: title,
-    icon: 'none',
-    duration: duration });
-
-}var _default =
-
-toast;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 34:
-/*!*********************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/getParent.js ***!
-  \*********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = getParent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
-// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
-function getParent(name, keys) {
-  var parent = this.$parent;
-  // 通过while历遍，这里主要是为了H5需要多层解析的问题
-  while (parent) {
-    // 父组件
-    if (parent.$options.name !== name) {
-      // 如果组件的name不相等，继续上一级寻找
-      parent = parent.$parent;
-    } else {var _ret = function () {
-        var data = {};
-        // 判断keys是否数组，如果传过来的是一个数组，那么直接使用数组元素值当做键值去父组件寻找
-        if (Array.isArray(keys)) {
-          keys.map(function (val) {
-            data[val] = parent[val] ? parent[val] : '';
-          });
-        } else {
-          // 历遍传过来的对象参数
-          for (var i in keys) {
-            // 如果子组件有此值则用，无此值则用父组件的值
-            // 判断是否空数组，如果是，则用父组件的值，否则用子组件的值
-            if (Array.isArray(keys[i])) {
-              if (keys[i].length) {
-                data[i] = keys[i];
-              } else {
-                data[i] = parent[i];
-              }
-            } else if (keys[i].constructor === Object) {
-              // 判断是否对象，如果是对象，且有属性，那么使用子组件的值，否则使用父组件的值
-              if (Object.keys(keys[i]).length) {
-                data[i] = keys[i];
-              } else {
-                data[i] = parent[i];
-              }
-            } else {
-              // 只要子组件有传值，即使是false值，也是“传值”了，也需要覆盖父组件的同名参数
-              data[i] = keys[i] || keys[i] === false ? keys[i] : parent[i];
-            }
-          }
-        }
-        return { v: data };}();if (typeof _ret === "object") return _ret.v;
-    }
-  }
-
-  return {};
-}
-
-/***/ }),
-
-/***/ 35:
-/*!*******************************************************************************************!*\
-  !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/function/$parent.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = $parent; // 获取父组件的参数，因为支付宝小程序不支持provide/inject的写法
-// this.$parent在非H5中，可以准确获取到父组件，但是在H5中，需要多次this.$parent.$parent.xxx
-// 这里默认值等于undefined有它的含义，因为最顶层元素(组件)的$parent就是undefined，意味着不传name
-// 值(默认为undefined)，就是查找最顶层的$parent
-function $parent() {var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-  var parent = this.$parent;
-  // 通过while历遍，这里主要是为了H5需要多层解析的问题
-  while (parent) {
-    // 父组件
-    if (parent.$options && parent.$options.name !== name) {
-      // 如果组件的name不相等，继续上一级寻找
-      parent = parent.$parent;
-    } else {
-      return parent;
-    }
-  }
-  return false;
-}
 
 /***/ }),
 
@@ -13450,7 +13450,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 452:
+/***/ 533:
 /*!****************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/util/province.js ***!
   \****************************************************************************************/
@@ -13462,7 +13462,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 453:
+/***/ 534:
 /*!************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/util/city.js ***!
   \************************************************************************************/
@@ -13474,7 +13474,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 454:
+/***/ 535:
 /*!************************************************************************************!*\
   !*** C:/Users/DELL/Documents/HBuilderProjects/塔吊/公司管理员/uview-ui/libs/util/area.js ***!
   \************************************************************************************/

@@ -6,7 +6,7 @@
 				<view class="">
 					<view class="u-flex u-p-l-25 u-p-t-25 u-row-between" v-for="(item,index) in list" :key="index">
 						<view class="text-black u-font-28">{{item.title}}</view>
-						<view class="u-flex u-row-right" v-if="item.avater">
+						<view class="u-flex u-row-right" v-if="item.avatar">
 							<u-avatar src="" size="52"></u-avatar>
 							<view class="text-black u-font-28 u-m-l-15">{{item.value}}</view>
 						</view>

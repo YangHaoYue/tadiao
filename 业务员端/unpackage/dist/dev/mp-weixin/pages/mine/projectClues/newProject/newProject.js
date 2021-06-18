@@ -96,22 +96,22 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 280))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 310))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 287))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 317))
     },
     uInput: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 221))
+      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 251))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-upload/u-upload.vue */ 397))
+      return Promise.all(/*! import() | uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-upload/u-upload.vue */ 434))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 228))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 258))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 378))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 338))
     }
   }
 } catch (e) {
@@ -177,7 +177,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var formList = function formList() {__webpack_require__.e(/*! require.ensure | components/form-list */ "components/form-list").then((function () {return resolve(__webpack_require__(/*! @/components/form-list.vue */ 404));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 392));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var formList = function formList() {__webpack_require__.e(/*! require.ensure | components/form-list */ "components/form-list").then((function () {return resolve(__webpack_require__(/*! @/components/form-list.vue */ 441));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 429));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

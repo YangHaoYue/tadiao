@@ -94,10 +94,10 @@ var components
 try {
   components = {
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 295))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
     },
     uCalendar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 323))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 411))
     }
   }
 } catch (e) {

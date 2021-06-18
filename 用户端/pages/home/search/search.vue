@@ -74,8 +74,8 @@
 	}
 </script>
 
-<style>
-	.wrap{
+<style scoped>
+	page{
 		background: -webkit-linear-gradient(top,#FBFBFD,#F5F6FA);
 	}
 </style>

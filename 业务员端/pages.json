@@ -192,6 +192,42 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/equipmentList/equipmentList",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设备",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/equipmentList/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "设备详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/equipmentList/detail/repair",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "添加维修记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/equipmentList/detail/maintain",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "保养记录",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

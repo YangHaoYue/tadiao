@@ -96,28 +96,34 @@ var components
 try {
   components = {
     uAvatar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 273))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 303))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 280))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 310))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 287))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 317))
     },
     uGrid: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid/u-grid */ "uview-ui/components/u-grid/u-grid").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid/u-grid.vue */ 294))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid/u-grid */ "uview-ui/components/u-grid/u-grid").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid/u-grid.vue */ 324))
     },
     uGridItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid-item/u-grid-item */ "uview-ui/components/u-grid-item/u-grid-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid-item/u-grid-item.vue */ 301))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid-item/u-grid-item */ "uview-ui/components/u-grid-item/u-grid-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid-item/u-grid-item.vue */ 331))
     },
-    uCalendar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 308))
-    },
-    uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 315))
+    uGap: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 338))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 228))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 258))
+    },
+    uModal: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-modal/u-modal */ "uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-modal/u-modal.vue */ 345))
+    },
+    uCalendar: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 352))
+    },
+    uPopup: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 359))
     }
   }
 } catch (e) {
@@ -295,10 +301,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
+      role: true,
+      changeRole: '进入业务员中心', //进入维修中心
+
       avaterSrc: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
       //二维码弹窗
       showModal: false,
@@ -318,11 +407,32 @@ var _default =
       { img: '../../static/xiangmuxiansuo@2x.png', name: '项目线索', url: '/pages/mine/projectClues/projectClues' },
       { img: '../../static/xiangmugaunli@2x.png', name: '项目管理', url: '/pages/mine/projectManagement/projectManagement' },
       { img: '../../static/weibaojilu@2x.png', name: '维保记录', url: '/pages/mine/maintenance/maintenance' },
-      { img: '../../static/yinhangkaguanli@2x.png', name: '银行卡管理', url: '/pages/mine/bankCardManagement/bankCardManagement' }] };
+      { img: '../../static/yinhangkaguanli@2x.png', name: '银行卡管理', url: '/pages/mine/bankCardManagement/bankCardManagement' }],
 
+      //维修师傅分段器
+      curNow: 0,
+      modal: false };
 
   },
   methods: {
+    //切换role
+    change: function change() {
+      if (this.role) {
+        this.role = false;
+        this.changeRole = '进入维修中心';
+      } else {
+        this.role = true;
+        this.changeRole = '进入业务员中心';
+      }
+    },
+    //维修师傅分段器
+    changeCur: function changeCur(index) {
+      this.curNow = index;
+    },
+    //处理
+    handle: function handle() {
+      this.modal = true;
+    },
     toSetting: function toSetting() {
       uni.navigateTo({ url: 'setting/setting' });
     },

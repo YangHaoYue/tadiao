@@ -1,0 +1,15 @@
+{
+  "navigationBarTitleText": "设备详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-time-line": "/uview-ui/components/u-time-line/u-time-line",
+    "u-time-line-item": "/uview-ui/components/u-time-line-item/u-time-line-item",
+    "u-icon": "/uview-ui/components/u-icon/u-icon",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-popup": "/uview-ui/components/u-popup/u-popup",
+    "u-search": "/uview-ui/components/u-search/u-search",
+    "u-avatar": "/uview-ui/components/u-avatar/u-avatar",
+    "pro-card": "/components/pro-card"
+  }
+}

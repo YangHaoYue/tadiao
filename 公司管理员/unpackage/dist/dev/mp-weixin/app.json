@@ -20,7 +20,17 @@
     "pages/mine/bankCardManagement/addBankCard/addBankCard",
     "pages/mine/withdrawal/withdrawal",
     "pages/mine/withdrawal/detailed",
-    "pages/mine/perfection/perfection"
+    "pages/mine/perfection/perfection",
+    "pages/mine/projectManagement/createMaintenance/createMaintenance",
+    "pages/mine/offer/offer",
+    "pages/mine/StaffManagement/StaffManagement",
+    "pages/mine/StaffManagement/staffDetail/staffDetail",
+    "pages/mine/StaffManagement/staffDetail/clueDetail",
+    "pages/mine/StaffManagement/staffDetail/projectDetail",
+    "pages/mine/projectManagement/addRecord/addRecord",
+    "pages/mine/projectManagement/createMaintenance/apply",
+    "pages/mine/projectManagement/createMaintenance/chooseRepairman",
+    "pages/mine/ranking/ranking"
   ],
   "subPackages": [],
   "window": {
@@ -32,5 +42,6 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom",
     "equipment-item": "/components/equipment-item"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
