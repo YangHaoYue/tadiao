@@ -6,7 +6,7 @@
 				<city-select  @city-change="cityChange"></city-select>
 			</u-dropdown-item>
 			
-			<u-dropdown-item @change="change" v-model="status" title="状态" :options="options1"></u-dropdown-item>
+			<u-dropdown-item @change="statusChange" v-model="listStatus" title="状态" :options="statusList"></u-dropdown-item>
 			
 			<u-dropdown-item title="价格区间">
 				<view class="slot-content">
@@ -17,24 +17,26 @@
 						<input class="priceInput round" v-model="max" placeholder="最高价"/>
 					</view>
 					<view class="u-flex u-row-right">
-						<u-button class="u-m-10" type="primary" plain @click="closeDropdown" size="medium">重置</u-button>
-						<u-button class="u-m-10" type="primary" @click="closeDropdown" size="medium">确定</u-button>
+						<u-button class="u-m-10" type="primary" plain @click="priceReset" size="medium">重置</u-button>
+						<u-button class="u-m-10" type="primary" @click="clearList" size="medium">确定</u-button>
 					</view>
 				</view>
 			</u-dropdown-item>
 			
-			<u-dropdown-item @change="change" v-model="type" title="机型" :options="options2"></u-dropdown-item>
+			<u-dropdown-item @change="typeChange" v-model="type" title="机型" :options="typeList" height="400rpx" @onReachBottom="typeOnReachBottom"></u-dropdown-item>
 			
 			<u-dropdown-item :title="brand" style="z-index: 9999;">
 				<view class="slot-content">
-					<view class="item-box">
-						<view class="item" :class="[item.active ? 'active' : '']" @tap="tagClick(index)" v-for="(item, index) in tagList" :key="index">
-							{{item.label}}
+					<scroll-view scroll-y="true" style="height: 200rpx;" @scrolltolower="brandOnReachBottom" lower-threshold="50">
+						<view class="item-box">
+							<view class="item" :class="[item.value == brand_id ? 'active' : '']" @tap="tagClick(item)" v-for="(item, index) in brandList" :key="index">
+								{{item.label}}
+							</view>
 						</view>
-					</view>
+					</scroll-view>
 					<view class="u-flex u-row-right">
-						<u-button class="u-m-10" type="primary" plain @click="closeDropdown" size="medium">重置</u-button>
-						<u-button class="u-m-10" type="primary" @click="closeDropdown" size="medium">确定</u-button>
+						<u-button class="u-m-10" type="primary" plain @click="reset" size="medium">重置</u-button>
+						<u-button class="u-m-10" type="primary" @click="clearList" size="medium">确定</u-button>
 					</view>
 				</view>
 			</u-dropdown-item>
@@ -43,13 +45,12 @@
 		
 		<!-- 列表 -->
 		<u-row class="u-p-20 u-m-t-26" gutter="20" justify="space-between">
-			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index" @click="show = true">
+			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index" @click="setPhone(item.media_tel_num)">
 				<equipmentItem :item="item" :index="index"></equipmentItem>
 			</u-col>
 		</u-row>
-		<u-button @click="show = true">ceshi </u-button>
 		<!-- 客服电话 -->
-		<u-action-sheet :list="phone" v-model="show" :tips="tips" :cancel-btn="true"></u-action-sheet>
+		<u-action-sheet :list="phone" v-model="show" :tips="tips" :cancel-btn="true" @click="makePhoneCall"></u-action-sheet>
 	</view>
 </template>
 
@@ -59,138 +60,71 @@
 		components:{
 			citySelect
 		},
+		onLoad() {
+			this.getTypes();
+			this.getBrands();
+			this.getInfo();
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		data() {
 			return {
 				areaName:'地区',
-				status: '',
+				area_id:'',
+				listStatus: -1,
 				//价格区间
-				min:'',
-				max:'',
+				min:0,
+				max:0,
 				type: '2',
 				//品牌
 				brand:'品牌',
+				brand_id:'',
 				
 				
-				
-				options1: [{
+				//0=>可用,1=>锁定中,2=>租赁中,(全部时不传或者-1)
+				statusList: [{
 						label: '全部',
-						value: 1,
+						value: -1,
 					},
 					{
 						label: '可用',
-						value: 2,
+						value: 0,
 					},
 					{
 						label: '租聘中',
-						value: 3,
-					},
-					{
-						label: '锁定中',
-						value: 4,
-					}
-				],
-				options2: [{
-						label: '去冰',
-						value: 1,
-					},
-					{
-						label: '加冰',
 						value: 2,
 					},
 					{
-						label: '正常温',
-						value: 3,
-					},
-					{
-						label: '加热',
-						value: 4,
-					},
-					{
-						label: '极寒风暴',
-						value: 5,
+						label: '锁定中',
+						value: 1,
 					}
 				],
-				tagList: [{
-						label: '琪花瑶草',
-						active: true,
-					},
-					{
-						label: '清词丽句',
-						active: false,
-					},
-					{
-						label: '宛转蛾眉',
-						active: false,
-					},
-					{
-						label: '煦色韶光',
-						active: false,
-					},
-					{
-						label: '鱼沉雁落',
-						active: false,
-					},
-					{
-						label: '章台杨柳',
-						active: false,
-					},
-					{
-						label: '霞光万道',
-						active: false,
-					}
-				],
-				list:[
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:1,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:2,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					}
-				],
+				
+				typePage:1,
+				typeLast_page:1,
+				typeList: [],
+				
+				brandPage:1,
+				brandLast_page:1,
+				brandList:[],
+				
+				page:1,
+				last_page:1,
+				list:[],
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 				
 				
 				//客服电话
@@ -208,21 +142,147 @@
 			}
 		},
 		methods: {
+			getInfo(){
+				let data = {
+					status:this.listStatus,
+					price_max:this.max,
+					price_min:this.min,
+					type_id:this.type
+				}
+				if(this.brand_id){
+					this.$set(data,'brand_id',this.brand_id)
+				}
+				if(this.area_id){
+					this.$set(data,'area_id',this.area_id)
+				}
+				this.http.get('Index/towerList',data).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.tower_data;
+							this.last_page = res.data.last_page;
+						}else{
+							res.data.tower_data.forEach(v=>{
+								this.list.push(v)
+							})
+						}
+						if(this.page >= this.last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
+					}
+				})
+			},
+			//获取机型
+			getTypes(){
+				this.http.get('Index/getTypes',{
+					page:this.typePage
+				},true).then(res=>{
+					if(res.code == 1000){
+						if(this.typeList.length == 0){
+							this.typeList = res.data.type_data.map(v=>{
+								return{
+									label:v.name,
+									value:v.id
+								}
+							})
+							this.typeLast_page = res.data.last_page;
+						}else{
+							res.data.type_data.forEach(v=>{
+								this.typeList.push({
+									label:v.name,
+									value:v.id
+								})
+							})
+						}
+					}
+				})
+			},
+			typeOnReachBottom(){
+				if(this.typePage >= this.typeLast_page) return ;
+				this.typePage = ++ this.typePage;
+				setTimeout(() => {
+					this.getTypes();
+				}, 50)
+			},
+			//获取品牌
+			getBrands(){
+				this.http.get('Index/getBrands',{
+					page:this.brandPage
+				},true).then(res=>{
+					if(res.code == 1000){
+						if(this.brandList.length == 0){
+							this.brandList = res.data.brand_data.map(v=>{
+								return{
+									label:v.brand_name,
+									value:v.id}
+							})
+							this.brandLast_page = res.data.last_page;
+						}else{
+							res.data.brand_data.forEach(v=>{
+								this.brandList.push({
+									label:v.brand_name,
+									value:v.id})
+							})
+						}
+					}
+				})
+			},
+			brandOnReachBottom(){
+				if(this.brandPage >= this.brandLast_page) return ;
+				this.brandPage = ++ this.brandPage;
+				setTimeout(() => {
+					this.getBrands();
+				}, 50)
+			},
 			//城市选择
 			cityChange(e) {
 				console.log(e);
 				this.areaName = e.area.label;
-				this.closeDropdown()
+				this.area_id = e.area.value;
+				this.clearList();
 			},
-			change(index) {
-				this.$u.toast(`点击了第${index}项`);
+			statusChange(index) {
+				this.listStatus = this.statusList[index].value;
+				this.clearList();
+			},
+			typeChange(index){
+				this.type = this.typeList[index].value;
+				this.clearList();
 			},
 			//关闭
 			closeDropdown() {
 				this.$refs.uDropdown.close();
 			},
-			tagClick(index) {
-				this.tagList[index].active = !this.tagList[index].active;
+			tagClick(item) {
+				this.brand = item.label;
+				this.brand_id = item.value;
+			},
+			//重置
+			reset(){
+				this.brand = '';
+				this.brand_id = '';
+				this.clearList();
+			},
+			priceReset(){
+				this.max = 0;
+				this.min = 0;
+				this.clearList();
+			},
+			/* 初始化数据 */
+			clearList(){
+				this.status='loading';
+				this.closeDropdown();
+				this.page=1;
+				this.last_page=1;
+				this.list=[];
+				this.getInfo();
+			},
+			setPhone(number){
+				this.tips.text = number;
+				this.show = true;
+			},
+			makePhoneCall(){
+				uni.makePhoneCall({
+					phoneNumber:this.tips.text
+				})
 			}
 		}
 	}
@@ -231,6 +291,7 @@
 <style lang="scss" scoped>
 	.wrap{
 		background: -webkit-linear-gradient(top,#FBFBFD,#F5F6FA);
+		height: 100vh;
 	}
 	.slot-content {
 		background-color: #FFFFFF;

@@ -18,83 +18,69 @@
 				<equipmentItem :item="item" :index="index"></equipmentItem>
 			</u-col>
 		</u-row>
-		
+		<!-- 加载更多 -->
+		<view class="u-m-t-20 u-m-b-20" >
+			<u-loadmore :status="status"/>
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
+		onLoad() {
+			this.getInfo()
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		data() {
 			return {
-				imgList: [{
-						image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-						title: '身无彩凤双飞翼，心有灵犀一点通'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
-						title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
-					}
-				],
-				list:[
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:1,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:2,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					}
-				]
+				imgList: [],
+				
+				page:1,
+				last_page:1,
+				list:[],
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 			}
 		},
 		methods: {
-			
+			getInfo(){
+				this.http.get('Index/index',{
+					page:this.page
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.towers.tower_data;
+							this.last_page = res.data.towers.last_page;
+						}else{
+							res.data.towers.tower_data.forEach(v=>{
+								this.list.push(v)
+							})
+						}
+						
+						this.imgList = res.data.banners.map(v=>{
+							return {
+								image:this.http.resourceUrl() + v.img
+							}
+						})
+						
+						if(this.page >= this.last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
+					}
+				})
+			}
 		}
 	}
 </script>

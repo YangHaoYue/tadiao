@@ -13,15 +13,42 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			this.project_id = e.project_id
+		},
 		data() {
 			return {
 				value:'',
-				action: '/api/v1/Common/fileUploader',
+				action: 'Common/fileUploader',
 				header:{'Authorization':'Bearer '+ this.http.getToken()},
 				lists:[]
 			}
 		},
 		methods: {
+			followUp(){
+				let img=[]
+				this.lists.map(item=>{
+					if(item.response&&item.response.code==1000){
+						img.push(item.response.data.path);
+					}else if(!item.error&&item.progress==100){
+						img.push(item.url);
+					}
+				});
+				this.http.post('project/followUp',{
+					project_id:this.project_id,
+					content:this.value,
+					img:img
+				}).then(res=>{
+					this.$u.toast(re.msg)
+					if(res.code == 1000){
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta: 1
+							});
+						},1500)
+					}
+				})
+			},
 			//上传合同图片
 			onChange(lists){
 				console.log('onListChange', lists[0]);

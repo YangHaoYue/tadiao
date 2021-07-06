@@ -4,7 +4,16 @@
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-		    "path" : "pages/register/register",
+			"path" : "pages/login/login",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+			
+		}
+		,{
+		    "path" : "pages/login/register",
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "注册",
@@ -13,7 +22,7 @@
 		    
 		}
         ,{
-            "path" : "pages/register/agreement",
+            "path" : "pages/login/agreement",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "用户协议",
@@ -26,7 +35,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "首页",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"onReachBottomDistance":50
             }
             
         }
@@ -143,7 +153,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "明细",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"onReachBottomDistance":50
             }
             
         }
@@ -164,7 +175,7 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        } 
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

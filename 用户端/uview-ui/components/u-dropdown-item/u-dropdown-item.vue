@@ -3,7 +3,7 @@
 		<block v-if="!$slots.default && !$slots.$default">
 			<scroll-view scroll-y="true" :style="{
 				height: $u.addUnit(height)
-			}">
+			}" @scrolltolower="toBottom" lower-threshold="50">
 				<view class="u-dropdown-item__options">
 					<u-cell-group>
 						<u-cell-item @click="cellClick(item.value)" :arrow="false" :title="item.label" v-for="(item, index) in options"
@@ -119,6 +119,10 @@
 				this.parent.close();
 				// 发出事件，抛出当前勾选项的value
 				this.$emit('change', value);
+			},
+			toBottom(){
+				//滑动达到底部
+				this.$emit('onReachBottom',true)
 			}
 		},
 		mounted() {

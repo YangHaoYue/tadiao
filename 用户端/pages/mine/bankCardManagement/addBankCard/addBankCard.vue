@@ -4,8 +4,8 @@
 			<u-form-item :label-style="labelStyle" :label-width="200" :label-position="labelPosition" label="姓名" prop="name">
 				<u-input :border="border" placeholder="请输入姓名" v-model="model.name" type="text"></u-input>
 			</u-form-item>
-			<u-form-item :label-style="labelStyle" :label-width="200" :label-position="labelPosition" label="银行" prop="phone">
-				<u-input :border="border" type="text" v-model="model.phone" placeholder="请输入银行名称"></u-input>
+			<u-form-item :label-style="labelStyle" :label-width="200" :label-position="labelPosition" label="银行" prop="brankName">
+				<u-input :border="border" type="text" v-model="model.brankName" placeholder="请输入银行名称"></u-input>
 			</u-form-item>
 			<u-form-item :label-style="labelStyle" :label-width="200" :label-position="labelPosition" label="银行卡号" prop="code1">
 				<u-input :border="border" type="text" v-model="model.code1" placeholder="请输入银行卡号"></u-input>
@@ -20,10 +20,16 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			if(e.bankcard_id){
+				this.bankcard_id = e.bankcard_id;
+				this.getBankcardById();
+			}
+		},
 		computed: {
 			disabled: function() {
 				let bool = true;
-				if (this.model.name && this.model.phone && this.model.code1) {
+				if (this.model.name && this.model.brankName && this.model.code1) {
 					bool = false;
 				}
 				return bool;
@@ -37,54 +43,70 @@
 				codeTips: '',
 				errorType: ['message','border-bottom'],
 				
+				bankcard_id:'',
+				
 				model:{
 					name:'',
-					phone:'',
+					brankName:'',
 					code1:'',
 					code2:''
 				},
 			}
 		},
 		methods: {
-			submit(){
-				uni.navigateBack({
-					delta:1
-				})
-				/* this.$refs.uForm.validate(valid => {
-					if (valid) {
-						this.http.post('/api/v1/Apply/save',{
-							logo:this.logoLists[0]&&this.logoLists[0].response.data.path||'',
-							pay_img:this.payLists[0]&&this.payLists[0].response.data.path||'',
-							store_name:this.model.storeName,
-							person_name:this.model.name,
-							person_mobile:this.model.phone,
-							person_wx:this.model.wx,
-							business_type:this.model.storesType,
-							pay_type:this.model.payType=='其他'?this.model.other:this.model.payType,
-							area_id:this.model.area_id,
-							address:this.model.address,
-							sex:this.model.sex=='男'?1:0
-						}).then((res)=>{
-							if(res.code==1000){
-								this.$refs.uToast.show({
-									title:res.msg,
-									type:"success",
-									back:true
-								})
-							}else{
-								this.$refs.uToast.show({
-									title:res.msg,
-									type:'error'
-								})
-							}
-						})
-					} else {
-						this.$refs.uToast.show({
-							title:"请填写完带*号的选项再提交",
-							type:'error'
-						})
+			getBankcardById(){
+				this.http.post('withdraw/getBankcardById',{
+					bankcard_id:this.bankcard_id
+				}).then(res=>{
+					if(res.code == 1000){
+						this.model.name = res.data.bankcard.name;
+						this.model.brankName = res.data.bankcard.bank_name;
+						this.model.code1 = res.data.bankcard.bankcard_num;
+						this.model.code2 = res.data.bankcard.bankcard_num;
 					}
-				}); */
+				})
+			},
+			addBankcard(){
+				if(this.model.code1 != this.model.code2) return this.$u.toast('两次输入的银行卡号不一致，请检查！')
+				this.http.post('withdraw/addBankcard',{
+					name:this.model.name,
+					bank_name:this.model.brankName,
+					bankcard_num:this.model.code1
+				}).then(res=>{
+					this.$u.toast(res.mag)
+					if(res.code == 1000){
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta: 1
+							});
+						},1500)
+					}
+				})
+			},
+			editBankcard(){
+				if(this.model.code1 != this.model.code2) return this.$u.toast('两次输入的银行卡号不一致，请检查！')
+				this.http.post('withdraw/editBankcard',{
+					bankcard_id:this.bankcard_id,
+					name:this.model.name,
+					bank_name:this.model.brankName,
+					bankcard_num:this.model.code1
+				}).then(res=>{
+					this.$u.toast(res.mag)
+					if(res.code == 1000){
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta: 1
+							});
+						},1500)
+					}
+				})
+			},
+			submit(){
+				if(this.bankcard_id !=''){
+					this.editBankcard()
+				}else{
+					this.addBankcard();
+				}
 			}
 		}
 	}

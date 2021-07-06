@@ -14,62 +14,13 @@
 		data() {
 			return {
 				keyward:'',
-				list:[
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:1,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:2,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						status:0,
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						location:'浙江省 杭州市 西湖区'
-					}
-				]
+				list:[]
 			}
 		},
 		methods: {
-			
+			search(){
+				
+			}
 		}
 	}
 </script>
