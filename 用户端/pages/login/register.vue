@@ -53,7 +53,7 @@
 			
 		},
 		onShow() {
-			let code=this.GetQueryString("code");
+			let code=this.GetQueryString("openid");
 			if(code == null){
 				this.getOpenid();
 			}else{
@@ -160,12 +160,7 @@
 		},
 		methods: {
 			getOpenid(){
-				this.http.get('auth/oauth',{
-					action:2,
-					inviter_id:this.inviter_id
-				},true).then(res=>{
-					/* window.location.href=res.data.result */
-				})
+				window.location.href = this.http.interfaceUrl() +'auth/oauth'
 			},
 			codeChange(text) {
 				this.codeTips = text;

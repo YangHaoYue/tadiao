@@ -81,7 +81,8 @@
     "h5" : {
         "template" : "template.h5.html",
         "router" : {
-            "mode" : "history"
+            "mode" : "history",
+            "base" : "/html/member"
         },
         "sdkConfigs" : {
             "maps" : {
@@ -89,6 +90,7 @@
                     "key" : "NW7BZ-BVXC2-AFYUX-C57BF-PZED6-WTBY4"
                 }
             }
-        }
+        },
+        "title" : "塔吊用户端"
     }
 }

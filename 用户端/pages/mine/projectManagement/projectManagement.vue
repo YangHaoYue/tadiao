@@ -18,13 +18,15 @@
 					<view class="u-flex u-col-top u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 						<view class="u-text-right">
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥845.00/月</text></view>
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥8456.00</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥{{item.month_rent}}/月</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥{{item.in_out_cost}}</text></view>
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">月付</text></view>
 						</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
-						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
+						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：
+							<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src=" http.resourceUrl()+ item.handler_data.avatar"/>{{item.handler_data.name}}
+						</view>
 						<u-button class="u-m-r-0" type="primary" size="mini" @click="toDetail(item.order_id)">查看合同</u-button>
 					</view>
 				</u-card>
@@ -79,9 +81,7 @@
 				}).then(res=>{
 					if(res.code == 1000){
 						res.data.order_data.forEach(v=>{
-							this.list.push({
-								
-							})
+							this.list.push(this._formart(v))
 						})
 						
 						if(this.page >= this.last_page) this.status = 'nomore';
@@ -115,8 +115,13 @@
 					in_out_cost:data.in_out_cost,
 					project_id:data.project_id,
 					order_id:data.order_id,
-					project_name:data.project_name,
-					thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
+					show_edit_button:data.show_edit_button,
+					show_pay_button:data.show_pay_button,
+					show_fix_button:data.show_fix_button,
+					show_contract_button:data.show_contract_button,
+					show_resubmit_button:data.show_resubmit_button,
+					handler_data:data.handler_data,
+					cus_data:data.cus_data,
 				}
 			},
 			clearData(){

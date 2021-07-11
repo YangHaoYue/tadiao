@@ -73,7 +73,7 @@
 				},{
 					name:'资料审核',
 					img:'../../static/mine/yinhangka@2x.png',
-					url:'/pages/mine/bankCardManagement/bankCardManagement'
+					url:'/pages/mine/materialApply/materialApply'
 				}],
 				cellList2:[{
 					name:'申请成为业务员',

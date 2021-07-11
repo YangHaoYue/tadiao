@@ -14,8 +14,8 @@
 				<!-- <view class="codeType" slot="right" @click="getCode">{{codeTips}}</view> -->
 			</u-form-item>
 		</u-form>
-		<navigator open-type="navigate" url="register" hover-class="none" class="u-m-10 u-text-center">还没有账号?
-			<text style="color: #0F58FB;">前去注册</text>
+		<navigator open-type="navigate" url="register" hover-class="none" class="u-m-10 u-text-center u-m-t-20">还没有账号?
+			<text class="u-m-l-10" style="color: #0F58FB;">前去注册</text>
 		</navigator>
 
 		<u-button class="u-m-t-30" type="primary" :disabled="disabled" @click="submit">登录</u-button>

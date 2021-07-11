@@ -93,6 +93,14 @@
 				console.log(e);
 				this.start = e.startDate;
 				this.end = e.endDate;
+				this.getInfo();
+			},
+			clearData(){
+				this.list = []
+				this.page = 1;
+				this.last_page = 1;
+				this.status = 'loading'
+				this.getInfo();
 			}
 		}
 	}

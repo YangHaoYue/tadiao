@@ -10,7 +10,7 @@ const tui = {
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'http://tower.0831.run/'
+		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
 	},
 	toast: function(text, duration, success) {
 		uni.showToast({

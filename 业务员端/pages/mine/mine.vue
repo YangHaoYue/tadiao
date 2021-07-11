@@ -3,13 +3,13 @@
 		<!-- 头像 -->
 		<view class="u-flex u-col-top u-p-t-20 u-p-l-46 u-p-b-10 u-p-r-30" style="background-color: #F8F8F8;">
 			<view class="u-flex u-col-center" style="margin-right: auto;">
-				<u-avatar :src="avaterSrc" size="120"></u-avatar>
+				<u-avatar :src="http.resourceUrl() +user_data.avatar" size="120"></u-avatar>
 				<view class="u-m-l-30">
-					<view class="u-font-28 text-bold">李家</view>
-					<view class="u-font-24" style="color: #999999;">嘉善分公司</view>
+					<view class="u-font-28 text-bold">{{user_data.name}}</view>
+					<view class="u-font-24" style="color: #999999;">{{user_data.branch_name}}</view>
 				</view>
 			</view>
-			<view class="u-flex u-col-center u-row-right">
+			<view class="u-flex u-col-center u-row-right" v-if="show_fixer_button">
 				<view class="role u-m-r-10" @click="change">{{changeRole}}</view>
 				<u-image class="u-m-r-24" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toSetting"></u-image>
 				<u-image v-if="!role" src="../../static/qrcode@2x.png" width="44" height="44" :fade="false" @click="showModal = true"></u-image>
@@ -21,8 +21,8 @@
 			<view class="card u-flex u-row-between u-col-top">
 				<view class="text-white">
 					<view class="u-font-28">项目奖金(元)</view>
-					<view class="text-bold" style="font-size: 46rpx;margin: 10rpx 0 27rpx 0;">{{money}}</view>
-					<view class="u-font-23">今日收益(元) {{profit}}</view>
+					<view class="text-bold" style="font-size: 46rpx;margin: 10rpx 0 27rpx 0;">{{total_reward}}</view>
+					<view class="u-font-23">今日收益(元) <text class="u-m-l-20">{{today_reward}}</text></view>
 				</view>
 				<view class="u-text-right">
 					<navigator open-type="navigate" url="withdrawal/withdrawal">
@@ -63,19 +63,19 @@
 				<u-grid :col="2" :border="false" align="left">
 					<u-grid-item class="u-border-right u-border-bottom u-p-l-30">
 						<view class="grid-text" style="margin-right: auto;">线索量</view>
-						<view class="value u-m-t-20" style="margin-right: auto;">871</view>
+						<view class="value u-m-t-20" style="margin-right: auto;">{{business_data.project_count}}</view>
 					</u-grid-item>
 					<u-grid-item class="u-border-bottom" style="padding-left: 100rpx;">
 						<view class="grid-text" style="margin-right: auto;">订单量</view>
-						<view class="value u-m-t-20" style="margin-right: auto;">871</view>
+						<view class="value u-m-t-20" style="margin-right: auto;">{{business_data.order_count}}</view>
 					</u-grid-item>
 					<u-grid-item class="u-border-right u-p-l-30">
-						<view class="grid-text" style="margin-right: auto;">订单金额</view>
-						<view class="value u-m-t-20" style="margin-right: auto;">￥871.00</view>
+						<view class="grid-text" style="margin-right: auto;">应收款</view>
+						<view class="value u-m-t-20" style="margin-right: auto;">￥{{business_data.order_pay_amount}}</view>
 					</u-grid-item>
 					<u-grid-item style="padding-left: 100rpx;">
 						<view class="grid-text" style="margin-right: auto;">订单金额</view>
-						<view class="value u-m-t-20" style="margin-right: auto;">￥871.00</view>
+						<view class="value u-m-t-20" style="margin-right: auto;">￥{{business_data.order_amount}}</view>
 					</u-grid-item>
 				</u-grid>
 			</view>
@@ -184,16 +184,31 @@
 
 <script>
 	export default {
+		onLoad() {
+			this.getUserInfo();
+		},
+		onBackPress() {
+			this.fixerMain();
+		},
 		data() {
 			return {
+				show_fixer_button:false,
 				role:true,
 				changeRole:'进入业务员中心',//进入维修中心
 				
-				avaterSrc: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
+				user_data:{
+					id:6,
+					name:"维修师傅老王",
+					avatar:"images\/85e29bb4783cf12363a8fce9237df14.png",
+					branch_name:"测试分公司"
+				},
+				
 				//二维码弹窗
 				showModal:false,
-				money:'7500.00',
-				profit:'0.00',
+				
+				total_reward:'7500.00',
+				today_reward:'0.00',
+				
 				//分段器
 				current:true,
 				//月
@@ -204,18 +219,67 @@
 				start:'2020-11-22',
 				end:'2020-11-22',
 				
+				business_data:{
+					project_count:0,
+					order_count:0,
+					order_pay_amount:0,
+					order_amount:0
+				},
+				
 				list:[
 					{img:'../../static/xiangmuxiansuo@2x.png',name:'项目线索',url:'/pages/mine/projectClues/projectClues'},
 					{img:'../../static/xiangmugaunli@2x.png',name:'项目管理',url:'/pages/mine/projectManagement/projectManagement'},
 					{img:'../../static/weibaojilu@2x.png',name:'维保记录',url:'/pages/mine/maintenance/maintenance'},
 					{img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'}
 				],
+				
+				
 				//维修师傅分段器
 				curNow:0,
-				modal:false
+				modal:false,
+				tower_count:0,
+				is_certified:false
 			}
 		},
 		methods: {
+			//业务员
+			getUserInfo(){
+				let data = ''
+				if(!this.current){
+					data = {
+						start_at:this.start,
+						end_at:this.end
+					}
+				}
+				this.http.get('UserCenter/staff',data).then(res=>{
+					if(res.code == 1000){
+						this.user_data = res.data.user_data;
+						this.total_reward = res.data.total_reward;
+						this.today_reward = res.data.today_reward;
+						this.business_data = res.data.business_data;
+						this.show_fixer_button = res.data.show_fixer_button;//true显示进入维修中心按钮
+					}else{
+						this.$u.toast(res.msg)
+					}
+				})
+			},
+			//维修师傅
+			fixerMain(){
+				this.http.get('UserCenter/fixerMain',{
+					time_limit:this.curNow //0=>三日内(默认),1=>七日内,2=>一个月内,
+				},true).then(res=>{
+					if(res.code == 1000){
+						this.user_data = res.data.user_data;
+						this.tower_count = res.data.tower_count;
+						this.is_certified = res.data.is_certified
+						if(!this.is_certified){
+							this.http.modal("","未认证，请先完善信息！", false, () => {
+								uni.navigateTo({url: 'perfection/perfection'});
+							},'#FE8702')
+						}
+					}
+				})
+			},
 			//切换role
 			change(){
 				if(this.role){
