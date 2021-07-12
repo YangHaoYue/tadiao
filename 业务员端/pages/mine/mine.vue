@@ -2,7 +2,7 @@
 	<view>
 		<!-- 头像 -->
 		<view class="u-flex u-col-top u-p-t-20 u-p-l-46 u-p-b-10 u-p-r-30" style="background-color: #F8F8F8;">
-			<view class="u-flex u-col-center" style="margin-right: auto;">
+			<view class="u-flex u-col-center" style="margin-right: auto;" @click="toSetting">
 				<u-avatar :src="http.resourceUrl() +user_data.avatar" size="120"></u-avatar>
 				<view class="u-m-l-30">
 					<view class="u-font-28 text-bold">{{user_data.name}}</view>
@@ -112,53 +112,59 @@
 				</view>
 			</view>
 			
-			<u-gap height="20" bg-color="#F8F8F8"></u-gap>
-			
-			<view class="cardTwo flex" style="flex-direction: column;">
-				<view class="u-font-32 text-bold u-p-b-30 u-border-bottom" style="color: #404E60;">转入提醒</view>
-				<view class="u-flex u-row-between u-col-top u-p-t-20 u-flex-1">
-					<view class="u-flex-3">
-						<view class="u-flex u-row-between u-m-b-10">
-							<view class="u-font-28">项目名称</view>
-							<view class="u-font-26">这是项目名称</view>
-						</view>
-						<view class="u-flex u-row-between u-m-b-10">
-							<view class="u-font-28">设备出厂编号</view>
-							<view class="u-font-26">WE2445</view>
-						</view>
-						<view class="u-flex u-row-between">
-							<view class="u-font-28">转交人</view>
-							<view class="u-font-26 u-flex">
-								<u-avatar src="" size="60"></u-avatar>
-								<view>张三</view>
+			<block v-if="transfer_data.length != 0">
+				<u-gap height="20" bg-color="#F8F8F8"></u-gap>
+				
+				<view class="cardTwo flex" style="flex-direction: column;">
+					<view class="u-font-32 text-bold u-p-b-30 u-border-bottom" style="color: #404E60;">转入提醒</view>
+					<swiper style="height: 279rpx;" :indicator-dots="false" :circular="false" :autoplay="false" interval="5000" duration="500" @change="scroll">
+						<swiper-item v-for="(item,j) in transfer_data" :key="j" >
+							<view class="u-flex u-row-between u-col-top u-p-t-20" :id="'tab'+j">
+								<view class="u-flex-3">
+									<view class="u-flex u-row-between u-m-b-10">
+										<view class="u-font-28">项目名称</view>
+										<view class="u-font-26">{{item.project_name}}</view>
+									</view>
+									<view class="u-flex u-row-between u-m-b-10">
+										<view class="u-font-28">设备出厂编号</view>
+										<view class="u-font-26">{{item.serial_num}}</view>
+									</view>
+									<view class="u-flex u-row-between">
+										<view class="u-font-28">转交人</view>
+										<view class="u-font-26 u-flex">
+											<u-avatar :src="http.resourceUrl() + item.applier_data.avatar" size="60"></u-avatar>
+											<view>{{item.applier_data.name}}</view>
+										</view>
+									</view>
+									<view class="u-font-24" style="color: #838383;margin-top: 44rpx;">下次维保时间:{{item.next_care_at}}</view>
+								</view>
+								<view class="u-flex-2 u-flex u-row-right">
+									<u-button type="primary" size="mini" style="margin-right: 0;" @click="handle(item.transfer_id)">处理</u-button>
+								</view>
 							</view>
-						</view>
-						<view class="u-font-24" style="color: #838383;margin-top: 44rpx;">下次维保时间:2021-04-08</view>
-					</view>
-					<view class="u-flex-2 u-flex u-row-right">
-						<u-button type="primary" size="mini" style="margin-right: 0;" @click="handle">处理</u-button>
-					</view>
+						</swiper-item>
+					</swiper>
 				</view>
-			</view>
+			</block>
 			
 			<u-gap height="20" bg-color="#F8F8F8"></u-gap>
 			
 			<view class="cardTwo flex" style="flex-direction: column;">
 				<view class="u-font-32 text-bold u-p-b-30 solid-bottom" style="color: #404E60;">跟踪提醒</view>
-				<view class="u-flex u-row-between u-col-top u-p-t-20 u-p-b-20 u-flex-1 u-border-bottom" v-for="i in 3" :key="i">
+				<view class="u-flex u-row-between u-col-top u-p-t-20 u-p-b-20 u-flex-1 u-border-bottom" v-for="(item,k) in track_data" :key="k">
 					<view class="u-flex-3">
 						<view class="u-flex u-row-between u-m-b-10">
 							<view class="u-font-28">项目名称</view>
-							<view class="u-font-26">这是项目名称</view>
+							<view class="u-font-26">{{item.project_name}}</view>
 						</view>
 						<view class="u-flex u-row-between">
 							<view class="u-font-28">设备出厂编号</view>
-							<view class="u-font-26">WE2445</view>
+							<view class="u-font-26">{{item.serial_num}}</view>
 						</view>
-						<view class="u-font-24" style="color: #838383;margin-top: 31rpx;">下次维保时间:2021-04-08</view>
+						<view class="u-font-24" style="color: #838383;margin-top: 31rpx;">下次维保时间:{{item.next_care_at}}</view>
 					</view>
 					<view class="u-flex-2 u-flex u-row-right">
-						<u-button type="primary" size="mini" style="margin-right: 0;">详情</u-button>
+						<u-button type="primary" size="mini" style="margin-right: 0;" @click="toTrakdetail(item.id)">详情</u-button>
 					</view>
 				</view>
 			</view>
@@ -174,7 +180,7 @@
 		<!-- 二维码弹窗 -->
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="681">
 			<view class="u-p-60 u-p-b-40 u-flex" style="flex-direction: column;">
-				<u-image :src="avaterSrc" width="363" height="363"></u-image>
+				<u-image :src="codeImg" width="363" height="363"></u-image>
 				<view class="u-m-t-20 u-font-24 text-gray">长按保存相册</view>
 				<u-button style="width: 100%;margin-top: 80rpx;" size="medium" type="primary" @click="showModal = false">关闭</u-button>
 			</view>
@@ -190,10 +196,17 @@
 		onBackPress() {
 			this.fixerMain();
 		},
+		onReachBottom() {
+			if(this.track_data_page >= this.track_data_last_page) return ;
+			this.track_data_page = ++ this.track_data_page;
+			setTimeout(() => {
+				this.fixerTracks();
+			}, 50)
+		},
 		data() {
 			return {
 				show_fixer_button:false,
-				role:true,
+				role:false,
 				changeRole:'进入业务员中心',//进入维修中心
 				
 				user_data:{
@@ -205,6 +218,7 @@
 				
 				//二维码弹窗
 				showModal:false,
+				codeImg:'',
 				
 				total_reward:'7500.00',
 				today_reward:'0.00',
@@ -238,7 +252,17 @@
 				curNow:0,
 				modal:false,
 				tower_count:0,
-				is_certified:false
+				is_certified:false,
+				
+				//转入
+				transfer_data:[],
+				transfer_data_page:1,
+				transfer_data_last_page:1,
+				
+				//追踪
+				track_data:[],
+				track_data_page:1,
+				track_data_last_page:1,
 			}
 		},
 		methods: {
@@ -263,6 +287,11 @@
 					}
 				})
 			},
+			getInviteCode(){
+				this.http.get('UserCenter/getInviteCode',{},true).then(res=>{
+					this.codeImg = this.http.resourceUrl() + res.data
+				})
+			},
 			//维修师傅
 			fixerMain(){
 				this.http.get('UserCenter/fixerMain',{
@@ -276,6 +305,54 @@
 							this.http.modal("","未认证，请先完善信息！", false, () => {
 								uni.navigateTo({url: 'perfection/perfection'});
 							},'#FE8702')
+						}
+						this.fixerTracks();
+						this.fixerTransfers()
+					}
+				})
+			},
+			//转入提醒
+			fixerTransfers(){
+				this.http.get('UserCenter/fixerTransfers',{
+					page:this.transfer_data_page
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.transfer_data.length == 0){
+							this.transfer_data = res.data.transfer_data;
+							this.transfer_data_last_page = res.data.last_page;
+						}else{
+							res.data.transfer_data.forEach(v=>{
+								this.transfer_data.push(v)
+							})
+						}
+					}
+				})
+			},
+			scroll(e){
+				let current = e.detail.current + 1
+				if(current == this.transfer_data.length){
+					console.log(e);
+					if(this.transfer_data_page >= this.transfer_data_last_page) return ;
+					this.transfer_data_page = ++ this.transfer_data_page;
+					setTimeout(() => {
+						this.fixerTransfers();
+					}, 50)
+				}
+			},
+			//跟踪提醒
+			fixerTracks(){
+				this.http.get('UserCenter/fixerTracks',{
+					page:this.track_data_page,
+					time_limit:this.curNow//0=>三日内(默认),1=>七日内,2=>一个月内,
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.track_data.length == 0){
+							this.track_data = res.data.track_data;
+							this.track_data_last_page = res.data.last_page;
+						}else{
+							res.data.track_data.forEach(v=>{
+								this.track_data.push(v)
+							})
 						}
 					}
 				})

@@ -115,9 +115,9 @@ const tui = {
 						uni.clearStorageSync()
 						tui.modal("","登录信息已失效，请重新登录", false, () => {
 							//store.commit("logout") 登录页面执行
-							uni.reLaunch({
+							/* uni.reLaunch({
 								url:'/pages/login/login'
-							})
+							}) */
 						},'#FE8702')
 						return
 					}

@@ -9,6 +9,7 @@
 			<!-- 当list为空时 -->
 			<view class="u-flex u-row-center" style="margin: 139rpx 192rpx;" v-if="list.length === 0">
 				<u-image width="365" height="365" src="@/static/mine/empty.png"></u-image>
+				<view class="u-font-28 text-gray u-m-t-40 u-text-center">空空如也~</view>
 			</view>
 			<block v-for="(item,index) in list" :key="index" >
 				<u-card :title="item.title" title-size="24" title-color="#666666"
