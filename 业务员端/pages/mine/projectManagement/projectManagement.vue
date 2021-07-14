@@ -52,6 +52,9 @@
 
 <script>
 	export default {
+		onLoad() {
+			this.getInfo();
+		},
 		data() {
 			return {
 				//搜索关键词
@@ -112,6 +115,9 @@
 			}
 		},
 		methods: {
+			getInfo(){
+				
+			},
 			chooseDayRange(e){
 				console.log(e);
 				this.start = e.startDate;

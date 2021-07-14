@@ -5,13 +5,13 @@
 			<view class="u-flex u-col-center" style="margin-right: auto;" @click="toSetting">
 				<u-avatar :src="http.resourceUrl() +user_data.avatar" size="120"></u-avatar>
 				<view class="u-m-l-30">
-					<view class="u-font-28 text-bold">{{user_data.name}}</view>
-					<view class="u-font-24" style="color: #999999;">{{user_data.branch_name}}</view>
+					<view class="u-font-28 text-bold u-line-1">{{user_data.name}}</view>
+					<view class="u-font-24 u-line-1" style="color: #999999;">{{user_data.branch_name}}</view>
 				</view>
 			</view>
 			<view class="u-flex u-col-center u-row-right" v-if="show_fixer_button">
-				<view class="role u-m-r-10" @click="change">{{changeRole}}</view>
-				<u-image class="u-m-r-24" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toSetting"></u-image>
+				<view class="role u-m-r-10 u-line-1" @click="change">{{changeRole}}</view>
+				<u-image :class="!role?'u-m-r-24':''" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toSetting"></u-image>
 				<u-image v-if="!role" src="../../static/qrcode@2x.png" width="44" height="44" :fade="false" @click="showModal = true"></u-image>
 			</view>
 		</view>

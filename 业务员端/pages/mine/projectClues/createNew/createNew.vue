@@ -7,26 +7,26 @@
 		<view class="u-p-l-50 u-p-r-20 bg-white" style="border-radius: 10rpx;">
 			<u-form :model="model" ref="uForm" :errorType="errorType">
 				<u-form-item :label-style="labelStyle" :required="true" label-width="120" :label-position="labelPosition" label="项目名称" prop="entryName">
-					<u-input :border="border" placeholder="请输入项目名称" v-model="model.entryName" type="text"></u-input>
+					<u-input :border="border" placeholder="请输入项目名称" v-model="model.project_name" type="text"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="true" right-icon="arrow-right" :label-position="labelPosition" label="地图定位" prop="location" label-width="150">
-					<u-input :border="border" :disabled="true" v-model="model.location" placeholder="请选择定位" @click="chooseLocation"></u-input>
+					<u-input :border="border" :disabled="true" v-model="model.address" placeholder="请选择定位" @click="chooseLocation"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="施工单位" prop="constructionUnit">
-					<u-input :border="border" type="text" v-model="model.constructionUnit" placeholder="请输入塔吊使用方单位名称"></u-input>
+					<u-input :border="border" type="text" v-model="model.construction_name" placeholder="请输入塔吊使用方单位名称"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="false" :label-position="labelPosition" label="项目的建设单位" prop="ofTheProject">
-					<u-input :border="border" type="text" v-model="model.ofTheProject" placeholder="请输入项目的建设单位"></u-input>
+					<u-input :border="border" type="text" v-model="model.developer_name" placeholder="请输入项目的建设单位"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="塔机型号及数量" prop="list">
 					<view>
-						<block v-for="(item,j) in model.list" :key="j">
+						<block v-for="(item,j) in model.tower_types" :key="j">
 							<view class="u-flex u-m-t-10 u-m-b-10">
 								<view class="u-flex" style="border: 1rpx solid #DDDDDD;border-radius: 10rpx;line-height: 1;">
 									<view class="u-p-10 u-p-l-15">塔机型号</view>
 									<u-input class="u-border-right u-border-left u-p-l-10" v-model="item.type" placeholder="请输入塔机型号"/>
 									<view class="u-p-10 u-p-l-15">数量</view>
-									<u-input class="u-border-right u-p-l-10" v-model="item.number" placeholder="请输入数量"/>
+									<u-input class="u-border-right u-p-l-10" v-model="item.count" placeholder="请输入数量"/>
 								</view>
 								<u-icon v-if="j != 0" class="u-m-l-10" name="minus-circle" color="#0F58FB" size="52rpx" @click="deleteEquipment(j)"></u-icon>
 								<view v-else class="bg-white u-m-l-24" style="height: 52rpx;width: 52rpx;"></view>
@@ -52,16 +52,16 @@
 		</view>
 		<view class="u-p-l-50 u-p-r-40 bg-white" style="border-radius: 10rpx;">
 			<u-form :model="model" ref="uForm" :errorType="errorType">
-				<block v-for="(item,i) in model.connectList" :key="i">
+				<block v-for="(item,i) in model.Types" :key="i">
 					<view class="u-flex u-row-between u-p-t-20 u-p-b-20 u-border-bottom">
 						<view>联系人{{i+1}}</view>
 						<u-icon name="trash" size="35" @click="deleteConnect(i)" v-if="i>0"></u-icon>
 					</view>
 					<u-form-item :label-style="labelStyle" :required="true" label-width="120" :label-position="labelPosition" label="联系人">
-						<u-input :border="border" placeholder="请输入联系人的姓名" v-model="item.name" type="text"></u-input>
+						<u-input :border="border" placeholder="请输入联系人的姓名" v-model="item.media_name" type="text"></u-input>
 					</u-form-item>
 					<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="联系电话">
-						<u-input :border="border" type="number" v-model="item.phone" placeholder="请输入联系人的手机号码"></u-input>
+						<u-input :border="border" type="number" v-model="item.media_tel_num" placeholder="请输入联系人的手机号码"></u-input>
 					</u-form-item>
 				</block>
 			</u-form>
@@ -86,6 +86,21 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			if(e.project_id){
+				this.project_id = e.project_id;
+				this.getInfo();
+			}
+		},
+		onShow() {
+			uni.$on('address',(data)=>{
+				console.log(data);
+				this.model.latitude = data.latitude;
+				this.model.longitude = data.longitude;
+				this.model.address = data.address;
+				uni.$off('addresss')
+			})
+		},
 		data() {
 			return {
 				border:false,
@@ -94,27 +109,35 @@
 				codeTips: '',
 				errorType: ['message','border-bottom'],
 				
+				project_id:'',
 				
 				model:{
-					entryName:'',
-					location:'',
-					constructionUnit:'',
-					ofTheProject:'',
-					list:[{
-						type:'',
-						number:''
-					},{
-						type:'',
-						number:''
-					},{
-						type:'',
-						number:''
-					}],
-					remark:'',
-					connectList:[{
-						name:'',
-						phone:''
-					}]
+					project_name:"缇香荟",
+					latitude:"31.188767",
+					longitude:"121.703641",
+					address:"default",
+					district:[
+					  "上海市",
+					  "市辖区",
+					  "浦东新区"
+					],
+					construction_name:"中欧",
+					developer_name:"",
+					tower_types:[
+					  {
+						id:3,
+						type:"t-800",
+						count:1
+					  }
+					],
+					Types:[
+					  {
+						id:4,
+						media_name:"张三",
+						media_tel_num:"1654366168"
+					  }
+					],
+					remark:""
 				},
 				//选择地区
 				selectMapShow:false,
@@ -123,6 +146,15 @@
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('project/getProjectEditInfo',{
+					project_id:this.project_id
+				}).then(res=>{
+					if(res.code == 1000){
+						this.model = res.data
+					}
+				})
+			},
 			//地图定位
 			chooseLocation(){
 				uni.navigateTo({
@@ -141,25 +173,77 @@
 			},
 			//增加塔机机型
 			addNewEquipment(){
-				this.model.list.push({
-						name:'',
-						phone:''
+				this.model.tower_types.push({
+						type:'',
+						count:''
 					})
 			},
 			//删除机型
 			deleteEquipment(j){
-				this.model.list.splice(j,1);
+				this.model.tower_types.splice(j,1);
 			},
 			//增加联系人
 			addConnect(){
-				this.model.connectList.push({
-						name:'',
-						phone:''
+				this.model.Types.push({
+						media_name:'',
+						media_tel_num:''
 					})
 			},
 			//删除联系人
 			deleteConnect(i){
-				this.model.connectList.splice(i,1);
+				this.model.Types.splice(i,1);
+			},
+			addProject(){
+				this.http.post('project/addProject',{
+					project_name:this.model.project_name,
+					longitude:this.model.longitude,
+					latitude:this.model.latitude,
+					address:this.model.address,
+					construction_name:this.model.construction_name,
+					developer_name:this.model.developer_name,
+					remark:this.model.remark,
+					tower_types:this.model.list,
+					medias:this.model.connectList
+				}).then(res=>{
+					if(res.code == 1000){
+						this.showModal = true;
+					}else{
+						this.$u.toast(res.msg);
+					}
+				})
+			},
+			editProject(){
+				this.http.post('project/editProject',{
+					project_id:this.project_id,
+					longitude:this.model.longitude,
+					latitude:this.model.latitude,
+					address:this.model.address,
+					project_name:this.model.project_name,
+					construction_name:this.model.construction_name,
+					developer_name:this.model.developer_name,
+					remark:this.model.remark,
+					tower_types:this.model.list,
+					medias:this.model.connectList
+				}).then(res=>{
+					this.$u.toast(res.msg);
+					if(res.code == 1000){
+						setTimeout(()=>{
+							this.back()
+						},1500)
+					}
+				})
+			},
+			submit(){
+				if(this.project_id){
+					this.editProject();
+				}else{
+					this.addProject();
+				}
+			},
+			back(){
+				uni.navigateBack({
+					delta: 1
+				});
 			}
 		}
 	}

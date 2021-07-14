@@ -3,82 +3,101 @@
 		<block v-for="(item,index) in list" :key="index">
 			<view class="u-m-25 bg-white" style="padding: 37rpx 0 10rpx 22rpx;border-radius: 10rpx;">
 				<view class="u-flex">
-					<u-image :src="item.img" width="153" height="153" mode="scaleToFill" :fade="false"></u-image>
+					<u-image :src="http.resourceUrl()+item.tower_img" width="153" height="153" mode="scaleToFill" :fade="false"></u-image>
 					<view class="u-m-l-12">
-						<view class="u-font-26 text-bold u-m-b-20">{{item.name}}</view>
+						<view class="u-font-26 text-bold u-m-b-20">{{item.tower_name}}({{item.tower_type}})</view>
 						<view class="text-gray u-font-22">设备出厂编号:{{item.code}}</view>
-						<view class="text-gray u-font-22">品牌:{{item.brand}}</view>
-						<view class="text-gray u-font-22">年限:{{item.years}}</view>
+						<view class="text-gray u-font-22">品牌:{{item.brand_name}}</view>
+						<view class="text-gray u-font-22">年限:{{item.age_limit}}</view>
 					</view>
 				</view>
-				<view class="text-gray u-font-26 u-m-t-20">关联失效时间:{{item.invalid}}</view>
+				<view class="text-gray u-font-26 u-m-t-20">关联失效时间:{{item.expired_at}}</view>
 			</view>
 		</block>
 		<u-button class="u-m-30" type="primary" @click="toConnect">继续关联</u-button>
 		
+		<!-- 加载更多 -->
+		<view class="u-m-t-20 u-m-b-20" >
+			<u-loadmore :status="status"/>
+		</view>
 		<u-gap height="40" bg-color="#F8F8F8"></u-gap>
 	</view>
 </template>
 
 <script>
 	export default {
+		onLoad(e) {
+			this.project_id = e.project_id;
+			this.getInfo();
+		},
+		onBackPress() {
+			this.clearData()
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		data() {
 			return {
-				list:[
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						code:'WE2445',
-						brand:'虎马',
-						years:'三年',
-						invalid:'2021-09-01'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						code:'WE2445',
-						brand:'虎马',
-						years:'三年',
-						invalid:'2021-09-01'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						code:'WE2445',
-						brand:'虎马',
-						years:'三年',
-						invalid:'2021-09-01'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						code:'WE2445',
-						brand:'虎马',
-						years:'三年',
-						invalid:'2021-09-01'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						code:'WE2445',
-						brand:'虎马',
-						years:'三年',
-						invalid:'2021-09-01'
-					},
-					{
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						code:'WE2445',
-						brand:'虎马',
-						years:'三年',
-						invalid:'2021-09-01'
-					}
-				]
+				project_id:'',
+				page:1,
+				last_page:1,
+				list:[],
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
+				/* 
+				 {
+				 	img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
+				 	name:'QTZ80(5512-6)',
+				 	code:'WE2445',
+				 	brand:'虎马',
+				 	years:'三年',
+				 	invalid:'2021-09-01'
+				 }
+				 */
 			}
 		},
 		methods: {
-			toConnect(){
-				uni.navigateTo({url: 'relation'});
+			getInfo(){
+				this.http.get('project/getLockedTowers',{
+					project_id:this.project_id,
+					page:this.page
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.lock_data;
+							this.last_page = res.data.last_page;
+						}else{
+							res.data.lock_data.forEach(v=>{
+								this.list.push(v)
+							})
+						}
+						
+						this.shows_lock_button = res.data.shows_lock_button;
+						
+						if(this.page >= this.last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
+					}
+				})
+			},
+			clearData(){
+				this.page = 1;
+				this.list = [];
+				this.status = "loading"
+				this.getInfo();
+			},
+			toConnect(id){
+				uni.navigateTo({url: 'relation?project_id=' + this.project_id});
 			}
 		}
 	}

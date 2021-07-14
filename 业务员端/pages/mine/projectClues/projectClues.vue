@@ -15,48 +15,51 @@
 				<!-- 我的线索 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
-				 @click="toDetail()" v-if="current == 0">
+				 @click="toDetail(item.id)" v-if="current == 0">
 					<view class="u-flex u-row-between" slot="body">
-						<view class="text-bold u-font-28 text-black">{{item.desc}}</view>
+						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
-						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
+						<view class="u-flex u-font-24" style="color: #666666;">
+							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}</view>
 						<view>
-							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toRelation">关联塔吊</u-button>
-							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate">创建项目</u-button>
+							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toRelation(item.id)" v-if="!item.lock_arr.has_lock">关联塔吊</u-button>
+							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toAssociated(item.id)" v-if="item.lock_arr.has_lock">已关联塔吊</u-button>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate" v-if="item.show_order_button">创建项目</u-button>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toEdit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
 						</view>
 					</view>
 				</u-card>
 				<!-- 公海池 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
-				 @click="toDetail()" v-else-if="current == 1">
+				 @click="toDetail(item.id)" v-else-if="current == 1">
 					<view class="u-flex u-row-between" slot="body">
-						<view class="text-bold u-font-28 text-black">{{item.desc}}</view>
+						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
-						<u-icon name="map" size="33" :label="item.desc" label-color="#666666" label-size="24"></u-icon>
-						<u-button type="primary" size="mini" style="margin-right: 0;">申请认领</u-button>
+						<u-icon name="map" size="33" :label="item.address" label-color="#666666" label-size="24"></u-icon>
+						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply">申请认领</u-button>
 					</view>
 				</u-card>
 				<!-- 别人的线索 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
-				 @click="toDetail()" v-else>
+				 @click="toDetail(item.id)" v-else>
 				 <view slot="head" class="u-flex u-font-24" style="color: #666666;">合同协调人：
-				 <u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
+				 <u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}</view>
 					<view class="u-flex u-row-between" slot="body">
-						<view class="text-bold u-font-28 text-black">{{item.desc}}</view>
+						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
-						<u-icon name="map" size="33" :label="item.desc" label-color="#666666" label-size="24"></u-icon>
+						<u-icon name="map" size="33" :label="item.address" label-color="#666666" label-size="24"></u-icon>
 					</view>
 				</u-card>
 			</block>
 		</view>
 		
 		<!-- 加载更多 -->
-		<view class="u-m-t-20 u-m-b-20" v-if="list.length != 0">
+		<view class=" u-m-b-20" v-if="list.length != 0">
 			<u-loadmore :status="status"/>
 		</view>
 		
@@ -110,7 +113,6 @@
 					value:3
 				}],
 				
-				current: 0,
 				page:1,
 				last_page:1,
 				list:[],
@@ -141,15 +143,16 @@
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
-							this.list = res.data.pages.project_data;
+							this.list = res.data.pages.project_data.map(v=>{
+								return this._format(v)
+							});
 							this.last_page = res.data.pages.last_page;
 							this.showModal = res.data.show_modal.is_show;
 						}else{
 							res.data.pages.project_data.forEach(v=>{
-								this.list.push(v)
+								this.list.push(this._format(v))
 							})
 						}
-						
 						this.project_name = res.data.show_modal.project_name;
 						
 						if(this.page >= this.last_page) this.status = 'nomore';
@@ -158,31 +161,67 @@
 				})
 			},
 			_format(e){
+				//0=>审核中,1=>待跟进,2=>跟进中,3=>已成交,4=>已付款,5=>已拒绝,6=>已结束,10=>空闲中,11=>本人申请中,12本人申请被拒,13=>已被预约
+				let subTitle = '';
+				let subTitleColor = '';
+				switch(e.status){
+					case 0:
+						subTitle = '审核中';
+						subTitleColor = '#105CFB';
+						break;
+					case 1:
+						subTitle = '待跟进';
+						subTitleColor = '#FE5E10';
+						break;
+					case 2:
+						subTitle = '跟进中';
+						subTitleColor = '#2DA016';
+						break;
+					case 3:
+						subTitle = '已成交';
+						subTitleColor = '#2DA016';
+						break;
+					case 4:
+						subTitle = '已付款';
+						subTitleColor = '#2DA016';
+						break;
+					case 5:
+						subTitle = '已拒绝';
+						subTitleColor = '#FE5E10';
+						break;
+					case 6:
+						subTitle = '已结束';
+						subTitleColor = '#FE5E10';
+						break;
+					case 10:
+						subTitle = '空闲中';
+						subTitleColor = '#105CFB';
+						break;
+					case 11:
+						subTitle = '本人申请中';
+						subTitleColor = '#2DA016';
+						break;
+					case 12:
+						subTitle = '本人申请被拒';
+						subTitleColor = '#FE5E10';
+						break;
+					case 13:
+						subTitle = '已被预约';
+						subTitleColor = '#FE5E10';
+						break;
+				}
 				return{
-					 {
-					  "id":1,
-					  "status":1,
-					  "project_name":"雅居乐-锦城",
-					  "created_at":"2021-05-27 16:46:16",
-					  "address":"上海市市辖区浦东新区详细地址",
-					  "provider_data":{
-						"id":5,
-						"name":"测试注册",
-						"avatar":"images\/85e29bb4783cf12363a8fce9237df14.png"
-					  },
-					  "handler_data":{
-						"id":5,
-						"name":"测试注册",
-						"avatar":"images\/85e29bb4783cf12363a8fce9237df14.png"
-					  },
-					  "show_follow_button":true,
-					  "show_edit_button":false,
-					  "show_order_button":false,
-					  "lock_arr":{
-						"has_lock":false,
-						"show_lock_button":true
-					  }
-					}
+					id:e.id,
+					status:1,
+					project_name:e.project_name,
+					title:"创建时间：" + e.created_at,
+					address:e.address,
+					provider_data:e.provider_data,
+					handler_data:e.handler_data,
+					show_follow_button:e.show_follow_button,
+					show_edit_button:e.show_edit_button,
+					show_order_button:e.show_order_button,
+					lock_arr:e.lock_arr,
 				}
 			},
 			clearData(){
@@ -192,7 +231,6 @@
 				this.projectLists();
 			},
 			change(index) {
-				console.log(index);
 				this.current = index;
 				this.clearData();
 			},
@@ -210,11 +248,33 @@
 					}
 				})
 			},
-			toDetail(){
-				uni.navigateTo({url: 'detail/detail'});
+			toDetail(id){
+				uni.navigateTo({url: 'detail/detail?project_id=' + id});
 			},
+			//关联塔吊
 			toRelation(){
-				uni.navigateTo({url: 'relation/associated'});
+				uni.navigateTo({url: 'relation/relation'});
+			},
+			//已关联的塔吊
+			toAssociated(id){
+				uni.navigateTo({url: 'relation/associated?project_id='+id});
+			},
+			//申请认领
+			toApply(id){
+				this.http.post('project/projectLockTower',{
+					project_id:id
+				}).then(res=>{
+					this.$u.toast(res.msg)
+					if(res.code == 1000){
+						setTimeout(()=>{
+							this.clearData();
+						},1500)
+					}
+				})
+			},
+			//修改线索
+			toEdit(id){
+				uni.navigateTo({url: 'newProject/newProject?project_id=' + id});
 			},
 			/* 新建项目 */
 			toCreate(){

@@ -4,8 +4,8 @@
 			<block v-for="(item,index) in equipmentList" :key="index">
 				<view class="u-flex u-row-between" style="padding: 13rpx 30rpx;">
 					<view class="u-flex">
-						<u-image :src="item.src" width="116" height="116" :fade="false"></u-image>
-						<view class="u-font-28 text-bold text-bold u-m-l-15">{{item.title}}</view>
+						<u-image :src="http.resourceUrl() + item.tower_img" width="116" height="116" :fade="false"></u-image>
+						<view class="u-font-28 text-bold text-bold u-m-l-15">{{item.tower_name}}</view>
 					</view>
 					<u-image src="../../../../static/shanchu@2x.png" width="35" height="35" :fade="false" @click="del(index)"></u-image>
 				</view>
@@ -71,6 +71,15 @@
 	import formList from '@/components/form-list.vue';
 	import proCard from '@/components/pro-card.vue';
 	export default {
+		onLoad() {
+			
+		},
+		onShow() {
+			uni.$on('townList',(data)=>{
+				this.equipmentList = data.data
+				uni.$off('townList')
+			})
+		},
 		components:{
 			formList,
 			proCard

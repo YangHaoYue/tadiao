@@ -29,7 +29,7 @@
 			</label>
 			<view class="u-flex u-m-r-20">
 				<view class="u-m-r-20 u-font-22" style="color: #666666;">已选择{{count}}个</view>
-				<u-button  type="primary" size="medium" :custom-style="btnStyle">匹配</u-button>
+				<u-button  type="primary" size="medium" :custom-style="btnStyle" @click="submit">匹配</u-button>
 			</view>
 		</view>
 	</view>
@@ -37,6 +37,19 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			this.project_id = e.project_id;
+			this.order_id = e.order_id;
+			this.getInfo();
+		},
+		onReachBottom() {
+			if(this.tabList[this.current].page >= this.tabList[this.current].last_page) return ;
+			this.status = 'loading';
+			this.tabList[this.current].page = ++ this.tabList[this.current].page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		computed: {
 			isSelectedAll:{
 				get:function(){
@@ -46,152 +59,97 @@
 				}
 			},
 			count(){
-				return this.selectedList.length
+				return this.tabList[0].selectedList.length + this.tabList[1].selectedList.length
 			}
 		},
 		data() {
 			return {
+				order_id:'',
+				project_id:'',
+				
 				current:0,
 				tabList: [{
 					name: '本公司',
-					list:[
-						{
-							id:'0',
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:0,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							checked:false,
-						},
-						{
-							id:'2',
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:1,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							checked:false,
-						},
-						{
-							id:'1',
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:2,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							checked:false,
-						},
-						{
-							id:'3',
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:0,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							checked:false,
-						},
-						{
-							id:'4',
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:0,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							checked:false,
-						}
-					]
+					list:[],
+					page:1,
+					last_page:1,
+					selectedList:[]
 				}, {
 					name: '其他公司',
-					list:[
-						{
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:0,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							location:'浙江省 杭州市 西湖区'
-						},
-						{
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:1,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							location:'浙江省 杭州市 西湖区'
-						},
-						{
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:2,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							location:'浙江省 杭州市 西湖区'
-						},
-						{
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:0,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							location:'浙江省 杭州市 西湖区'
-						},
-						{
-							img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-							name:'QTZ80(5512-6)',
-							status:0,
-							price:'3678.00',
-							number:'WE225',
-							brand:'马牌',
-							time:'三年',
-							location:'浙江省 杭州市 西湖区'
-						}
-					]
+					list:[],
+					page:1,
+					last_page:1,
+					selectedList:[]
 				}],
-				/* 是否全选 */
-				selectedList:[],
 				btnStyle:{
 					fontSize:'28rpx'
-				}
+				},
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 			}
 		},
 		methods: {
+			getInfo(){
+				//0=>本公司(默认,可不传),1=>其他公司
+				let data = ''
+				if(this.project_id){
+					data = {
+						type:this.current,
+						project_id:this.project_id,
+						page:this.tabList[this.current].page
+					}
+				}else{
+					data = {
+						type:this.current,
+						order_id:this.order_id,
+						page:this.tabList[this.current].page
+					}
+				}
+				
+				this.http.get('Order/getTowersForOrder',data).then(res=>{
+					if(res.code == 1000){
+						if(this.tabList[this.current].list.length == 0){
+							this.tabList[this.current].list = res.data.tower_data.map(v=>{
+								this.$set(v,'checked',false)
+							});
+							this.tabList[this.current].last_page = res.data.last_page;
+						}else{
+							let list = res.data.tower_data.map(v=>{
+								this.$set(v,'checked',false)
+							})
+							this.tabList[this.current].list.concat(list)
+						}
+						
+						if(this.tabList[this.current].page >= this.tabList[this.current].last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
+					}
+				})
+			},
 			change(index) {
-				this.selectedList = [];
-				this.unCheckedAll()
+				/* this.selectedList = []; */
 				this.current = index;
 			},
 			// 选中某个复选框时，由checkbox时触发
 			checkboxGroupChange(e) {
 				console.log(e);
-				this.selectedList=e;
+				this.tabList[this.current].selectedList = this.tabList[this.current].list.filter(v=>{
+					return v.checked
+				});
 			},
 			doSelectedAll(){
 				this.isSelectedAll ? this.unCheckedAll() :this.checkedAll()
 			},
 			// 全选
 			checkedAll() {
-				this.selectedList=this.tabList[this.current].list.map(val => {
+				this.tabList[this.current].selectedList = this.tabList[this.current].list.map(val => {
 					val.checked = true;
-					return val.id;
+					return val;
 				})
 			},
 			//取消全选
@@ -199,8 +157,11 @@
 				this.tabList[this.current].list.forEach(v=>{
 					v.checked=false;
 				});
-				this.selectedList=[];
+				this.tabList[this.current].selectedList = [];
 			},
+			submit(){
+				uni.$emit('townList',{data:[...this.tabList[0].selectedList,...this.tabList[1].selectedList]})
+			}
 		}
 	}
 </script>
