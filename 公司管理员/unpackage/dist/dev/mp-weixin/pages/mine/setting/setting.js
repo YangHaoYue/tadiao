@@ -94,7 +94,13 @@ var components
 try {
   components = {
     uAvatar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 355))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 379))
+    },
+    uImage: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
+    },
+    uButton: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -118,6 +124,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+  var g1 = _vm.http.resourceUrl()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        g1: g1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -151,7 +168,16 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -187,16 +213,55 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getInfo();
+  },
   data: function data() {
     return {
       avatarSrc: '',
-      position: '业务员',
-      name: '李四',
-      companie: '江西分公司',
-      phone: '15168308762' };
+      tempFilePath: '',
+      identity: '业务员',
+      real_name: '李四',
+      branch_name: '江西分公司',
+      tel_num: '15168308762',
+      staff_img: [],
+      id_card_img: [] };
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    getInfo: function getInfo() {var _this = this;
+      this.http.get('UserCenter/getRealInfo').then(function (res) {
+        _this.avatarSrc = _this.http.resourceUrl() + res.data.avatar;
+        _this.identity = res.data.identity;
+        _this.real_name = res.data.real_name;
+        _this.branch_name = res.data.branch_name;
+        _this.tel_num = res.data.tel_num;
+        _this.staff_img = res.data.staff_img;
+        _this.id_card_img = res.data.id_card_img;
+      });
+    },
+    chooseImg: function chooseImg() {var _this2 = this;
+      uni.chooseImage({
+        count: 1, //默认9
+        sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album'], //从相册选择
+        success: function success(res) {
+          console.log(res);
+          _this2.avatarSrc = res.tempFilePaths[0];
+          _this2.http.uploadFile('Common/fileUploader', res.tempFilePaths[0]).then(function (res) {
+            _this2.tempFilePath = res.data.path;
+          });
+        } });
+
+    },
+    submit: function submit() {var _this3 = this;
+      this.http.post('UserCenter/editAvatar', {
+        avatar: this.tempFilePath }).
+      then(function (res) {
+        _this3.$u.toast(res.msg);
+      });
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

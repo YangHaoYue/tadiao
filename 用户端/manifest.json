@@ -79,10 +79,10 @@
         "usingComponents" : true
     },
     "h5" : {
-        "template" : "template.h5.html",
+        "template" : "",
         "router" : {
             "mode" : "history",
-            "base" : "/html/member"
+            "base" : "/html/user"
         },
         "sdkConfigs" : {
             "maps" : {

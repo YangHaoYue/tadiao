@@ -96,16 +96,16 @@ var components
 try {
   components = {
     uTabs: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 425))
+      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 449))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uCard: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 432))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 456))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -129,6 +129,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -203,80 +212,134 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getInfo();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.page >= this.last_page) return;
+    this.status = 'loading';
+    this.page = ++this.page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   data: function data() {
     return {
       tabList: [{
-        name: '公司项目' },
+        name: '公司项目',
+        value: 0 },
       {
-        name: '我的项目' }],
+        name: '我的项目',
+        value: 1 }],
 
       current: 0,
       idot: 0,
       idotList: [{ title: '执行中', value: 0 }, { title: '历史', value: 1 }],
 
-
-      list: [{
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '审核中',
-        subTitleColor: '#FE5E10',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#333333',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '未通过',
-        subTitleColor: '#999999',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '已成交',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] };
+      page: 1,
+      last_page: 1,
+      list: [],
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' } };
 
 
   },
   methods: {
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('Order/orderListsForMng', {
+        type: this.tabList[this.current].value,
+        status: this.idot,
+        page: this.page }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.list.length == 0) {
+            _this2.list = res.data.pages.order_data.map(function (v) {
+              return _this2._format(v);
+            });
+            _this2.last_page = res.data.pages.last_page;
+          } else {
+            res.data.pages.order_data.forEach(function (v) {
+              _this2.list.push(_this2._format(v));
+            });
+          }
+
+          if (_this2.page >= _this2.last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
+    _format: function _format(e) {
+      //0=>待审核,1=>已通过,2=>已拒绝,3已结束
+      var subTitle = '';
+      var subTitleColor = '';
+      switch (e.status) {
+        case 0:
+          subTitle = '待审核';
+          subTitleColor = '#105CFB';
+          break;
+        case 1:
+          subTitle = '已通过';
+          subTitleColor = '#2DA016';
+          break;
+        case 2:
+          subTitle = '已拒绝';
+          subTitleColor = '#FE5E10';
+          break;
+        case 3:
+          subTitle = '已结束';
+          subTitleColor = '#FE5E10';
+          break;}
+
+      return {
+        id: e.id,
+        subTitle: subTitle,
+        subTitleColor: subTitleColor,
+        project_name: e.project_name,
+        title: "创建时间：" + e.created_at,
+        address: e.address,
+        provider_data: e.provider_data,
+        handler_data: e.handler_data,
+        show_follow_button: e.show_follow_button,
+        show_edit_button: e.show_edit_button,
+        show_order_button: e.show_order_button,
+        lock_arr: e.lock_arr };
+
+    },
+    chooseDayRange: function chooseDayRange(e) {
+      console.log(e);
+      this.start = e.startDate;
+      this.end = e.endDate;
+      this.clearData();
+    },
     change: function change(index) {
       this.current = index;
+      this.clearData();
     },
-    chooseIdot: function chooseIdot(item) {
-      this.idot = item.value;
+    clearData: function clearData() {
+      this.page = 1;
+      this.list = [];
+      this.status = "loading";
+      this.getInfo();
     },
-    toDetail: function toDetail() {
-      uni.navigateTo({ url: 'detail/detail' });
+    toDetail: function toDetail(id) {
+      uni.navigateTo({ url: 'detail/detail?order_id=' + id });
     },
-    toMaintenance: function toMaintenance() {
-      uni.navigateTo({ url: 'createMaintenance/createMaintenance' });
+    toAddRecord: function toAddRecord(id) {
+      uni.navigateTo({ url: 'addRecord/addRecord?order_id=' + id });
     },
-    toAddTime: function toAddTime() {
-      uni.navigateTo({ url: 'addRecord/addRecord' });
+    //创建维保
+    toMaintenance: function toMaintenance(id) {
+      uni.navigateTo({ url: 'createMaintenance/createMaintenance?order_id=' + id });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

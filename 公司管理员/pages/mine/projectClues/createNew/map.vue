@@ -2,14 +2,17 @@
 	<view class="container">
 		<view class="header-box">
 			<view class="result-box">
-				<view class="info list-item">
-					<view class="badge"></view>
-					<view class="ellipsis">{{address}}</view>
+				<view class="u-flex u-row-between">
+					<view class="info list-item">
+						<view class="badge"></view>
+						<view class="ellipsis">{{address}}</view>
+					</view>
+					<u-button type="primary" size="mini" style="margin: 0;" @click="back">确认</u-button>
 				</view>
-				<view class="info">
+				<!-- <view class="info">
 					<view class="badge orange"></view>
 					<view class="ellipsis"> {{current_long + "," + current_lat}}</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 
@@ -55,33 +58,8 @@
 				});
 				this.currentLocation()
 			},100)
-			this.winHeight = this.$u.sys().windowHeight - uni.upx2px(180) +'px'
-			// #ifdef MP-ALIPAY
-			this.winHeight = "100vh"
-			// #endif
+			this.winHeight = this.$u.sys().windowHeight - uni.upx2px(90) +'px'
 			
-		},
-		onReady() {
-			// #ifdef APP-PLUS
-			if (!this.mapCtx) {
-				this.mapCtx = uni.createMapContext("maps");
-			}
-			this.mapObj = this.mapCtx.$getAppMap();
-			this.mapObj.onstatuschanged = (e) => {
-				// 地图发生变化的时候，获取中间点，也就是cover-image指定的位置
-				if (this.longitude != 114.010857) {
-					this.address = "正在获取地址...";
-					this.mapCtx.getCenterLocation({
-						type: 'gcj02',
-						success: (res) => {
-							this.current_long = res.latitude;
-							this.current_lat = res.longitude;
-							this.getAddress(res.longitude, res.latitude);
-						}
-					})
-				}
-			}
-			// #endif
 		},
 		methods: {
 			regionchange(e) {
@@ -121,6 +99,7 @@
 						longitude: lng
 					},
 					success: (res) => {
+						console.log(res);
 						this.address = res.result.formatted_addresses.recommend
 						console.log(JSON.stringify(res))
 					},
@@ -132,42 +111,37 @@
 			},
 			//根据经纬度对象获取位置详细信息
 			getAddressH5: function(lng, lat) {
-				let url =
-					`https://apis.map.qq.com/ws/geocoder/v1/?location=${lat + "," + lng}&key=${this.key}&get_poi=0&callbackName=QQmap&output=jsonp&coord_type=5`;
+				
+				let url =`https://apis.map.qq.com/ws/geocoder/v1/?location=${lat + "," + lng}&key=${this.key}&get_poi=0&callbackName=QQmap&output=jsonp&coord_type=5`;
 				this.http.tuiJsonp(url, (res) => {
 					if (res.status === 0) {
+						console.log(res);
 						this.address = res.result.formatted_addresses.recommend
 					}
 				}, "QQmap")
 			},
 			currentLocation() {
+				console.log('2313213');
 				//当前位置
-				const that = this;
 				uni.getLocation({
-					// #ifdef APP-PLUS || MP-WEIXIN
-					type: 'gcj02',
-					// #endif
-					success(res) {
-						that.latitude = res.latitude;
-						that.longitude = res.longitude;
-						// #ifdef H5
-						that.getAddressH5(res.longitude, res.latitude)
-						// #endif
-
-						// #ifdef MP
-						that.getAddress(res.longitude, res.latitude)
-						// #endif
+					type:'wgs84',
+					success:(res)=> {
+						console.log(res);
+						this.latitude = res.latitude;
+						this.longitude = res.longitude;
+						this.getAddressH5(res.longitude, res.latitude)
 					},
-					fail(res) {
-						// #ifdef H5
-						that.getAddressH5(that.longitude, that.latitude)
-						// #endif
-
-						// #ifdef MP
-						that.getAddress(that.longitude, that.latitude)
-						// #endif
+					fail:(res)=> {
+						console.log('fail');
+						this.getAddressH5(this.longitude, this.latitude)
 					}
 				})
+			},
+			back(){
+				uni.$emit('address',{longitude:this.longitude,latitude:this.latitude,address:this.address})
+				uni.navigateBack({
+					delta: 1
+				});
 			}
 		}
 	}

@@ -14,13 +14,13 @@
 				<view class="text-gray u-font-26 u-m-t-20">关联失效时间:{{item.expired_at}}</view>
 			</view>
 		</block>
-		<u-button class="u-m-30" type="primary" @click="toConnect">继续关联</u-button>
-		
 		<!-- 加载更多 -->
 		<view class="u-m-t-20 u-m-b-20" >
 			<u-loadmore :status="status"/>
 		</view>
 		<u-gap height="40" bg-color="#F8F8F8"></u-gap>
+		<u-button class="u-m-30" type="primary" @click="toConnect">继续关联</u-button>
+		
 	</view>
 </template>
 

@@ -96,22 +96,22 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uLine: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 439))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-line/u-line */ "uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-line/u-line.vue */ 477))
     },
     uTimeLine: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 446))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 484))
     },
     uTimeLineItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 453))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 491))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -222,46 +222,83 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad(e) {
+    this.project_id = e.project_id;
+    this.getInfo();
+  },
   data: function data() {
     return {
+      project_id: '',
       entryName: '湘东滨河新区未来城项目',
-      list: [
-      { name: '施工单位', value: '黄龙体育馆' },
-      { name: '地址', value: '浙江省杭州市西湖区黄龙中心' },
-      { name: '塔机型号及数量', value: [{ name: '6273477', number: '(10台)' }, { name: '6273477', number: '(10台)' }] },
-      { name: '项目建设单位', value: 'XXXX建设单位有限公司' },
-      { name: '备注', value: '这是备注这是备注这是备注' },
-      { name: '联系人', value: '张三' },
-      { name: '联系电话', value: '16273734223' },
-      { name: '联系人1', value: '三三' },
-      { name: '联系电话1', value: '16273734223' },
+      list1: [
+      { name: '施工单位', value: '黄龙体育馆', isArray: false },
+      { name: '地址', value: '浙江省杭州市西湖区黄龙中心', isArray: false },
+      { name: '塔机型号及数量', value: [{ type: '6273477', count: '(10台)' }, { type: '6273477', count: '(10台)' }], isArray: true },
+      { name: '项目建设单位', value: 'XXXX建设单位有限公司', isArray: false },
+      { name: '备注', value: '这是备注这是备注这是备注', isArray: false }],
+
+      medias: [],
+      list2: [
       { name: '线索信息员', value: '李四' },
       { name: '合同协调员', value: '张三' },
       { name: '创建时间', value: '2021-04-21 13:00:00' },
       { name: '审核通过时间', value: '2021-04-21 13:00:00' }],
 
-      maintainList: [
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30',
-        imgList: ['http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-        'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg', 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg'] },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30', imgList: [] },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30', imgList: [] },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30', imgList: [] },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30', imgList: [] },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30', imgList: [] }] };
 
+      maintainList: [],
+
+      show_follow_button: false };
 
   },
   methods: {
-    toAdd: function toAdd() {
-      uni.navigateTo({
-        url: 'addRecord',
-        success: function success(res) {},
-        fail: function fail() {},
-        complete: function complete() {} });
+    getInfo: function getInfo() {var _this = this;
+      this.http.get('project/projectDetail', {
+        project_id: this.project_id }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this.project_id = res.data.project_id;
+          _this.entryName = res.data.project_name;
+          _this.list1[0].value = res.data.construction_name;
+          _this.list1[1].value = res.data.address;
+          _this.list1[2].value = res.data.tower_types;
+          _this.list1[3].value = res.data.developer_name;
+          _this.list1[4].value = res.data.remark;
 
+          _this.medias = res.data.medias;
+
+          _this.list2[0].value = res.data.provider;
+          _this.list2[1].value = res.data.handler;
+          _this.list2[2].value = res.data.created_at;
+          _this.list2[3].value = res.data.verified_at;
+
+          _this.maintainList = res.data.follow_up_logs;
+
+          _this.show_follow_button = res.data.show_follow_button;
+        }
+      });
+    },
+    setting: function setting() {
+      uni.navigateTo({ url: '../createNew/createNew?project_id=' + this.project_id });
+    },
+    toAdd: function toAdd() {
+      uni.navigateTo({ url: 'addRecord?project_id=' + this.project_id });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

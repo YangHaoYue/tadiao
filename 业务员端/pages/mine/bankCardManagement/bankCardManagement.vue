@@ -1,9 +1,9 @@
 <template>
 	<view class="u-m-31">
-		<view class="u-flex u-row-between bankCard" :class="item.status" v-for="(item,index) in list" :key="index">
+		<view class="u-flex u-row-between bankCard success"  v-for="(item,index) in list" :key="index" @click="edit(item.id)">
 			<view class="text-white text-bold">
-				<view class="u-font-28">{{item.name}}</view>
-				<view style="font-size: 42rpx;line-height: 1.5;">{{item.code}}</view>
+				<view class="u-font-28">{{item.bank_name}}</view>
+				<view style="font-size: 42rpx;line-height: 1.5;">{{item.bankcard_num}}</view>
 			</view>
 			<u-icon name="trash" size="40" color="#ffffff"></u-icon>
 		</view>
@@ -16,20 +16,59 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			if(e.isSelect){
+				this.isSelect = true;
+			}
+		},
+		onShow() {
+			this.getInfo();
+		},
+		/* onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		}, */
 		data() {
 			return {
-				list:[
-					{name:'建设银行',code:"**** **** **** 7116",status:'primary'},
-					{name:'建设银行',code:"**** **** **** 7116",status:'red'},
-					{name:'建设银行',code:"**** **** **** 7116",status:'success'},
-					{name:'建设银行',code:"**** **** **** 7116",status:'primary'},
-					{name:'建设银行',code:"**** **** **** 7116",status:'primary'},
-				]
+				isSelect:false,
+				
+				list:[],
+				page:1,
+				last_page:1
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('withdraw/bankcardLists',{},true).then(res=>{
+					this.list = res.data;
+					/* if(this.list.length == 0){
+						this.last_page = res.data.last_page;
+					}else{
+						res.data.forEach(v=>{
+							this.list.push(v)
+						})
+					} */
+					/* 
+					if(this.page >= this.last_page) this.status = 'nomore';
+					else this.status = 'loadmore'; */
+				})
+			},
 			addBankCard(){
 				uni.navigateTo({url: 'addBankCard/addBankCard'});
+			},
+			edit(id){
+				if(this.isSelect){
+					uni.$emit('brank_id',{brank_id:id})
+					uni.navigateBack({
+						delta: 1
+					});
+				}else{
+					uni.navigateTo({url: 'addBankCard/addBankCard?bankcard_id=' + id});
+				}
 			}
 		}
 	}
@@ -54,7 +93,7 @@
 		box-shadow: 0 2px 4px 0 #09B8B3;
 	}
 	.fixed{
-		position: fixed;
+		position: absolute;
 		bottom: 30rpx;
 		right: 0;
 		left: 0;

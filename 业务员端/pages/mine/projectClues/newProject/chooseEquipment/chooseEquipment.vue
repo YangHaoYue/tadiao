@@ -3,19 +3,17 @@
 		<!-- 顶部选项卡 -->
 		<u-tabs :list="tabList" :is-scroll="false" :current="current" active-color="#0F58FB" @change="change" ></u-tabs>
 		
-		<u-checkbox-group @change="checkboxGroupChange" shape="circle" active-color="#0F58FB">
-			<u-row class="u-m-t-30" gutter="20" justify="space-between">
+		<u-checkbox-group @change="checkboxGroupChange" shape="circle" active-color="#0F58FB" style="width: 100%;">
+			<u-row class="u-m-t-30" gutter="20" justify="space-between" style="width: 100%;">
 				<u-col span="6" class="u-m-b-20" v-for="(item,i) in tabList[current].list" :key="i">
-					<label :for="item.id">
-						<equipmentItem :item="item" :index="i">
-							<view slot="footer">
-								<view class="u-font-26 u-p-l-6 u-flex u-row-between u-p-b-20" style="color: #666666;line-height: 1.5;">
-									<view>年限：{{item.time}}</view>
-									<u-checkbox v-model="item.checked"  shape="circle" active-color="#0F58FB"></u-checkbox>
-								</view>
+					<equipmentItem :item="item" :index="i">
+						<view slot="footer">
+							<view class="u-font-26 u-p-l-6 u-flex u-row-between u-p-b-20" style="color: #666666;line-height: 1.5;">
+								<view>年限：{{item.age_limit}}</view>
+								<u-checkbox v-model="item.checked"  shape="circle" active-color="#0F58FB" :name="item.id"></u-checkbox>
 							</view>
-						</equipmentItem>
-					</label>
+						</view>
+					</equipmentItem>
 				</u-col>
 			</u-row>
 		</u-checkbox-group>
@@ -53,7 +51,7 @@
 		computed: {
 			isSelectedAll:{
 				get:function(){
-					return this.tabList[this.current].list.length === this.selectedList.length
+					return this.tabList[this.current].list.length === this.tabList[this.current].selectedList.length && this.tabList[this.current].selectedList.length > 0
 				},
 				set:function(){
 				}
@@ -115,12 +113,13 @@
 				this.http.get('Order/getTowersForOrder',data).then(res=>{
 					if(res.code == 1000){
 						if(this.tabList[this.current].list.length == 0){
-							this.tabList[this.current].list = res.data.tower_data.map(v=>{
+							this.tabList[this.current].list = res.data.tower_data;
+							this.tabList[this.current].list.forEach(v=>{
 								this.$set(v,'checked',false)
-							});
+							})
 							this.tabList[this.current].last_page = res.data.last_page;
 						}else{
-							let list = res.data.tower_data.map(v=>{
+							let list = res.data.tower_data.forEach(v=>{
 								this.$set(v,'checked',false)
 							})
 							this.tabList[this.current].list.concat(list)
@@ -160,7 +159,10 @@
 				this.tabList[this.current].selectedList = [];
 			},
 			submit(){
-				uni.$emit('townList',{data:[...this.tabList[0].selectedList,...this.tabList[1].selectedList]})
+				uni.$emit('townList',{data:[...this.tabList[0].selectedList,...this.tabList[1].selectedList]});
+				uni.navigateBack({
+					delta: 1
+				});
 			}
 		}
 	}

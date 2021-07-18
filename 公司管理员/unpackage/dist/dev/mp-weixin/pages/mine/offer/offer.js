@@ -96,19 +96,22 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
+    },
+    uLoadmore: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 463))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 418))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 442))
     },
     uInput: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 303))
+      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 327))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 404))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 428))
     }
   }
 } catch (e) {
@@ -132,11 +135,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.showModal = false
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -170,7 +184,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
 //
 //
 //
@@ -218,6 +236,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getInfo();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.page >= this.last_page) return;
+    this.status = 'loading';
+    this.page = ++this.page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   computed: {
     isInput: function isInput() {
       var bool = true;
@@ -229,59 +258,71 @@ var _default =
 
   data: function data() {
     return {
-      list: [
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        price: '670.00' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        price: '670.00' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        price: '670.00' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        price: '670.00' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        price: '670.00' }],
-
+      page: 1,
+      last_page: 1,
+      list: [],
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' },
 
       //修改价格
       showModal: false,
       oldPrice: '',
+      tower_id: '',
       newPrice: '' };
 
   },
   methods: {
-    modify: function modify(price) {
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('Manager/towerRentList', {
+        branch_id: uni.getStorageSync('branch_id'),
+        page: this.page }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.list.length == 0) {
+            _this2.list = res.data.tower_data;
+            _this2.last_page = res.data.last_page;
+          } else {
+            res.data.tower_data.forEach(function (v) {
+              _this2.list.push(v);
+            });
+          }
+
+          if (_this2.page >= _this2.last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
+    modify: function modify(price, tower_id) {
       this.oldPrice = price;
+      this.tower_id = tower_id;
       this.showModal = true;
+    },
+    editTowerRent: function editTowerRent() {var _this3 = this;
+      this.http.post('Manager/editTowerRent', {
+        tower_id: this.tower_id,
+        month_rent: this.newPrice }).
+      then(function (res) {
+        _this3.$u.toast(res.msg);
+        if (res.code == 1000) {
+          setTimeout(function () {
+            _this3.clearData();
+          }, 1500);
+        }
+      });
+    },
+    claerData: function claerData() {
+      this.page = 1;
+      this.last_page = 1;
+      this.list = [];
+      this.status = "loading";
+      this.getInfo();
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

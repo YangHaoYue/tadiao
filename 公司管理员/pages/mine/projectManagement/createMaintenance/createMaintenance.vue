@@ -18,7 +18,10 @@
 			</u-row>
 		</u-checkbox-group>
 		
-		
+		<!-- 加载更多 -->
+		<view class="u-m-t-20 u-m-b-20" >
+			<u-loadmore :status="status"/>
+		</view>
 		<!-- 底部Tab -->
 		<view class="cu-tabbar-height"></view>
 		<view class="saveBtn bg-white solid-top u-flex u-row-between" style="height: 90rpx;">
@@ -35,6 +38,18 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			this.order_id = e.order_id;
+			this.getInfo();
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		computed: {
 			isSelectedAll:{
 				get:function(){
@@ -49,58 +64,17 @@
 		},
 		data() {
 			return {
-				list:[
-					{
-						id:'0',
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						checked:false,
-					},
-					{
-						id:'2',
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						checked:false,
-					},
-					{
-						id:'1',
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						checked:false,
-					},
-					{
-						id:'3',
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						checked:false,
-					},
-					{
-						id:'4',
-						img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						name:'QTZ80(5512-6)',
-						price:'3678.00',
-						number:'WE225',
-						brand:'马牌',
-						time:'三年',
-						checked:false,
-					}
-				],
+				page:1,
+				last_page:1,
+				list:[],
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 				/* 是否全选 */
 				selectedList:[],
 				btnStyle:{
@@ -109,17 +83,39 @@
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('Index/index',{
+					page:this.page
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.tower_data;
+							this.list.forEach(v=>{
+								this.$set(v,'checked',false)
+							})
+							this.last_page = res.data.last_page;
+						}else{
+							let list = res.data.tower_data.forEach(v=>{
+								this.$set(v,'checked',false)
+							})
+							this.list.concat(list)
+						}
+						if(this.page >= this.last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
+					}
+				})
+			},
 			// 选中某个复选框时，由checkbox时触发
 			checkboxGroupChange(e) {
 				console.log(e);
-				this.selectedList=e;
+				this.selectedList = e
 			},
 			doSelectedAll(){
 				this.isSelectedAll ? this.unCheckedAll() :this.checkedAll()
 			},
 			// 全选
 			checkedAll() {
-				this.selectedList=this.list.map(val => {
+				this.selectedList = this.list.map(val => {
 					val.checked = true;
 					return val.id;
 				})
@@ -132,7 +128,7 @@
 				this.selectedList=[];
 			},
 			make(){
-				uni.navigateTo({url: 'apply'});
+				uni.navigateTo({url: 'apply?selectedList='+ this.selectedList + '&order_id=' +this.order_id});
 			}
 		}
 	}

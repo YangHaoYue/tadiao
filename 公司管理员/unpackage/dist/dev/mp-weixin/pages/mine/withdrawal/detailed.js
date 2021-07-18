@@ -94,10 +94,13 @@ var components
 try {
   components = {
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
+    },
+    uLoadmore: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 463))
     },
     uCalendar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 411))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 435))
     }
   }
 } catch (e) {
@@ -194,29 +197,74 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getInfo();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.page >= this.last_page) return;
+    this.status = 'loading';
+    this.page = ++this.page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   data: function data() {
     return {
       show: false,
       start: '2020-11-22',
       end: '2020-11-22',
 
-      list: [
-      { name: '奖金：XXXXX项目', time: '2020-02-23 13:52:01', income: '100.00', balance: '¥2919.80' },
-      { name: '奖金：XXXXX项目', time: '2020-02-23 13:52:01', income: '100.00', balance: '¥2919.80' },
-      { name: '奖金：XXXXX项目', time: '2020-02-23 13:52:01', income: '100.00', balance: '¥2919.80' },
-      { name: '奖金：XXXXX项目', time: '2020-02-23 13:52:01', income: '100.00', balance: '¥2919.80' },
-      { name: '奖金：XXXXX项目', time: '2020-02-23 13:52:01', income: '100.00', balance: '¥2919.80' },
-      { name: '奖金：XXXXX项目', time: '2020-02-23 13:52:01', income: '100.00', balance: '¥2919.80' }] };
+      list: [],
+      page: 1,
+      last_page: 1,
+
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' } };
 
 
   },
   methods: {
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('withdraw/getAmountLogs', {
+        start_at: this.start,
+        end_at: this.end,
+        page: this.page }).
+      then(function (res) {
+        if (_this2.list.length == 0) {
+          _this2.list = res.data.amount_log_data;
+          _this2.last_page = res.data.last_page;
+        } else {
+          res.data.amount_log_data.forEach(function (v) {
+            _this2.list.push(v);
+          });
+        }
+
+        if (_this2.page >= _this2.last_page) _this2.status = 'nomore';else
+        _this2.status = 'loadmore';
+      });
+    },
     chooseDay: function chooseDay(e) {
       console.log(e);
       this.start = e.startDate;
       this.end = e.endDate;
+      this.getInfo();
+    },
+    clearData: function clearData() {
+      this.list = [];
+      this.page = 1;
+      this.last_page = 1;
+      this.status = 'loading';
+      this.getInfo();
     } } };exports.default = _default;
 
 /***/ })

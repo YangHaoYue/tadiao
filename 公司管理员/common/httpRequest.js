@@ -6,11 +6,11 @@
 const tui = {
 	//接口地址
 	interfaceUrl: function() {
-		return 'https://shequ.0831.run'
+		return 'http://tower.0831.run/api/v1/'
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'https://oss.searchfun.com.cn/'
+		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
 	},
 	toast: function(text, duration, success) {
 		uni.showToast({
@@ -115,9 +115,9 @@ const tui = {
 						uni.clearStorageSync()
 						tui.modal("","登录信息已失效，请重新登录", false, () => {
 							//store.commit("logout") 登录页面执行
-							uni.reLaunch({
+							/* uni.reLaunch({
 								url:'/pages/login/login'
-							})
+							}) */
 						},'#FE8702')
 						return
 					}
@@ -194,15 +194,16 @@ const tui = {
 		// #endif
 	},
 	//设置用户信息
-	setUserInfo: function(token,avatarUrl,nickName,mobile) {
+	setUserInfo: function(token,identity,nickName,mobile) {
 		uni.setStorageSync("thorui_token", token)
-		uni.setStorageSync("thorui_mobile", mobile)
-		uni.setStorageSync('personImg',avatarUrl);
+		uni.setStorageSync("thorui_mobile", mobile);
+		//身份id
+		uni.setStorageSync('identity',identity);
 		uni.setStorageSync('nickName',nickName);
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token")
+		return uni.getStorageSync("thorui_token")|| '9eb79887aebe8345b5b81750433395af'
 	},
 	//判断是否登录
 	isLogin: function() {

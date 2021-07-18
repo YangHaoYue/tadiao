@@ -6,10 +6,10 @@
 		<block v-for="(item,index) in list" :key="index">
 			<view class="u-flex u-row-between u-col-center bg-white u-m-t-20" style="padding: 20rpx 30rpx;">
 				<view class="u-flex">
-					<u-avatar :src="item.avatar" size="98"></u-avatar>
+					<u-avatar :src="http.resourceUrl() + item.avatar" size="98"></u-avatar>
 					<view class="u-m-l-16 u-font-24" style="color: #666666;">{{item.name}}</view>
 				</view>
-				<view class="u-font-24" style="color: #1058FB;" @click="back">选择</view>
+				<view class="u-font-24" style="color: #1058FB;" @click="back(item)">选择</view>
 			</view>
 		</block>
 	</view>
@@ -17,16 +17,36 @@
 
 <script>
 	export default {
+		onLoad() {
+			
+		},
 		data() {
 			return {
 				keyward:'',
-				list:[
-					{avatar:'',name:'张三'},{avatar:'',name:'张三'},{avatar:'',name:'张三'},{avatar:'',name:'张三'},{avatar:'',name:'张三'}
-				]
+				page:1,
+				last_page:1,
+				list:[]
 			}
 		},
 		methods: {
-			back(){
+			getFixerForFix() {
+				this.http.get('Order/getFixerForFix', {
+					keyward: this.keyward
+				}).then(res => {
+					if (res.code == 1000) {
+						if (this.list.length == 0) {
+							this.list = res.data.fixer_data;
+							this.last_page = res.data.last_page;
+						} else {
+							res.data.fixer_data.forEach(v => {
+								this.list.push(v)
+							})
+						}
+					}
+				})
+			},
+			back(item){
+				uni.$emit('fixer',{data:item})
 				uni.navigateBack({
 					delta: 1
 				});

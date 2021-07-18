@@ -96,22 +96,22 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uInput: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 303))
+      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 327))
     },
     uUpload: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-upload/u-upload.vue */ 472))
+      return Promise.all(/*! import() | uview-ui/components/u-upload/u-upload */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-upload/u-upload")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-upload/u-upload.vue */ 510))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 404))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 428))
     }
   }
 } catch (e) {
@@ -135,12 +135,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var g0 = _vm.http.interfaceUrl()
+  var g0 = _vm.http.resourceUrl()
+  var g1 = _vm.http.interfaceUrl()
   _vm.$mp.data = Object.assign(
     {},
     {
       $root: {
-        g0: g0
+        g0: g0,
+        g1: g1
       }
     }
   )
@@ -177,7 +179,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var formList = function formList() {__webpack_require__.e(/*! require.ensure | components/form-list */ "components/form-list").then((function () {return resolve(__webpack_require__(/*! @/components/form-list.vue */ 479));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 467));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var formList = function formList() {__webpack_require__.e(/*! require.ensure | components/form-list */ "components/form-list").then((function () {return resolve(__webpack_require__(/*! @/components/form-list.vue */ 517));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 505));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 
 
@@ -250,32 +253,47 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 {
+  onLoad: function onLoad(e) {
+    if (e.project_id) {
+      this.project_id = e.project_id;
+      this.getOrderAddData();
+    } else if (e.order_id) {
+      this.order_id = e.order_id;
+      this.getOrderEditData();
+    }
+  },
+  onShow: function onShow() {var _this = this;
+    uni.$on('townList', function (data) {
+      _this.equipmentList = data.data;
+      uni.$off('townList');
+    });
+  },
   components: {
     formList: formList,
     proCard: proCard },
 
   data: function data() {
     return {
-      equipmentList: [
-      { src: '', title: 'QTZ80(5512-6)' },
-      { src: '', title: 'QTZ80(5512-6)' },
-      { src: '', title: 'QTZ80(5512-6)' }],
+      order_id: '',
+      show_submit_button: false,
+      project_id: '',
 
+      equipmentList: [],
       money: '',
 
       formList: [
       { type: 'input', name: '进出场费', value: '', id: '', placeholder: '请输入进出场费', inputType: 'digit', isImport: false },
-      { type: 'picker', name: '付款方式', value: '', id: '', placeholder: '月结', list: [], isImport: false },
-      { type: 'timePicker', name: '开始时间', value: '', id: '', placeholder: '请选择开始时间', isImport: false },
-      { type: 'timePicker', name: '预计到期时间', value: '', id: '', placeholder: '请选择预计到期时间', isImport: false }],
+      { type: 'picker', name: '付款方式', value: '', id: '', placeholder: '选择付款方式', list: [], isImport: false },
+      { type: 'datePicker', name: '开始时间', value: '', id: '', placeholder: '请选择开始时间', isImport: false },
+      { type: 'datePicker', name: '预计到期时间', value: '', id: '', placeholder: '请选择预计到期时间', isImport: false }],
 
       firstPayList: [
-      { type: 'timePicker', name: '首次付款时间', value: '', id: '', placeholder: '请选择首次付款时间', isImport: false },
+      { type: 'datePicker', name: '首次付款时间', value: '', id: '', placeholder: '请选择首次付款时间', isImport: false },
       { type: 'input', name: '首次付款金额', value: '', id: '', placeholder: '请输入首次付款金额', inputType: 'digit', isImport: false },
       { type: 'textarea', name: '摘要', value: '', id: '', placeholder: '请输入摘要', isImport: false }],
 
       lastPayList: [
-      { type: 'timePicker', name: '下次付款时间', value: '', id: '', placeholder: '请选择下次付款时间', isImport: false },
+      { type: 'datePicker', name: '下次付款时间', value: '', id: '', placeholder: '请选择下次付款时间', isImport: false },
       { type: 'input', name: '下次付款金额', value: '', id: '', placeholder: '请输入下次付款金额', inputType: 'digit', isImport: false },
       { type: 'textarea', name: '摘要', value: '', id: '', placeholder: '请输入摘要', isImport: false }],
 
@@ -286,31 +304,187 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
       /* 合同 */
       code: '',
-      action: '/api/v1/Common/fileUploader',
+      action: 'Common/fileUploader',
       header: { 'Authorization': 'Bearer ' + this.http.getToken() },
       contract: [] };
 
   },
   methods: {
+    getOrderAddData: function getOrderAddData() {var _this2 = this;
+      this.http.get('Order/getOrderAddData', {
+        project_id: this.project_id }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this2.formList[1].list = res.data.type_pay;
+        }
+      });
+    },
+    getOrderEditData: function getOrderEditData() {var _this3 = this;
+      this.http.get('Order/getOrderEditData', {
+        order_id: this.order_id }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this3.formList[1].list = res.data.type_pay;
+          _this3.formList[1].list.map(function (v) {
+            if (v.id == res.data.id) {
+              _this3.formList[1].id = v.id;
+              _this3.formList[1].value = v.val;
+            }
+          });
+          _this3.formList[0].value = res.data.in_out_cost;
+          _this3.formList[2].value = res.data.lease_start_at;
+          _this3.formList[3].value = res.data.lease_end_at;
+
+          _this3.firstPayList[0].value = res.data.first_start_at;
+          _this3.firstPayList[1].value = res.data.first_amount;
+          _this3.firstPayList[2].value = res.data.first_remark;
+
+          _this3.lastPayList[0].value = res.data.next_start_at;
+          _this3.lastPayList[1].value = res.data.next_amount;
+          _this3.lastPayList[2].value = res.data.next_remark;
+
+          _this3.customerList[0].value = res.data.office_name;
+          _this3.customerList[1].value = res.data.cus_name;
+          _this3.customerList[2].value = res.data.cus_tel_num;
+
+          _this3.show_submit_button = res.data.show_submit_button;
+
+          _this3.code = res.data.contract_num;
+          _this3.contract.push({
+            url: _this3.http.resourceUrl() + res.data.contract_img });
+
+          _this3.getTowersByTowerIds(res.data.tower_ids);
+        }
+      });
+    },
+    addOrder: function addOrder() {var _this4 = this;
+      var list = this.equipmentList.map(function (v) {
+        return v.id;
+      });
+      var img = [];
+      this.contract.map(function (item) {
+        if (item.response && item.response.code == 1000) {
+          img = item.response.data.path;
+        } else if (!item.error && item.progress == 100) {
+          img = item.url;
+        }
+      });
+      this.http.post('Order/addOrder', {
+        project_id: this.project_id,
+        tower_ids: list,
+        month_rent: this.money,
+        in_out_cost: this.formList[0].value,
+        type_pay_id: this.formList[1].id,
+        lease_start_at: this.formList[2].value,
+        lease_end_at: this.formList[3].value,
+
+        first_start_at: this.firstPayList[0].value,
+        first_amount: this.firstPayList[1].value,
+        first_remark: this.firstPayList[2].value,
+
+        next_start_at: this.lastPayList[0].value,
+        next_amount: this.lastPayList[1].value,
+        next_remark: this.lastPayList[2].value,
+
+        office_name: this.customerList[0].value,
+        cus_name: this.customerList[1].value,
+        cus_tel_num: this.customerList[2].value,
+
+        contract_num: this.code,
+        contract_img: img }).
+      then(function (res) {
+        _this4.$u.toast(res.msg);
+        if (res.code == 1000) {
+          setTimeout(function () {
+            uni.navigateBack({
+              delta: 1 });
+
+          }, 1500);
+        }
+      });
+    },
+    editOrder: function editOrder() {var _this5 = this;
+      var list = this.equipmentList.map(function (v) {
+        return v.id;
+      });
+      var img = [];
+      this.contract.map(function (item) {
+        if (item.response && item.response.code == 1000) {
+          img = item.response.data.path;
+        } else if (!item.error && item.progress == 100) {
+          img = item.url;
+        }
+      });
+      this.http.post('Order/editOrder', {
+        order_id: this.order_id,
+        tower_ids: list,
+        month_rent: this.money,
+        in_out_cost: this.formList[0].value,
+        type_pay_id: this.formList[1].id,
+        lease_start_at: this.formList[2].value,
+        lease_end_at: this.formList[3].value,
+
+        first_start_at: this.firstPayList[0].value,
+        first_amount: this.firstPayList[1].value,
+        first_remark: this.firstPayList[2].value,
+
+        next_start_at: this.lastPayList[0].value,
+        next_amount: this.lastPayList[1].value,
+        next_remark: this.lastPayList[2].value,
+
+        office_name: this.customerList[0].value,
+        cus_name: this.customerList[1].value,
+        cus_tel_num: this.customerList[2].value,
+
+        contract_num: this.code,
+        contract_img: img }).
+      then(function (res) {
+        _this5.$u.toast(res.msg);
+        if (res.code == 1000) {
+          setTimeout(function () {
+            uni.navigateBack({
+              delta: 1 });
+
+          }, 1500);
+        }
+      });
+    },
+    getTowersByTowerIds: function getTowersByTowerIds(tower_ids) {var _this6 = this;
+      this.http.get('Order/getTowersByTowerIds', {
+        tower_ids: tower_ids }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this6.equipmentList = res.data;
+        }
+      });
+    },
     /* 删除塔吊 */
     del: function del(index) {
       this.equipmentList.splice(index, 1);
     },
     /* 输入框 */
-    input: function input(e) {
-      this.$set(this.formList[e.index], 'value', e.value);
+    input: function input(e, list) {
+      this.$set(list[e.index], 'value', e.value);
     },
     /* 选择输入框 */
-    choose: function choose(e) {
+    choose: function choose(e, list) {
       console.log(e);
-      this.$set(this.formList[e.index], 'value', e.value.label);
-      this.$set(this.formList[e.index], 'id', e.value.value);
+      this.$set(list[e.index], 'value', e.value.label);
+      this.$set(list[e.index], 'id', e.value.value);
+      console.log(this.formList);
+    },
+    dateChange: function dateChange(e, list) {
+      this.$set(list[e.index], 'value', e.value);
+    },
+    timeChange: function timeChange(e, list) {
+      this.$set(list[e.index], 'value', e.value);
     },
     //上传合同图片
     onPayChange: function onPayChange(lists) {
       console.log('onListChange', lists[0]);
       this.contract = lists;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

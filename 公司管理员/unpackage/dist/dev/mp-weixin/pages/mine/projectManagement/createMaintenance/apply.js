@@ -94,13 +94,13 @@ var components
 try {
   components = {
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     },
     uCalendar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 411))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 435))
     }
   }
 } catch (e) {
@@ -187,9 +187,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
+  onLoad: function onLoad(e) {
+    this.tower_ids = e.selectedList;
+    this.order_id = e.order_id;
+  },
+  onShow: function onShow() {var _this = this;
+    uni.$on('fixer', function (data) {
+      _this.fixer_id = data.data.id;
+      _this.fixer_name = data.data.name;
+      uni.$off('fixer');
+    });
+  },
   data: function data() {
     return {
+      tower_ids: '',
       showDate: false,
+      fixer_id: '',
+      fixer_name: '',
       time: '' };
 
   },
@@ -200,6 +214,23 @@ var _default =
     },
     toChoose: function toChoose() {
       uni.navigateTo({ url: 'chooseRepairman' });
+    },
+    addFix: function addFix() {var _this2 = this;
+      this.http.post('Order/addFix', {
+        tower_ids: this.tower_ids,
+        order_id: this.order_id,
+        fixer_id: this.fixer_id,
+        next_care_at: this.time }).
+      then(function (res) {
+        _this2.$u.toast(res.msg);
+        if (res.code == 1000) {
+          setTimeout(function () {
+            uni.navigateBack({
+              delta: 2 });
+
+          }, 1500);
+        }
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

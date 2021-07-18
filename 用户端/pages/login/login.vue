@@ -27,15 +27,17 @@
 
 <script>
 	export default {
-		onLoad() {
+		onLoad(e) {
 			
 		},
 		onShow() {
-			let code=this.GetQueryString("code");
+			let code = this.GetQueryString("openid");
+			let userid = this.GetQueryString('userid')
 			if(code == null){
 				this.getOpenid();
 			}else{
 				this.openid = code
+				uni.setStorageSync('openid',code)
 				console.log('33');
 			}
 		},
@@ -110,17 +112,12 @@
 		methods: {
 			getOpenid(){
 				console.log('eee');
-				/* this.http.get('auth/oauth',{
-					action:2,
-					inviter_id:this.inviter_id
-				},true).then(res=>{
-					window.location.href=res.data.result
-				}) */
+				window.location.href = this.http.interfaceUrl() + 'auth/oauth?action=0'
 			},
 			codeChange(text) {
 				this.codeTips = text;
 			},
-			// 获取验证码
+			// 获取验证码s
 			getCode() {
 				if(!this.model.phone) return this.$u.toast('请先输入手机号码!')
 				if (this.$refs.uCode.canGetCode) {
@@ -154,13 +151,20 @@
 							msg_code:this.model.code,
 						}).then((res)=>{
 							if(res.code==1000){
-								this.http.setUserInfo(res.data.token,res.data.identity)
-								this.$refs.uToast.show({
-									title:res.msg,
-									type:"success",
-									isTab:true,
-									url:'/pages/home/home'
-								})
+								this.http.setUserInfo(res.data.token,res.data.identity);
+								//	1=>普通用户,2=>业务员,3=>维修师傅,4=>分公司副经理,5=>分公司经理,6=>总公司经理
+								if(res.data.identity == 1){
+									this.$refs.uToast.show({
+										title:res.msg,
+										type:"success",
+										isTab:true,
+										url:'/pages/home/home'
+									})
+								}else if(res.data.identity == 2||res.data.identity == 3){
+									window.location.href = 'http://tower.0831.run/html/staff'
+								}else if(res.data.identity == 4||res.data.identity == 5||res.data.identity == 6){
+									window.location.href = 'http://tower.0831.run/html/mananger'
+								}
 							}else{
 								this.$refs.uToast.show({
 									title:res.msg,

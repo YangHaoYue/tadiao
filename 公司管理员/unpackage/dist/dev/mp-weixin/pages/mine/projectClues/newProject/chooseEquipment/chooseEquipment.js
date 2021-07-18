@@ -96,22 +96,22 @@ var components
 try {
   components = {
     uTabs: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 425))
+      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 449))
     },
     uCheckboxGroup: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 460))
+      return Promise.all(/*! import() | uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 498))
     },
     uRow: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 390))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 407))
     },
     uCol: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 397))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 414))
     },
     uCheckbox: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-checkbox/u-checkbox */ "uview-ui/components/u-checkbox/u-checkbox").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox/u-checkbox.vue */ 317))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-checkbox/u-checkbox */ "uview-ui/components/u-checkbox/u-checkbox").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox/u-checkbox.vue */ 341))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -168,9 +168,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _iterableToArray(iter) {if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) return _arrayLikeToArray(arr);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) {arr2[i] = arr[i];}return arr2;} //
 //
 //
 //
@@ -207,161 +205,120 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
+  onLoad: function onLoad(e) {
+    this.project_id = e.project_id;
+    this.order_id = e.order_id;
+    this.getInfo();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.tabList[this.current].page >= this.tabList[this.current].last_page) return;
+    this.status = 'loading';
+    this.tabList[this.current].page = ++this.tabList[this.current].page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   computed: {
     isSelectedAll: {
       get: function get() {
-        return this.tabList[this.current].list.length === this.selectedList.length;
+        return this.tabList[this.current].list.length === this.tabList[this.current].selectedList.length && this.tabList[this.current].selectedList.length > 0;
       },
       set: function set() {
       } },
 
     count: function count() {
-      return this.selectedList.length;
+      return this.tabList[0].selectedList.length + this.tabList[1].selectedList.length;
     } },
 
   data: function data() {
     return {
+      order_id: '',
+      project_id: '',
+
       current: 0,
       tabList: [{
         name: '本公司',
-        list: [
-        {
-          id: '0',
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 0,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          checked: false },
-
-        {
-          id: '2',
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 1,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          checked: false },
-
-        {
-          id: '1',
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 2,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          checked: false },
-
-        {
-          id: '3',
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 0,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          checked: false },
-
-        {
-          id: '4',
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 0,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          checked: false }] },
-
-
+        list: [],
+        page: 1,
+        last_page: 1,
+        selectedList: [] },
       {
         name: '其他公司',
-        list: [
-        {
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 0,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          location: '浙江省 杭州市 西湖区' },
+        list: [],
+        page: 1,
+        last_page: 1,
+        selectedList: [] }],
 
-        {
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 1,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          location: '浙江省 杭州市 西湖区' },
-
-        {
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 2,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          location: '浙江省 杭州市 西湖区' },
-
-        {
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 0,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          location: '浙江省 杭州市 西湖区' },
-
-        {
-          img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-          name: 'QTZ80(5512-6)',
-          status: 0,
-          price: '3678.00',
-          number: 'WE225',
-          brand: '马牌',
-          time: '三年',
-          location: '浙江省 杭州市 西湖区' }] }],
-
-
-
-      /* 是否全选 */
-      selectedList: [],
       btnStyle: {
-        fontSize: '28rpx' } };
+        fontSize: '28rpx' },
+
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' } };
 
 
   },
   methods: {
+    getInfo: function getInfo() {var _this2 = this;
+      //0=>本公司(默认,可不传),1=>其他公司
+      var data = '';
+      if (this.project_id) {
+        data = {
+          type: this.current,
+          project_id: this.project_id,
+          page: this.tabList[this.current].page };
+
+      } else {
+        data = {
+          type: this.current,
+          order_id: this.order_id,
+          page: this.tabList[this.current].page };
+
+      }
+
+      this.http.get('Order/getTowersForOrder', data).then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.tabList[_this2.current].list.length == 0) {
+            _this2.tabList[_this2.current].list = res.data.tower_data;
+            _this2.tabList[_this2.current].list.forEach(function (v) {
+              _this2.$set(v, 'checked', false);
+            });
+            _this2.tabList[_this2.current].last_page = res.data.last_page;
+          } else {
+            var list = res.data.tower_data.forEach(function (v) {
+              _this2.$set(v, 'checked', false);
+            });
+            _this2.tabList[_this2.current].list.concat(list);
+          }
+
+          if (_this2.tabList[_this2.current].page >= _this2.tabList[_this2.current].last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
     change: function change(index) {
-      this.selectedList = [];
-      this.unCheckedAll();
+      /* this.selectedList = []; */
       this.current = index;
     },
     // 选中某个复选框时，由checkbox时触发
     checkboxGroupChange: function checkboxGroupChange(e) {
       console.log(e);
-      this.selectedList = e;
+      this.tabList[this.current].selectedList = this.tabList[this.current].list.filter(function (v) {
+        return v.checked;
+      });
     },
     doSelectedAll: function doSelectedAll() {
       this.isSelectedAll ? this.unCheckedAll() : this.checkedAll();
     },
     // 全选
     checkedAll: function checkedAll() {
-      this.selectedList = this.tabList[this.current].list.map(function (val) {
+      this.tabList[this.current].selectedList = this.tabList[this.current].list.map(function (val) {
         val.checked = true;
-        return val.id;
+        return val;
       });
     },
     //取消全选
@@ -369,8 +326,15 @@ var _default =
       this.tabList[this.current].list.forEach(function (v) {
         v.checked = false;
       });
-      this.selectedList = [];
+      this.tabList[this.current].selectedList = [];
+    },
+    submit: function submit() {
+      uni.$emit('townList', { data: [].concat(_toConsumableArray(this.tabList[0].selectedList), _toConsumableArray(this.tabList[1].selectedList)) });
+      uni.navigateBack({
+        delta: 1 });
+
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

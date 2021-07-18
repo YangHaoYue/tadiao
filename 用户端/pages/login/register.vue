@@ -50,20 +50,12 @@
 		onLoad() {
 			this.getBranches()
 			this.getRegisterInfo();
-			
 		},
 		onShow() {
-			let code=this.GetQueryString("openid");
-			if(code == null){
-				this.getOpenid();
-			}else{
-				this.openid = code
-				console.log('33');
-			}
+			
 		},
 		data() {
 			return {
-				openid:'',
 				inviter_id:0,
 				
 				border: false,
@@ -159,9 +151,7 @@
 			}
 		},
 		methods: {
-			getOpenid(){
-				window.location.href = this.http.interfaceUrl() +'auth/oauth'
-			},
+			
 			codeChange(text) {
 				this.codeTips = text;
 			},
@@ -190,9 +180,6 @@
 				}else {
 					this.$u.toast('倒计时结束后再发送');
 				}
-			},
-			sendMsgCode(){
-				
 			},
 			//获取公司列表
 			getBranches(){
@@ -237,7 +224,7 @@
 				this.$refs.uForm.validate(valid => {
 					if (valid) {
 						this.http.post('auth/register',{
-							openid:this.openid,
+							openid:uni.getStorageSync('openid'),
 							name:this.model.name,
 							tel_num:this.model.phone,
 							msg_code:this.model.code,

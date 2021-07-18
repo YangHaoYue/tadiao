@@ -96,22 +96,22 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uTimeLine: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 446))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 484))
     },
     uTimeLineItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 453))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 491))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 418))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 442))
     }
   }
 } catch (e) {
@@ -135,11 +135,26 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
+      _vm.showModal = true
+    }
+
+    _vm.e1 = function($event) {
       _vm.showModal = false
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -173,7 +188,13 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 467));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 505));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
 
 
 
@@ -328,8 +349,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   components: {
     proCard: proCard },
 
+  onLoad: function onLoad(e) {
+    this.order_id = e.order_id;
+    this.getInfo();
+  },
   data: function data() {
     return {
+      order_id: '',
+      contract: {
+        contract_num: '',
+        contract_img: '' },
+
       list: [
       {
         title: '客户信息',
@@ -365,13 +395,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-      /* 塔吊详情 */
-      equipmentInfo: {
-        name: 'QTZ80(5512-6)',
-        brand: '品牌名称',
-        number: 'WE2245',
-        code: '6737YT',
-        years: '三年' },
+      /* 塔吊列表 */
+      equipList: [{}],
+
 
       /* 保养记录 */
       maintainList: [
@@ -415,6 +441,76 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
   },
   methods: {
+    getInfo: function getInfo() {var _this = this;
+      this.http.get('Order/orderDetail', {
+        order_id: this.order_id }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this.contract.contract_img = res.data.contract_img;
+          _this.contract.contract_num = res.data.contract_num;
+
+          _this.list[0].list[0].value = res.data.cus.name;
+          _this.list[0].list[0].avatar = _this.http.resourceUrl() + res.data.cus.avatar;
+          _this.list[0].list[1].value = res.data.cus.real_name;
+          _this.list[0].list[2].value = res.data.cus.tel_num;
+          _this.list[0].list[3].value = res.data.cus.address;
+
+          _this.list[1].list[0].value = res.data.executor.name;
+          _this.list[1].list[0].avatar = _this.http.resourceUrl() + res.data.executor.avatar;
+          _this.list[1].list[1].value = res.data.executor.real_name;
+          _this.list[1].list[2].value = res.data.executor.tel_num;
+
+          _this.list[2].list[0].value = res.data.handler.name;
+          _this.list[2].list[0].avatar = _this.http.resourceUrl() + res.data.handler.avatar;
+          _this.list[2].list[1].value = res.data.handler.real_name;
+          _this.list[2].list[2].value = res.data.handler.tel_num;
+
+          _this.list[3].list[0].value = res.data.provider.name;
+          _this.list[3].list[0].avatar = _this.http.resourceUrl() + res.data.provider.avatar;
+          _this.list[3].list[1].value = res.data.provider.real_name;
+          _this.list[3].list[2].value = res.data.provider.tel_num;
+
+          _this.equipList = res.data.towers;
+          _this.equipList.forEach(function (v) {
+
+          });
+        }
+      });
+    },
+    //保养记录
+    towerCares: function towerCares(id, item) {var _this2 = this;
+      if (item.maintainList && item.maintainList.current_page > item.maintainList.last_page) return;
+      this.http.get('Order/towerCares', {
+        order_id: this.order_id,
+        tower_id: id,
+        page: item.maintainList.current_page || 1 }, true).then(function (res) {
+        if (!item.maintainList) {
+          _this2.$set(item, 'maintainList', res.data);
+        } else {
+          res.data.cares_data.forEach(function (v) {
+            item.maintainList.cares_data.push(v);
+          });
+        }
+        item.maintainList.current_page++;
+      });
+    },
+    //维修记录
+    towerFixes: function towerFixes(id, item) {var _this3 = this;
+      if (item.repairList && item.repairList.current_page > item.repairList.last_page) return;
+      this.http.get('Order/towerFixes', {
+        order_id: this.order_id,
+        tower_id: id,
+        page: item.repairList.current_page || 1 }, true).then(function (res) {
+        if (!item.repairList) {
+          _this3.$set(item, 'repairList', res.data);
+        } else {
+          res.data.cares_data.forEach(function (v) {
+            item.repairList.cares_data.push(v);
+          });
+        }
+        item.repairList.current_page++;
+      });
+    },
     Collection: function Collection() {
       this.http.modal('', '是否确认收款', true, function (res) {
         if (res) {

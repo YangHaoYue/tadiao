@@ -5,17 +5,15 @@
 		
 		<block  v-for="(item,index) in questionList" :key="index">
 			<view style="padding: 0 40rpx 0 30rpx;">
-				<view class="u-font-28 text-bold u-m-t-24 u-m-b-24">{{item.title}}</view>
+				<view class="u-font-28 text-bold u-m-t-24 u-m-b-24">{{index+1}}、{{item.title}}</view>
 				<view class=" u-m-l-26">
 					<u-radio-group v-model="item.value" @change="radioGroupChange" :wrap="true" size="32">
 						<u-radio 
 							@change="radioChange" 
-							v-for="(item, index) in item.list" :key="index" 
+							v-for="(item, index) in item.answers" :key="index" 
 							label-size="26"
-							:name="item.name"
-							:disabled="item.disabled"
-						>
-							{{item.name}}
+							:name="item.text">
+							{{item.text}}
 						</u-radio>
 					</u-radio-group>
 				</view>
@@ -28,31 +26,78 @@
 			</view>
 		</u-upload>
 		
-		<u-input class="u-m-l-60 u-m-r-40" v-model="reamrk" type="textarea" :border="true" height="188" :auto-height="true" />
-		<u-button type="primary" class="u-m-20">提交</u-button>
+		<u-input class="u-m-l-40 u-m-r-40" v-model="remark" type="textarea" :border="true" height="188" :auto-height="true" />
+		<u-button type="primary" class="u-m-20" @click="addCareLog">提交</u-button>
 		<u-gap bg-color="#ffffff"></u-gap>
 	</view>
 </template>
 
 <script>
 	export default {
+		onLoad(e) {
+			this.tower_id = e.tower_id;
+			this.getCareTitles();
+		},
 		data() {
 			return {
-				questionList:[
-					{title:'1、行程限位器是否灵活有效',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-					{title:'2、高度限位器是否灵活有效',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-					{title:'3、力矩限位器是否灵活有效',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-					{title:'4、各减速机注油润滑及部件磨损情况',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-					{title:'5、大小钢丝绳润滑和断丝情况,神卡是否结实紧固',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-					{title:'6、电箱内电器接线柱是否有烧毁现象,断错相保护器时 候正常',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-					{title:'7、刹车是否正常开合,刹车片磨损情况',list: [{name: '同意'},{name: '不同意'}],value: '同意'},
-				],
-				action: '/api/v1/Common/fileUploader',
+				tower_id:'',
+				questionList:[],
+				action: 'Common/fileUploader',
 				header:{'Authorization':'Bearer '+ this.http.getToken()},
-				lists:[]
+				lists:[],
+				remark:''
 			}
 		},
 		methods: {
+			getCareTitles(){
+				this.http.get('FixCare/getCareTitles',{}).then(res=>{
+					this.questionList = res.data.map(v=>{
+						return{
+							title:v.TITLE,
+							answers:v.ANSWERS,
+							value:v.ANSWERS[0].text
+						}
+					});
+					console.log(this.questionList);
+				})
+			},
+			addCareLog(){
+				let img=[]
+				this.lists.map(item=>{
+					if(item.response&&item.response.code==1000){
+						img.push(item.response.data.path);
+					}else if(!item.error&&item.progress==100){
+						img.push(item.url);
+					}
+				});
+				let answerList = this.questionList.map((v,index)=>{
+					let answer = '';
+					for (let i = 0; i < v.answers.length; i++) {
+						if(v.value == v.answers[i].text) {
+							answer = i;
+						}
+					}
+					return{
+						key:index,
+						answer:answer
+					}
+				})
+				this.http.post('FixCare/addCareLog',{
+					tower_id:this.tower_id,
+					desc:this.remark,
+					imgs:img,
+					answers:answerList
+				}).then(res=>{
+					this.$u.toast(res.msg);
+					if(res.code == 1000){
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta: 1
+							});
+						},1500)
+					}
+				})
+			},
 			//上传保养照片
 			onChange(lists){
 				console.log('onListChange', lists[0]);

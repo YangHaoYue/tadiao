@@ -102,7 +102,7 @@
 				</view>
 				<view class="u-font-28 u-m-t-42" style="color: #838383;">管理设备数</view>
 				<view class="u-flex u-row-between u-m-t-10">
-					<view class="text-black text-bold" style="font-size: 61rpx;">534</view>
+					<view class="text-black text-bold" style="font-size: 61rpx;">{{tower_count}}</view>
 					<navigator open-type="navigate" url="/pages/mine/equipmentList/equipmentList" hover-class="none">
 						<view class="u-flex u-font-28 u-col-center" style="color: #838383;">
 							<text>设备清单</text>
@@ -172,7 +172,8 @@
 		
 		
 		<!-- 处理维保单的modal -->
-		<u-modal v-model="modal" content="是否同意接受该维保单" :show-title="false" :show-cancel-button="true" confirm-text="同意" cancel-text="不同意"></u-modal>
+		<u-modal v-model="modal" content="是否同意接受该维保单" :show-title="false" :show-cancel-button="true"
+			confirm-text="同意" cancel-text="不同意" @confirm="handleTransfer(1)" @cancel="handleTransfer(2)"></u-modal>
 		<!-- 日历/月 -->
 		<u-calendar v-model="showCalender" @change="chooseDay" :safe-area-inset-bottom="true"></u-calendar>
 		<!-- 日历/自定义 -->
@@ -192,8 +193,6 @@
 	export default {
 		onLoad() {
 			this.getUserInfo();
-		},
-		onBackPress() {
 			this.fixerMain();
 		},
 		onReachBottom() {
@@ -258,6 +257,7 @@
 				transfer_data:[],
 				transfer_data_page:1,
 				transfer_data_last_page:1,
+				transfer_id:"",
 				
 				//追踪
 				track_data:[],
@@ -370,10 +370,34 @@
 			//维修师傅分段器
 			changeCur(index){
 				this.curNow = index;
+				this.track_data_last_page = 1;
+				this.track_data = [];
+				this.track_data_page = 1;
+				
+				this.transfer_data_last_page = 1;
+				this.transfer_data = [];
+				this.transfer_data_page = 1;
+				this.fixerMain();
 			},
 			//处理
-			handle(){
+			handle(id){
+				this.transfer_id = id;
 				this.modal = true;
+			},
+			//处理转移
+			handleTransfer(status){
+				this.http.post('FixCare/handleTransfer',{
+					transfer_id:this.transfer_id,
+					status:status//1=>同意,2=>拒绝
+				}).then(res=>{
+					this.$u.toast(res.msg)
+					if(res.code == 1000){
+						this.transfer_data_last_page = 1;
+						this.transfer_data = [];
+						this.transfer_data_page = 1;
+						this.fixerTransfers();
+					}
+				})
 			},
 			toSetting(){
 				uni.navigateTo({url: 'setting/setting'});
@@ -385,11 +409,13 @@
 			chooseDay(e){
 				console.log(e);
 				this.day = e.result;
+				this.getUserInfo();
 			},
 			chooseDayRange(e){
 				console.log(e);
 				this.start = e.startDate;
 				this.end = e.endDate;
+				this.getUserInfo();
 			}
 		}
 	}

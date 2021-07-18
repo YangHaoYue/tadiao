@@ -96,25 +96,25 @@ var components
 try {
   components = {
     uInput: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 303))
+      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 327))
     },
     uForm: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-form/u-form */ "uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form/u-form.vue */ 285))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-form/u-form */ "uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form/u-form.vue */ 309))
     },
     uFormItem: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form-item/u-form-item.vue */ 292))
+      return Promise.all(/*! import() | uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form-item/u-form-item.vue */ 316))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     },
     uSelect: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-select/u-select */ "uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-select/u-select.vue */ 338))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-select/u-select */ "uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-select/u-select.vue */ 362))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 418))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 442))
     }
   }
 } catch (e) {
@@ -141,18 +141,6 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.selectShow = true
-    }
-
-    _vm.e1 = function($event) {
-      _vm.selectShow = true
-    }
-
-    _vm.e2 = function($event) {
-      _vm.showModal = true
-    }
-
-    _vm.e3 = function($event) {
-      _vm.showModal = false
     }
   }
 }
@@ -188,7 +176,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -256,12 +244,22 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getInfo();
+  },
+  onShow: function onShow() {var _this = this;
+    uni.$on('brank_id', function (res) {
+      _this.model.band.bankcard_id = res.brank_id;
+      _this.getBankcardById();
+      uni.$off('brank_id');
+    });
+  },
   data: function data() {
     return {
       //可提现金额
-      totalMoney: '851.00',
+      totalMoney: '',
       //输入金额
-      money: '500.00',
+      money: 0,
 
       border: false,
       labelStyle: { fontSize: '28rpx', fontWeight: 'bold', color: '#151515' },
@@ -270,7 +268,7 @@ var _default =
       errorType: ['message', 'border-bottom'],
 
       model: {
-        way: '微信',
+        way: '银行卡提现',
         wayId: 0,
         wx: {
           acount: '',
@@ -281,6 +279,7 @@ var _default =
           name: '' },
 
         band: {
+          bankcard_id: '',
           bandName: '',
           code: '' } },
 
@@ -291,7 +290,7 @@ var _default =
       selectList: [
       {
         value: 0,
-        label: '微信' },
+        label: '银行卡提现' },
 
       {
         value: 1,
@@ -299,23 +298,79 @@ var _default =
 
       {
         value: 2,
-        label: '银行卡提现' }],
+        label: '微信' }],
 
 
       showModal: false };
 
   },
   methods: {
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('withdraw/getUserBalance').then(function (res) {
+        _this2.totalMoney = res.data.balance;
+      });
+    },
+    getBankcardById: function getBankcardById() {var _this3 = this;
+      this.http.post('withdraw/getBankcardById', {
+        bankcard_id: this.model.band.bankcard_id }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this3.model.band.bandName = res.data.bankcard.bank_name;
+          _this3.model.band.code = res.data.bankcard.bankcard_num;
+        }
+      });
+    },
+    toManagment: function toManagment() {
+      uni.navigateTo({ url: '../bankCardManagement/bankCardManagement?isSelect=true' });
+    },
     //选择提现方式
-    selectConfirm: function selectConfirm(e) {var _this = this;
+    selectConfirm: function selectConfirm(e) {var _this4 = this;
       console.log(e);
       this.model.way = '';
       this.model.wayId = '';
       e.map(function (val, index) {
-        _this.model.way += _this.model.way == '' ? val.label : '-' + val.label;
-        _this.model.wayId = val.value;
+        _this4.model.way += _this4.model.way == '' ? val.label : '-' + val.label;
+        _this4.model.wayId = val.value;
+      });
+    },
+    back: function back() {
+      this.showModal = false;
+      uni.navigateBack({
+        delta: 1 });
+
+    },
+    submit: function submit() {var _this5 = this;
+      var data = '';
+      if (this.model.wayId == 0) {
+        data = {
+          type: this.model.wayId,
+          amount: this.money,
+          bankcard_id: this.model.wayId };
+
+      } else if (this.model.wayId == 1) {
+        data = {
+          type: this.model.wayId,
+          amount: this.money,
+          name: this.model.zfb.name,
+          account: this.model.zfb.acount };
+
+      } else {
+        data = {
+          type: this.model.wayId,
+          amount: this.money,
+          name: this.model.wx.name,
+          account: this.model.wx.acount };
+
+      }
+      this.http.post('withdraw/withdraw', data).then(function (res) {
+        if (res.code == 1000) {
+          _this5.showModal = true;
+        } else {
+          _this5.$u.toast(res.msg);
+        }
       });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

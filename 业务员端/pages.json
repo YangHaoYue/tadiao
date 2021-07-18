@@ -3,25 +3,7 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-		    "path" : "pages/register/register",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "注册",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/register/agreement",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "用户协议",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
+        {
             "path" : "pages/mine/mine",
             "style" :                                                                                    
             {
@@ -44,6 +26,24 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "线索详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/mine/projectClues/createNew/createNew",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "新建线索",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/mine/projectClues/createNew/map",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "地图",
 		        "enablePullDownRefresh": false
 		    }
 		    
@@ -103,6 +103,15 @@
             }
             
         }
+		,{
+		    "path" : "pages/mine/projectManagement/addRecord/addRecord",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "增加付款时间",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/mine/projectClues/newProject/chooseEquipment/chooseEquipment",
             "style" :                                                                                    
@@ -234,7 +243,7 @@
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "嗒嗒租赁",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-		
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle":"custom"
 	}
 }

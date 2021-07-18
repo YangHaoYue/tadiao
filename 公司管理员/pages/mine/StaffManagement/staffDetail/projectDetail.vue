@@ -18,33 +18,75 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			this.staff_id = e.staff_id
+			this.getInfo();
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		data() {
 			return {
-				list:[{
-						title: '创建时间：2021-04-21 13:0',
-						subTitle: '待跟进',
-						subTitleColor:'#FE5E10',
-						desc:'湘东滨河新区未来城项目',
-						totalPrice:'8456.00',
-						thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-					},{
-						title: '创建时间：2021-04-21 13:0',
-						subTitle: '跟进中',
-						subTitleColor:'#2DA016',
-						desc:'湘东滨河新区未来城项目',
-						totalPrice:'8456.00',
-						thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-					},{
-						title: '创建时间：2021-04-21 13:0',
-						subTitle: '审核中',
-						subTitleColor:'#0F58FB',
-						desc:'湘东滨河新区未来城项目',
-						totalPrice:'8456.00',
-						thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
-					}]
+				staff_id:'',
+				page:1,
+				last_page:1,
+				list:[],
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('Manager/staffList',{
+					staff_id:this.staff_id,
+					page:this.page
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.order_data.map(v=>{
+								return this._format(v)
+							});
+							this.last_page = res.data.last_page;
+						}else{
+							res.data.order_data.forEach(v=>{
+								this.list.push(this._format(v))
+							})
+						}
+						
+						if(this.page >= this.last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
+					}
+				})
+			},
+			_format(e){
+				return{
+					id:e.id,
+					project_name:e.project_name,
+					title:"创建时间：" + e.created_at,
+					address:e.address,
+					provider_data:e.provider_data,
+					handler_data:e.handler_data,
+					handle_data:e.handle_data,
+				}
+			},
+			claerData(){
+				this.page = 1;
+				this.last_page = 1;
+				this.list = [];
+				this.status = "loading"
+				this.getInfo();
+			},
 			toDetail(){
 				uni.navigateTo({url: 'detail/detail'});
 			},

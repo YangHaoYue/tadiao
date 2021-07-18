@@ -109,13 +109,16 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
-    uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+    uLoadmore: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 463))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 404))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 428))
+    },
+    uButton: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -139,6 +142,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -194,65 +206,84 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad(e) {
+    this.project_id = e.project_id;
+    this.getInfo();
+  },
+  onBackPress: function onBackPress() {
+    this.clearData();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.page >= this.last_page) return;
+    this.status = 'loading';
+    this.page = ++this.page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   data: function data() {
     return {
-      list: [
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        invalid: '2021-09-01' },
+      project_id: '',
+      page: 1,
+      last_page: 1,
+      list: [],
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' }
 
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        invalid: '2021-09-01' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        invalid: '2021-09-01' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        invalid: '2021-09-01' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        invalid: '2021-09-01' },
-
-      {
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        code: 'WE2445',
-        brand: '虎马',
-        years: '三年',
-        invalid: '2021-09-01' }] };
-
-
+      /* 
+                           {
+                           	img:'https://cdn.uviewui.com/uview/swiper/1.jpg',
+                           	name:'QTZ80(5512-6)',
+                           	code:'WE2445',
+                           	brand:'虎马',
+                           	years:'三年',
+                           	invalid:'2021-09-01'
+                           }
+                           */ };
 
   },
   methods: {
-    toConnect: function toConnect() {
-      uni.navigateTo({ url: 'relation' });
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('project/getLockedTowers', {
+        project_id: this.project_id,
+        page: this.page }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.list.length == 0) {
+            _this2.list = res.data.lock_data;
+            _this2.last_page = res.data.last_page;
+          } else {
+            res.data.lock_data.forEach(function (v) {
+              _this2.list.push(v);
+            });
+          }
+
+          _this2.shows_lock_button = res.data.shows_lock_button;
+
+          if (_this2.page >= _this2.last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
+    clearData: function clearData() {
+      this.page = 1;
+      this.list = [];
+      this.status = "loading";
+      this.getInfo();
+    },
+    toConnect: function toConnect(id) {
+      uni.navigateTo({ url: 'relation?project_id=' + this.project_id });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

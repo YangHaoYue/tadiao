@@ -21,11 +21,12 @@
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
 						<view class="u-flex u-font-24" style="color: #666666;">
-							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}</view>
-						<view>
+							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
+						</view>
+						<view class="u-flex">
 							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toRelation(item.id)" v-if="!item.lock_arr.has_lock">关联塔吊</u-button>
 							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toAssociated(item.id)" v-if="item.lock_arr.has_lock">已关联塔吊</u-button>
-							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate" v-if="item.show_order_button">创建项目</u-button>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate(item.id)" v-if="item.show_order_button">创建项目</u-button>
 							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toEdit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
 						</view>
 					</view>
@@ -76,7 +77,7 @@
 			</view>
 		</u-popup>
 		
-		<navigator open-type="navigate" url="/pages/mine/projectClues/createNew/createNew" hover-class="none" class="u-flex cNew round u-p-22">
+		<navigator open-type="navigate" url="createNew/createNew" hover-class="none" class="u-flex cNew round u-p-22">
 			<view class="u-flex-1">新增</view>
 			<view class="u-flex-1">线索</view>
 		</navigator>
@@ -88,7 +89,8 @@
 		onLoad() {
 			this.projectLists();
 		},
-		onBackPress() {
+		onBackPress(e) {
+			console.log(e);
 			this.clearData();
 		},
 		onReachBottom() {
@@ -212,7 +214,8 @@
 				}
 				return{
 					id:e.id,
-					status:1,
+					subTitle:subTitle,
+					subTitleColor:subTitleColor,
 					project_name:e.project_name,
 					title:"创建时间：" + e.created_at,
 					address:e.address,
@@ -252,8 +255,8 @@
 				uni.navigateTo({url: 'detail/detail?project_id=' + id});
 			},
 			//关联塔吊
-			toRelation(){
-				uni.navigateTo({url: 'relation/relation'});
+			toRelation(id){
+				uni.navigateTo({url: 'relation/relation?project_id='+id});
 			},
 			//已关联的塔吊
 			toAssociated(id){
@@ -277,8 +280,8 @@
 				uni.navigateTo({url: 'newProject/newProject?project_id=' + id});
 			},
 			/* 新建项目 */
-			toCreate(){
-				uni.navigateTo({url: 'newProject/newProject'});
+			toCreate(id){
+				uni.navigateTo({url: 'newProject/newProject?project_id=' + id});
 			}
 		}
 	}

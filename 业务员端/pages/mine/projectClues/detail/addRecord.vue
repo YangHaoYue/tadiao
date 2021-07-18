@@ -7,7 +7,7 @@
 			</view>
 			<u-upload class="u-m-t-30" width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :max-count="99" @on-list-change="onChange"></u-upload>
 		</view>
-		<u-button class="u-m-25" type="primary" style="position: fixed;bottom: 78rpx;right: 0;left: 0;">提交记录</u-button>
+		<u-button class="u-m-25" type="primary" style="position: fixed;bottom: 78rpx;right: 0;left: 0;" @click="followUp">提交记录</u-button>
 	</view>
 </template>
 

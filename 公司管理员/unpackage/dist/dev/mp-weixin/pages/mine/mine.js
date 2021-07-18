@@ -96,37 +96,37 @@ var components
 try {
   components = {
     uAvatar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 355))
-    },
-    uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 379))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uGrid: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid/u-grid */ "uview-ui/components/u-grid/u-grid").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid/u-grid.vue */ 376))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid/u-grid */ "uview-ui/components/u-grid/u-grid").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid/u-grid.vue */ 393))
     },
     uGridItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid-item/u-grid-item */ "uview-ui/components/u-grid-item/u-grid-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid-item/u-grid-item.vue */ 383))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-grid-item/u-grid-item */ "uview-ui/components/u-grid-item/u-grid-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-grid-item/u-grid-item.vue */ 400))
     },
     uRow: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 390))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 407))
     },
     uCol: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 397))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 414))
+    },
+    uImage: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 404))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 428))
     },
     uCalendar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 411))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-calendar/u-calendar */ "uview-ui/components/u-calendar/u-calendar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-calendar/u-calendar.vue */ 435))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 418))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-popup/u-popup */ "uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-popup/u-popup.vue */ 442))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -150,23 +150,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      _vm.showModal = true
-    }
-
-    _vm.e1 = function($event) {
       _vm.showCalender = true
     }
 
-    _vm.e2 = function($event) {
+    _vm.e1 = function($event) {
       _vm.show = true
     }
 
-    _vm.e3 = function($event) {
+    _vm.e2 = function($event) {
       _vm.showModal = false
     }
   }
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -320,17 +327,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getUserInfo();
+  },
   data: function data() {
     return {
-      avaterSrc: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg',
+      show_fixer_button: false,
+
+      user_data: {
+        id: 6,
+        name: "维修师傅老王",
+        avatar: "images\/85e29bb4783cf12363a8fce9237df14.png",
+        branch_name: "测试分公司" },
+
+
       //二维码弹窗
       showModal: false,
-      money: '7500.00',
-      profit: '0.00',
+      codeImg: '',
+
+      total_reward: '7500.00',
+      today_reward: '0.00',
+
       //分段器
       current: true,
       //月
@@ -340,6 +359,13 @@ var _default =
       show: false,
       start: '2020-11-22',
       end: '2020-11-22',
+
+      business_data: {
+        project_count: 0,
+        order_count: 0,
+        order_pay_amount: 0,
+        order_amount: 0 },
+
 
       list: [
       { img: '../../static/xiangmuxiansuo@2x.png', name: '项目线索', url: '/pages/mine/projectClues/projectClues' },
@@ -357,6 +383,32 @@ var _default =
 
   },
   methods: {
+    //业务员
+    getUserInfo: function getUserInfo() {var _this = this;
+      var data = '';
+      if (!this.current) {
+        data = {
+          start_at: this.start,
+          end_at: this.end };
+
+      }
+      this.http.get('UserCenter/manager', data).then(function (res) {
+        if (res.code == 1000) {
+          _this.user_data = res.data.user_data;
+          _this.total_reward = res.data.total_reward;
+          _this.today_reward = res.data.today_reward;
+          _this.business_data = res.data.business_data;
+          _this.show_fixer_button = res.data.show_fixer_button; //true显示进入维修中心按钮
+        } else {
+          _this.$u.toast(res.msg);
+        }
+      });
+    },
+    getInviteCode: function getInviteCode() {var _this2 = this;
+      this.http.get('UserCenter/getInviteCode', {}, true).then(function (res) {
+        _this2.codeImg = _this2.http.resourceUrl() + res.data;
+      });
+    },
     toSetting: function toSetting() {
       uni.navigateTo({ url: 'setting/setting' });
     },
@@ -367,11 +419,13 @@ var _default =
     chooseDay: function chooseDay(e) {
       console.log(e);
       this.day = e.result;
+      this.getUserInfo();
     },
     chooseDayRange: function chooseDayRange(e) {
       console.log(e);
       this.start = e.startDate;
       this.end = e.endDate;
+      this.getUserInfo();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

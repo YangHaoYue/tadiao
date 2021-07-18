@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uSearch: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-search/u-search */ "uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-search/u-search.vue */ 484))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-search/u-search */ "uview-ui/components/u-search/u-search").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-search/u-search.vue */ 522))
     },
     uAvatar: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 355))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-avatar/u-avatar */ "uview-ui/components/u-avatar/u-avatar").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-avatar/u-avatar.vue */ 379))
     }
   }
 } catch (e) {
@@ -123,6 +123,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -175,16 +184,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
+  onLoad: function onLoad() {
+
+  },
   data: function data() {
     return {
       keyward: '',
-      list: [
-      { avatar: '', name: '张三' }, { avatar: '', name: '张三' }, { avatar: '', name: '张三' }, { avatar: '', name: '张三' }, { avatar: '', name: '张三' }] };
-
+      page: 1,
+      last_page: 1,
+      list: [] };
 
   },
   methods: {
-    back: function back() {
+    getFixerForFix: function getFixerForFix() {var _this = this;
+      this.http.get('Order/getFixerForFix', {
+        keyward: this.keyward }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this.list.length == 0) {
+            _this.list = res.data.fixer_data;
+            _this.last_page = res.data.last_page;
+          } else {
+            res.data.fixer_data.forEach(function (v) {
+              _this.list.push(v);
+            });
+          }
+        }
+      });
+    },
+    back: function back(item) {
+      uni.$emit('fixer', { data: item });
       uni.navigateBack({
         delta: 1 });
 

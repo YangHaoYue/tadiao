@@ -96,10 +96,13 @@ var components
 try {
   components = {
     uCard: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 432))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 456))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
+    },
+    uLoadmore: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 463))
     }
   }
 } catch (e) {
@@ -123,6 +126,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -173,32 +185,110 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad(e) {
+    this.staff_id = e.staff_id;
+    this.getInfo();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.page >= this.last_page) return;
+    this.status = 'loading';
+    this.page = ++this.page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   data: function data() {
     return {
-      list: [{
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '待跟进',
-        subTitleColor: '#FE5E10',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '跟进中',
-        subTitleColor: '#2DA016',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-      {
-        title: '创建时间：2021-04-21 13:0',
-        subTitle: '审核中',
-        subTitleColor: '#0F58FB',
-        desc: '湘东滨河新区未来城项目',
-        thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] };
+      staff_id: '',
+      page: 1,
+      last_page: 1,
+      list: [],
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' } };
 
 
   },
   methods: {
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('Manager/staffList', {
+        staff_id: this.staff_id,
+        page: this.page }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.list.length == 0) {
+            _this2.list = res.data.pages.project_data.map(function (v) {
+              return _this2._format(v);
+            });
+            _this2.last_page = res.data.pages.last_page;
+          } else {
+            res.data.pages.project_data.forEach(function (v) {
+              _this2.list.push(_this2._format(v));
+            });
+          }
+
+          if (_this2.page >= _this2.last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
+    claerData: function claerData() {
+      this.page = 1;
+      this.last_page = 1;
+      this.list = [];
+      this.status = "loading";
+      this.getInfo();
+    },
+    _format: function _format(e) {
+      //1=>待跟进,2=>跟进中,3=>已成交,6=>已结束.
+      var subTitle = '';
+      var subTitleColor = '';
+      switch (e.status) {
+        case 0:
+          subTitle = '审核中';
+          subTitleColor = '#105CFB';
+          break;
+        case 1:
+          subTitle = '待跟进';
+          subTitleColor = '#FE5E10';
+          break;
+        case 2:
+          subTitle = '跟进中';
+          subTitleColor = '#2DA016';
+          break;
+        case 3:
+          subTitle = '已成交';
+          subTitleColor = '#2DA016';
+          break;
+        case 6:
+          subTitle = '已结束';
+          subTitleColor = '#FE5E10';
+          break;}
+
+      return {
+        id: e.id,
+        subTitle: subTitle,
+        subTitleColor: subTitleColor,
+        project_name: e.project_name,
+        title: "创建时间：" + e.created_at,
+        address: e.address,
+        provider_data: e.provider_data,
+        handler_data: e.handler_data,
+        lock_arr: e.lock_arr };
+
+    },
     toDetail: function toDetail() {
       uni.navigateTo({ url: 'detail/detail' });
     } } };exports.default = _default;

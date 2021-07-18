@@ -96,13 +96,16 @@ var components
 try {
   components = {
     uTabs: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 425))
+      return Promise.all(/*! import() | uview-ui/components/u-tabs/u-tabs */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-tabs/u-tabs")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-tabs/u-tabs.vue */ 449))
     },
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uCard: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 432))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-card/u-card */ "uview-ui/components/u-card/u-card").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-card/u-card.vue */ 456))
+    },
+    uLoadmore: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 463))
     }
   }
 } catch (e) {
@@ -126,6 +129,17 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.current == 0 ? _vm.http.resourceUrl() : null
+  var g1 = !(_vm.current == 0) ? _vm.http.resourceUrl() : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        g1: g1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -208,64 +222,157 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad() {
+    this.getOrdersForScreen();
+    this.getTypes();
+    this.getTowersForMng();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.tabList[this.current].page >= this.tabList[this.current].last_page) return;
+    this.status = 'loading';
+    this.tabList[this.current].page = ++this.tabList[this.current].page;
+    setTimeout(function () {
+      if (_this.current == 0) {
+        _this.getOrdersForScreen();
+      } else {
+        _this.getTowersForMng();
+      }
+    }, 50);
+  },
   data: function data() {
     return {
       current: 0,
       tabList: [{
         name: '按项目',
-        list: [{
-          title: '创建时间：2021-04-21 13:0',
-          subTitle: '待跟进',
-          subTitleColor: '#FE5E10',
-          desc: '湘东滨河新区未来城项目',
-          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-        {
-          title: '创建时间：2021-04-21 13:0',
-          subTitle: '跟进中',
-          subTitleColor: '#2DA016',
-          desc: '湘东滨河新区未来城项目',
-          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-        {
-          title: '创建时间：2021-04-21 13:0',
-          subTitle: '审核中',
-          subTitleColor: '#0F58FB',
-          desc: '湘东滨河新区未来城项目',
-          thumb: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' }] },
-
+        list: [],
+        page: 1,
+        last_page: 1 },
       {
         name: '按型号',
-        list: [{
-          name: 'QTZ80(5512-6)',
-          brand: '品牌名称',
-          number: 'WE2245',
-          code: '6737YT',
-          years: '三年',
-          time: '2021-04-21' },
-        {
-          name: 'QTZ80(5512-6)',
-          brand: '品牌名称',
-          number: 'WE2245',
-          code: '6737YT',
-          years: '三年',
-          time: '2021-04-21' }] }],
+        list: [],
+        page: 1,
+        last_page: 1 }],
 
+
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' },
 
 
       idot: 0,
-      idotList: [{ title: '全部', value: 0 }, { title: '6021', value: 6021 }, { title: '6022', value: 6022 }, { title: '6023', value: 6023 }, { title: '6024', value: 6024 }, { title: '6025', value: 6025 }] };
+      idot_page: 1,
+      idot_last_page: 1,
+      idotList: [{ title: '全部', value: 0 }] };
 
   },
   methods: {
+    getOrdersForScreen: function getOrdersForScreen() {var _this2 = this;
+      this.http.get('FixCare/getOrdersForScreen', {}).then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.tabList[0].list.length == 0) {
+            _this2.tabList[0].list = res.data.order_data.map(function (v) {
+              return _this2._format(v);
+            });
+            _this2.tabList[0].last_page = res.data.last_page;
+          } else {
+            res.data.order_data.forEach(function (v) {
+              _this2.tabList[0].list.push(_this2._format(v));
+            });
+          }
+          console.log(_this2.tabList[0].list);
+          if (_this2.tabList[0].page >= _this2.tabList[0].last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
+    _format: function _format(e) {
+      //0=>待审核,1=>已通过,2=>已拒绝,3已结束
+      var subTitle = '';
+      var subTitleColor = '';
+      switch (e.status) {
+        case 0:
+          subTitle = '待审核';
+          subTitleColor = '#105CFB';
+          break;
+        case 1:
+          subTitle = '进行中';
+          subTitleColor = '#2DA016';
+          break;
+        case 2:
+          subTitle = '已拒绝';
+          subTitleColor = '#FE5E10';
+          break;
+        case 3:
+          subTitle = '已结束';
+          subTitleColor = '#FE5E10';
+          break;}
+
+      return {
+        id: e.order_id,
+        subTitle: subTitle,
+        subTitleColor: subTitleColor,
+        project_name: e.project_name,
+        title: "创建时间：" + e.created_at,
+        handle_data: e.handle_data };
+
+    },
+    getTowersForMng: function getTowersForMng() {var _this3 = this;
+      this.http.get('FixCare/getTowersForMng', {
+        type_id: this.idot }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this3.tabList[1].list.length == 0) {
+            _this3.tabList[1].list = res.data.tower_data;
+            _this3.tabList[1].last_page = res.data.last_page;
+          } else {
+            res.data.tower_data.forEach(function (v) {
+              _this3.tabList[1].list.push(v);
+            });
+          }
+
+          if (_this3.tabList[1].page >= _this3.tabList[0].last_page) _this3.status = 'nomore';else
+          _this3.status = 'loadmore';
+        }
+      });
+    },
+    //获取机型
+    getTypes: function getTypes() {var _this4 = this;
+      this.http.get('Index/getTypes', {
+        page: this.typePage },
+      true).then(function (res) {
+        if (res.code == 1000) {
+          res.data.type_data.forEach(function (v) {
+            _this4.idotList.push({
+              title: v.name,
+              value: v.id });
+
+          });
+          _this4.typeLast_page = res.data.last_page;
+        }
+      });
+    },
     change: function change(index) {
       this.current = index;
     },
-    toDetail: function toDetail() {
+    toDetail: function toDetail(order_id, id) {
       if (this.current == 0) {
-        uni.navigateTo({ url: 'projectDetail/projectDetail' });
+        uni.navigateTo({ url: 'projectDetail/projectDetail?order_id=' + order_id });
       } else {
-        uni.navigateTo({ url: 'detail/detail' });
+        uni.navigateTo({ url: 'detail/detail?order_id=' + order_id + '&tower_id=' + id });
       }
     },
     chooseIdot: function chooseIdot(item) {

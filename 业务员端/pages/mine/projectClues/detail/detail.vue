@@ -10,22 +10,22 @@
 			<view class="u-p-20">
 				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,index) in list1" :key="index">
 					<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
-					<view class="u-font-28 text-bold" style="color: #333333;" v-if="item.value.constructor == String">{{item.value}}</view>
+					<view class="u-font-28 text-bold" style="color: #333333;" v-if="!item.isArray">{{item.value}}</view>
 					<view class="u-font-28 text-bold" style="color: #333333;" v-else>
 						<view v-for="(son,i) in item.value" :key="i" >{{son.type}}({{son.count}}台)</view>
 					</view>
 				</view>
-				<block v-for="(item,i) in medias" :key="i">
+				<block v-for="(item,q) in medias" :key="q">
 					<view class="u-flex u-row-between u-col-top u-p-10" >
-						<view class="u-font-28" style="color: #999999;">联系人{{i == 0?i+1:''}}</view>
-						<view class="u-font-28 text-bold" style="color: #333333;">{{item.value}}</view>
+						<view class="u-font-28" style="color: #999999;">联系人{{q == 0?q+1:''}}</view>
+						<view class="u-font-28 text-bold" style="color: #333333;">{{item.media_name}}</view>
 					</view>
 					<view class="u-flex u-row-between u-col-top u-p-10" >
-						<view class="u-font-28" style="color: #999999;">联系电话{{i == 0?i+1:''}}</view>
-						<view class="u-font-28 text-bold" style="color: #333333;">{{item.value}}</view>
+						<view class="u-font-28" style="color: #999999;">联系电话{{q == 0?q+1:''}}</view>
+						<view class="u-font-28 text-bold" style="color: #333333;">{{item.media_tel_num}}</view>
 					</view>
 				</block>
-				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,j) in list2" :key="j">
+				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,w) in list2" :key="w">
 					<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
 					<view class="u-font-28 text-bold" style="color: #333333;">{{item.value}}</view>
 				</view>
@@ -78,11 +78,11 @@
 				project_id:'',
 				entryName:'湘东滨河新区未来城项目',
 				list1:[
-					{name:'施工单位',value:'黄龙体育馆'},
-					{name:'地址',value:'浙江省杭州市西湖区黄龙中心'},
-					{name:'塔机型号及数量',value:[{type:'6273477',count:'(10台)'},{type:'6273477',count:'(10台)'}]},
-					{name:'项目建设单位',value:'XXXX建设单位有限公司'},
-					{name:'备注',value:'这是备注这是备注这是备注'},
+					{name:'施工单位',value:'黄龙体育馆',isArray:false},
+					{name:'地址',value:'浙江省杭州市西湖区黄龙中心',isArray:false},
+					{name:'塔机型号及数量',value:[{type:'6273477',count:'(10台)'},{type:'6273477',count:'(10台)'}],isArray:true},
+					{name:'项目建设单位',value:'XXXX建设单位有限公司',isArray:false},
+					{name:'备注',value:'这是备注这是备注这是备注',isArray:false},
 				],
 				medias:[],
 				list2:[

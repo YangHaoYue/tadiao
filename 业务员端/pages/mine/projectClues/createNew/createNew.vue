@@ -6,21 +6,21 @@
 		</view>
 		<view class="u-p-l-50 u-p-r-20 bg-white" style="border-radius: 10rpx;">
 			<u-form :model="model" ref="uForm" :errorType="errorType">
-				<u-form-item :label-style="labelStyle" :required="true" label-width="120" :label-position="labelPosition" label="项目名称" prop="entryName">
+				<u-form-item :label-style="labelStyle" :required="true" label-width="120" :label-position="labelPosition" label="项目名称" prop="project_name">
 					<u-input :border="border" placeholder="请输入项目名称" v-model="model.project_name" type="text"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="true" right-icon="arrow-right" :label-position="labelPosition" label="地图定位" prop="location" label-width="150">
 					<u-input :border="border" :disabled="true" v-model="model.address" placeholder="请选择定位" @click="chooseLocation"></u-input>
 				</u-form-item>
-				<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="施工单位" prop="constructionUnit">
+				<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="施工单位" prop="construction_name">
 					<u-input :border="border" type="text" v-model="model.construction_name" placeholder="请输入塔吊使用方单位名称"></u-input>
 				</u-form-item>
-				<u-form-item :label-style="labelStyle" :required="false" :label-position="labelPosition" label="项目的建设单位" prop="ofTheProject">
+				<u-form-item :label-style="labelStyle" :required="false" :label-position="labelPosition" label="项目的建设单位" prop="developer_name">
 					<u-input :border="border" type="text" v-model="model.developer_name" placeholder="请输入项目的建设单位"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="塔机型号及数量" prop="list">
 					<view>
-						<block v-for="(item,j) in model.tower_types" :key="j">
+						<block v-for="(item,j) in model.list" :key="j">
 							<view class="u-flex u-m-t-10 u-m-b-10">
 								<view class="u-flex" style="border: 1rpx solid #DDDDDD;border-radius: 10rpx;line-height: 1;">
 									<view class="u-p-10 u-p-l-15">塔机型号</view>
@@ -52,7 +52,7 @@
 		</view>
 		<view class="u-p-l-50 u-p-r-40 bg-white" style="border-radius: 10rpx;">
 			<u-form :model="model" ref="uForm" :errorType="errorType">
-				<block v-for="(item,i) in model.Types" :key="i">
+				<block v-for="(item,i) in model.connectList" :key="i">
 					<view class="u-flex u-row-between u-p-t-20 u-p-b-20 u-border-bottom">
 						<view>联系人{{i+1}}</view>
 						<u-icon name="trash" size="35" @click="deleteConnect(i)" v-if="i>0"></u-icon>
@@ -70,7 +70,7 @@
 			</view>
 		</view>
 		
-		<u-button class="u-m-30 u-m-t-60" type="primary" @click="showModal = true">立即提交</u-button>
+		<u-button class="u-m-30 u-m-t-60" type="primary" @click="submit">立即提交</u-button>
 		
 		<u-gap height="60" bg-color="#F8F8F8"></u-gap>
 		<!-- modal弹窗 -->
@@ -78,7 +78,7 @@
 			<view class="u-p-60 u-p-b-40 u-flex" style="flex-direction: column;">
 				<u-icon name="checkmark-circle-fill" size="100" color="#0F58FB" label="等待审核" label-color="#333333" label-size="30" label-pos="bottom" margin-top="20"></u-icon>
 				<view class="u-m-t-40 u-font-24 text-gray">预计1-3个工作日，如经审核认定您为本项目的第一位信息提供者，则将有业务员联系您，并确认您为本项目的信息员。</view>
-				<u-button class="u-m-t-50" style="width: 100%;" size="medium" type="primary" @click="showModal = false">关闭</u-button>
+				<u-button class="u-m-t-50" style="width: 100%;" size="medium" type="primary" @click="back">关闭</u-button>
 			</view>
 		</u-popup>
 	</view>
@@ -89,7 +89,7 @@
 		onLoad(e) {
 			if(e.project_id){
 				this.project_id = e.project_id;
-				this.getInfo();
+				this.getProjectEditInfo()
 			}
 		},
 		onShow() {
@@ -110,34 +110,22 @@
 				errorType: ['message','border-bottom'],
 				
 				project_id:'',
-				
 				model:{
-					project_name:"缇香荟",
-					latitude:"31.188767",
-					longitude:"121.703641",
-					address:"default",
-					district:[
-					  "上海市",
-					  "市辖区",
-					  "浦东新区"
-					],
-					construction_name:"中欧",
-					developer_name:"",
-					tower_types:[
-					  {
-						id:3,
-						type:"t-800",
-						count:1
-					  }
-					],
-					Types:[
-					  {
-						id:4,
-						media_name:"张三",
-						media_tel_num:"1654366168"
-					  }
-					],
-					remark:""
+					project_name:'',
+					address:'',
+					longitude:'',
+					latitude:'',
+					construction_name:'',
+					developer_name:'',
+					list:[{
+						type:'',
+						count:''
+					}],
+					remark:'',
+					connectList:[{
+						media_name:'',
+						media_tel_num:''
+					}]
 				},
 				//选择地区
 				selectMapShow:false,
@@ -146,12 +134,17 @@
 			}
 		},
 		methods: {
-			getInfo(){
+			getProjectEditInfo(){
 				this.http.get('project/getProjectEditInfo',{
 					project_id:this.project_id
 				}).then(res=>{
 					if(res.code == 1000){
-						this.model = res.data
+						this.model.project_name = res.data.project_name;
+						this.model.construction_name = res.data.construction_name;
+						this.model.developer_name = res.data.developer_name;
+						this.model.list = res.data.tower_types;
+						this.model.connectList = res.data.Types;
+						this.model.remark = res.data.remark;
 					}
 				})
 			},
@@ -163,35 +156,36 @@
 					fail: () => {},
 					complete: () => {}
 				});
-				/* uni.getLocation({
-				    type: 'gcj02',
+				/* uni.chooseLocation({
 				    success: function (res) {
-				        console.log('当前位置的经度：' + res.longitude);
-				        console.log('当前位置的纬度：' + res.latitude);
+				        console.log('位置名称：' + res.name);
+				        console.log('详细地址：' + res.address);
+				        console.log('纬度：' + res.latitude);
+				        console.log('经度：' + res.longitude);
 				    }
 				}); */
 			},
 			//增加塔机机型
 			addNewEquipment(){
-				this.model.tower_types.push({
+				this.model.list.push({
 						type:'',
 						count:''
 					})
 			},
 			//删除机型
 			deleteEquipment(j){
-				this.model.tower_types.splice(j,1);
+				this.model.list.splice(j,1);
 			},
 			//增加联系人
 			addConnect(){
-				this.model.Types.push({
+				this.model.connectList.push({
 						media_name:'',
 						media_tel_num:''
 					})
 			},
 			//删除联系人
 			deleteConnect(i){
-				this.model.Types.splice(i,1);
+				this.model.connectList.splice(i,1);
 			},
 			addProject(){
 				this.http.post('project/addProject',{

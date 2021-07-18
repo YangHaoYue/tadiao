@@ -94,16 +94,16 @@ var components
 try {
   components = {
     uForm: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-form/u-form */ "uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form/u-form.vue */ 285))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-form/u-form */ "uview-ui/components/u-form/u-form").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form/u-form.vue */ 309))
     },
     uFormItem: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form-item/u-form-item.vue */ 292))
+      return Promise.all(/*! import() | uview-ui/components/u-form-item/u-form-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-form-item/u-form-item")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-form-item/u-form-item.vue */ 316))
     },
     uInput: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 303))
+      return Promise.all(/*! import() | uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-input/u-input.vue */ 327))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -182,10 +182,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
+  onLoad: function onLoad(e) {
+    if (e.bankcard_id) {
+      this.bankcard_id = e.bankcard_id;
+      this.getBankcardById();
+    }
+  },
   computed: {
     disabled: function disabled() {
       var bool = true;
-      if (this.model.name && this.model.phone && this.model.code1) {
+      if (this.model.name && this.model.brankName && this.model.code1) {
         bool = false;
       }
       return bool;
@@ -199,54 +205,70 @@ var _default =
       codeTips: '',
       errorType: ['message', 'border-bottom'],
 
+      bankcard_id: '',
+
       model: {
         name: '',
-        phone: '',
+        brankName: '',
         code1: '',
         code2: '' } };
 
 
   },
   methods: {
-    submit: function submit() {
-      uni.navigateBack({
-        delta: 1 });
+    getBankcardById: function getBankcardById() {var _this = this;
+      this.http.post('withdraw/getBankcardById', {
+        bankcard_id: this.bankcard_id }).
+      then(function (res) {
+        if (res.code == 1000) {
+          _this.model.name = res.data.bankcard.name;
+          _this.model.brankName = res.data.bankcard.bank_name;
+          _this.model.code1 = res.data.bankcard.bankcard_num;
+          _this.model.code2 = res.data.bankcard.bankcard_num;
+        }
+      });
+    },
+    addBankcard: function addBankcard() {var _this2 = this;
+      if (this.model.code1 != this.model.code2) return this.$u.toast('两次输入的银行卡号不一致，请检查！');
+      this.http.post('withdraw/addBankcard', {
+        name: this.model.name,
+        bank_name: this.model.brankName,
+        bankcard_num: this.model.code1 }).
+      then(function (res) {
+        _this2.$u.toast(res.mag);
+        if (res.code == 1000) {
+          setTimeout(function () {
+            uni.navigateBack({
+              delta: 1 });
 
-      /* this.$refs.uForm.validate(valid => {
-                     	if (valid) {
-                     		this.http.post('/api/v1/Apply/save',{
-                     			logo:this.logoLists[0]&&this.logoLists[0].response.data.path||'',
-                     			pay_img:this.payLists[0]&&this.payLists[0].response.data.path||'',
-                     			store_name:this.model.storeName,
-                     			person_name:this.model.name,
-                     			person_mobile:this.model.phone,
-                     			person_wx:this.model.wx,
-                     			business_type:this.model.storesType,
-                     			pay_type:this.model.payType=='其他'?this.model.other:this.model.payType,
-                     			area_id:this.model.area_id,
-                     			address:this.model.address,
-                     			sex:this.model.sex=='男'?1:0
-                     		}).then((res)=>{
-                     			if(res.code==1000){
-                     				this.$refs.uToast.show({
-                     					title:res.msg,
-                     					type:"success",
-                     					back:true
-                     				})
-                     			}else{
-                     				this.$refs.uToast.show({
-                     					title:res.msg,
-                     					type:'error'
-                     				})
-                     			}
-                     		})
-                     	} else {
-                     		this.$refs.uToast.show({
-                     			title:"请填写完带*号的选项再提交",
-                     			type:'error'
-                     		})
-                     	}
-                     }); */
+          }, 1500);
+        }
+      });
+    },
+    editBankcard: function editBankcard() {var _this3 = this;
+      if (this.model.code1 != this.model.code2) return this.$u.toast('两次输入的银行卡号不一致，请检查！');
+      this.http.post('withdraw/editBankcard', {
+        bankcard_id: this.bankcard_id,
+        name: this.model.name,
+        bank_name: this.model.brankName,
+        bankcard_num: this.model.code1 }).
+      then(function (res) {
+        _this3.$u.toast(res.mag);
+        if (res.code == 1000) {
+          setTimeout(function () {
+            uni.navigateBack({
+              delta: 1 });
+
+          }, 1500);
+        }
+      });
+    },
+    submit: function submit() {
+      if (this.bankcard_id != '') {
+        this.editBankcard();
+      } else {
+        this.addBankcard();
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

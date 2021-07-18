@@ -3,25 +3,7 @@
 		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-		    "path" : "pages/register/register",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "注册",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
-        ,{
-            "path" : "pages/register/agreement",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "用户协议",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
+        {
             "path" : "pages/mine/mine",
             "style" :                                                                                    
             {
@@ -282,12 +264,39 @@
             }
             
         }
+        ,{
+            "path" : "pages/mine/ranking/cluesRank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/ranking/moneyRank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/ranking/projectRank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "嗒嗒租赁",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
-		
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle":"custom"
 	}
 }

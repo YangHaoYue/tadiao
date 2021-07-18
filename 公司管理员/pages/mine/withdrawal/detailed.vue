@@ -17,15 +17,18 @@
 				<view class="u-flex u-row-between bg-white u-p-30 u-p-r-20 u-border-bottom">
 					<view>
 						<view class="u-font-28 text-black u-m-b-10">{{item.name}}</view>
-						<view class="u-font-24" style="color: #999999;">{{item.time}}</view>
+						<view class="u-font-24" style="color: #999999;">{{item.created_at}}</view>
 					</view>
 					<view class="u-text-right">
-						<view class="u-font-28 u-m-b-10" style="color: #FC5739;">收入:+¥{{item.income}}</view>
-						<!-- <view class="u-font-28" style="color: #FC5739;">支出:-¥{{item.income}}</view> -->
+						<view class="u-font-28 u-m-b-10" style="color: #FC5739;">{{item.right_str}}</view>
 						<view class="u-font-24" style="color: #999999;">余额：¥{{item.balance}}</view>
 					</view>
 				</view>
 			</block>
+		</view>
+		<!-- 加载更多 -->
+		<view class="u-m-t-20 u-m-b-20" >
+			<u-loadmore :status="status"/>
 		</view>
 		
 		<!-- 日历 -->
@@ -35,27 +38,69 @@
 
 <script>
 	export default {
+		onLoad() {
+			this.getInfo();
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.status = 'loading';
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getInfo();
+			}, 50)
+		},
 		data() {
 			return {
 				show:false,
 				start:'2020-11-22',
 				end:'2020-11-22',
 				
-				list:[
-					{name:'奖金：XXXXX项目',time:'2020-02-23 13:52:01',income:'100.00',balance:'¥2919.80'},
-					{name:'奖金：XXXXX项目',time:'2020-02-23 13:52:01',income:'100.00',balance:'¥2919.80'},
-					{name:'奖金：XXXXX项目',time:'2020-02-23 13:52:01',income:'100.00',balance:'¥2919.80'},
-					{name:'奖金：XXXXX项目',time:'2020-02-23 13:52:01',income:'100.00',balance:'¥2919.80'},
-					{name:'奖金：XXXXX项目',time:'2020-02-23 13:52:01',income:'100.00',balance:'¥2919.80'},
-					{name:'奖金：XXXXX项目',time:'2020-02-23 13:52:01',income:'100.00',balance:'¥2919.80'},
-				]
+				list:[],
+				page:1,
+				last_page:1,
+				
+				/* 加载更多 */
+				status: 'loading',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '轻轻上拉',
+					loading: '努力加载中',
+					nomore: '实在没有了'
+				},
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('withdraw/getAmountLogs',{
+					start_at:this.start,
+					end_at:this.end,
+					page:this.page
+				}).then(res=>{
+					if(this.list.length == 0){
+						this.list = res.data.amount_log_data;
+						this.last_page = res.data.last_page;
+					}else{
+						res.data.amount_log_data.forEach(v=>{
+							this.list.push(v)
+						})
+					}
+					
+					if(this.page >= this.last_page) this.status = 'nomore';
+					else this.status = 'loadmore';
+				})
+			},
 			chooseDay(e){
 				console.log(e);
 				this.start = e.startDate;
 				this.end = e.endDate;
+				this.getInfo();
+			},
+			clearData(){
+				this.list = []
+				this.page = 1;
+				this.last_page = 1;
+				this.status = 'loading'
+				this.getInfo();
 			}
 		}
 	}

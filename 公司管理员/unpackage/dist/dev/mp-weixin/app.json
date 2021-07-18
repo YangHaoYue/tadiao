@@ -30,7 +30,10 @@
     "pages/mine/projectManagement/addRecord/addRecord",
     "pages/mine/projectManagement/createMaintenance/apply",
     "pages/mine/projectManagement/createMaintenance/chooseRepairman",
-    "pages/mine/ranking/ranking"
+    "pages/mine/ranking/ranking",
+    "pages/mine/ranking/cluesRank",
+    "pages/mine/ranking/moneyRank",
+    "pages/mine/ranking/projectRank"
   ],
   "subPackages": [],
   "window": {

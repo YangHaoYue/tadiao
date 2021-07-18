@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="bg u-flex u-row-between">
-			<view class="text-bold u-font-43 text-white">完善资料</view>
+			<view class="text-bold u-font-43 text-white">资料完善</view>
 			<u-image src="@/static/shield.png" width="160" height="180" :fade="false"></u-image>
 		</view>
 		<view class="bg-white" style="border-radius: 53rpx 53rpx 0 0 ;padding: 37rpx 57rpx 0 35rpx;transform: translateY(-50rpx);">

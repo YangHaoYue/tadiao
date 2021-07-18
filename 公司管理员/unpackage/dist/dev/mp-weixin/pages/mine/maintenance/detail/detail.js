@@ -96,16 +96,16 @@ var components
 try {
   components = {
     uImage: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 362))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-image/u-image */ "uview-ui/components/u-image/u-image").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-image/u-image.vue */ 421))
     },
     uTimeLine: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 446))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line/u-time-line */ "uview-ui/components/u-time-line/u-time-line").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line/u-time-line.vue */ 484))
     },
     uTimeLineItem: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 453))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-time-line-item/u-time-line-item */ "uview-ui/components/u-time-line-item/u-time-line-item").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-time-line-item/u-time-line-item.vue */ 491))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     }
   }
 } catch (e) {
@@ -129,6 +129,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.http.resourceUrl()
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -162,7 +171,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 467));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var proCard = function proCard() {__webpack_require__.e(/*! require.ensure | components/pro-card */ "components/pro-card").then((function () {return resolve(__webpack_require__(/*! @/components/pro-card.vue */ 505));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -248,64 +269,177 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   components: {
     proCard: proCard },
 
+  onLoad: function onLoad(e) {
+    this.tower_id = e.tower_id;
+    this.order_id = e.order_id;
+    this.getInfo();
+  },
   data: function data() {
     return {
+      order_id: '',
+      tower_id: '',
+      project_name: '',
       /* 塔吊详情 */
-      equipment: {
-        name: 'QTZ80(5512-6)',
-        brand: '这是项目名称',
-        number: 'WE2245',
-        code: '6737YT',
-        years: '这是施工企业名称',
-        time: '2021-04-21' },
-
-      list: [
-      {
+      equipment: '',
+      list: [{
         title: '客户信息',
-        list: [
-        { title: '昵称', value: '顾家', avatar: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-        { title: '姓名', value: '张三' },
-        { title: '手机方式', value: '17283782323' },
-        { title: '地址', value: '浙江省杭州市西湖区西溪园区' }] },
+        list: [{
+          title: '昵称',
+          value: '顾家',
+          avatar: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+
+        {
+          title: '姓名',
+          value: '张三' },
+
+        {
+          title: '手机方式',
+          value: '17283782323' },
+
+        {
+          title: '地址',
+          value: '浙江省杭州市西湖区西溪园区' }] },
+
 
 
       {
         title: '合同执行人',
-        list: [
-        { title: '昵称', value: '顾家', avatar: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
-        { title: '姓名', value: '张三' },
-        { title: '手机方式', value: '17283782323' }] },
+        list: [{
+          title: '昵称',
+          value: '顾家',
+          avatar: 'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg' },
+
+        {
+          title: '姓名',
+          value: '张三' },
+
+        {
+          title: '手机方式',
+          value: '17283782323' }] },
+
 
 
       {
         title: '合同时间',
-        list: [
-        { title: '开始时间', value: '2020-06-28 12:13:30' },
-        { title: '到期时间', value: '2020-06-28 12:13:30' }] }],
+        list: [{
+          title: '开始时间',
+          value: '2020-06-28 12:13:30' },
+
+        {
+          title: '到期时间',
+          value: '2020-06-28 12:13:30' }] }],
+
 
 
 
       /* 保养记录 */
-      maintainList: [
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' }],
-
+      maintainList: [],
       /* 维修记录 */
-      repairList: [
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' },
-      { title: '6月28日保养记录', people: '维修员1', time: '2020-06-28 12:13:30' }] };
+      repairList: [],
 
+      show_transfer_button: false,
+      people: '',
+      selected: '',
+      peopleList: [],
+      people_page: 1,
+      people_lastpage: 1,
+
+      showModal: false,
+      modal: false };
 
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    getInfo: function getInfo() {var _this = this;
+      this.http.get('FixCare/getTowerFixDetail', {
+        tower_id: this.tower_id,
+        order_id: this.order_id }).
+      then(function (res) {
+        _this.project_name = res.data.project_name;
+        _this.equipment = res.data.tower_info;
+
+        _this.list[0].list[0].value = res.data.cus.name;
+        _this.list[0].list[0].avatar = res.data.cus.avatar;
+        _this.list[0].list[1].value = res.data.cus.real_name;
+        _this.list[0].list[2].value = res.data.cus.tel_num;
+        _this.list[0].list[3].value = res.data.cus.address;
+
+        _this.list[1].list[0].value = res.data.executor.name;
+        _this.list[1].list[0].avatar = res.data.executor.avatar;
+        _this.list[1].list[1].value = res.data.executor.real_name;
+        _this.list[1].list[2].value = res.data.executor.tel_num;
+
+        _this.list[2].list[0].value = res.data.lease_start_at;
+        _this.list[2].list[1].value = res.data.lease_end_at;
+
+
+        _this.order_id = res.data.order_id;
+        _this.towerCares();
+        _this.towerFixes();
+      });
+    },
+    //保养记录
+    towerCares: function towerCares(id) {var _this2 = this;
+      if (this.maintainList && this.maintainList.current_page > this.maintainList.last_page) return;
+      this.http.get('Order/towerCares', {
+        order_id: this.order_id,
+        tower_id: this.equipment.id,
+        page: this.maintainList.current_page || 1 }, true).then(function (res) {
+        if (!_this2.maintainList) {
+          _this2.$set(_this2, 'maintainList', res.data);
+        } else {
+          res.data.cares_data.forEach(function (v) {
+            _this2.maintainList.cares_data.push(v);
+          });
+        }
+        _this2.maintainList.current_page++;
+      });
+    },
+    //维修记录
+    towerFixes: function towerFixes() {var _this3 = this;
+      if (this.repairList && this.repairList.current_page > this.repairList.last_page) return;
+      this.http.get('Order/towerFixes', {
+        order_id: this.order_id,
+        tower_id: this.equipment.id,
+        page: this.repairList.current_page || 1 }, true).then(function (res) {
+        if (!_this3.repairList) {
+          _this3.$set(_this3, 'repairList', res.data);
+        } else {
+          res.data.fixes_data.forEach(function (v) {
+            _this3.repairList.fixes_data.push(v);
+          });
+        }
+        _this3.repairList.current_page++;
+      });
+    },
+    getFixerForFix: function getFixerForFix() {var _this4 = this;
+      this.http.get('Order/getFixerForFix', {
+        keyward: this.people }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this4.peopleList.length == 0) {
+            _this4.peopleList = res.data.fixer_data;
+            _this4.people_page = res.data.last_page;
+          } else {
+            res.data.fixer_data.forEach(function (v) {
+              _this4.peopleList.push(v);
+            });
+          }
+        }
+      });
+    },
+    loadMore: function loadMore() {var _this5 = this;
+      if (this.people_page >= this.people_lastpage) return;
+      this.people_page = ++this.people_page;
+      setTimeout(function () {
+        _this5.getFixerForFix();
+      }, 50);
+    },
+    claerFixerData: function claerFixerData() {
+      this.people_page = 1;
+      this.people_lastpage = 1;
+      this.peopleList = [];
+      this.getFixerForFix();
+    } } };exports.default = _default;
 
 /***/ }),
 

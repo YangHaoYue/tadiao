@@ -96,10 +96,10 @@ var components
 try {
   components = {
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 369))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-icon/u-icon */ "uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-icon/u-icon.vue */ 386))
     },
     uGap: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 404))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-gap/u-gap */ "uview-ui/components/u-gap/u-gap").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-gap/u-gap.vue */ 428))
     }
   }
 } catch (e) {
@@ -174,20 +174,59 @@ __webpack_require__.r(__webpack_exports__);
 //
 var _default =
 {
+  onLoad: function onLoad(e) {
+    if (e.isSelect) {
+      this.isSelect = true;
+    }
+  },
+  onShow: function onShow() {
+    this.getInfo();
+  },
+  /* onReachBottom() {
+     	if(this.page >= this.last_page) return ;
+     	this.status = 'loading';
+     	this.page = ++ this.page;
+     	setTimeout(() => {
+     		this.getInfo();
+     	}, 50)
+     }, */
   data: function data() {
     return {
-      list: [
-      { name: '建设银行', code: "**** **** **** 7116", status: 'primary' },
-      { name: '建设银行', code: "**** **** **** 7116", status: 'red' },
-      { name: '建设银行', code: "**** **** **** 7116", status: 'success' },
-      { name: '建设银行', code: "**** **** **** 7116", status: 'primary' },
-      { name: '建设银行', code: "**** **** **** 7116", status: 'primary' }] };
+      isSelect: false,
 
+      list: [],
+      page: 1,
+      last_page: 1 };
 
   },
   methods: {
+    getInfo: function getInfo() {var _this = this;
+      this.http.get('withdraw/bankcardLists', {}, true).then(function (res) {
+        _this.list = res.data;
+        /* if(this.list.length == 0){
+                               	this.last_page = res.data.last_page;
+                               }else{
+                               	res.data.forEach(v=>{
+                               		this.list.push(v)
+                               	})
+                               } */
+        /* 
+                                    if(this.page >= this.last_page) this.status = 'nomore';
+                                    else this.status = 'loadmore'; */
+      });
+    },
     addBankCard: function addBankCard() {
       uni.navigateTo({ url: 'addBankCard/addBankCard' });
+    },
+    edit: function edit(id) {
+      if (this.isSelect) {
+        uni.$emit('brank_id', { brank_id: id });
+        uni.navigateBack({
+          delta: 1 });
+
+      } else {
+        uni.navigateTo({ url: 'addBankCard/addBankCard?bankcard_id=' + id });
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

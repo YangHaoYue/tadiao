@@ -81,7 +81,9 @@
     "h5" : {
         "template" : "template.h5.html",
         "router" : {
-            "mode" : "history"
-        }
+            "mode" : "history",
+            "base" : "/html/staff"
+        },
+        "title" : "业务员端"
     }
 }

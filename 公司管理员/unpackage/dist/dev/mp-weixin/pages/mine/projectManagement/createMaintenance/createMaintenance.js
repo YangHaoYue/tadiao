@@ -96,19 +96,22 @@ var components
 try {
   components = {
     uCheckboxGroup: function() {
-      return Promise.all(/*! import() | uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 460))
+      return Promise.all(/*! import() | uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 498))
     },
     uRow: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 390))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-row/u-row */ "uview-ui/components/u-row/u-row").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-row/u-row.vue */ 407))
     },
     uCol: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 397))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-col/u-col */ "uview-ui/components/u-col/u-col").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-col/u-col.vue */ 414))
     },
     uCheckbox: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-checkbox/u-checkbox */ "uview-ui/components/u-checkbox/u-checkbox").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox/u-checkbox.vue */ 317))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-checkbox/u-checkbox */ "uview-ui/components/u-checkbox/u-checkbox").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-checkbox/u-checkbox.vue */ 341))
+    },
+    uLoadmore: function() {
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-loadmore/u-loadmore */ "uview-ui/components/u-loadmore/u-loadmore").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-loadmore/u-loadmore.vue */ 463))
     },
     uButton: function() {
-      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 310))
+      return __webpack_require__.e(/*! import() | uview-ui/components/u-button/u-button */ "uview-ui/components/u-button/u-button").then(__webpack_require__.bind(null, /*! @/uview-ui/components/u-button/u-button.vue */ 334))
     }
   }
 } catch (e) {
@@ -200,8 +203,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
+  onLoad: function onLoad(e) {
+    this.order_id = e.order_id;
+    this.getInfo();
+  },
+  onReachBottom: function onReachBottom() {var _this = this;
+    if (this.page >= this.last_page) return;
+    this.status = 'loading';
+    this.page = ++this.page;
+    setTimeout(function () {
+      _this.getInfo();
+    }, 50);
+  },
   computed: {
     isSelectedAll: {
       get: function get() {
@@ -216,57 +234,16 @@ var _default =
 
   data: function data() {
     return {
-      list: [
-      {
-        id: '0',
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        price: '3678.00',
-        number: 'WE225',
-        brand: '马牌',
-        time: '三年',
-        checked: false },
-
-      {
-        id: '2',
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        price: '3678.00',
-        number: 'WE225',
-        brand: '马牌',
-        time: '三年',
-        checked: false },
-
-      {
-        id: '1',
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        price: '3678.00',
-        number: 'WE225',
-        brand: '马牌',
-        time: '三年',
-        checked: false },
-
-      {
-        id: '3',
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        price: '3678.00',
-        number: 'WE225',
-        brand: '马牌',
-        time: '三年',
-        checked: false },
-
-      {
-        id: '4',
-        img: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-        name: 'QTZ80(5512-6)',
-        price: '3678.00',
-        number: 'WE225',
-        brand: '马牌',
-        time: '三年',
-        checked: false }],
-
+      page: 1,
+      last_page: 1,
+      list: [],
+      /* 加载更多 */
+      status: 'loading',
+      iconType: 'flower',
+      loadText: {
+        loadmore: '轻轻上拉',
+        loading: '努力加载中',
+        nomore: '实在没有了' },
 
       /* 是否全选 */
       selectedList: [],
@@ -276,6 +253,28 @@ var _default =
 
   },
   methods: {
+    getInfo: function getInfo() {var _this2 = this;
+      this.http.get('Index/index', {
+        page: this.page }).
+      then(function (res) {
+        if (res.code == 1000) {
+          if (_this2.list.length == 0) {
+            _this2.list = res.data.tower_data;
+            _this2.list.forEach(function (v) {
+              _this2.$set(v, 'checked', false);
+            });
+            _this2.last_page = res.data.last_page;
+          } else {
+            var list = res.data.tower_data.forEach(function (v) {
+              _this2.$set(v, 'checked', false);
+            });
+            _this2.list.concat(list);
+          }
+          if (_this2.page >= _this2.last_page) _this2.status = 'nomore';else
+          _this2.status = 'loadmore';
+        }
+      });
+    },
     // 选中某个复选框时，由checkbox时触发
     checkboxGroupChange: function checkboxGroupChange(e) {
       console.log(e);
@@ -299,7 +298,7 @@ var _default =
       this.selectedList = [];
     },
     make: function make() {
-      uni.navigateTo({ url: 'apply' });
+      uni.navigateTo({ url: 'apply?selectedList=' + this.selectedList + '&order_id=' + this.order_id });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
