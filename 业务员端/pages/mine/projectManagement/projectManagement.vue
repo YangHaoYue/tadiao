@@ -34,7 +34,7 @@
 						<view class="u-text-right">
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥{{item.month_rent}}/月</text></view>
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥{{item.in_out_cost}}</text></view>
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_id}}</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_str}}</text></view>
 						</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
@@ -158,7 +158,8 @@
 					show_edit_button:e.show_edit_button,
 					show_order_button:e.show_order_button,
 					lock_arr:e.lock_arr,
-					type_pay_id:e.type_pay_id == 1?'季付':'月付'
+					type_pay_str:e.type_pay_str,
+					in_out_cost:e.in_out_cost
 				}
 			},
 			chooseDayRange(e){
