@@ -29,13 +29,16 @@
 				</u-form-item>
 			</u-form>
 		</view>
-		<u-button type="primary" class="u-m-30" style="margin-bottom: 0;transform: translateY(-50rpx);" :disabled="applyBtn">提交</u-button>
+		<u-button type="primary" class="u-m-30" style="margin-bottom: 0;transform: translateY(-50rpx);" :disabled="applyBtn" @click="submit">提交</u-button>
 		
 	</view>
 </template>
 
 <script>
 	export default {
+		onLoad() {
+			this.getInfo()
+		},
 		computed: {
 			applyBtn() {
 				let bool = true;
@@ -53,13 +56,46 @@
 				labelStyle:{fontSize: '28rpx',fontWeight: 'bold'},
 				
 				model:{
-					qualification:'',
+					qualification:[],
 					positive:'',
 					back:''
 				}
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('UserCenter/getRealInfoEditPage').then(res=>{
+					if(res.data.status == 1){
+						this.http.modal("","审核通过！", false, () => {
+							uni.navigateBack({
+								delta:1
+							})
+						})
+					}else if(res.data.status == 2){
+						this.http.modal("","审核中，请耐心等待！", false, () => {
+							uni.navigateBack({
+								delta:1
+							})
+						})
+					}else if(res.data.status == 3){
+						this.http.modal("","审核未通过，请重新提交！", false, () => {
+							this.model.qualification = res.data.staff_img.map(v=>{
+								return{
+									url:v
+								}
+							})
+							this.model.positive = [{url:res.data.id_card_img[0]}];
+							this.model.back = [{url:res.data.id_card_img[1]}];
+						})
+					}else if(res.data.status == 4){
+						this.http.modal("","非法状态,禁止进入页面！", false, () => {
+							uni.navigateBack({
+								delta:1
+							})
+						})
+					}
+				})
+			},
 			//上传资格证书
 			onQualificationChange(lists){
 				console.log('onListChange', lists[0]);
@@ -76,14 +112,16 @@
 			},
 			submit(){
 				let img=[]
-				this.qualification.map(item=>{
-					if(item.response&&item.response.code==1000){
-						img.push(item.response.data.path);
-					}else if(!item.error&&item.progress==100){
-						img.push(item.url);
-					}
-				});
-				let scimg=[this.model.positive.response.data.path,this.model.back.response.data.path]
+				if(this.model.qualification.length != 0){
+					this.model.qualification.map(item=>{
+						if(item.response&&item.response.code==1000){
+							img.push(item.response.data.path);
+						}else if(!item.error&&item.progress==100){
+							img.push(item.url);
+						}
+					});
+				}
+				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
 				
 				this.http.post('UserCenter/realInfo',{
 					staff_img:img,

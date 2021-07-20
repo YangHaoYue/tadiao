@@ -9,9 +9,9 @@
 					<view class="u-font-24 u-line-1" style="color: #999999;">{{user_data.branch_name}}</view>
 				</view>
 			</view>
-			<view class="u-flex u-col-center u-row-right" v-if="show_fixer_button">
-				<view class="role u-m-r-10 u-line-1" @click="change">{{changeRole}}</view>
-				<u-image :class="!role?'u-m-r-24':''" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toSetting"></u-image>
+			<view class="u-flex u-col-center u-row-right">
+				<view class="role u-m-r-10 u-line-1" v-if="show_fixer_button" @click="change">{{changeRole}}</view>
+				<u-image :class="!role?'u-m-r-24':''" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toPerfection"></u-image>
 				<u-image v-if="!role" src="../../static/qrcode@2x.png" width="44" height="44" :fade="false" @click="showModal = true"></u-image>
 			</view>
 		</view>
@@ -164,7 +164,7 @@
 						<view class="u-font-24" style="color: #838383;margin-top: 31rpx;">下次维保时间:{{item.next_care_at}}</view>
 					</view>
 					<view class="u-flex-2 u-flex u-row-right">
-						<u-button type="primary" size="mini" style="margin-right: 0;" @click="toTrakdetail(item.id)">详情</u-button>
+						<u-button type="primary" size="mini" style="margin-right: 0;" @click="toTrakdetail(item.order_id,item.id)">详情</u-button>
 					</view>
 				</view>
 			</view>
@@ -192,8 +192,26 @@
 <script>
 	export default {
 		onLoad() {
+			this.day = this.http.getToday();
+			this.start = this.http.getToday();
+			this.end = this.http.getToday();
 			this.getUserInfo();
-			this.fixerMain();
+			this.getInviteCode();
+			let identity = uni.getStorageSync('identity');
+			if(identity == 3){
+				this.fixerMain();
+			}
+		},
+		onPullDownRefresh() {
+			setTimeout(()=>{
+				let identity = uni.getStorageSync('identity');
+				if(identity == 3){
+					this.clearData();
+				}
+				this.getUserInfo();
+				this.getInviteCode();
+				uni.stopPullDownRefresh();
+			},1000)
 		},
 		onReachBottom() {
 			if(this.track_data_page >= this.track_data_last_page) return ;
@@ -219,7 +237,7 @@
 				showModal:false,
 				codeImg:'',
 				
-				total_reward:'7500.00',
+				total_reward:'0',
 				today_reward:'0.00',
 				
 				//分段器
@@ -251,7 +269,6 @@
 				curNow:0,
 				modal:false,
 				tower_count:0,
-				is_certified:false,
 				
 				//转入
 				transfer_data:[],
@@ -277,6 +294,11 @@
 				}
 				this.http.get('UserCenter/staff',data).then(res=>{
 					if(res.code == 1000){
+						if(res.data.is_certified != 2&&res.data.is_certified != 1){//0=>未申请1=>待审核2=>已通过3=>已拒绝
+							this.http.modal("","未认证或认证失败，请先完善信息！", false, () => {
+								uni.navigateTo({url: 'perfection/perfection'});
+							})
+						}
 						this.user_data = res.data.user_data;
 						this.total_reward = res.data.total_reward;
 						this.today_reward = res.data.today_reward;
@@ -298,14 +320,13 @@
 					time_limit:this.curNow //0=>三日内(默认),1=>七日内,2=>一个月内,
 				},true).then(res=>{
 					if(res.code == 1000){
+						if(res.data.is_certified != 2&&res.data.is_certified != 1){//0=>未申请1=>待审核2=>已通过3=>已拒绝
+							this.http.modal("","未认证或认证失败，请先完善信息！", false, () => {
+								uni.navigateTo({url: 'perfection/perfection'});
+							})
+						}
 						this.user_data = res.data.user_data;
 						this.tower_count = res.data.tower_count;
-						this.is_certified = res.data.is_certified
-						if(!this.is_certified){
-							this.http.modal("","未认证，请先完善信息！", false, () => {
-								uni.navigateTo({url: 'perfection/perfection'});
-							},'#FE8702')
-						}
 						this.fixerTracks();
 						this.fixerTransfers()
 					}
@@ -370,6 +391,9 @@
 			//维修师傅分段器
 			changeCur(index){
 				this.curNow = index;
+				this.clearData();
+			},
+			clearData(){
 				this.track_data_last_page = 1;
 				this.track_data = [];
 				this.track_data_page = 1;
@@ -402,6 +426,10 @@
 			toSetting(){
 				uni.navigateTo({url: 'setting/setting'});
 			},
+			//完善信息
+			toPerfection(){
+				uni.navigateTo({url: 'perfection/perfection'});
+			},
 			//分段器
 			changeSub(){
 				this.current = !this.current;
@@ -416,6 +444,9 @@
 				this.start = e.startDate;
 				this.end = e.endDate;
 				this.getUserInfo();
+			},
+			toTrakdetail(order_id,id){
+				uni.navigateTo({url: 'equipmentList/detail/detail?tower_id='+id});
 			}
 		}
 	}

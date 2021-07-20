@@ -53,18 +53,18 @@
 		},
 		methods: {
 			getInfo(){
-				this.http.get('Manager/staffList',{
+				this.http.get('Manager/staffProjectList',{
 					staff_id:this.staff_id,
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
-							this.list = res.data.pages.project_data.map(v=>{
+							this.list = res.data.project_data.map(v=>{
 								return this._format(v)
 							});
-							this.last_page = res.data.pages.last_page;
+							this.last_page = res.data.last_page;
 						}else{
-							res.data.pages.project_data.forEach(v=>{
+							res.data.project_data.forEach(v=>{
 								this.list.push(this._format(v))
 							})
 						}

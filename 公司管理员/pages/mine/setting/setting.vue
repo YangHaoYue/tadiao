@@ -20,7 +20,7 @@
 				<view>{{tel_num}}</view>
 			</view>
 			<!-- 资格证书 -->
-			<view class="u-flex u-row-between u-p-30">
+			<view class="u-flex u-row-between u-p-30" v-if="staff_img.length > 0">
 				<view class="text-bold u-m-b-30">资格证书</view>
 				<view class="u-flex">
 					<block v-for="(item,i) in staff_img" :key="i">
@@ -28,7 +28,7 @@
 					</block>
 				</view>
 			</view>
-			<view class="u-flex u-row-between u-p-30">
+			<view class="u-flex u-row-between u-p-30" v-if="id_card_img.length > 0">
 				<view class="text-bold u-m-b-30">身份证正反面</view>
 				<view class="u-flex">
 					<block v-for="(item,i) in id_card_img" :key="i">
@@ -36,7 +36,11 @@
 					</block>
 				</view>
 			</view>
-			<u-button type="primary" @click="submit">保存</u-button>
+			<view class="u-m-20">
+				<u-button type="primary" @click="submit">保存</u-button>
+				<u-button class="u-m-t-20" type="primary" @click="exit">退出登录</u-button>
+			</view>
+			<u-gap bg-color="#fff"></u-gap>
 		</view>
 	</view>
 </template>
@@ -90,6 +94,10 @@
 				}).then(res=>{
 					this.$u.toast(res.msg)
 				})
+			},
+			exit(){
+				uni.clearStorageSync();
+				window.location.href = 'http://tower.0831.run/html/user'
 			}
 		}
 	}

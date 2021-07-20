@@ -86,11 +86,7 @@
 
 <script>
 	export default {
-		onLoad() {
-			this.projectLists();
-		},
-		onBackPress(e) {
-			console.log(e);
+		onShow() {
 			this.clearData();
 		},
 		onReachBottom() {
@@ -143,7 +139,7 @@
 		methods: {
 			projectLists(){
 				this.http.get('project/projectListsForMng',{
-					status:this.tabList[this.current].value,//0=>我的(默认，可不传),1=>公司线索,2=>公海池,3=>别人的线索
+					type:this.tabList[this.current].value,//0=>我的(默认，可不传),1=>公司线索,2=>公海池,3=>别人的线索
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
@@ -227,6 +223,7 @@
 					show_follow_button:e.show_follow_button,
 					show_edit_button:e.show_edit_button,
 					show_order_button:e.show_order_button,
+					show_apply_button:e.show_apply_button,
 					lock_arr:e.lock_arr,
 				}
 			},

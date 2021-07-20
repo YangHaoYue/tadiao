@@ -148,7 +148,7 @@
 			 * */
 			maxDate: {
 				type: [Number, String],
-				default: ''
+				default: '2050-01-01'
 			},
 			// 弹窗顶部左右两边的圆角值
 			borderRadius: {

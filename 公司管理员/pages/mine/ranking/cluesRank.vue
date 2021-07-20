@@ -1,9 +1,8 @@
 <template>
 	<view>
-		<view class="bg">
-			
+		<view class="bg" :style="'min-height:'+$u.sys().windowHeight+'px;'">
 			<view class="u-flex u-row-between" style="padding: 65rpx 67rpx 26rpx 27rpx;">
-				<u-image src="" width="414" height="96"></u-image>
+				<u-image src="../../../static/应收款排名@3x.png" width="414" height="96" mode="scaleToFill"></u-image>
 				<u-image src="../../../static/trophy.png" width="144" height="154"></u-image>
 			</view>
 			
@@ -35,22 +34,24 @@
 					<view class="text-black u-font-26">员工</view>
 					<view class="text-black u-font-26">线索数</view>
 				</view>
-				<block v-for="(item,index) in list" :key="index">
-					<view class="u-flex u-col-center u-border-bottom u-p-14">
-						<view class="u-flex u-flex-1">
-							<u-image src="../../../static/first.png" width="34" height="45" v-if="index == 0"></u-image>
-							<u-image src="../../../static/second.png" width="34" height="45" v-else-if="index == 1"></u-image>
-							<u-image src="../../../static/third.png" width="34" height="45" v-else-if="index == 2"></u-image>
-							<view class="bg-white" style="width: 34rpx;height: 45rpx;" v-else></view>
-							<view class="u-m-l-30 text-black u-font-28">{{index+1}}</view>
+				<scroll-view scroll-y @scrolltolower="loadMore" style="height: 750rpx;"> 
+					<block v-for="(item,index) in list" :key="index">
+						<view class="u-flex u-col-center u-border-bottom u-p-14">
+							<view class="u-flex u-flex-1">
+								<u-image src="../../../static/first.png" width="34" height="45" v-if="index == 0"></u-image>
+								<u-image src="../../../static/second.png" width="34" height="45" v-else-if="index == 1"></u-image>
+								<u-image src="../../../static/third.png" width="34" height="45" v-else-if="index == 2"></u-image>
+								<view class="bg-white" style="width: 34rpx;height: 45rpx;" v-else></view>
+								<view class="u-m-l-30 text-black u-font-28">{{index+1}}</view>
+							</view>
+							<view class="u-flex u-flex-1 u-col-center">
+								<u-avatar :src="http.resourceUrl() + item.avatar" size="60"></u-avatar>
+								<view class="u-font-26 text-black u-m-l-12">{{item.name}}</view>
+							</view>
+							<view class="u-font-28 u-flex-1 u-text-center" style="color: #FE5E10;">{{item.order_amount}}</view>
 						</view>
-						<view class="u-flex u-flex-1 u-col-center">
-							<u-avatar :src="item.src" size="60"></u-avatar>
-							<view class="u-font-26 text-black u-m-l-12">{{item.name}}</view>
-						</view>
-						<view class="u-font-28 u-flex-1 u-text-center" style="color: #FE5E10;">{{item.clue}}</view>
-					</view>
-				</block>
+					</block>
+				</scroll-view>
 			</view>
 			
 			
@@ -65,6 +66,12 @@
 
 <script>
 	export default {
+		onLoad() {
+			this.day = this.http.getToday();
+			this.start = this.http.getToday();
+			this.end = this.http.getToday();
+			this.getInfo();
+		},
 		data() {
 			return {
 				//分段器
@@ -77,17 +84,66 @@
 				start:'2020-11-22',
 				end:'2020-11-22',
 				
-				list:[
-					{name:'张三',ranking:0,clue:300},{name:'张三',ranking:0,clue:300},{name:'张三',ranking:0,clue:300},{name:'张三',ranking:0,clue:300},
-					{name:'张三',ranking:0,clue:300},{name:'张三',ranking:0,clue:300},{name:'张三',ranking:0,clue:300},{name:'张三',ranking:0,clue:300},
-				]
+				list:[],
+				page:1,
+				last_page:1
 			}
 		},
 		methods: {
+			getInfo(){
+				let data = '';
+				if(!this.current){
+					data = {
+						branch_id:uni.getStorageSync('branch_id'),
+						page:this.page
+					}
+				}else{
+					data = {
+						branch_id:uni.getStorageSync('branch_id'),
+						start_at:this.start,
+						end_at:this.end,
+						page:this.page
+					}
+				}
+				this.http.get('Manager/projectRank',data).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.staff_data;
+							this.last_page = res.data.last_page;
+						}else{
+							res.data.staff_data.forEach(v=>{
+								this.list.push(v)
+							})
+						}
+					}
+				})
+			},
 			//分段器
 			changeSub(){
 				this.current = !this.current;
 			},
+			loadMore(){
+				if(this.page >= this.last_page) return ;
+				this.page = ++ this.page;
+				setTimeout(() => {
+					this.getInfo();
+				}, 50)
+			},
+			clearData(){
+				this.page = 1;
+				this.last_page = 1;
+				this.list = [];
+				this.getInfo();
+			},
+			chooseDay(e){
+				this.clearData();
+			},
+			chooseDayRange(e){
+				console.log(e);
+				this.start = e.startDate;
+				this.end = e.endDate;
+				this.clearData();
+			}
 		}
 	}
 </script>
@@ -97,7 +153,6 @@
 		background-image: url(../../../static/6038f09c2fcce@2x.png);
 		background-size: 100% 100%;
 		width: 100vw;
-		height: 100vh;
 	}
 	.subsection{
 		border: 1rpx solid #FFFFFF;
@@ -118,6 +173,6 @@
 		padding: 24rpx 27rpx;
 		margin: 48rpx 65rpx 48rpx 58rpx;
 		border-radius: 30rpx;
-		height: 898rpx;
+		height: 27rem;
 	}
 </style>

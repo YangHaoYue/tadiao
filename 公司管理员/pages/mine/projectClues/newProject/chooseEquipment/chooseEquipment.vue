@@ -133,6 +133,9 @@
 			change(index) {
 				/* this.selectedList = []; */
 				this.current = index;
+				if(this.tabList[this.current].list.length == 0){
+					this.getInfo()
+				}
 			},
 			// 选中某个复选框时，由checkbox时触发
 			checkboxGroupChange(e) {

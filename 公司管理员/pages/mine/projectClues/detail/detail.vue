@@ -8,24 +8,24 @@
 			</view>
 			<u-line color="#ECECEE" border-style="dashed" length="625rpx" margin="30rpx 40rpx"></u-line>
 			<view class="u-p-20">
-				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,index) in list1" :key="index">
-					<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
-					<view class="u-font-28 text-bold" style="color: #333333;" v-if="!item.isArray">{{item.value}}</view>
+				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,index) in list1" :key="'index'+index">
+					<view class="u-font-28" style="color: #999999;min-width: 100rpx;">{{item.name}}</view>
+					<view class="u-font-28 text-bold u-text-right" style="color: #333333;" v-if="!item.isArray">{{item.value}}</view>
 					<view class="u-font-28 text-bold" style="color: #333333;" v-else>
-						<view v-for="(son,i) in item.value" :key="i" >{{son.type}}({{son.count}}台)</view>
+						<view v-for="(son,i) in item.value" :key="'s'+i" >{{son.type}}({{son.count}}台)</view>
 					</view>
 				</view>
-				<block v-for="(item,q) in medias" :key="q">
+				<block v-for="(item,q) in medias" :key="'item'+q">
 					<view class="u-flex u-row-between u-col-top u-p-10" >
-						<view class="u-font-28" style="color: #999999;">联系人{{q == 0?q+1:''}}</view>
+						<view class="u-font-28" style="color: #999999;">联系人{{q+1}}</view>
 						<view class="u-font-28 text-bold" style="color: #333333;">{{item.media_name}}</view>
 					</view>
 					<view class="u-flex u-row-between u-col-top u-p-10" >
-						<view class="u-font-28" style="color: #999999;">联系电话{{q == 0?q+1:''}}</view>
+						<view class="u-font-28" style="color: #999999;">联系电话{{q+1}}</view>
 						<view class="u-font-28 text-bold" style="color: #333333;">{{item.media_tel_num}}</view>
 					</view>
 				</block>
-				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,w) in list2" :key="w">
+				<view class="u-flex u-row-between u-col-top u-p-10" v-for="(item,w) in list2" :key="'w'+w">
 					<view class="u-font-28" style="color: #999999;">{{item.name}}</view>
 					<view class="u-font-28 text-bold" style="color: #333333;">{{item.value}}</view>
 				</view>
@@ -36,7 +36,7 @@
 			<view class="u-font-28 text-bold text-black u-m-t-20">跟进记录</view>
 			<view class="u-m-t-40 u-p-l-20">
 				<u-time-line>
-					<u-time-line-item v-for="(item,j) in maintainList" :key="j">
+					<u-time-line-item v-for="(item,j) in maintainList" :key="'j'+j">
 						<!-- 此处自定义了左边内容，用一个图标替代 -->
 						<template v-slot:node>
 							<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
@@ -52,7 +52,7 @@
 								</view>
 								<view class="u-flex u-flex-wrap">
 									<block class="u-p-10" v-for="(son,k) in item.img" :key="k">
-										<u-image :src="son" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+										<u-image @click="preview(item.img,k)" :src="http.resourceUrl()+son" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
 									</block>
 								</view>
 								<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{item.created_at}}</view>
@@ -62,8 +62,8 @@
 				</u-time-line>
 			</view>
 		</view>
-		<u-button class="u-m-25" type="primary" style="transform: translateY(-120rpx);" @click="toAdd">添加跟进记录</u-button>
-		<u-button class="u-m-25" type="primary" style="transform: translateY(-120rpx);" @click="setting" v-if="show_follow_button">修改线索</u-button>
+		<u-button class="u-m-25" type="primary" style="transform: translateY(-120rpx);" @click="toAdd" v-if="show_follow_button">添加跟进记录</u-button>
+		<u-button class="u-m-25" type="primary" style="transform: translateY(-120rpx);" @click="setting" v-if="show_edit_button">修改线索</u-button>
 	</view>
 </template>
 
@@ -94,7 +94,8 @@
 				
 				maintainList:[],
 				
-				show_follow_button:false
+				show_follow_button:false,
+				show_edit_button:false
 			}
 		},
 		methods: {
@@ -121,7 +122,18 @@
 						this.maintainList = res.data.follow_up_logs;
 						
 						this.show_follow_button = res.data.show_follow_button;
+						this.show_edit_button = res.data.show_edit_button;
 					}
+				})
+			},
+			//预览图片
+			preview(imgs,index){
+				let list = imgs.map(v=>{
+					return this.http.resourceUrl() + v
+				})
+				uni.previewImage({
+					count:index,
+					urls:list
 				})
 			},
 			setting(){

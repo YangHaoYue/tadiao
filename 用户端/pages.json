@@ -122,7 +122,7 @@
             
         }
         ,{
-            "path" : "pages/mine/projectManagement/detail/detail",
+            "path" : "pages/mine/projectManagement/detail/contract",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "合同详情",
@@ -181,6 +181,33 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "资料完善",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/setting/setting",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "项目详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/projectManagement/detail/comment",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "评价",
                 "enablePullDownRefresh": false
             }
             

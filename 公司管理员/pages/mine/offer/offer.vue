@@ -40,7 +40,7 @@
 						</view>
 					</view>
 				</view>
-				<u-button class="u-m-t-20" style="width: 100%;" :disabled="isInput" size="medium" type="primary" @click="showModal = false">提交</u-button>
+				<u-button class="u-m-t-20" style="width: 100%;" :disabled="isInput" size="medium" type="primary" @click="editTowerRent">提交</u-button>
 			</view>
 		</u-popup>
 		
@@ -117,6 +117,7 @@
 				this.showModal = true;
 			},
 			editTowerRent(){
+				this.showModal = false;
 				this.http.post('Manager/editTowerRent',{
 					tower_id:this.tower_id,
 					month_rent:this.newPrice

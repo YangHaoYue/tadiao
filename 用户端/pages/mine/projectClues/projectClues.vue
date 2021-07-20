@@ -7,28 +7,30 @@
 		<!-- 列表 -->
 		<view class="u-p-b-20">
 			<!-- 当list为空时 -->
-			<view class="u-flex u-row-center" style="margin: 139rpx 192rpx;" v-if="list.length === 0">
+			<view class="u-flex u-row-center" style="margin: 139rpx 192rpx;flex-direction: column;" v-if="list.length === 0">
 				<u-image width="365" height="365" src="@/static/mine/empty.png"></u-image>
 				<view class="u-font-28 text-gray u-m-t-40 u-text-center">空空如也~</view>
 			</view>
 			<block v-for="(item,index) in list" :key="index" >
 				<u-card :title="item.title" title-size="24" title-color="#666666"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :border="false"
-				 @click="toDetail()">
+				 @click="toDetail(item.id)">
 					<view class="u-flex u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
-						<view @tap.stop="openModal(item.id)">
-							<u-image src="@/static/mine/shanchu@2x.png" width="36" height="36" :fade="false" v-if="current == 3&&item.show_del_button" ></u-image>
+						<view @tap.stop="openModal(item.id)" v-if="item.show_del_button&&item.status == 5" >
+							<u-image src="@/static/shanchu@2x.png" width="36" height="36" :fade="false"></u-image>
 						</view>
 					</view>
 					<view slot="foot">
-						<view v-if="current == 3">
+						<view v-if="item.status == 5">
 							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
 							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.refused_reason}}</view>
 						</view>
 						<view class="u-flex u-row-between" v-else>
-							<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
-							<u-button type="primary" size="mini" style="margin-right: 0;">修改线索</u-button>
+							<view class="u-flex u-font-24" style="color: #666666;" v-show="item.handler_data.name != ''">
+								合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
+							</view>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toExit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
 						</view>
 					</view>
 				</u-card>
@@ -62,10 +64,7 @@
 
 <script>
 	export default {
-		onLoad() {
-			this.projectLists();
-		},
-		onBackPress() {
+		onShow() {
 			this.clearData();
 		},
 		onReachBottom() {
@@ -121,12 +120,14 @@
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
-							this.list = res.data.pages.project_data;
+							this.list = res.data.pages.project_data.map(v=>{
+								return this._format(v)
+							});
 							this.last_page = res.data.pages.last_page;
 							this.showModal = res.data.show_modal.is_show;
 						}else{
 							res.data.pages.project_data.forEach(v=>{
-								this.list.push(v)
+								this.list.push(this._format(v))
 							})
 						}
 						
@@ -143,6 +144,54 @@
 				this.status = 'loading';
 				this.projectLists();
 			},
+			_format(e){
+				//-1=>全部,0=>审核中,1=>已通过,2=>跟进中,3=>已成交,4=>已付款,5=>未通过,6=>已结束
+				let subTitle = '';
+				let subTitleColor = '';
+				switch(e.status){
+					case 0:
+						subTitle = '审核中';
+						subTitleColor = '#105CFB';
+						break;
+					case 1:
+						subTitle = '已通过';
+						subTitleColor = '#2DA016';
+						break;
+					case 2:
+						subTitle = '跟进中';
+						subTitleColor = '#2DA016';
+						break;
+					case 3:
+						subTitle = '已成交';
+						subTitleColor = '#2DA016';
+						break;
+					case 4:
+						subTitle = '已付款';
+						subTitleColor = '#2DA016';
+						break;
+					case 5:
+						subTitle = '已拒绝';
+						subTitleColor = '#FE5E10';
+						break;
+					case 6:
+						subTitle = '已结束';
+						subTitleColor = '#FE5E10';
+						break;
+				}
+				return{
+					id:e.id,
+					subTitle:subTitle,
+					subTitleColor:subTitleColor,
+					status:e.status,
+					project_name:e.project_name,
+					title:"创建时间：" + e.created_at,
+					address:e.address,
+					refused_reason:e.refused_reason,
+					handler_data:e.handler_data,
+					show_del_button:e.show_del_button,
+					show_edit_button:e.show_edit_button
+				}
+			},
 			change(index) {
 				console.log(index);
 				this.current = index;
@@ -150,7 +199,7 @@
 			},
 			//删除
 			delProject(){
-				this.showModal = false;
+				this.deletModal = false;
 				this.http.post('project/editProject',{
 					project_id:this.whichone
 				}).then(res=>{
@@ -162,12 +211,16 @@
 					}
 				})
 			},
-			toDetail(){
-				uni.navigateTo({url: 'detail/detail'});
+			toDetail(id){
+				uni.navigateTo({url: 'detail/detail?project_id=' + id});
 			},
 			openModal(id){
-				this.showModal = true;
 				this.whichone = id;
+				this.deletModal = true;
+			},
+			//修改线索
+			toExit(id){
+				uni.navigateTo({url: 'createNew/createNew?project_id=' + id});
 			}
 		}
 	}

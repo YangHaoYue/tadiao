@@ -229,13 +229,10 @@
 							tel_num:this.model.phone,
 							msg_code:this.model.code,
 							inviter_id:this.inviter_id,
-							branch_id:this.model.branch_id,
-							identity:this.model.identity
+							branch_id:this.model.branch_id||0,//注册页面设置分公司id的默认值为0和职位id的默认值为1,或者默认不提交也行.
+							identity:this.model.identity||1
 						}).then((res)=>{
 							if(res.code==1000){
-								uni.reLaunch({
-									url: '../mine/mine'
-								})
 								this.$refs.uToast.show({
 									title:res.msg,
 									type:"success",

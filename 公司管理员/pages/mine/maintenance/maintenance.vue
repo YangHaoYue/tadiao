@@ -7,7 +7,7 @@
 		<!-- 列表 -->
 		<view class="u-p-b-20">
 			<!-- 型号 -->
-			<scroll-view scroll-x @scrolltolower="getTypes" style="height: 100rpx;" v-if="current == 1">
+			<scroll-view scroll-x @scrolltolower="loadmore" style="height: 100rpx;" v-if="current == 1">
 				<view class="u-flex u-p-l-20 u-p-r-20 u-p-t-20">
 					<view class="idot" v-for="(item,i) in idotList" :class="idot == item.value?'selected':'nomal'" :key="i" @click="chooseIdot(item)">
 						{{item.title}}
@@ -169,7 +169,7 @@
 							})
 						}
 						
-						if(this.tabList[1].page >= this.tabList[0].last_page) this.status = 'nomore';
+						if(this.tabList[1].page >= this.tabList[1].last_page) this.status = 'nomore';
 						else this.status = 'loadmore';
 					}
 				})
@@ -190,8 +190,27 @@
 					}
 				})
 			},
+			loadmore(){
+				if(this.idot_page >= this.idot_last_page) return ;
+				this.status = 'loading';
+				this.idot_page = ++ this.idot_page;
+				setTimeout(() => {
+					this.getTypes();
+				}, 50)
+			},
 			change(index) {
 				this.current = index;
+			},
+			clearData(){
+				this.status = "loading";
+				this.tabList[this.current].page = 1;
+				this.tabList[this.current].last_page = 1;
+				this.tabList[this.current].list = [];
+				if(this.current == 0){
+					this.getOrdersForScreen();
+				}else{
+					this.getTowersForMng();
+				}
 			},
 			toDetail(order_id,id){
 				if(this.current == 0){
@@ -202,6 +221,7 @@
 			},
 			chooseIdot(item){
 				this.idot = item.value;
+				this.clearData();
 			}
 		}
 	}

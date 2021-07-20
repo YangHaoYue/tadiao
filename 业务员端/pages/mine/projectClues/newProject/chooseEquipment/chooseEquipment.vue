@@ -122,7 +122,7 @@
 							let list = res.data.tower_data.forEach(v=>{
 								this.$set(v,'checked',false)
 							})
-							this.tabList[this.current].list.concat(list)
+							this.tabList[this.current].list = [...this.tabList[this.current].list,...list]
 						}
 						
 						if(this.tabList[this.current].page >= this.tabList[this.current].last_page) this.status = 'nomore';
@@ -133,6 +133,7 @@
 			change(index) {
 				/* this.selectedList = []; */
 				this.current = index;
+				this.getInfo()
 			},
 			// 选中某个复选框时，由checkbox时触发
 			checkboxGroupChange(e) {

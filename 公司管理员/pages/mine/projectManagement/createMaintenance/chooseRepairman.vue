@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="bg-white u-p-10 u-p-l-30">
-			<u-search class="u-p-10" placeholder="搜索关键字" input-align="left" :focus="true" v-model="keyward" :action-style="{fontWeight:'bold'}"></u-search>
+			<u-search class="u-p-10" placeholder="搜索关键字" input-align="left" :focus="true" v-model="keyward" :action-style="{fontWeight:'bold'}" @custom="clearData"></u-search>
 		</view>
 		<block v-for="(item,index) in list" :key="index">
 			<view class="u-flex u-row-between u-col-center bg-white u-m-t-20" style="padding: 20rpx 30rpx;">
@@ -18,7 +18,14 @@
 <script>
 	export default {
 		onLoad() {
-			
+			this.getFixerForFix()
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getFixerForFix();
+			}, 50)
 		},
 		data() {
 			return {
@@ -31,7 +38,8 @@
 		methods: {
 			getFixerForFix() {
 				this.http.get('Order/getFixerForFix', {
-					keyward: this.keyward
+					keyword: this.keyward,
+					page:this.page
 				}).then(res => {
 					if (res.code == 1000) {
 						if (this.list.length == 0) {
@@ -44,6 +52,11 @@
 						}
 					}
 				})
+			},
+			clearData(){
+				this.page = 1;
+				this.list = [];
+				this.getInfo();
 			},
 			back(item){
 				uni.$emit('fixer',{data:item})

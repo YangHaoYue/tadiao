@@ -9,6 +9,10 @@
 					<view class="u-font-24 u-line-1" style="color: #999999;">{{user_data.branch_name}}</view>
 				</view>
 			</view>
+			<view class="u-flex u-col-center u-row-right">
+				<u-image class="u-m-r-24" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toPerfection"></u-image>
+				<u-image src="../../static/qrcode@2x.png" width="44" height="44" :fade="false" @click="showModal = true"></u-image>
+			</view>
 		</view>
 		
 		<!-- card -->
@@ -121,7 +125,21 @@
 <script>
 	export default {
 		onLoad() {
+			/* let identity = uni.getStorageSync('identity');
+			if(identity == 6) return uni.reLaunch({url:'../leader/leader'}) */
+			this.day = this.http.getToday();
+			this.start = this.http.getToday();
+			this.end = this.http.getToday();
 			this.getUserInfo();
+			this.getInviteCode();
+		},
+		onPullDownRefresh() {
+			setTimeout(()=>{
+				this.getUserInfo();
+				this.getInviteCode();
+				this.clearData();
+				uni.stopPullDownRefresh();
+			},1000)
 		},
 		data() {
 			return {
@@ -167,9 +185,9 @@
 				],
 				staff:[
 					{img:'../../static/yuangonggaunli@2x.png',name:'员工管理',url:'/pages/mine/StaffManagement/StaffManagement'},
-					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/ranking/ranking'},
-					{img:'../../static/dingdanjine@2x.png',name:'订单金额排名',url:'/pages/mine/ranking/ranking'},
-					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/ranking/ranking'}
+					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/ranking/cluesRank'},
+					{img:'../../static/dingdanjine@2x.png',name:'订单金额排名',url:'/pages/mine/ranking/moneyRank'},
+					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/ranking/projectRank'}
 				]
 			}
 		},
@@ -203,6 +221,10 @@
 			toSetting(){
 				uni.navigateTo({url: 'setting/setting'});
 			},
+			//完善信息
+			toPerfection(){
+				uni.navigateTo({url: 'perfection/perfection'});
+			},
 			//分段器
 			changeSub(){
 				this.current = !this.current;
@@ -217,6 +239,14 @@
 				this.start = e.startDate;
 				this.end = e.endDate;
 				this.getUserInfo();
+			},
+			toLeader(){
+				uni.navigateTo({
+					url: '../leader/leader',
+					success: res => {},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		}
 	}

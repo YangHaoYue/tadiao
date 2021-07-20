@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 搜索 -->
-		<u-search class="u-p-20 bg-white" placeholder="搜索关键字" input-align="center" :focus="true" v-model="keyward"></u-search>
+		<u-search class="u-p-20 bg-white" placeholder="搜索关键字" input-align="center" :focus="true" v-model="keyword" @custom="clearData"></u-search>
 		<!-- 日期 -->
 		<view class="u-flex u-font-28 u-row-center bg-white" @click="show = true">
 			<view class="u-p-10 u-flex u-row-between u-border" style="border-radius: 4rpx;">
@@ -28,20 +28,20 @@
 			</view>
 			<block v-for="(item,index) in list" :key="index">
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
-				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true" @click="toDetail(item.id)">
+				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true" @click="toDetail(item.order_id)">
 					<view class="u-flex u-col-top u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 						<view class="u-text-right">
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥{{item.month_rent}}/月</text></view>
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥{{item.in_out_cost}}</text></view>
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">月付</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_id}}</text></view>
 						</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
 						<view class="u-flex u-font-24" style="color: #666666;">
 							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
 						</view>
-						<u-button class="u-m-r-0" type="primary" size="mini" v-if="current === 1" @click="toAddRecord(item.id)">增加付款时间</u-button>
+						<u-button class="u-m-r-0" type="primary" size="mini" v-if="current === 1" @click="toAddRecord(item.order_id)">增加付款时间</u-button>
 					</view>
 				</u-card>
 			</block>
@@ -56,6 +56,8 @@
 <script>
 	export default {
 		onLoad() {
+			this.start = this.http.getToday();
+			this.end = this.http.getToday();
 			this.getInfo();
 		},
 		onReachBottom() {
@@ -69,7 +71,7 @@
 		data() {
 			return {
 				//搜索关键词
-				keyward:'',
+				keyword:'',
 				//日历
 				show:false,
 				start:'2020-11-22',
@@ -98,16 +100,19 @@
 		methods: {
 			getInfo(){
 				this.http.get('Order/orderListsForStaff',{
+					keyword:this.keyword,
+					start_at:this.start,
+					end_at:this.end,
 					status:this.tabList[this.current].value
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
-							this.list = res.data.pages.order_data.map(v=>{
+							this.list = res.data.order_data.map(v=>{
 								return this._format(v)
 							});
-							this.last_page = res.data.pages.last_page;
+							this.last_page = res.data.last_page;
 						}else{
-							res.data.pages.order_data.forEach(v=>{
+							res.data.order_data.forEach(v=>{
 								this.list.push(this._format(v))
 							})
 						}
@@ -152,6 +157,7 @@
 					show_edit_button:e.show_edit_button,
 					show_order_button:e.show_order_button,
 					lock_arr:e.lock_arr,
+					type_pay_id:e.type_pay_id == 1?'季付':'月付'
 				}
 			},
 			chooseDayRange(e){

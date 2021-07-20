@@ -62,8 +62,8 @@
 			</view>
 		</view>
 		
-		<u-button type="primary" class="u-m-30" @click="addOrder">立即提交</u-button>
 		<u-button type="primary" class="u-m-30" @click="editOrder" v-if="order_id&&show_submit_button">提交修改</u-button>
+		<u-button type="primary" class="u-m-30" @click="addOrder" v-else>立即提交</u-button>
 		<u-gap bg-color="F8F8F8" height="50"></u-gap>
 	</view>
 </template>
@@ -135,6 +135,11 @@
 				}).then(res=>{
 					if(res.code == 1000){
 						this.formList[1].list = res.data.type_pay;
+						this.customerList[0].value = res.data.office_name;
+						this.customerList[1].value = res.data.cus_name;
+						this.customerList[2].value = res.data.cus_tel_num;
+						
+						
 					}
 				})
 			},

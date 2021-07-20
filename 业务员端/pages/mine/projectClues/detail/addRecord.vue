@@ -18,6 +18,7 @@
 		},
 		data() {
 			return {
+				project_id:'',
 				value:'',
 				action: 'Common/fileUploader',
 				header:{'Authorization':'Bearer '+ this.http.getToken()},
@@ -39,7 +40,7 @@
 					content:this.value,
 					img:img
 				}).then(res=>{
-					this.$u.toast(re.msg)
+					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{
 							uni.navigateBack({

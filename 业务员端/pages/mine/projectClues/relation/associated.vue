@@ -6,7 +6,7 @@
 					<u-image :src="http.resourceUrl()+item.tower_img" width="153" height="153" mode="scaleToFill" :fade="false"></u-image>
 					<view class="u-m-l-12">
 						<view class="u-font-26 text-bold u-m-b-20">{{item.tower_name}}({{item.tower_type}})</view>
-						<view class="text-gray u-font-22">设备出厂编号:{{item.code}}</view>
+						<view class="text-gray u-font-22">设备出厂编号:{{item.serial_num}}</view>
 						<view class="text-gray u-font-22">品牌:{{item.brand_name}}</view>
 						<view class="text-gray u-font-22">年限:{{item.age_limit}}</view>
 					</view>
@@ -28,9 +28,8 @@
 	export default {
 		onLoad(e) {
 			this.project_id = e.project_id;
-			this.getInfo();
 		},
-		onBackPress() {
+		onShow() {
 			this.clearData()
 		},
 		onReachBottom() {

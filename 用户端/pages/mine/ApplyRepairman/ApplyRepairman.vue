@@ -6,17 +6,17 @@
 		</view>
 		<view class="bg-white" style="border-radius: 53rpx 53rpx 0 0 ;padding: 37rpx 57rpx 0 35rpx;transform: translateY(-50rpx);">
 			<u-form>
-				<u-form-item :label-style="labelStyle" :required="false" right-icon="arrow-right" label-position="top" label="所属公司(本选项普通用户可不选)" label-width="150">
+				<u-form-item :label-style="labelStyle" :required="true" right-icon="arrow-right" label-position="top" label="所属公司(本选项普通用户可不选)" label-width="150">
 					<u-input :border="border" :disabled="true" v-model="model.companie" placeholder="请选择公司" @click="selectShow = true"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150"  :border-bottom="false">
-					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" @on-list-change="onQualificationChange" :max-count="9" :custom-btn="true">
+					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" @on-list-change="onQualificationChange" :max-count="3" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 								<u-icon name="plus" size="60" :color="$u.color['lightColor']"></u-icon>
 							</view>
 					</u-upload>
 				</u-form-item>
-				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传身份证正反面" label-width="150"  :border-bottom="false">
+				<u-form-item :label-style="labelStyle" :required="true" label-position="top" label="上传身份证正反面" label-width="150"  :border-bottom="false">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" upload-text="身份证正面" @on-list-change="onPositiveChange" :max-count="1" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 							<u-image src="@/static/on.png" width="80" height="60"></u-image>
@@ -32,7 +32,7 @@
 				</u-form-item>
 			</u-form>
 		</view>
-		<u-button type="primary" class="u-m-30" style="margin-bottom: 0;transform: translateY(-50rpx);" :disabled="applyBtn">提交</u-button>
+		<u-button type="primary" class="u-m-30" style="margin-bottom: 0;transform: translateY(-50rpx);" :disabled="applyBtn" @click="submit">提交</u-button>
 		
 		<u-select mode="single-column" confirm-color="#0F58FB" :list="selectList" value-name="id" label-name="branch_name" v-model="selectShow" @confirm="selectConfirm"></u-select>
 	</view>
@@ -42,6 +42,7 @@
 	export default {
 		onLoad() {
 			this.getBranches();
+			this.getInfo();
 		},
 		computed: {
 			applyBtn() {
@@ -73,6 +74,38 @@
 			}
 		},
 		methods: {
+			getInfo(){
+				this.http.get('UserCenter/getStaffApplyEditPage',{
+					type:1
+				}).then(res=>{
+					if(res.data.status == 1){
+						this.http.modal("","审核未通过，请重新提交！", false, () => {
+							this.model.qualification = res.data.staff_img.map(v=>{
+								return{
+									url:v
+								}
+							})
+							this.model.positive = [{url:res.data.id_card_img[0]}];
+							this.model.back = [{url:res.data.id_card_img[1]}];
+							this.model.companie = res.data.branch_name;
+							this.model.branch_id = res.data.branch_id;
+						})
+					}else if(res.data.status == 2){
+						this.http.modal("","审核中，请耐心等待！", false, () => {
+							uni.navigateBack({
+								delta:1
+							})
+						})
+					}else if(res.data.status == 3){
+						this.http.modal("","审核通过,请重新登录！", false, () => {
+							uni.clearStorageSync();
+							uni.reLaunch({
+								url:'../../login/login'
+							})
+						})
+					}
+				})
+			},
 			//获取公司列表
 			getBranches(){
 				this.http.get('auth/getBranches',{},true).then(res=>{
@@ -107,14 +140,14 @@
 			},
 			submit(){
 				let img=[]
-				this.qualification.map(item=>{
+				this.model.qualification.map(item=>{
 					if(item.response&&item.response.code==1000){
 						img.push(item.response.data.path);
 					}else if(!item.error&&item.progress==100){
 						img.push(item.url);
 					}
 				});
-				let scimg=[this.model.positive.response.data.path,this.model.back.response.data.path]
+				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
 				
 				this.http.post('UserCenter/staffApply',{
 					type:1,//0=>业务员(默认),1维修员

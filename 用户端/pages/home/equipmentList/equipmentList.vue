@@ -45,6 +45,10 @@
 		
 		<!-- 列表 -->
 		<u-row class="u-p-20 u-m-t-26" gutter="20" justify="space-between">
+			<view class="u-flex u-row-center" style="margin: 139rpx 192rpx;flex-direction: column;" v-if="list.length === 0">
+				<u-image width="365" height="365" src="@/static/mine/empty.png"></u-image>
+				<view class="u-font-28 text-gray u-m-t-40 u-text-center">空空如也~</view>
+			</view>
 			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index" @click="setPhone(item.media_tel_num)">
 				<equipmentItem :item="item" :index="index"></equipmentItem>
 			</u-col>
@@ -97,7 +101,7 @@
 						value: 0,
 					},
 					{
-						label: '租聘中',
+						label: '租赁中',
 						value: 2,
 					},
 					{
@@ -155,6 +159,10 @@
 				if(this.area_id){
 					this.$set(data,'area_id',this.area_id)
 				}
+				/* if(this.max&&this.min){
+					this.$set(data,'price_max',this.max)
+					this.$set(data,'price_min',this.min)
+				} */
 				this.http.get('Index/towerList',data).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
@@ -240,7 +248,8 @@
 				this.clearList();
 			},
 			statusChange(index) {
-				this.listStatus = this.statusList[index].value;
+				console.log(index);
+				this.listStatus = index;
 				this.clearList();
 			},
 			typeChange(index){

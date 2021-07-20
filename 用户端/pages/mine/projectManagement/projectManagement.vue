@@ -20,7 +20,7 @@
 						<view class="u-text-right">
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥{{item.month_rent}}/月</text></view>
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥{{item.in_out_cost}}</text></view>
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">月付</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_id}}</text></view>
 						</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
@@ -80,10 +80,11 @@
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
-						res.data.order_data.forEach(v=>{
+						res.data.order_data.map(v=>{
 							this.list.push(this._formart(v))
 						})
-						
+						console.log(res.data.order_data);
+						console.log(this.list);
 						if(this.page >= this.last_page) this.status = 'nomore';
 						else this.status = 'loadmore';
 					}
@@ -93,17 +94,21 @@
 				let subTitle = '已成交';
 				let subTitleColor='#0F58FB';
 				switch(data.status){
+					case 0:
+						subTitle = '待审核';
+						subTitleColor = '#105CFB';
+						break;
 					case 1:
 						subTitle = '已通过';
-						subTitleColor = '#0F58FB';
+						subTitleColor = '#2DA016';
 						break;
 					case 2:
-						subTitle = '已通过';
-						subTitleColor = '#0F58FB';
+						subTitle = '已拒绝';
+						subTitleColor = '#FE5E10';
 						break;
 					case 3:
-						subTitle = '已通过';
-						subTitleColor = '#0F58FB';
+						subTitle = '已结束';
+						subTitleColor = '#FE5E10';
 						break;
 				}
 				return{
@@ -122,6 +127,7 @@
 					show_resubmit_button:data.show_resubmit_button,
 					handler_data:data.handler_data,
 					cus_data:data.cus_data,
+					type_pay_id:e.type_pay_id == 1?'季付':'月付'
 				}
 			},
 			clearData(){

@@ -1,0 +1,75 @@
+<template>
+	<view>
+		<view class="bg-white u-p-10 u-p-l-30">
+			<u-search class="u-p-10" placeholder="搜索关键字" input-align="left" :focus="true" v-model="keyward" :action-style="{fontWeight:'bold'}" @custom="clearData"></u-search>
+		</view>
+		<block v-for="(item,index) in list" :key="index">
+			<view class="u-flex u-row-between u-col-center bg-white u-m-t-20" style="padding: 20rpx 30rpx;">
+				<view class="u-flex">
+					<u-avatar :src="http.resourceUrl() + item.avatar" size="98"></u-avatar>
+					<view class="u-m-l-16 u-font-24" style="color: #666666;">{{item.name}}</view>
+				</view>
+				<view class="u-font-24" style="color: #1058FB;" @click="back(item)">选择</view>
+			</view>
+		</block>
+	</view>
+</template>
+
+<script>
+	export default {
+		onLoad() {
+			this.getMngCandi()
+		},
+		onReachBottom() {
+			if(this.page >= this.last_page) return ;
+			this.page = ++ this.page;
+			setTimeout(() => {
+				this.getMngCandi();
+			}, 50)
+		},
+		data() {
+			return {
+				keyward:'',
+				page:1,
+				last_page:1,
+				list:[]
+			}
+		},
+		methods: {
+			getMngCandi(){
+				this.http.get('Manager/getMngCandi',{
+					keyword:this.keyward,
+					page:this.page
+				}).then(res=>{
+					if(res.code == 1000){
+						if(this.list.length == 0){
+							this.list = res.data.user_data;
+							this.last_page = res.data.last_page
+						}else{
+							res.data.user_data.map(v=>{
+								this.list.push(v)
+							})
+						}
+					}
+				})
+			},
+			clearData(){
+				this.page = 1;
+				this.list = [];
+				this.getInfo();
+			},
+			back(item){
+				uni.$emit('leader',{data:item})
+				uni.navigateBack({
+					delta: 1
+				});
+			}
+		}
+	}
+</script>
+
+<style scoped>
+	page{
+		background-color: #F5F6FA;
+	}
+</style>

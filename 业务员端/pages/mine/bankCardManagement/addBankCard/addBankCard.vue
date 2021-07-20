@@ -22,6 +22,9 @@
 	export default {
 		onLoad(e) {
 			if(e.bankcard_id){
+				uni.setNavigationBarTitle({
+					title:'编辑银行卡'
+				})
 				this.bankcard_id = e.bankcard_id;
 				this.getBankcardById();
 			}
@@ -73,7 +76,7 @@
 					bank_name:this.model.brankName,
 					bankcard_num:this.model.code1
 				}).then(res=>{
-					this.$u.toast(res.mag)
+					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{
 							uni.navigateBack({
@@ -91,7 +94,7 @@
 					bank_name:this.model.brankName,
 					bankcard_num:this.model.code1
 				}).then(res=>{
-					this.$u.toast(res.mag)
+					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{
 							uni.navigateBack({

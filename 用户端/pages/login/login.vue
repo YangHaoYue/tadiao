@@ -14,7 +14,7 @@
 				<!-- <view class="codeType" slot="right" @click="getCode">{{codeTips}}</view> -->
 			</u-form-item>
 		</u-form>
-		<navigator open-type="navigate" url="register" hover-class="none" class="u-m-10 u-text-center u-m-t-20">还没有账号?
+		<navigator open-type="navigate" url="register" hover-class="none" class="u-m-b-60 u-text-center u-m-t-60 u-text-right">还没有账号?
 			<text class="u-m-l-10" style="color: #0F58FB;">前去注册</text>
 		</navigator>
 
@@ -28,7 +28,21 @@
 <script>
 	export default {
 		onLoad(e) {
-			
+			let token = this.http.getToken();
+			let identity = uni.getStorageSync('identity');
+			if(token){
+				if(identity == 1){
+					uni.switchTab({
+						url:'../home/home'
+					})
+				}else if(identity == 2||identity == 3){
+					window.location.href = 'http://tower.0831.run/html/staff'
+				}else if(identity == 4||identity == 5){
+					window.location.href = 'http://tower.0831.run/html/manager'
+				}else if(identity == 6){
+					window.location.href = 'http://tower.0831.run/html/manager/#/pages/leader/leader'
+				}
+			}
 		},
 		onShow() {
 			let code = this.GetQueryString("openid");
@@ -162,8 +176,10 @@
 									})
 								}else if(res.data.identity == 2||res.data.identity == 3){
 									window.location.href = 'http://tower.0831.run/html/staff'
-								}else if(res.data.identity == 4||res.data.identity == 5||res.data.identity == 6){
-									window.location.href = 'http://tower.0831.run/html/mananger'
+								}else if(res.data.identity == 4||res.data.identity == 5){
+									window.location.href = 'http://tower.0831.run/html/manager'
+								}else if(res.data.identity == 6){
+									window.location.href = 'http://tower.0831.run/html/manager/#/pages/leader/leader'
 								}
 							}else{
 								this.$refs.uToast.show({

@@ -107,12 +107,10 @@
 							this.tabList[this.current].last_page = res.data.last_page;
 						}else{
 							let list = res.data.tower_data.forEach(v=>{
-								this.$set(v,'checked',false)
+								this.tabList[this.current].list.push(v)
 							})
-							this.tabList[this.current].list.concat(list)
 						}
 						
-						console.log(this.tabList[this.current].list);
 						if(this.tabList[this.current].page >= this.tabList[this.current].last_page) this.status = 'nomore';
 						else this.status = 'loadmore';
 					}

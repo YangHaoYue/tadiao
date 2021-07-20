@@ -97,7 +97,9 @@
 				console.log(data);
 				this.model.latitude = data.latitude;
 				this.model.longitude = data.longitude;
-				this.model.address = data.address;
+				this.model.address = /* data.address + */data.location;
+				this.model.area_code = data.area_code;
+				this.model.location = data.location;
 				uni.$off('addresss')
 			})
 		},
@@ -113,6 +115,8 @@
 				model:{
 					project_name:'',
 					address:'',
+					location:'',
+					area_code:'',
 					longitude:'',
 					latitude:'',
 					construction_name:'',
@@ -143,8 +147,14 @@
 						this.model.construction_name = res.data.construction_name;
 						this.model.developer_name = res.data.developer_name;
 						this.model.list = res.data.tower_types;
-						this.model.connectList = res.data.Types;
+						this.model.connectList = res.data.medias;
 						this.model.remark = res.data.remark;
+						
+						
+						this.model.address = res.data.address;
+						this.model.longitude = res.data.longitude;
+						this.model.latitude = res.data.latitude;
+						this.model.location = res.data.address;
 					}
 				})
 			},
@@ -190,9 +200,10 @@
 			addProject(){
 				this.http.post('project/addProject',{
 					project_name:this.model.project_name,
+					area_code:this.model.area_code,
 					longitude:this.model.longitude,
 					latitude:this.model.latitude,
-					address:this.model.address,
+					address:this.model.location,
 					construction_name:this.model.construction_name,
 					developer_name:this.model.developer_name,
 					remark:this.model.remark,
@@ -209,9 +220,10 @@
 			editProject(){
 				this.http.post('project/editProject',{
 					project_id:this.project_id,
+					area_code:this.model.area_code,
 					longitude:this.model.longitude,
 					latitude:this.model.latitude,
-					address:this.model.address,
+					address:this.model.location,
 					project_name:this.model.project_name,
 					construction_name:this.model.construction_name,
 					developer_name:this.model.developer_name,

@@ -16,7 +16,7 @@
 			<block v-for="(item,index) in list" :key="index">
 				<view class="u-flex u-row-between bg-white u-p-30 u-p-r-20 u-border-bottom">
 					<view>
-						<view class="u-font-28 text-black u-m-b-10">{{item.name}}</view>
+						<view class="u-font-28 text-black u-m-b-10">{{item.left_str}}</view>
 						<view class="u-font-24" style="color: #999999;">{{item.created_at}}</view>
 					</view>
 					<view class="u-text-right">
@@ -39,6 +39,8 @@
 <script>
 	export default {
 		onLoad() {
+			this.start = this.http.getToday();
+			this.end = this.http.getToday();
 			this.getInfo();
 		},
 		onReachBottom() {
@@ -52,8 +54,8 @@
 		data() {
 			return {
 				show:false,
-				start:'2020-11-22',
-				end:'2020-11-22',
+				start:'2021-7-1',
+				end:'2021-7-10',
 				
 				list:[],
 				page:1,
@@ -93,7 +95,7 @@
 				console.log(e);
 				this.start = e.startDate;
 				this.end = e.endDate;
-				this.getInfo();
+				this.clearData()
 			},
 			clearData(){
 				this.list = []

@@ -8,7 +8,8 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": false,
+				"enablePullDownRefresh":true
             }
             
         }
@@ -92,7 +93,24 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },{
+		    "path" : "pages/mine/projectClues/createNew/createNew",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "新建线索",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/mine/projectClues/createNew/map",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "选择地址",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         ,{
             "path" : "pages/mine/projectClues/detail/addRecord",
             "style" :                                                                                    
@@ -284,6 +302,42 @@
         }
         ,{
             "path" : "pages/mine/ranking/projectRank",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/leader/leader",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/leader/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/leader/createC/createC",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/leader/createC/chooseLeader",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",

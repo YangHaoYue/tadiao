@@ -40,18 +40,18 @@
 					<view class="u-flex-1">
 						<u-search shape="square" placeholder="搜索关键字" input-align="left" bg-color="#ffffff" border-color="#DDDDDD"
 						v-model="people" :action-style="{color:'#666666'}" @custom="claerFixerData"></u-search>
-						<scroll-view scroll-y="true" @scrolltolower="loadMore" style="height: 300rpx;">
+						<scroll-view scroll-y="true" @scrolltolower="loadMore" style="height: 150rpx;">
 							<view class="u-flex u-row-between u-m-t-20" v-for="(item,k) in peopleList" :key="k" @click="selectedFixer(item.id)">
 								<view class="u-flex">
 									<u-avatar :src="http.resourceUrl() + item.avatar" size="60"></u-avatar>
 									<view class="u-font-24 u-m-l-10" style="color: #666666;">{{item.name}}</view>
 								</view>
-								<u-icon name="checkbox-mark" size="24" v-if="selected == item.id"></u-icon>
+								<u-icon name="checkbox-mark" color="#0F58FB" size="24" v-if="selected == item.id"></u-icon>
 							</view>
 						</scroll-view>
 					</view>
 				</view>
-				<u-button class="u-m-t-70" style="width: 100%;" size="medium" type="primary" @click="fixTransfer">确认转移</u-button>
+				<u-button class="u-m-t-10" style="width: 100%;" size="medium" type="primary" @click="fixTransfer">确认转移</u-button>
 			</view>
 		</u-popup>
 		<!-- 提示成功modal -->
@@ -159,6 +159,7 @@
 				this.people_page = 1;
 				this.people_lastpage = 1;
 				this.peopleList = [];
+				this.selected = '';
 				this.getFixerForFix();
 			},
 			transfer(id){

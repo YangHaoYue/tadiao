@@ -5,9 +5,9 @@
 				<view class="u-flex u-row-between">
 					<view class="info list-item">
 						<view class="badge"></view>
-						<view class="ellipsis">{{address}}</view>
+						<view class="ellipsis">{{recommend}}</view>
 					</view>
-					<u-button type="primary" size="mini" style="margin: 0;" @click="back">确认</u-button>
+					<u-button type="primary" size="mini" style="margin: 0;" @click="back" :disabled="area_code!=''?false:true">确认</u-button>
 				</view>
 				<!-- <view class="info">
 					<view class="badge orange"></view>
@@ -39,8 +39,10 @@
 		data() {
 			return {
 				address: "正在获取地址...",
+				recommend:'正在获取地址...',
 				longitude: 114.010857,
 				latitude: 22.63137,
+				area_code:'',
 				current_long: 114.010857,
 				current_lat: 22.63137,
 				key: 'NW7BZ-BVXC2-AFYUX-C57BF-PZED6-WTBY4',
@@ -70,6 +72,7 @@
 				// #endif
 				if (isEnd) {
 					this.address = "正在获取地址...";
+					this.recommend = "正在获取地址...";
 					if (!this.mapCtx) {
 						this.mapCtx = uni.createMapContext("maps");
 					}
@@ -116,7 +119,9 @@
 				this.http.tuiJsonp(url, (res) => {
 					if (res.status === 0) {
 						console.log(res);
-						this.address = res.result.formatted_addresses.recommend
+						this.address = res.result.address_component.province + res.result.address_component.city + res.result.address_component.district;
+						this.area_code = res.result.ad_info.adcode;
+						this.recommend = res.result.formatted_addresses.recommend;
 					}
 				}, "QQmap")
 			},
@@ -138,7 +143,7 @@
 				})
 			},
 			back(){
-				uni.$emit('address',{longitude:this.longitude,latitude:this.latitude,address:this.address})
+				uni.$emit('address',{longitude:this.longitude,latitude:this.latitude,address:this.address,area_code:this.area_code,location:this.recommend})
 				uni.navigateBack({
 					delta: 1
 				});

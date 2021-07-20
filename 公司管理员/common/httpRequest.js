@@ -118,7 +118,7 @@ const tui = {
 							/* uni.reLaunch({
 								url:'/pages/login/login'
 							}) */
-						},'#FE8702')
+						})
 						return
 					}
 					return resolve(res.data)
@@ -203,7 +203,7 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token")|| '9eb79887aebe8345b5b81750433395af'
+		return uni.getStorageSync("thorui_token")|| '0a60494a8c82bf0e0b787ef661be7926'
 	},
 	//判断是否登录
 	isLogin: function() {
@@ -240,6 +240,12 @@ const tui = {
 	        };
 	    };
 	    return fmt;
+	},
+	//获取今天日期
+	getToday:function(){
+		let now = new Date();
+		let today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+		return today
 	}
 }
 

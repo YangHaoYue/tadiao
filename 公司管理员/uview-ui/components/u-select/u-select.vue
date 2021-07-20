@@ -274,6 +274,7 @@ export default {
 		},
 		// 列选项
 		columnChange(e) {
+			console.log(e);
 			let index = null;
 			let columnIndex = e.detail.value;
 			// 由于后面是需要push进数组的，所以需要先清空数组

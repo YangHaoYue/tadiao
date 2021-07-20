@@ -37,7 +37,7 @@
 				<!-- 银行 -->
 				<block v-if="model.wayId == 0" >
 					<u-form-item :label-style="labelStyle" right-icon="arrow-right" :label-position="labelPosition" label="银行卡" label-width="200" >
-						<u-input :border="border" :disabled="true" v-model="model.band.bandName" placeholder="请选择公司" @click="toManagment" disabled></u-input>
+						<u-input :border="border" :disabled="true" v-model="model.band.bandName" placeholder="请选择银行" @click="toManagment" disabled></u-input>
 					</u-form-item>
 					<u-form-item :label-style="labelStyle" label-width="200" :label-position="labelPosition" label="银行卡号">
 						<u-input :border="border" type="text" v-model="model.band.code" placeholder="请输入银行卡号" disabled @click="toManagment"></u-input>
@@ -167,7 +167,7 @@
 					data = {
 						type:this.model.wayId,
 						amount:this.money,
-						bankcard_id:this.model.wayId,
+						bankcard_id:this.model.band.bankcard_id,
 					}
 				}else if(this.model.wayId == 1){
 					data = {

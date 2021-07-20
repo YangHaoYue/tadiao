@@ -94,17 +94,20 @@
 		<!-- 付款记录 -->
 		<pro-card title="付款记录">
 			<template v-slot:content >
-				<view v-for="(item,v) in payList" :key="v">
-					<view class="u-flex u-row-between u-font-28 u-m-t-10">
-						<view class="text-black">{{item.title}}</view>
-						<view class="text-black"   style="color: #FE5E10;">￥{{item.price}}</view>
+				<scroll-view scroll-y @scrolltolower="orderPays" style="height: 300rpx;">
+					<view v-for="(item,v) in payList.list" :key="'v'+v">
+						<view class="u-flex u-row-between u-font-28 u-m-t-10">
+							<view class="text-black">{{item.order_pays_name}}</view>
+							<view class="text-black"   style="color: #FE5E10;">￥{{item.amount}}</view>
+						</view>
+						<view class="u-flex u-row-between u-font-28 u-m-t-10"><!-- 0=>显示收款按钮,1=>显示已支付 -->
+							<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
+							<view class="text-black" v-if="item.status == 1">已支付</view>
+							<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
+						</view>
 					</view>
-					<view class="u-flex u-row-between u-font-28 u-m-t-10">
-						<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.time}}</view>
-						<view class="text-black" v-if="item.price">已支付</view>
-						<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection">收款</u-button>
-					</view>
-				</view>
+				</scroll-view>
+				
 			</template>
 		</pro-card>
 		
@@ -113,11 +116,11 @@
 			<template v-slot:content >
 				<view class="u-font-28 text-bold" style="color: #404E60;margin: 30rpx 0;">维修师傅</view>
 				<view class="text-black" style="border-radius: 10rpx;background-color: #F8F9FD;height: 181rpx;width: 686rpx;padding: 25rpx 18rpx;">
-					这是对维修师傅的评价这是对维修师傅的评价这是对 维修师傅的评价维修师傅的评价维修师傅的评价维修 维修师傅的评价维修师傅的评价
+					{{fix_comment}}
 				</view>
 				<view class="u-font-28 text-bold" style="color: #404E60;margin: 30rpx 0;">设备</view>
 				<view class="text-black" style="border-radius: 10rpx;background-color: #F8F9FD;height: 181rpx;width: 686rpx;padding: 25rpx 18rpx;">
-					这是对设备的评价这是对设备的评价这是对设备的评价这是对设备的评价这是对设备的评价这是对设备的评价这是对设备的评价这是对设备的评价这是对设备的评价
+					{{tower_comment}}
 				</view>
 				<!-- <u-input type="textarea" :autoHeight="true" height="181"></u-input> -->
 			</template>
@@ -140,8 +143,8 @@
 			<view class="u-font-28 text-bold">订单总金额:<text style="color: #FE5E10;">￥{{totalPrice}}</text></view>
 		</view>
 		<!-- 结束 -->
-		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white">
-			<u-button type="primary" style="margin-right: 0;" size="medium" @click="showModal = true">结束</u-button>
+		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_comment_button">
+			<u-button type="primary" style="margin-right: 0;" size="medium" @click="end" >结束</u-button>
 		</view>
 		<!-- modal弹窗 -->
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="405">
@@ -206,48 +209,34 @@
 					}
 				],
 				/* 塔吊列表 */
-				equipList:[{
-					
-				}],
-				/* 保养记录 */
-				maintainList:[
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'}
-				],
-				/* 维修记录 */
-				repairList:[
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',people:'维修员1',time:'2020-06-28 12:13:30'}
-				],
+				equipList:[],
 				/* 付款记录 */
-				payList:[
-					{title:'6月28日保养记录',price:'34.00',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',price:'34.00',time:'2020-06-28 12:13:30'},
-					{title:'6月28日保养记录',price:'',time:'2020-06-28 12:13:30'},
-				],
+				payList:{
+					last_page:1,
+					current_page:1,
+					list:[]
+				},
 				/* 评价 */
 				evaluate:{
 					
 				},
 				/* 订单详情 */
 				orderList:[
-					{title:'订单编号',value:'347657658439659386593'},
-					{title:'创建时间',value:'2020-10-22 12:40:05'},
-					{title:'开始时间',value:'2020-10-22 12:40:05'},
-					{title:'到期时间',value:'2020-10-22 12:40:05'},
-					{title:'付款方式',value:'月结'},
+					{title:'订单编号',value:''},
+					{title:'创建时间',value:''},
+					{title:'开始时间',value:''},
+					{title:'到期时间',value:''},
+					{title:'付款方式',value:''},
 				],
+				/* 评价 */
+				fix_comment:'',
+				tower_comment:'',
 				/* 总金额 */
 				totalPrice:'489832.00',
-				showModal:false
+				showModal:false,
+				
+				//点评
+				show_comment_button:''
 			}
 		},
 		methods: {
@@ -282,8 +271,24 @@
 						
 						this.equipList = res.data.towers;
 						this.equipList.forEach(v=>{
-							
+							this.$set(v,'maintainList','');
+							this.$set(v,'repairList','');
+							this.towerCares(id,v);
+							this.towerFixes(id,v);
 						})
+						
+						this.fix_comment = res.data.fix_comment;
+						this.tower_comment = res.data.tower_comment;
+						
+						this.show_comment_button = res.data.show_comment_button;
+						
+						this.orderList[0].value = res.data.order_no;
+						this.orderList[1].value = res.data.created_at;
+						this.orderList[2].value = res.data.lease_start_at;
+						this.orderList[3].value = res.data.lease_end_at;
+						this.orderList[4].value = res.data.type_pay == 1?'季结':'月结';//0=>月结,1=>季结
+						
+						this.totalPrice = res.data.total_amount;
 					}
 				})
 			},
@@ -321,13 +326,55 @@
 						item.repairList.current_page ++
 					})
 			},
-			Collection(){
+			//获取收款记录
+			orderPays(){
+				if(this.payList.current_page > this.payList.last_page) return ;
+				this.http.get('Order/orderPays',{
+					order_id:this.order_id,
+					page:this.payList.current_page||1},true).then(res=>{
+						if(!this.payList){
+							this.$set(this,'payList',res.data)
+						}else{
+							res.data.cares_data.forEach(v=>{
+								this.payList.cares_data.push(v)
+							})
+						}
+						this.payList.current_page ++
+					})
+			},
+			Collection(id){
 				this.http.modal('','是否确认收款',true,(res) => {
 					if(res){
-						
+						this.http.post('Order/orderPayCollect',{
+							order_pay_id:id
+						}).then(res=>{
+							this.$u.toast(res.msg);
+							if(res.code == 1000){
+								this.payList.list = [];
+								this.payList.current_page = 1;
+								this.orderPays();
+							}
+						})
 					}
 				},'#0F58FB')
-				
+			},
+			end(){
+				this.http.modal('','是否要结束该项目？',true,(res)=>{
+					if(res){
+						this.http.post('Order/closeOrder',{
+							order_id:this.order_id
+						}).then(res=>{
+							this.$u.toast(res.msg);
+							if(res.code == 1000){
+								setTimeout(()=>{
+									uni.navigateBack({
+										delta: 1
+									});
+								},1500)
+							}
+						})
+					}
+				})
 			}
 		}
 	}

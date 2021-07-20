@@ -24,8 +24,8 @@
 							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
 						</view>
 						<view class="u-flex">
-							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toRelation(item.id)" v-if="!item.lock_arr.has_lock">关联塔吊</u-button>
-							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toAssociated(item.id)" v-if="item.lock_arr.has_lock">已关联塔吊</u-button>
+							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toRelation(item.id)" v-if="item.show_lock_button&&!item.lock_arr.has_lock">关联塔吊</u-button>
+							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toAssociated(item.id)" v-if="item.show_lock_button&&item.lock_arr.has_lock">已关联塔吊</u-button>
 							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate(item.id)" v-if="item.show_order_button">创建项目</u-button>
 							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toEdit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
 						</view>
@@ -40,7 +40,7 @@
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
 						<u-icon name="map" size="33" :label="item.address" label-color="#666666" label-size="24"></u-icon>
-						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply">申请认领</u-button>
+						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply(item.id)">申请认领</u-button>
 					</view>
 				</u-card>
 				<!-- 别人的线索 -->
@@ -86,10 +86,7 @@
 
 <script>
 	export default {
-		onLoad() {
-			this.projectLists();
-		},
-		onBackPress(e) {
+		onShow(e) {
 			console.log(e);
 			this.clearData();
 		},
@@ -140,7 +137,7 @@
 		methods: {
 			projectLists(){
 				this.http.get('project/projectListsForStaff',{
-					status:this.tabList[this.current].value,//0=>我的(默认，可不传),1=>公司线索,2=>公海池,3=>别人的线索
+					type:this.tabList[this.current].value,//0=>我的(默认，可不传),1=>公司线索,2=>公海池,3=>别人的线索
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
@@ -224,6 +221,7 @@
 					show_follow_button:e.show_follow_button,
 					show_edit_button:e.show_edit_button,
 					show_order_button:e.show_order_button,
+					show_apply_button:e.show_apply_button,
 					lock_arr:e.lock_arr,
 				}
 			},
@@ -239,7 +237,7 @@
 			},
 			//删除
 			delProject(){
-				this.showModal = false;
+				this.deletModal = false;
 				this.http.post('project/editProject',{
 					project_id:this.whichone
 				}).then(res=>{
@@ -264,7 +262,7 @@
 			},
 			//申请认领
 			toApply(id){
-				this.http.post('project/projectLockTower',{
+				this.http.post('project/applyProject',{
 					project_id:id
 				}).then(res=>{
 					this.$u.toast(res.msg)

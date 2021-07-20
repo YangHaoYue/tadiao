@@ -1,18 +1,22 @@
 <template>
 	<view>
 		<block v-for="(item,index) in list" :key="index">
-			<u-card :title="item.title" title-size="24" title-color="#666666" :border="false" @click="toDetail()">
+			<u-card :title="'创建时间：'+item.created_at" title-size="24" title-color="#666666" :border="false" @click="toDetail()">
 				<view class="" slot="body">
-					<view class="text-bold u-font-28 text-black">{{item.desc}}</view>
+					<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					<view class="u-flex u-row-right">
-						<view class="u-font-24" style="color: #999999;">项目金额:<text style="color: #FE5E10;">￥{{item.totalPrice}}</text></view>
+						<view class="u-font-24" style="color: #999999;">项目金额:<text style="color: #FE5E10;">￥{{item.amount}}</text></view>
 					</view>
 				</view>
 				<view class="u-flex u-row-between" slot="foot">
-					<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="item.thumb"/>李维</view>
+					<view class="u-flex u-font-24" style="color: #666666;">合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl() + item.handle_data.avatar"/>{{item.handle_data.name}}</view>
 				</view>
 			</u-card>
 		</block>
+		<!-- 加载更多 -->
+		<view class="u-m-t-20 u-m-b-20" >
+			<u-loadmore :status="status"/>
+		</view>
 	</view>
 </template>
 
@@ -48,37 +52,24 @@
 		},
 		methods: {
 			getInfo(){
-				this.http.get('Manager/staffList',{
+				this.http.get('Manager/staffOrderList',{
 					staff_id:this.staff_id,
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
-							this.list = res.data.order_data.map(v=>{
-								return this._format(v)
-							});
+							this.list = res.data.order_data
 							this.last_page = res.data.last_page;
 						}else{
 							res.data.order_data.forEach(v=>{
-								this.list.push(this._format(v))
+								this.list.push(v)
 							})
 						}
-						
+						console.log(this.list);
 						if(this.page >= this.last_page) this.status = 'nomore';
 						else this.status = 'loadmore';
 					}
 				})
-			},
-			_format(e){
-				return{
-					id:e.id,
-					project_name:e.project_name,
-					title:"创建时间：" + e.created_at,
-					address:e.address,
-					provider_data:e.provider_data,
-					handler_data:e.handler_data,
-					handle_data:e.handle_data,
-				}
 			},
 			claerData(){
 				this.page = 1;

@@ -115,10 +115,8 @@ const tui = {
 						uni.clearStorageSync()
 						tui.modal("","登录信息已失效，请重新登录", false, () => {
 							//store.commit("logout") 登录页面执行
-							/* uni.reLaunch({
-								url:'/pages/login/login'
-							}) */
-						},'#FE8702')
+							window.location.href = 'http://tower.0831.run/html/user'
+						})
 						return
 					}
 					return resolve(res.data)
@@ -203,7 +201,7 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token")|| '9eb79887aebe8345b5b81750433395af'
+		return uni.getStorageSync("thorui_token")|| '68733c54fb7d1d3306a5b938445b47a4'
 	},
 	//判断是否登录
 	isLogin: function() {
@@ -240,6 +238,12 @@ const tui = {
 	        };
 	    };
 	    return fmt;
+	},
+	//获取今天日期
+	getToday:function(){
+		let now = new Date();
+		let today = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`;
+		return today
 	}
 }
 
