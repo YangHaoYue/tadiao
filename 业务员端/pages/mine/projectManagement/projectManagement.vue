@@ -145,7 +145,7 @@
 						break;
 				}
 				return{
-					id:e.id,
+					order_id:e.order_id,
 					subTitle:subTitle,
 					subTitleColor:subTitleColor,
 					project_name:e.project_name,
@@ -177,6 +177,7 @@
 				this.getInfo();
 			},
 			toDetail(id){
+				console.log(id);
 				uni.navigateTo({url: 'detail/detail?order_id=' + id});
 			},
 			toAddRecord(id){

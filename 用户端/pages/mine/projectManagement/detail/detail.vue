@@ -6,15 +6,15 @@
 				<view class="text-bold u-font-28 text-black">合同编号:{{contract.contract_num}}</view>
 			</view>
 		</pro-card>
-		<block v-for="(item,i) in list" :key="i">
+		<block v-for="(item,i) in list" :key="'i'+i">
 			<pro-card :title="item.title" :list="item.list"></pro-card>
 		</block>
 		<!-- 塔吊信息 -->
-		<block v-for="(item,m) in equipList" :key="m">
+		<block v-for="(item,m) in equipList.tower_data" :key="'m'+m">
 			<pro-card :title="'塔吊信息'+m+':'">
 				<view slot="content" class="">
 					<view class="u-flex u-m-t-30">
-						<u-image src="" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
+						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 						<view class="u-p-l-10 u-p-r-12">
 							<view class="u-font-26 text-bold text-black u-line-1">{{item.tower_name}}({{item.tower_type}})</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">品牌:{{item.brand_name}}</view>
@@ -25,11 +25,11 @@
 					</view>
 					
 					<!-- 保养记录 -->
-					<view class="u-font-28 text-bold text-black u-m-t-20">保养记录</view>
-					<view class="u-m-t-40 u-p-l-20">
+					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">保养记录</view>
+					<view class="u-m-t-40 u-p-l-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerCares(item.id,item)" style="height: 500rpx;">
 							<u-time-line>
-								<u-time-line-item v-for="(son,j) in item.maintainList" :key="j">
+								<u-time-line-item v-for="(son,j) in item.maintainList.cares_data" :key="'j'+j">
 									<!-- 此处自定义了左边内容，用一个图标替代 -->
 									<template v-slot:node>
 										<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
@@ -57,11 +57,11 @@
 					</view>
 					
 					<!-- 维修记录 -->
-					<view class="u-font-28 text-bold text-black u-m-t-20">维修记录</view>
-					<view class="u-m-t-40 u-p-l-20">
+					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">维修记录</view>
+					<view class="u-m-t-40 u-p-l-20" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerFixes(item.id,item)" style="height: 500rpx;">
 							<u-time-line>
-								<u-time-line-item v-for="(son,j) in item.repairList" :key="j">
+								<u-time-line-item v-for="(son,o) in item.repairList.fixes_data" :key="'o'+o">
 									<!-- 此处自定义了左边内容，用一个图标替代 -->
 									<template v-slot:node>
 										<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
@@ -129,7 +129,7 @@
 		<!-- 订单信息 -->
 		<pro-card title="订单信息">
 			<template v-slot:content >
-				<block v-for="(item,k) in orderList" :key="k">
+				<block v-for="(item,k) in orderList" :key="'k'+k">
 					<view class="u-flex u-p-15">
 						<view class="u-font-28 text-black u-m-r-32">{{item.title}}</view>
 						<view class="u-font-28" style="color: #999999;">{{item.value}}</view>
@@ -144,7 +144,7 @@
 		</view>
 		<!-- 结束 -->
 		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_comment_button">
-			<u-button type="primary" style="margin-right: 0;" size="medium" @click="comment" >点评</u-button>
+			<u-button type="primary" style="margin-right: 0;" size="medium" @click="contract" >评价</u-button>
 		</view>
 		<!-- modal弹窗 -->
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="405">
@@ -270,13 +270,13 @@
 						this.list[3].list[2].value = res.data.provider.tel_num;
 						
 						this.equipList = res.data.towers;
-						this.equipList.forEach(v=>{
+						this.equipList.tower_data.forEach(v=>{
 							this.$set(v,'maintainList','');
 							this.$set(v,'repairList','');
-							this.towerCares(id,v);
-							this.towerFixes(id,v);
+							this.towerCares(v.id,v);
+							this.towerFixes(v.id,v);
 						})
-						
+						console.log(this.equipList);
 						this.fix_comment = res.data.fix_comment;
 						this.tower_comment = res.data.tower_comment;
 						

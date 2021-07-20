@@ -14,7 +14,7 @@
 			<block v-for="(item,index) in list" :key="index">
 				<u-card :title="item.title" title-size="24" title-color="#666666"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :border="false"
-				>
+				@tap="toDetail(item.order_id)">
 					<view class="u-flex u-col-top u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 						<view class="u-text-right">
@@ -27,7 +27,7 @@
 						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：
 							<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src=" http.resourceUrl()+ item.handler_data.avatar"/>{{item.handler_data.name}}
 						</view>
-						<u-button class="u-m-r-0" type="primary" size="mini" @click="toDetail(item.order_id)">查看合同</u-button>
+						<u-button class="u-m-r-0" type="primary" size="mini" @tap.stop="toContract(item.order_id)">查看合同</u-button>
 					</view>
 				</u-card>
 			</block>
@@ -143,6 +143,9 @@
 			},
 			toDetail(id){
 				uni.navigateTo({url: 'detail/detail?order_id=' + id});
+			},
+			toContract(){
+				uni.navigateTo({url: 'detail/contract?order_id=' + id});
 			}
 		}
 	}
