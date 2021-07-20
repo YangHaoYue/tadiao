@@ -56,6 +56,7 @@
 <script>
 	export default {
 		onLoad() {
+			
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
 			this.getInfo();
