@@ -38,7 +38,7 @@
 										</view>
 									</template>
 									<template v-slot:content>
-										<view>
+										<view @click="toMDetail(son.id)">
 											<view class="u-flex u-row-between u-font-28 u-m-t-10">
 												<view class="text-black">{{son.cares_name}}</view>
 												<view class="text-black">{{son.carer.name}}</view>
@@ -70,7 +70,7 @@
 										</view>
 									</template>
 									<template v-slot:content>
-										<view>
+										<view @click="toRDetail(son.id)">
 											<view class="u-flex u-row-between u-font-28 u-m-t-10">
 												<view class="text-black">{{son.fixes_name}}</view>
 												<view class="text-black">{{son.fixer.name}}</view>
@@ -144,7 +144,7 @@
 		</view>
 		<!-- 结束 -->
 		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_comment_button">
-			<u-button type="primary" style="margin-right: 0;" size="medium" @click="contract" >评价</u-button>
+			<u-button type="primary" style="margin-right: 0;" size="medium" @click="comment" >评价</u-button>
 		</view>
 		<!-- modal弹窗 -->
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="405">
@@ -360,6 +360,12 @@
 			},
 			comment(){
 				uni.navigateTo({url: 'comment?order_id='+this.order_id});
+			},
+			toMDetail(care_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/miantainDetail?care_id=' + care_id});
+			},
+			toRDetail(fix_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/repairDetail?fix_id=' + fix_id});
 			}
 		}
 	}

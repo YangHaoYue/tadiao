@@ -24,34 +24,36 @@
 			<pro-card :title="item.title" :list="item.list"></pro-card>
 		</block>
 		<!-- 保养记录 -->
-		<pro-card title="保养记录">
-			<view class="u-m-t-20 u-p-l-20" slot="content">
-				<scroll-view scroll-y @scrolltolower="towerCares" style="height: 500rpx;">
-					<u-time-line>
-						<u-time-line-item v-for="(son,j) in maintainList" :key="j">
-							<!-- 此处自定义了左边内容，用一个图标替代 -->
-							<template v-slot:node>
-								<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-									<!-- 此处为uView的icon组件 -->
-									<u-icon name="file-text" color="#fff" size="24"></u-icon>
-								</view>
-							</template>
-							<template v-slot:content>
-								<view>
-									<view class="u-flex u-row-between u-font-28 u-m-t-10">
-										<view class="text-black">{{son.cares_name}}</view>
-										<view class="text-black">{{son.carer.name}}</view>
+		<pro-card title="保养记录" >
+			<view slot="content">
+				<scroll-view  scroll-y @scrolltolower="towerCares" style="height: 500rpx;">
+					<view class="u-p-t-20 u-p-l-20">
+						<u-time-line>
+							<u-time-line-item v-for="(son,j) in maintainList.cares_data" :key="j">
+								<!-- 此处自定义了左边内容，用一个图标替代 -->
+								<template v-slot:node>
+									<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+										<!-- 此处为uView的icon组件 -->
+										<u-icon name="file-text" color="#fff" size="24"></u-icon>
 									</view>
-									<!-- <view class="u-flex u-flex-wrap">
-										<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-											<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-										</block>
-									</view> -->
-									<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-								</view>
-							</template>
-						</u-time-line-item>
-					</u-time-line>
+								</template>
+								<template v-slot:content>
+									<view @click="toMDetail(son.id)">
+										<view class="u-flex u-row-between u-font-28 u-m-t-10">
+											<view class="text-black">{{son.cares_name}}</view>
+											<view class="text-black">{{son.carer.name}}</view>
+										</view>
+										<!-- <view class="u-flex u-flex-wrap">
+											<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+												<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+											</block>
+										</view> -->
+										<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+									</view>
+								</template>
+							</u-time-line-item>
+						</u-time-line>
+					</view>
 				</scroll-view>
 				<view class="u-flex u-row-center">
 					<u-button type="primary" size="medium" :plain="true" @click="toMaintain">添加保养记录</u-button>
@@ -60,33 +62,34 @@
 		</pro-card>
 		<!-- 维修记录 -->
 		<pro-card title="维修记录">
-			<view class="u-m-t-20 u-p-l-20" slot="content">
+			<view slot="content">
 				<scroll-view scroll-y @scrolltolower="towerFixes" style="height: 500rpx;">
-					<u-time-line>
-						<u-time-line-item v-for="(son,j) in repairList" :key="j">
-							<!-- 此处自定义了左边内容，用一个图标替代 -->
-							<template v-slot:node>
-								<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-									<!-- 此处为uView的icon组件 -->
-									<u-icon name="file-text" color="#fff" size="24"></u-icon>
-								</view>
-							</template>
-							<template v-slot:content>
-								<view>
-									<view class="u-flex u-row-between u-font-28 u-m-t-10">
-										<view class="text-black">{{son.fixes_name}}</view>
-										<view class="text-black">{{son.fixer.name}}</view>
+					<view class="u-m-t-20 u-p-l-20">
+						<u-time-line>
+							<u-time-line-item v-for="(son,j) in repairList.fixes_data" :key="j">
+								<template v-slot:node>
+									<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+										<!-- 此处为uView的icon组件 -->
+										<u-icon name="file-text" color="#fff" size="24"></u-icon>
 									</view>
-									<!-- <view class="u-flex u-flex-wrap">
-										<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-											<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-										</block>
-									</view> -->
-									<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-								</view>
-							</template>
-						</u-time-line-item>
-					</u-time-line>
+								</template>
+								<template v-slot:content>
+									<view @click="toRDetail(son.id)">
+										<view class="u-flex u-row-between u-font-28 u-m-t-10">
+											<view class="text-black">{{son.fixes_name}}</view>
+											<view class="text-black">{{son.fixer.name}}</view>
+										</view>
+										<!-- <view class="u-flex u-flex-wrap">
+											<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+												<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+											</block>
+										</view> -->
+										<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+									</view>
+								</template>
+							</u-time-line-item>
+						</u-time-line>
+					</view>
 				</scroll-view>
 				<view class="u-flex u-row-center">
 					<u-button type="primary" size="medium" :plain="true" @click="toRepair">添加维修记录</u-button>
@@ -95,7 +98,7 @@
 		</pro-card>
 
 		<view class="u-flex u-row-right bg-white u-p-t-20 u-p-b-20 u-m-t-20">
-			<u-button type="primary" style="margin-right: 20rpx;" size="mini" @click="fixTransfer" v-if="show_transfer_button">保养任务转移</u-button>
+			<u-button type="primary" style="margin-right: 20rpx;" size="mini" @click="showModal = true" v-if="show_transfer_button">保养任务转移</u-button>
 		</view>
 
 		<!-- modal弹窗 -->
@@ -107,18 +110,18 @@
 					<view class="u-flex-1">
 						<u-search shape="square" placeholder="搜索关键字" input-align="left" bg-color="#ffffff" border-color="#DDDDDD"
 						v-model="people" :action-style="{color:'#666666'}" @custom="claerFixerData"></u-search>
-						<scroll-view scroll-y="true" @scrolltolower="loadMore" style="height: 300rpx;">
+						<scroll-view scroll-y="true" @scrolltolower="loadMore" style="height: 150rpx;">
 							<view class="u-flex u-row-between u-m-t-20" v-for="(item,k) in peopleList" :key="k" @click="selectedFixer(item.id)">
 								<view class="u-flex">
 									<u-avatar :src="http.resourceUrl() + item.avatar" size="60"></u-avatar>
 									<view class="u-font-24 u-m-l-10" style="color: #666666;">{{item.name}}</view>
 								</view>
-								<u-icon name="checkbox-mark" size="24" v-if="selected == item.id"></u-icon>
+								<u-icon name="checkbox-mark" color="#0F58FB" size="24" v-if="selected == item.id"></u-icon>
 							</view>
 						</scroll-view>
 					</view>
 				</view>
-				<u-button class="u-m-t-70" style="width: 100%;" size="medium" type="primary" @click="fixTransfer">确认转移</u-button>
+				<u-button class="u-m-t-10" style="width: 100%;" size="medium" type="primary" @click="fixTransfer">确认转移</u-button>
 			</view>
 		</u-popup>
 		<!-- 提示成功modal -->
@@ -139,6 +142,11 @@
 		},
 		onLoad(e) {
 			this.tower_id = e.tower_id;
+			this.getFixerForFix()
+		},
+		onShow() {
+			this.maintainList = '';
+			this.repairList = '';
 			this.getInfo();
 		},
 		data() {
@@ -200,9 +208,9 @@
 					}
 				],
 				/* 保养记录 */
-				maintainList: [],
+				maintainList:'',
 				/* 维修记录 */
-				repairList: [],
+				repairList: '',
 
 				show_transfer_button:false,
 				people:'',
@@ -307,10 +315,6 @@
 				this.peopleList = [];
 				this.getFixerForFix();
 			},
-			transfer(id) {
-				this.showModal = true;
-				this.tower_id = id;
-			},
 			//选择维修师傅
 			selectedFixer(id) {
 				this.selected = id;
@@ -325,7 +329,9 @@
 					if (res.code == 1000) {
 						this.modal = true;
 						setTimeout(() => {
-							this.claerData();
+							this.maintainList = '';
+							this.repairList = '';
+							this.getInfo();
 						}, 1500)
 					} else {
 						this.$u.toast(res.msg);
@@ -341,6 +347,12 @@
 				uni.navigateTo({
 					url: 'maintain?tower_id=' + this.equipment.id
 				});
+			},
+			toMDetail(care_id){
+				uni.navigateTo({url: '/pages/mine/equipmentList/detail/miantainDetail?care_id=' + care_id});
+			},
+			toRDetail(fix_id){
+				uni.navigateTo({url: '/pages/mine/equipmentList/detail/repairDetail?fix_id=' + fix_id});
 			}
 		}
 	}

@@ -137,7 +137,6 @@
 			setTimeout(()=>{
 				this.getUserInfo();
 				this.getInviteCode();
-				this.clearData();
 				uni.stopPullDownRefresh();
 			},1000)
 		},
@@ -192,7 +191,6 @@
 			}
 		},
 		methods: {
-			//业务员
 			getUserInfo(){
 				let data = ''
 				if(!this.current){
@@ -207,7 +205,6 @@
 						this.total_reward = res.data.total_reward;
 						this.today_reward = res.data.today_reward;
 						this.business_data = res.data.business_data;
-						this.show_fixer_button = res.data.show_fixer_button;//true显示进入维修中心按钮
 					}else{
 						this.$u.toast(res.msg)
 					}

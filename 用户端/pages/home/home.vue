@@ -1,9 +1,7 @@
 <template>
 	<view class="u-p-20 wrap">
 		<!-- 搜索 -->
-		<navigator open-type="navigate" hover-class="none" url="/pages/home/search/search">
-			<u-search class="u-m-10 u-m-b-20" placeholder="搜索关键字" input-align="center" :disabled="true" :action-style="{fontWeight:'bold'}"></u-search>
-		</navigator>
+		<u-search class="u-m-10 u-m-b-20" @click="toSearch" @custom="toSearch" placeholder="搜索关键字" input-align="center" :disabled="true" :action-style="{fontWeight:'bold'}"></u-search>
 		<!-- 轮播图 -->
 		<u-swiper class="u-p-10" :list="imgList" height="269"></u-swiper>
 		<!-- 塔吊列表 -->
@@ -80,6 +78,9 @@
 						else this.status = 'loadmore';
 					}
 				})
+			},
+			toSearch(){
+				uni.navigateTo({url: 'search/search'});
 			}
 		}
 	}

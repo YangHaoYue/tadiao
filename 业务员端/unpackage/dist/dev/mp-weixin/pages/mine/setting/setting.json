@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "个人资料",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "u-avatar": "/uview-ui/components/u-avatar/u-avatar"
-  }
-}

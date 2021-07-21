@@ -203,7 +203,7 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token") || '64ce39d43643ab5ef143e9feb28395eb'
+		return uni.getStorageSync("thorui_token") || 'bb97720cd145a91b33c4bef57940044e'
 	},
 	//判断是否登录
 	isLogin: function() {

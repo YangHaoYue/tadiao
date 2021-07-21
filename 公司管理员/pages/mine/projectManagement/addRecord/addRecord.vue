@@ -43,7 +43,7 @@
 				this.time = e.result
 			},
 			submit(){
-				this.http.get('Order/addOrderPay',{
+				this.http.post('Order/addOrderPay',{
 					order_id:this.order_id,
 					start_at:this.time,
 					amount:this.price,

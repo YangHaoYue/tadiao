@@ -130,7 +130,7 @@
 					}
 				})
 			},
-			claerData(){
+			clearData(){
 				this.page = 1;
 				this.last_page = 1;
 				this.list = [];

@@ -252,7 +252,10 @@
 			}
 			
 			&--disabled--checked {
-				color: #c8c9cc !important;
+				/* color: #c8c9cc !important; */
+				color: #fff;
+				background-color: #2979ff;
+				border-color: #2979ff;
 			}
 		}
 		

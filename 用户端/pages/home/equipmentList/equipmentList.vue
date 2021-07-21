@@ -85,7 +85,7 @@
 				//价格区间
 				min:0,
 				max:0,
-				type: '2',
+				type: '',
 				//品牌
 				brand:'品牌',
 				brand_id:'',
@@ -150,14 +150,16 @@
 				let data = {
 					status:this.listStatus,
 					price_max:this.max,
-					price_min:this.min,
-					type_id:this.type
+					price_min:this.min
 				}
 				if(this.brand_id){
 					this.$set(data,'brand_id',this.brand_id)
 				}
 				if(this.area_id){
 					this.$set(data,'area_id',this.area_id)
+				}
+				if(this.type_id){
+					this.$set(data,'type_id',this.type_id)
 				}
 				/* if(this.max&&this.min){
 					this.$set(data,'price_max',this.max)

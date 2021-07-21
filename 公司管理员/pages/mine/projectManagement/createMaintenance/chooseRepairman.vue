@@ -56,7 +56,7 @@
 			clearData(){
 				this.page = 1;
 				this.list = [];
-				this.getInfo();
+				this.getFixerForFix();
 			},
 			back(item){
 				uni.$emit('fixer',{data:item})

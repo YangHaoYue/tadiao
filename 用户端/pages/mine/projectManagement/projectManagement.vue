@@ -20,14 +20,20 @@
 						<view class="u-text-right">
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥{{item.month_rent}}/月</text></view>
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥{{item.in_out_cost}}</text></view>
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_id}}</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_str}}</text></view>
 						</view>
 					</view>
-					<view class="u-flex u-row-between" slot="foot">
-						<view class="u-flex u-font-24" style="color: #666666;">合同协调人：
-							<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src=" http.resourceUrl()+ item.handler_data.avatar"/>{{item.handler_data.name}}
+					<view slot="foot">
+						<view v-if="item.status == 2">
+							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
+							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.refused_reason}}</view>
 						</view>
-						<u-button class="u-m-r-0" type="primary" size="mini" @tap.stop="toContract(item.order_id)">查看合同</u-button>
+						<view class="u-flex u-row-between">
+							<view class="u-flex u-font-24" style="color: #666666;">合同协调人：
+								<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src=" http.resourceUrl()+ item.handler_data.avatar"/>{{item.handler_data.name}}
+							</view>
+							<u-button class="u-m-r-0" type="primary" size="mini" v-if="item.show_contract_button" @tap.stop="toContract(item.order_id)">查看合同</u-button>
+						</view>
 					</view>
 				</u-card>
 			</block>
@@ -127,7 +133,7 @@
 					show_resubmit_button:data.show_resubmit_button,
 					handler_data:data.handler_data,
 					cus_data:data.cus_data,
-					type_pay_id:e.type_pay_id == 1?'季付':'月付'
+					type_pay_str:data.type_pay_str
 				}
 			},
 			clearData(){
@@ -144,7 +150,7 @@
 			toDetail(id){
 				uni.navigateTo({url: 'detail/detail?order_id=' + id});
 			},
-			toContract(){
+			toContract(id){
 				uni.navigateTo({url: 'detail/contract?order_id=' + id});
 			}
 		}

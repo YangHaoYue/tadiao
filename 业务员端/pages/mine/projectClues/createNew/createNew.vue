@@ -155,6 +155,7 @@
 						this.model.longitude = res.data.longitude;
 						this.model.latitude = res.data.latitude;
 						this.model.location = res.data.address;
+						this.model.area_code = res.data.area_code;
 					}
 				})
 			},

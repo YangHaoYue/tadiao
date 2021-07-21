@@ -12,7 +12,7 @@
 			</block>
 		</view>
 		<!-- 添加 -->
-		<navigator open-type="navigate" :url="'chooseEquipment/chooseEquipment?project_id=' + project_id">
+		<navigator open-type="navigate" :url="'chooseEquipment/chooseEquipment?project_id=' + project_id+'&order_id='+order_id">
 			<view class="bg-white u-flex u-row-center u-p-40">
 				<view class="u-p-22" style="background-color: #F6F7FB;border-radius: 14rpx;">
 					<u-icon name="plus" size="40" color="#9FA7BC"></u-icon>
@@ -83,7 +83,9 @@
 		},
 		onShow() {
 			uni.$on('townList',(data)=>{
-				this.equipmentList = data.data
+				data.data.map(v=>{
+					this.equipmentList.push(v)
+				})
 				uni.$off('townList')
 			})
 		},
@@ -148,6 +150,7 @@
 					order_id:this.order_id
 				}).then(res=>{
 					if(res.code == 1000){
+						this.money = res.data.month_rent;
 						this.formList[1].list = res.data.type_pay;
 						this.formList[1].list.map(v=>{
 							if(v.id == res.data.id){
@@ -156,13 +159,17 @@
 							}
 						})
 						this.formList[0].value = res.data.in_out_cost;
+						this.formList[1].value = res.data.type_pay_id == 1?'季结':'月结';
+						this.formList[1].id = res.data.type_pay_id;
 						this.formList[2].value = res.data.lease_start_at;
 						this.formList[3].value = res.data.lease_end_at;
 						
+						this.firstPayList[0].id = res.data.first_id;
 						this.firstPayList[0].value = res.data.first_start_at;
 						this.firstPayList[1].value = res.data.first_amount;
 						this.firstPayList[2].value = res.data.first_remark;
 						
+						this.lastPayList[0].id = res.data.next_id;
 						this.lastPayList[0].value = res.data.next_start_at;
 						this.lastPayList[1].value = res.data.next_amount;
 						this.lastPayList[2].value = res.data.next_remark;
@@ -177,6 +184,7 @@
 						this.contract.push({
 							url:this.http.resourceUrl()+res.data.contract_img
 						})
+						console.log(res.data.tower_ids);
 						this.getTowersByTowerIds(res.data.tower_ids);
 					}
 				})
@@ -248,10 +256,12 @@
 					lease_start_at:this.formList[2].value,
 					lease_end_at:this.formList[3].value,
 					
+					first_id:this.firstPayList[0].id,
 					first_start_at:this.firstPayList[0].value,
 					first_amount:this.firstPayList[1].value,
 					first_remark:this.firstPayList[2].value,
 					
+					next_id:this.lastPayList[0].id,
 					next_start_at:this.lastPayList[0].value,
 					next_amount:this.lastPayList[1].value,
 					next_remark:this.lastPayList[2].value,
@@ -265,16 +275,17 @@
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
-						setTimeout(()=>{
+						/* setTimeout(()=>{
 							uni.navigateBack({
 								delta: 1
 							});
-						},1500)
+						},1500) */
 					}
 				})
 			},
 			getTowersByTowerIds(tower_ids){
-				this.http.get('Order/getTowersByTowerIds',{
+				console.log(tower_ids);
+				this.http.post('Order/getTowersByTowerIds',{
 					tower_ids:tower_ids
 				}).then(res=>{
 					if(res.code == 1000){

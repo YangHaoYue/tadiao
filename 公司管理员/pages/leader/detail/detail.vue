@@ -1,11 +1,11 @@
 <template>
 	<view>
 		<block v-for="(item,index) in list" :key="index">
-			<view class="card bg-white" @click="toSetting(item.id)">
+			<view class="card bg-white" @tap="toBranch(item.id)">
 				<view class="u-flex u-row-between u-border-bottom" style="padding: 20rpx 20rpx 13rpx 30rpx;">
 					<view class="u-flex">
 						<view class="u-font-32 text-bold text-black u-m-r-10">{{item.branch_name}}</view>
-						<u-image src="@/static/setting.png" height="33rpx" width="34rpx"></u-image>
+						<u-image src="@/static/setting.png" height="33rpx" width="34rpx" @tap.stop="toSetting(item.id)"></u-image>
 					</view>
 					<view class="u-flex u-row-right" style="color: #999999;"> 
 						<u-icon name="arrow-right" size="28" color="#999999"></u-icon>
@@ -101,6 +101,13 @@
 			},
 			toSetting(id){
 				uni.navigateTo({url: '../createC/createC?branch_id=' + id});
+			},
+			//去往分公司
+			toBranch(id){
+				uni.setStorageSync('branch_id',id)
+				uni.navigateTo({
+					url:'../../mine/mine'
+				})
 			}
 		}
 	}

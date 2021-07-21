@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<block v-for="(item,index) in list" :key="index">
-			<view class="u-m-25 u-p-15 bg-white" @click="todetail">
+			<view class="u-m-25 u-p-15 bg-white" @click="todetail(item.id)">
 				<view class="u-flex">
 					<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 					<view class="u-p-l-10 u-p-r-12">
@@ -72,8 +72,8 @@
 					}
 				})
 			},
-			todetail(){
-				uni.navigateTo({url: 'projectDetail/projectDetail?order_id=' + this.order_id});
+			todetail(id){
+				uni.navigateTo({url: 'detail/detail?order_id='+this.order_id+'&tower_id='+id});
 			}
 		}
 	}

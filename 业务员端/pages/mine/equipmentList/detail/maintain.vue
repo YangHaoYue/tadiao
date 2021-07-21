@@ -20,7 +20,7 @@
 			</view>
 		</block>
 		
-		<u-upload style="margin:20rpx 50rpx;" width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :max-count="3" :custom-btn="true" @on-list-change="onChange">
+		<u-upload style="margin:20rpx 50rpx;" width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :max-count="9" :custom-btn="true" @on-list-change="onChange">
 			<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 				<u-image src="../../../../static/paizhao@2x.png" width="74" height="65" :fade="false" mode="scaleToFill"></u-image>
 			</view>

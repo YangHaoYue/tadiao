@@ -24,16 +24,23 @@
 						<view class="u-text-right">
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">月租金:<text style="color: #FE5E10;">¥{{item.month_rent}}/月</text></view>
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">进出场费:<text style="color: #FE5E10;">¥{{item.in_out_cost}}</text></view>
-							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_id}}</text></view>
+							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_str}}</text></view>
 						</view>
 					</view>
-					<view class="u-flex u-row-between" slot="foot">
+					<view slot="foot">
+						<view v-if="item.status == 2">
+							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
+							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.refused_reason}}</view>
+						</view>
 						<view class="u-flex u-font-24" style="color: #666666;">
 							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
 						</view>
-						<view class="u-flex" v-if="idot != 1">
-							<u-button class="u-m-r-10" type="primary" :plain="true" size="mini" v-if="current === 1" @tap.stop="toAddRecord(item.order_id)">增加付款时间</u-button>
-							<u-button class="u-m-r-0" type="primary" size="mini" v-if="current === 1" @tap.stop="toMaintenance(item.order_id)">创建维保</u-button>
+						<view class="u-flex u-row-right">
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" :plain="true" v-if="item.show_contract_button" @tap.stop="toContract(item.order_id)">查看合同</u-button>
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" :plain="true" v-if="item.show_resubmit_button" @tap.stop="exit(item.order_id)">重新提交</u-button>
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" v-if="item.show_edit_button" @tap.stop="exit(item.order_id)">编辑项目</u-button>
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" v-if="item.show_pay_button" @tap.stop="toAddRecord(item.order_id)">增加付款时间</u-button>
+							<u-button class="u-m-r-0 u-m-l-0" type="primary" size="mini" v-if="item.show_fix_button" @tap.stop="toMaintenance(item.order_id)">创建维保</u-button>
 						</view>
 					</view>
 				</u-card>
@@ -44,8 +51,8 @@
 
 <script>
 	export default {
-		onLoad() {
-			this.getInfo();
+		onShow() {
+			this.clearData();
 		},
 		onReachBottom() {
 			if(this.page >= this.last_page) return ;
@@ -66,7 +73,7 @@
 				}],
 				current: 0,
 				idot:0,
-				idotList:[{title:'执行中',value:0},{title:'历史',value:1}],
+				idotList:[{title:'审核中',value:0},{title:'执行中',value:1},{title:'历史',value:2}],//	0=>审核中(默认，可不传),1=>执行中,2=>历史项目
 				
 				page:1,
 				last_page:1,
@@ -136,11 +143,15 @@
 					address:e.address,
 					provider_data:e.provider_data,
 					handler_data:e.handler_data,
-					show_follow_button:e.show_follow_button,
 					show_edit_button:e.show_edit_button,
-					show_order_button:e.show_order_button,
+					show_contract_button:e.show_contract_button,
+					show_fix_button:e.show_fix_button,
+					show_pay_button:e.show_pay_button,
+					show_resubmit_button:e.show_resubmit_button,
 					lock_arr:e.lock_arr,
-					type_pay_id:e.type_pay_id == 1?'季付':'月付'
+					type_pay_str:e.type_pay_str,
+					month_rent:e.month_rent,
+					in_out_cost:e.in_out_cost
 				}
 			},
 			chooseDayRange(e){
@@ -165,6 +176,12 @@
 			},
 			toDetail(id){
 				uni.navigateTo({url: 'detail/detail?order_id=' + id});
+			},
+			toContract(id){
+				uni.navigateTo({url: 'detail/contract?order_id=' + id});
+			},
+			exit(id){
+				uni.navigateTo({url: '../projectClues/newProject/newProject?order_id='+id});
 			},
 			toAddRecord(id){
 				uni.navigateTo({url: 'addRecord/addRecord?order_id=' + id});

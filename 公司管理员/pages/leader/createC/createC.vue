@@ -110,7 +110,7 @@
 						this.model.media_tel_num = res.data.media_tel_num;
 						this.model.media_name = res.data.media_name;
 						
-						this.model.address = res.data.area_arr.province + res.data.area_arr.city + res.data.area_arr.district
+						this.model.address = res.data.area_arr !='' ?res.data.area_arr.province+res.data.area_arr.city+res.data.area_arr.district:'';
 						this.model.location = res.data.address;
 						this.model.latitude = res.data.latitude;
 						this.model.longitude = res.data.longitude;

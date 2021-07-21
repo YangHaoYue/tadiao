@@ -211,7 +211,25 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/mine/projectManagement/detail/miantainDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "保养详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/mine/projectManagement/detail/repairDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "维修详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

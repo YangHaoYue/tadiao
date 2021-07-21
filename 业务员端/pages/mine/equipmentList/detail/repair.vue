@@ -5,7 +5,7 @@
 			<view style="border-radius: 10rpx;background-color: #F8F9FD;padding: 22rpx 16rpx;">
 				<u-input type="textarea" v-model="value" height="319" placeholder="请填写维修记录描述"></u-input>
 			</view>
-			<u-upload class="u-m-t-30" width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :max-count="99" @on-list-change="onChange"></u-upload>
+			<u-upload class="u-m-t-30" width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :max-count="9" @on-list-change="onChange"></u-upload>
 		</view>
 		<u-button class="u-m-25" type="primary" style="position: fixed;bottom: 78rpx;right: 0;left: 0;" @click="addFixLog">提交记录</u-button>
 	</view>

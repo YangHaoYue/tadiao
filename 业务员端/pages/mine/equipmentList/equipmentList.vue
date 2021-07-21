@@ -9,7 +9,7 @@
 			<view class="u-m-25 u-p-15 bg-white"  @click="toDetail(item.id)">
 				<view class="u-border-bottom u-p-t-14 u-font-24 u-p-b-20" style="color: #666666;">合同时间:{{item.fix_contract_at}}</view>
 				<view class="u-flex u-p-t-20">
-					<u-image src="" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
+					<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 					<view class="u-p-l-10 u-p-r-12">
 						<view class="u-font-26 text-bold text-black">{{item.tower_name}}({{item.tower_type}})</view>
 						<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{item.serial_num}}</view>
@@ -68,6 +68,7 @@
 	export default {
 		onLoad() {
 			this.getInfo();
+			this.getFixerForFix()
 		},
 		onReachBottom() {
 			if(this.page >= this.last_page) return ;

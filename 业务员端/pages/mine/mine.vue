@@ -200,6 +200,7 @@
 			let identity = uni.getStorageSync('identity');
 			if(identity == 3){
 				this.fixerMain();
+				this.change();
 			}
 		},
 		onPullDownRefresh() {
@@ -224,7 +225,7 @@
 			return {
 				show_fixer_button:false,
 				role:false,
-				changeRole:'进入业务员中心',//进入维修中心
+				changeRole:'进入维修中心',//进入维修中心
 				
 				user_data:{
 					id:6,
@@ -416,10 +417,12 @@
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
-						this.transfer_data_last_page = 1;
-						this.transfer_data = [];
-						this.transfer_data_page = 1;
-						this.fixerTransfers();
+						setTimeout(()=>{
+							this.transfer_data_last_page = 1;
+							this.transfer_data = [];
+							this.transfer_data_page = 1;
+							this.fixerTransfers();
+						},1000)
 					}
 				})
 			},

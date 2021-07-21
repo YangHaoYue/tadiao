@@ -94,7 +94,9 @@
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
-						this.getInfo();
+						setTimeout(()=>{
+							this.getInfo();
+						},1000)
 					}
 				})
 			},

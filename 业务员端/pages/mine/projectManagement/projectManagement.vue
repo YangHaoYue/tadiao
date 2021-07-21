@@ -28,7 +28,7 @@
 			</view>
 			<block v-for="(item,index) in list" :key="index">
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
-				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true" @click="toDetail(item.order_id)">
+				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true" @tap="toDetail(item.order_id)">
 					<view class="u-flex u-col-top u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 						<view class="u-text-right">
@@ -37,11 +37,20 @@
 							<view class="u-font-24 u-m-b-5" style="color: #999999;">付款方式:<text style="color: #FE5E10;">{{item.type_pay_str}}</text></view>
 						</view>
 					</view>
-					<view class="u-flex u-row-between" slot="foot">
+					<view slot="foot">
+						<view v-if="item.status == 2">
+							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
+							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.refused_reason}}</view>
+						</view>
 						<view class="u-flex u-font-24" style="color: #666666;">
 							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
 						</view>
-						<u-button class="u-m-r-0" type="primary" size="mini" v-if="current === 1" @click="toAddRecord(item.order_id)">增加付款时间</u-button>
+						<view class="u-flex u-row-right u-m-t-10">
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" :plain="true" v-if="item.show_contract_button" @tap.stop="toContract(item.order_id)">查看合同</u-button>
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" :plain="true" v-if="item.show_resubmit_button" @tap.stop="exit(item.order_id)">重新提交</u-button>
+							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" v-if="item.show_edit_button" @tap.stop="exit(item.order_id)">编辑项目</u-button>
+							<u-button class="u-m-r-0 u-m-l-0" type="primary" size="mini" v-if="item.show_pay_button" @tap.stop="toAddRecord(item.order_id)">增加付款时间</u-button>
+						</view>
 					</view>
 				</u-card>
 			</block>
@@ -56,7 +65,6 @@
 <script>
 	export default {
 		onLoad() {
-			
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
 			this.getInfo();
@@ -154,11 +162,13 @@
 					address:e.address,
 					provider_data:e.provider_data,
 					handler_data:e.handler_data,
-					show_follow_button:e.show_follow_button,
+					show_contract_button:e.show_contract_button,
 					show_edit_button:e.show_edit_button,
-					show_order_button:e.show_order_button,
+					show_resubmit_button:e.show_resubmit_button,
+					show_pay_button:e.show_pay_button,
 					lock_arr:e.lock_arr,
 					type_pay_str:e.type_pay_str,
+					month_rent:e.month_rent,
 					in_out_cost:e.in_out_cost
 				}
 			},
@@ -181,6 +191,12 @@
 			toDetail(id){
 				console.log(id);
 				uni.navigateTo({url: 'detail/detail?order_id=' + id});
+			},
+			toContract(id){
+				uni.navigateTo({url: 'detail/contract?order_id=' + id});
+			},
+			exit(id){
+				uni.navigateTo({url: '../projectClues/newProject/newProject?order_id='+id});
 			},
 			toAddRecord(id){
 				uni.navigateTo({url: 'addRecord/addRecord?order_id=' + id});

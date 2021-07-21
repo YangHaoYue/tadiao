@@ -38,7 +38,7 @@
 										</view>
 									</template>
 									<template v-slot:content>
-										<view>
+										<view @click="toMDetail(son.id)">
 											<view class="u-flex u-row-between u-font-28 u-m-t-10">
 												<view class="text-black">{{son.cares_name}}</view>
 												<view class="text-black">{{son.carer.name}}</view>
@@ -70,7 +70,7 @@
 										</view>
 									</template>
 									<template v-slot:content>
-										<view>
+										<view @click="toRDetail(son.id)">
 											<view class="u-flex u-row-between u-font-28 u-m-t-10">
 												<view class="text-black">{{son.fixes_name}}</view>
 												<view class="text-black">{{son.fixer.name}}</view>
@@ -95,7 +95,7 @@
 		<pro-card title="付款记录">
 			<template v-slot:content >
 				<scroll-view scroll-y @scrolltolower="orderPays" style="height: 300rpx;">
-					<view v-for="(item,v) in payList.list" :key="'v'+v">
+					<view v-for="(item,v) in payList.order_pays_data" :key="'v'+v">
 						<view class="u-flex u-row-between u-font-28 u-m-t-10">
 							<view class="text-black">{{item.order_pays_name}}</view>
 							<view class="text-black"   style="color: #FE5E10;">￥{{item.amount}}</view>
@@ -165,6 +165,7 @@
 		onLoad(e) {
 			this.order_id = e.order_id;
 			this.getInfo();
+			this.orderPays();
 		},
 		/* onReachBottom() {
 			if(this.page >= this.last_page) return ;
@@ -222,11 +223,7 @@
 				payList:{
 					last_page:1,
 					current_page:1,
-					list:[]
-				},
-				/* 评价 */
-				evaluate:{
-					
+					order_pays_data:[]
 				},
 				/* 订单详情 */
 				orderList:[
@@ -343,8 +340,8 @@
 						if(!this.payList){
 							this.$set(this,'payList',res.data)
 						}else{
-							res.data.cares_data.forEach(v=>{
-								this.payList.cares_data.push(v)
+							res.data.order_pays_data.map(v=>{
+								this.payList.order_pays_data.push(v)
 							})
 						}
 						this.payList.current_page ++
@@ -383,6 +380,12 @@
 						})
 					}
 				})
+			},
+			toMDetail(care_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/miantainDetail?care_id=' + care_id});
+			},
+			toRDetail(fix_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/repairDetail?fix_id=' + fix_id});
 			}
 		}
 	}

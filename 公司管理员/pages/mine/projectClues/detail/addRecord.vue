@@ -1,13 +1,13 @@
 <template>
-	<view>
-		<view class="u-p-40">
+	<view class="u-flex u-col-top" style="flex-direction: column;padding-bottom: 78rpx;width: 100%;" :style="'min-height:'+$u.sys().windowHeight+'px;'">
+		<view class="u-p-40 u-flex-1" style="margin-bottom: auto;width: 100%;">
 			<view class="u-font-28 text-bold u-m-b-24" style="color: #404E60;">跟进记录</view>
 			<view style="border-radius: 10rpx;background-color: #F8F9FD;padding: 22rpx 16rpx;">
 				<u-input type="textarea" v-model="value" height="319" placeholder="请填写跟进记录描述"></u-input>
 			</view>
 			<u-upload class="u-m-t-30" width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :max-count="99" @on-list-change="onChange"></u-upload>
 		</view>
-		<u-button class="u-m-25" type="primary" style="position: fixed;bottom: 78rpx;right: 0;left: 0;" @click="followUp">提交记录</u-button>
+		<u-button class="u-m-25" style="width: 700rpx;" type="primary" @click="followUp">提交记录</u-button>
 	</view>
 </template>
 
@@ -18,6 +18,7 @@
 		},
 		data() {
 			return {
+				project_id:'',
 				value:'',
 				action: 'Common/fileUploader',
 				header:{'Authorization':'Bearer '+ this.http.getToken()},
@@ -39,7 +40,7 @@
 					content:this.value,
 					img:img
 				}).then(res=>{
-					this.$u.toast(re.msg)
+					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{
 							uni.navigateBack({

@@ -15,7 +15,7 @@
 			<u-icon name="arrow-right" size="32rpx" color="#999999"></u-icon>
 		</view>
 		
-		<u-button type="primary" class="u-m-30" style="margin-top: 117rpx;">提交</u-button>
+		<u-button type="primary" class="u-m-30" style="margin-top: 117rpx;" @click="addFix">提交</u-button>
 		
 		<u-calendar v-model="showDate" btn-type="primary" active-bg-color="#0F58FB" mode="date" @change="dateChange" max-date="2050-12-31"></u-calendar>
 	</view>
@@ -24,7 +24,7 @@
 <script>
 	export default {
 		onLoad(e) {
-			this.tower_ids = e.selectedList;
+			this.tower_ids = JSON.parse(decodeURIComponent(e.selectedList));
 			this.order_id = e.order_id;
 		},
 		onShow() {
@@ -62,7 +62,7 @@
 					if(res.code == 1000){
 						setTimeout(()=>{
 							uni.navigateBack({
-								delta: 2
+								delta:2
 							});
 						},1500)
 					}

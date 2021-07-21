@@ -10,7 +10,7 @@
 							<view style="color: #999999;">{{item.created_at}}</view>
 						</view>
 					</view>
-					<view class="u-flex u-row-right" style="color: #999999;"> 
+					<view class="u-flex u-row-right" style="color: #999999;" @click="toStaffInfo(item.id)"> 
 						<view class="u-m-r-12">查看详情</view>
 						<u-icon name="arrow-right" size="28" color="#999999"></u-icon>
 					</view>
@@ -99,6 +99,9 @@
 				this.list = [];
 				this.status = "loading"
 				this.getInfo();
+			},
+			toStaffInfo(user_id){
+				uni.navigateTo({url: 'staffInfo/staffInfo?user_id='+user_id});
 			}
 		}
 	}

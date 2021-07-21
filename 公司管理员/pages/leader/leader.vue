@@ -43,12 +43,15 @@
 				</u-grid-item>
 			</u-grid>
 		</view>
+		<view class="u-m-20">
+			<u-button class="u-m-t-20" type="primary" @click="exit">退出登录</u-button>
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		onLoad() {
+		onShow() {
 			this.getInfo()
 		},
 		data() {
@@ -76,6 +79,10 @@
 			},
 			todetail(){
 				uni.navigateTo({url: 'detail/detail'});
+			},
+			exit(){
+				uni.clearStorageSync();
+				window.location.href = 'http://tower.0831.run/html/user'
 			}
 		}
 	}

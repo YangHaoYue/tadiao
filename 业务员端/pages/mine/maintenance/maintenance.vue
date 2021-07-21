@@ -106,7 +106,9 @@
 		},
 		methods: {
 			getOrdersForScreen(){
-				this.http.get('FixCare/getOrdersForScreen',{}).then(res=>{
+				this.http.get('FixCare/getOrdersForScreen',{
+					page:this.tabList[0].page
+				}).then(res=>{
 					if(res.code == 1000){
 						if(this.tabList[0].list.length == 0){
 							this.tabList[0].list = res.data.order_data.map(v=>{
@@ -157,7 +159,9 @@
 			},
 			getTowersForMng(){
 				this.http.get('FixCare/getTowersForMng',{
-					type_id:this.idot
+					order_id:this.order_id,
+					type_id:this.idot,
+					page:this.tabList[1].page
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.tabList[1].list.length == 0){
@@ -177,7 +181,7 @@
 			//获取机型
 			getTypes(){
 				this.http.get('Index/getTypes',{
-					page:this.typePage
+					page:this.idot_page
 				},true).then(res=>{
 					if(res.code == 1000){
 						res.data.type_data.forEach(v=>{

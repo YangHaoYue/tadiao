@@ -93,6 +93,13 @@
 					avatar:this.tempFilePath
 				}).then(res=>{
 					this.$u.toast(res.msg)
+					if(res.code == 1000){
+						setTimeout(()=>{
+							uni.navigateBack({
+								delta: 1
+							});
+						},1500)
+					}
 				})
 			},
 			exit(){

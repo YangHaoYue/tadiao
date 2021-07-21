@@ -12,7 +12,7 @@
 		</view>
 		<view :class="formPadding" class="bg-white solid-bottom" v-else-if="item.type=='textarea'">
 			<view class="u-flex u-font-28 u-m-b-10 u-m-r-20 text-black">{{item.name}}<text class="u-type-error" v-if="item.isImport">*</text></view>
-			<u-input v-model="text" type="textarea" :height="210" :auto-height="true" @input="handleInput" :type="item.inputType" :placeholder="item.placeholder" placeholder-style="color:#999999;font-size:28rpx;"/>
+			<u-input v-model="item.value" type="textarea" :height="210" :auto-height="true" @input="handleInput" :type="item.inputType" :placeholder="item.placeholder" placeholder-style="color:#999999;font-size:28rpx;"/>
 			<!-- <input adjust-position="true" style="height: 210rpx;" :value="item.value" @input="handleInput" :maxlength="item.length||140" type="textarea" :placeholder="item.placeholder" /> -->
 		</view>
 		<view v-else-if="item.type=='navPicker'" @click="navigator(item.url,item.disable)" :class="formPadding" class="bg-white u-flex u-row-between solid-bottom">

@@ -1,19 +1,19 @@
 <template>
 	<view>
 		
-		<u-checkbox-group @change="checkboxGroupChange" shape="circle" active-color="#0F58FB">
-			<u-row class="u-m-t-30" gutter="20" justify="space-between">
+		
+		
+		<u-checkbox-group @change="checkboxGroupChange" shape="circle" active-color="#0F58FB" style="width: 100%;">
+			<u-row class="u-m-t-30" gutter="20" justify="space-between" style="width: 100%;">
 				<u-col span="6" class="u-m-b-20" v-for="(item,i) in list" :key="i">
-					<label :for="item.id">
-						<equipmentItem :item="item" :index="i">
-							<view slot="footer">
-								<view class="u-font-26 u-p-l-6 u-flex u-row-between u-p-b-20" style="color: #666666;line-height: 1.5;">
-									<view>年限：{{item.time}}</view>
-									<u-checkbox v-model="item.checked"  shape="circle" active-color="#0F58FB"></u-checkbox>
-								</view>
+					<equipmentItem :item="item" :index="i">
+						<view slot="footer">
+							<view class="u-font-26 u-p-l-6 u-flex u-row-between u-p-b-20" style="color: #666666;line-height: 1.5;">
+								<view>年限：{{item.age_limit}}</view>
+								<u-checkbox v-model="item.checked"  shape="circle" active-color="#0F58FB" :name="item.id"></u-checkbox>
 							</view>
-						</equipmentItem>
-					</label>
+						</view>
+					</equipmentItem>
 				</u-col>
 			</u-row>
 		</u-checkbox-group>
@@ -64,6 +64,7 @@
 		},
 		data() {
 			return {
+				order_id:'',
 				page:1,
 				last_page:1,
 				list:[],
@@ -84,7 +85,8 @@
 		},
 		methods: {
 			getInfo(){
-				this.http.get('Index/index',{
+				this.http.get('Order/getOrderTowersForFix',{
+					order_id:this.order_id,
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
@@ -128,7 +130,7 @@
 				this.selectedList=[];
 			},
 			make(){
-				uni.navigateTo({url: 'apply?selectedList='+ this.selectedList + '&order_id=' +this.order_id});
+				uni.navigateTo({url: 'apply?selectedList='+ encodeURIComponent(JSON.stringify(this.selectedList)) + '&order_id=' +this.order_id});
 			}
 		}
 	}

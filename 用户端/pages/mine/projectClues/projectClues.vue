@@ -200,7 +200,7 @@
 			//删除
 			delProject(){
 				this.deletModal = false;
-				this.http.post('project/editProject',{
+				this.http.post('project/delProject',{
 					project_id:this.whichone
 				}).then(res=>{
 					this.$u.toast(res.msg);
