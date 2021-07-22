@@ -220,11 +220,7 @@
 				/* 塔吊列表 */
 				equipList:[],
 				/* 付款记录 */
-				payList:{
-					last_page:1,
-					current_page:1,
-					order_pays_data:[]
-				},
+				payList:'',
 				/* 订单详情 */
 				orderList:[
 					{title:'订单编号',value:''},
@@ -337,7 +333,7 @@
 				this.http.get('Order/orderPays',{
 					order_id:this.order_id,
 					page:this.payList.current_page||1},true).then(res=>{
-						if(!this.payList){
+						if(!this.payList.order_pays_data){
 							this.$set(this,'payList',res.data)
 						}else{
 							res.data.order_pays_data.map(v=>{
@@ -355,7 +351,7 @@
 						}).then(res=>{
 							this.$u.toast(res.msg);
 							if(res.code == 1000){
-								this.payList.list = [];
+								this.payList.order_pays_data = [];
 								this.payList.current_page = 1;
 								this.orderPays();
 							}

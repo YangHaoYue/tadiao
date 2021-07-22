@@ -54,6 +54,7 @@
 		methods: {
 			getInfo(){
 				this.http.get('FixCare/getTowersForMng',{
+					branch_id:uni.getStorageSync('branch_id'),
 					order_id:this.order_id,
 					page:this.page
 				}).then(res=>{
@@ -73,7 +74,7 @@
 				})
 			},
 			todetail(id){
-				uni.navigateTo({url: 'detail/detail?order_id='+this.order_id+'&tower_id='+id});
+				uni.navigateTo({url: '../detail/detail?order_id='+this.order_id+'&tower_id='+id});
 			}
 		}
 	}

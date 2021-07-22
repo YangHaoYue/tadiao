@@ -2,7 +2,7 @@
 	<view>
 		<view class="bg" :style="'min-height:'+$u.sys().windowHeight+'px;'">
 			<view class="u-flex u-row-between" style="padding: 65rpx 67rpx 6rpx 27rpx;">
-				<u-image src="../../../static/订单金额排名@2x.png" width="414" height="96" mode="scaleToFill"></u-image>
+				<u-image src="../../../static/订单金额排名@2x.png" width="414" height="83" mode="scaleToFill"></u-image>
 				<u-image src="../../../static/trophy.png" width="144" height="154"></u-image>
 			</view>
 			
@@ -32,7 +32,7 @@
 				<view class="u-flex u-row-around u-p-b-14">
 					<view class="text-black u-font-26">排行</view>
 					<view class="text-black u-font-26">员工</view>
-					<view class="text-black u-font-26">线索数</view>
+					<view class="text-black u-font-26">订单金额</view>
 				</view>
 				<scroll-view scroll-y @scrolltolower="loadMore" style="height: 750rpx;"> 
 					<block v-for="(item,index) in list" :key="index">
@@ -67,22 +67,22 @@
 <script>
 	export default {
 		onLoad() {
+			this.getInfo();
 			this.day = this.http.getToday();
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
-			this.getInfo();
 		},
 		data() {
 			return {
 				//分段器
 				current:true,
 				//月
-				day:'2020-11-22',
+				day:'',
 				showCalender:false,
 				//自定义
 				show:false,
-				start:'2020-11-22',
-				end:'2020-11-22',
+				start:'',
+				end:'',
 				
 				list:[],
 				page:1,
@@ -105,7 +105,7 @@
 						page:this.page
 					}
 				}
-				this.http.get('Manager/orderPayRank',data).then(res=>{
+				this.http.get('Manager/orderRank',data).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
 							this.list = res.data.staff_data;

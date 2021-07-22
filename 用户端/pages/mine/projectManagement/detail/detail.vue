@@ -95,7 +95,7 @@
 		<pro-card title="付款记录">
 			<template v-slot:content >
 				<scroll-view scroll-y @scrolltolower="orderPays" style="height: 300rpx;">
-					<view v-for="(item,v) in payList.list" :key="'v'+v">
+					<view v-for="(item,v) in payList.order_pays_data" :key="'v'+v">
 						<view class="u-flex u-row-between u-font-28 u-m-t-10">
 							<view class="text-black">{{item.order_pays_name}}</view>
 							<view class="text-black"   style="color: #FE5E10;">￥{{item.amount}}</view>
@@ -211,11 +211,7 @@
 				/* 塔吊列表 */
 				equipList:[],
 				/* 付款记录 */
-				payList:{
-					last_page:1,
-					current_page:1,
-					list:[]
-				},
+				payList:'',
 				/* 评价 */
 				evaluate:{
 					
@@ -332,11 +328,11 @@
 				this.http.get('Order/orderPays',{
 					order_id:this.order_id,
 					page:this.payList.current_page||1},true).then(res=>{
-						if(!this.payList){
+						if(!this.payList.order_pays_data){
 							this.$set(this,'payList',res.data)
 						}else{
-							res.data.cares_data.forEach(v=>{
-								this.payList.cares_data.push(v)
+							res.data.order_pays_data.map(v=>{
+								this.payList.order_pays_data.push(v)
 							})
 						}
 						this.payList.current_page ++

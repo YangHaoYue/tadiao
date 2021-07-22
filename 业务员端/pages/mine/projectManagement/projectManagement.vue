@@ -38,12 +38,12 @@
 						</view>
 					</view>
 					<view slot="foot">
+						<view class="u-flex u-font-24" style="color: #666666;">
+							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
+						</view>
 						<view v-if="item.status == 2">
 							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
 							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.refused_reason}}</view>
-						</view>
-						<view class="u-flex u-font-24" style="color: #666666;">
-							合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
 						</view>
 						<view class="u-flex u-row-right u-m-t-10">
 							<u-button class="u-m-r-10 u-m-l-0" type="primary" size="mini" :plain="true" v-if="item.show_contract_button" @tap.stop="toContract(item.order_id)">查看合同</u-button>
@@ -67,7 +67,9 @@
 		onLoad() {
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
-			this.getInfo();
+		},
+		onShow() {
+			this.clearData();
 		},
 		onReachBottom() {
 			if(this.page >= this.last_page) return ;
@@ -169,7 +171,9 @@
 					lock_arr:e.lock_arr,
 					type_pay_str:e.type_pay_str,
 					month_rent:e.month_rent,
-					in_out_cost:e.in_out_cost
+					in_out_cost:e.in_out_cost,
+					status:e.status,
+					refused_reason:e.refused_reason
 				}
 			},
 			chooseDayRange(e){

@@ -91,6 +91,7 @@
 		methods: {
 			getInfo(){
 				this.http.get('Order/orderListsForMng',{
+					branch_id:uni.getStorageSync('branch_id'),
 					type:this.tabList[this.current].value,
 					status:this.idot,
 					page:this.page
@@ -151,7 +152,9 @@
 					lock_arr:e.lock_arr,
 					type_pay_str:e.type_pay_str,
 					month_rent:e.month_rent,
-					in_out_cost:e.in_out_cost
+					in_out_cost:e.in_out_cost,
+					status:e.status,
+					refused_reason:e.refused_reason
 				}
 			},
 			chooseDayRange(e){

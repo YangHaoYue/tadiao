@@ -9,14 +9,14 @@
 					<view class="u-font-24 u-line-1" style="color: #999999;">{{user_data.branch_name}}</view>
 				</view>
 			</view>
-			<view class="u-flex u-col-center u-row-right">
+			<view class="u-flex u-col-center u-row-right" v-if="branch_id == ''">
 				<u-image class="u-m-r-24" src="../../static/shezhi-6@2x.png" width="44" height="44" :fade="false" @click="toPerfection"></u-image>
 				<u-image src="../../static/qrcode@2x.png" width="44" height="44" :fade="false" @click="showModal = true"></u-image>
 			</view>
 		</view>
 		
 		<!-- card -->
-		<view class="card u-flex u-row-between u-col-top">
+		<view class="card u-flex u-row-between u-col-top" v-if="branch_id == ''">
 			<view class="text-white">
 				<view class="u-font-28">项目奖金(元)</view>
 				<view class="text-bold" style="font-size: 46rpx;margin: 10rpx 0 27rpx 0;">{{total_reward}}</view>
@@ -78,7 +78,6 @@
 			</u-grid>
 		</view>
 		<!-- 项目 -->
-		<!-- 项目 -->
 		<view style="padding: 0 30rpx 30rpx 30rpx;">
 			<view class="u-font-32 text-bold u-m-b-30" style="color: #404E60;">项目</view>
 		</view>
@@ -125,8 +124,10 @@
 <script>
 	export default {
 		onLoad() {
-			/* let identity = uni.getStorageSync('identity');
-			if(identity == 6) return uni.reLaunch({url:'../leader/leader'}) */
+			this.branch_id = uni.getStorageSync('branch_id')
+			if(!this.branch_id){
+				this.staff.push({img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'})
+			}
 			this.day = this.http.getToday();
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
@@ -142,7 +143,8 @@
 		},
 		data() {
 			return {
-				show_fixer_button:false,
+				//总经理查看分公司信息
+				branch_id:'',
 				
 				user_data:{
 					id:6,
@@ -155,8 +157,8 @@
 				showModal:false,
 				codeImg:'',
 				
-				total_reward:'7500.00',
-				today_reward:'0.00',
+				total_reward:'',
+				today_reward:'',
 				
 				//分段器
 				current:true,
@@ -179,14 +181,13 @@
 					{img:'../../static/xiangmuxiansuo@2x.png',name:'项目线索',url:'/pages/mine/projectClues/projectClues'},
 					{img:'../../static/xiangmugaunli@2x.png',name:'项目管理',url:'/pages/mine/projectManagement/projectManagement'},
 					{img:'../../static/weibaojilu@2x.png',name:'维保记录',url:'/pages/mine/maintenance/maintenance'},
-					{img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'},
 					{img:'../../static/shebeibaojia@2x.png',name:'设备报价',url:'/pages/mine/offer/offer'}
 				],
 				staff:[
 					{img:'../../static/yuangonggaunli@2x.png',name:'员工管理',url:'/pages/mine/StaffManagement/StaffManagement'},
-					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/ranking/cluesRank'},
+					{img:'../../static/xiansuopaiming@2x.png',name:'线索排名',url:'/pages/mine/ranking/projectRank'},
 					{img:'../../static/dingdanjine@2x.png',name:'订单金额排名',url:'/pages/mine/ranking/moneyRank'},
-					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/ranking/projectRank'}
+					{img:'../../static/yingshoukuan@2x.png',name:'应收款排名',url:'/pages/mine/ranking/cluesRank'}
 				]
 			}
 		},
@@ -195,8 +196,13 @@
 				let data = ''
 				if(!this.current){
 					data = {
+						branch_id:uni.getStorageSync('branch_id'),
 						start_at:this.start,
 						end_at:this.end
+					}
+				}else{
+					data = {
+						branch_id:uni.getStorageSync('branch_id')
 					}
 				}
 				this.http.get('UserCenter/manager',data).then(res=>{

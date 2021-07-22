@@ -25,65 +25,69 @@
 		</block>
 		<!-- 保养记录 -->
 		<pro-card title="保养记录">
-			<view class="u-m-t-20 u-p-l-20" slot="content">
+			<view  slot="content">
 				<scroll-view scroll-y @scrolltolower="towerCares" style="height: 500rpx;">
-					<u-time-line>
-						<u-time-line-item v-for="(son,j) in maintainList" :key="j">
-							<!-- 此处自定义了左边内容，用一个图标替代 -->
-							<template v-slot:node>
-								<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-									<!-- 此处为uView的icon组件 -->
-									<u-icon name="file-text" color="#fff" size="24"></u-icon>
-								</view>
-							</template>
-							<template v-slot:content>
-								<view>
-									<view class="u-flex u-row-between u-font-28 u-m-t-10">
-										<view class="text-black">{{son.cares_name}}</view>
-										<view class="text-black">{{son.carer.name}}</view>
+					<view class="u-m-t-20 u-p-l-20">
+						<u-time-line>
+							<u-time-line-item v-for="(son,j) in maintainList.cares_data" :key="j">
+								<!-- 此处自定义了左边内容，用一个图标替代 -->
+								<template v-slot:node>
+									<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+										<!-- 此处为uView的icon组件 -->
+										<u-icon name="file-text" color="#fff" size="24"></u-icon>
 									</view>
-									<!-- <view class="u-flex u-flex-wrap">
-										<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-											<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-										</block>
-									</view> -->
-									<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-								</view>
-							</template>
-						</u-time-line-item>
-					</u-time-line>
+								</template>
+								<template v-slot:content>
+									<view @click="toMDetail(son.id)">
+										<view class="u-flex u-row-between u-font-28 u-m-t-10">
+											<view class="text-black">{{son.cares_name}}</view>
+											<view class="text-black">{{son.carer.name}}</view>
+										</view>
+										<!-- <view class="u-flex u-flex-wrap">
+											<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+												<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+											</block>
+										</view> -->
+										<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+									</view>
+								</template>
+							</u-time-line-item>
+						</u-time-line>
+					</view>
 				</scroll-view>
 			</view>
 		</pro-card>
 		<!-- 维修记录 -->
 		<pro-card title="维修记录">
-			<view class="u-m-t-20 u-p-l-20" slot="content">
-				<scroll-view scroll-y @scrolltolower="towerFixes" style="height: 500rpx;">
-					<u-time-line>
-						<u-time-line-item v-for="(son,j) in repairList" :key="j">
-							<!-- 此处自定义了左边内容，用一个图标替代 -->
-							<template v-slot:node>
-								<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-									<!-- 此处为uView的icon组件 -->
-									<u-icon name="file-text" color="#fff" size="24"></u-icon>
-								</view>
-							</template>
-							<template v-slot:content>
-								<view>
-									<view class="u-flex u-row-between u-font-28 u-m-t-10">
-										<view class="text-black">{{son.fixes_name}}</view>
-										<view class="text-black">{{son.fixer.name}}</view>
+			<view  slot="content">
+				<scroll-view scroll-y @scrolltolower="towerFixes.fixes_data" style="height: 500rpx;">
+					<view class="u-m-t-20 u-p-l-20">
+						<u-time-line>
+							<u-time-line-item v-for="(son,j) in repairList" :key="j">
+								<!-- 此处自定义了左边内容，用一个图标替代 -->
+								<template v-slot:node>
+									<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+										<!-- 此处为uView的icon组件 -->
+										<u-icon name="file-text" color="#fff" size="24"></u-icon>
 									</view>
-									<!-- <view class="u-flex u-flex-wrap">
-										<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-											<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-										</block>
-									</view> -->
-									<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-								</view>
-							</template>
-						</u-time-line-item>
-					</u-time-line>
+								</template>
+								<template v-slot:content>
+									<view @click="toRDetail(son.id)">
+										<view class="u-flex u-row-between u-font-28 u-m-t-10">
+											<view class="text-black">{{son.fixes_name}}</view>
+											<view class="text-black">{{son.fixer.name}}</view>
+										</view>
+										<!-- <view class="u-flex u-flex-wrap">
+											<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+												<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+											</block>
+										</view> -->
+										<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+									</view>
+								</template>
+							</u-time-line-item>
+						</u-time-line>
+					</view>
 				</scroll-view>
 			</view>
 		</pro-card>
@@ -211,7 +215,7 @@
 					order_id:this.order_id,
 					tower_id:this.equipment.id,
 					page:this.maintainList.current_page||1},true).then(res=>{
-						if(!this.maintainList){
+						if(!this.maintainList.cares_data){
 							this.$set(this,'maintainList',res.data)
 						}else{
 							res.data.cares_data.forEach(v=>{
@@ -228,7 +232,7 @@
 					order_id:this.order_id,
 					tower_id:this.equipment.id,
 					page:this.repairList.current_page||1},true).then(res=>{
-						if(!this.repairList){
+						if(!this.repairList.fixes_data){
 							this.$set(this,'repairList',res.data)
 						}else{
 							res.data.fixes_data.forEach(v=>{
@@ -266,6 +270,12 @@
 				this.people_lastpage = 1;
 				this.peopleList = [];
 				this.getFixerForFix();
+			},
+			toMDetail(care_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/miantainDetail?care_id=' + care_id});
+			},
+			toRDetail(fix_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/repairDetail?fix_id=' + fix_id});
 			}
 		}
 	}

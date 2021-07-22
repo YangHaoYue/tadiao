@@ -139,6 +139,7 @@
 		methods: {
 			projectLists(){
 				this.http.get('project/projectListsForMng',{
+					branch_id:uni.getStorageSync('branch_id'),
 					type:this.tabList[this.current].value,//0=>我的(默认，可不传),1=>公司线索,2=>公海池,3=>别人的线索
 					page:this.page
 				}).then(res=>{

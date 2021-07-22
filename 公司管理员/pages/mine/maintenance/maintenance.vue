@@ -106,7 +106,10 @@
 		},
 		methods: {
 			getOrdersForScreen(){
-				this.http.get('FixCare/getOrdersForScreen',{}).then(res=>{
+				this.http.get('FixCare/getOrdersForScreen',{
+					branch_id:uni.getStorageSync('branch_id'),
+					page:this.tabList[0].page
+				}).then(res=>{
 					if(res.code == 1000){
 						if(this.tabList[0].list.length == 0){
 							this.tabList[0].list = res.data.order_data.map(v=>{
@@ -157,7 +160,9 @@
 			},
 			getTowersForMng(){
 				this.http.get('FixCare/getTowersForMng',{
-					type_id:this.idot
+					type_id:this.idot,
+					branch_id:uni.getStorageSync('branch_id'),
+					page:this.tabList[1].page
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.tabList[1].list.length == 0){
@@ -168,7 +173,6 @@
 								this.tabList[1].list.push(v)
 							})
 						}
-						
 						if(this.tabList[1].page >= this.tabList[1].last_page) this.status = 'nomore';
 						else this.status = 'loadmore';
 					}

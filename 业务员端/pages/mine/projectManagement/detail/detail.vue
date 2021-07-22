@@ -67,7 +67,7 @@
 									<u-time-line-item v-for="(son,o) in item.repairList.fixes_data" :key="'o'+o">
 										<!-- 此处自定义了左边内容，用一个图标替代 -->
 										<template v-slot:node>
-											<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+											<view class="u-node u-flex u-row-center"  :style="o===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
 												<!-- 此处为uView的icon组件 -->
 												<u-icon name="file-text" color="#fff" size="24"></u-icon>
 											</view>
@@ -94,7 +94,7 @@
 		<pro-card title="付款记录">
 			<template v-slot:content >
 				<scroll-view scroll-y @scrolltolower="orderPays" style="height: 300rpx;">
-					<view v-for="(item,v) in payList.list" :key="'v'+v">
+					<view v-for="(item,v) in payList.order_pays_data" :key="'v'+v">
 						<view class="u-flex u-row-between u-font-28 u-m-t-10">
 							<view class="text-black">{{item.order_pays_name}}</view>
 							<view class="text-black"   style="color: #FE5E10;">￥{{item.amount}}</view>
@@ -142,7 +142,7 @@
 			<view class="u-font-28 text-bold">订单总金额:<text style="color: #FE5E10;">￥{{totalPrice}}</text></view>
 		</view>
 		<!-- 结束 -->
-		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_comment_button">
+		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_close_button ">
 			<u-button type="primary" style="margin-right: 0;" size="medium" @click="end" >结束</u-button>
 		</view>
 		<!-- modal弹窗 -->
@@ -164,6 +164,7 @@
 		onLoad(e) {
 			this.order_id = e.order_id;
 			this.getInfo();
+			this.orderPays();
 		},
 		/* onReachBottom() {
 			if(this.page >= this.last_page) return ;
@@ -218,15 +219,7 @@
 				/* 塔吊列表 */
 				equipList:[],
 				/* 付款记录 */
-				payList:{
-					last_page:1,
-					current_page:1,
-					list:[]
-				},
-				/* 评价 */
-				evaluate:{
-					
-				},
+				payList:'',
 				/* 订单详情 */
 				orderList:[
 					{title:'订单编号',value:''},
@@ -242,8 +235,8 @@
 				totalPrice:'489832.00',
 				showModal:false,
 				
-				//点评
-				show_comment_button:''
+				//关闭
+				show_close_button :''
 			}
 		},
 		methods: {
@@ -287,7 +280,7 @@
 						this.fix_comment = res.data.fix_comment;
 						this.tower_comment = res.data.tower_comment;
 						
-						this.show_comment_button = res.data.show_comment_button;
+						this.show_close_button  = res.data.show_close_button ;
 						
 						this.orderList[0].value = res.data.order_no;
 						this.orderList[1].value = res.data.created_at;
@@ -339,11 +332,11 @@
 				this.http.get('Order/orderPays',{
 					order_id:this.order_id,
 					page:this.payList.current_page||1},true).then(res=>{
-						if(!this.payList){
+						if(!this.payList.order_pays_data){
 							this.$set(this,'payList',res.data)
 						}else{
-							res.data.cares_data.forEach(v=>{
-								this.payList.cares_data.push(v)
+							res.data.order_pays_data.map(v=>{
+								this.payList.order_pays_data.push(v)
 							})
 						}
 						this.payList.current_page ++
@@ -357,7 +350,7 @@
 						}).then(res=>{
 							this.$u.toast(res.msg);
 							if(res.code == 1000){
-								this.payList.list = [];
+								this.payList.order_pays_data = [];
 								this.payList.current_page = 1;
 								this.orderPays();
 							}

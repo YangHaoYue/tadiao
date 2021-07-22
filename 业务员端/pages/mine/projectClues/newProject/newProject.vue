@@ -77,6 +77,9 @@
 				this.project_id = e.project_id;
 				this.getOrderAddData()
 			}else if(e.order_id){
+				uni.setNavigationBarTitle({
+					title:'编辑项目'
+				})
 				this.order_id = e.order_id;
 				this.getOrderEditData()
 			}
@@ -275,11 +278,11 @@
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
-						/* setTimeout(()=>{
+						setTimeout(()=>{
 							uni.navigateBack({
 								delta: 1
 							});
-						},1500) */
+						},1500)
 					}
 				})
 			},

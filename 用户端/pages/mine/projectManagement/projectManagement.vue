@@ -133,7 +133,9 @@
 					show_resubmit_button:data.show_resubmit_button,
 					handler_data:data.handler_data,
 					cus_data:data.cus_data,
-					type_pay_str:data.type_pay_str
+					type_pay_str:data.type_pay_str,
+					status:data.status,
+					refused_reason:data.refused_reason
 				}
 			},
 			clearData(){
