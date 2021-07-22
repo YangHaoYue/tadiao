@@ -3,7 +3,7 @@
 		<view class="u-p-40">
 			<view class="u-font-28 text-bold u-m-b-24" style="color: #404E60;">维修记录</view>
 			<view style="border-radius: 10rpx;background-color: #F8F9FD;padding: 22rpx 16rpx;">
-				<u-input type="textarea" v-model="value" height="319" placeholder="请填写维修记录描述" :disabled="true"></u-input>
+				<u-input type="textarea" v-model="remark" height="319" placeholder="请填写维修记录描述" :disabled="true"></u-input>
 			</view>
 			
 			<view class="u-flex u-flex-wrap u-row-left">
@@ -24,7 +24,7 @@
 		data() {
 			return {
 				fix_id:'',
-				value:'',
+				remark:'',
 				lists:[]
 			}
 		},

@@ -63,7 +63,7 @@
 				<scroll-view scroll-y @scrolltolower="towerFixes.fixes_data" style="height: 500rpx;">
 					<view class="u-m-t-20 u-p-l-20">
 						<u-time-line>
-							<u-time-line-item v-for="(son,j) in repairList" :key="j">
+							<u-time-line-item v-for="(son,j) in repairList.fixes_data" :key="j">
 								<!-- 此处自定义了左边内容，用一个图标替代 -->
 								<template v-slot:node>
 									<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">

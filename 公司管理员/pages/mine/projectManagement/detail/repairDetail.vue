@@ -37,7 +37,7 @@
 						return this.http.resourceUrl() + v;
 					})
 					
-					this.remark = res.data.desc;
+					this.value = res.data.desc;
 				})
 			},
 			preview(index){
