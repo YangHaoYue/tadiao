@@ -186,6 +186,11 @@
 									title:res.msg,
 									type:'error'
 								})
+								if(res.msg == '用户不存在'){
+									setTimeout(()=>{
+										uni.navigateTo({url: 'register'});
+									},1000)
+								}
 							}
 						})
 					} else {

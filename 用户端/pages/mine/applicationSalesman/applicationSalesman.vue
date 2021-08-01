@@ -6,7 +6,7 @@
 		</view>
 		<view class="bg-white" style="border-radius: 53rpx 53rpx 0 0 ;padding: 37rpx 57rpx 0 35rpx;transform: translateY(-50rpx);">
 			<u-form>
-				<u-form-item :label-style="labelStyle" :required="true" right-icon="arrow-right" label-position="top" label="所属公司(本选项普通用户可不选)" label-width="150">
+				<u-form-item :label-style="labelStyle" :required="true" right-icon="arrow-right" label-position="top" label="所属公司" label-width="150">
 					<u-input :border="border" :disabled="true" v-model="model.companie" placeholder="请选择公司" @click="selectShow = true"></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150" :border-bottom="false">
@@ -32,7 +32,7 @@
 				</u-form-item>
 			</u-form>
 		</view>
-		<u-button type="primary" class="u-m-30" style="margin-bottom: 0;transform: translateY(-50rpx);" :disabled="applyBtn" @click="submit">提交</u-button>
+		<u-button type="primary" class="u-m-30" style="margin-bottom: 0;transform: translateY(-50rpx);" @click="submit">提交</u-button>
 		
 		<u-select mode="single-column" confirm-color="#0F58FB" :list="selectList" value-name="id" label-name="branch_name" v-model="selectShow" @confirm="selectConfirm"></u-select>
 	</view>
@@ -43,15 +43,6 @@
 		onLoad() {
 			this.getBranches();
 			this.getInfo();
-		},
-		computed: {
-			applyBtn() {
-				let bool = true;
-				if(this.model.companie && this.model.qualification && this.model.positive && this.model.back){
-					bool = false;
-				}
-				return bool
-			}
 		},
 		data() {
 			return {
@@ -79,7 +70,7 @@
 					type:0
 				}).then(res=>{
 					if(res.data.status == 1){
-						this.http.modal("","审核未通过，请重新提交！", false, () => {
+						this.http.modal("",res.data.refused_reason, false, () => {
 							this.model.qualification = res.data.staff_img.map(v=>{
 								return{
 									url:v
@@ -149,7 +140,7 @@
 						}
 					});
 				}
-				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
+				let scimg=[this.model.positive[0].response&&this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response&&this.model.back[0].response.data.path||this.model.back[0].url]
 				
 				this.http.post('UserCenter/staffApply',{
 					type:0,//0=>业务员(默认),1维修员

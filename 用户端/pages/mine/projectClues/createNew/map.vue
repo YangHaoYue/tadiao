@@ -117,6 +117,7 @@
 				
 				let url =`https://apis.map.qq.com/ws/geocoder/v1/?location=${lat + "," + lng}&key=${this.key}&get_poi=0&callbackName=QQmap&output=jsonp&coord_type=5`;
 				this.http.tuiJsonp(url, (res) => {
+					console.log(res);
 					if (res.status === 0) {
 						console.log(res);
 						this.address = res.result.address_component.province + res.result.address_component.city + res.result.address_component.district;

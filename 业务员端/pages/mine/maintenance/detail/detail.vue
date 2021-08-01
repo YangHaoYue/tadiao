@@ -8,7 +8,7 @@
 			<view class="u-flex u-m-t-20" slot="content">
 				<u-image :src="http.resourceUrl() + equipment.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 				<view class="u-p-l-10 u-p-r-12">
-					<view class="u-font-26 text-bold text-black">{{equipment.tower_name}}({{equipment.tower_type_name}})</view>
+					<view class="u-font-26 text-bold text-black">{{equipment.tower_name}}</view>
 					<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{equipment.serial_num}}
 					</view>
 					<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备备案编号:{{equipment.record_num}}

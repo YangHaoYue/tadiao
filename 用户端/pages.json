@@ -230,6 +230,15 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/mine/projectClues/createNew/getaddrss",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

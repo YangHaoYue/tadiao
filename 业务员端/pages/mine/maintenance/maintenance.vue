@@ -37,7 +37,7 @@
 					<view class="u-flex">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 						<view class="u-p-l-10 u-p-r-12">
-							<view class="u-font-26 text-bold text-black">{{item.tower_name}}({{item.tower_type}})</view>
+							<view class="u-font-26 text-bold text-black">{{item.tower_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{item.number}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">负责人:{{item.media_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">联系方式:{{item.media_tel_num}}</view>

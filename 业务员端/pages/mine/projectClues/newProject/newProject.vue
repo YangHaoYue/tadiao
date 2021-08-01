@@ -143,8 +143,6 @@
 						this.customerList[0].value = res.data.office_name;
 						this.customerList[1].value = res.data.cus_name;
 						this.customerList[2].value = res.data.cus_tel_num;
-						
-						
 					}
 				})
 			},

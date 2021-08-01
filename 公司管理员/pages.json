@@ -381,6 +381,15 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/mine/projectClues/createNew/getaddress",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

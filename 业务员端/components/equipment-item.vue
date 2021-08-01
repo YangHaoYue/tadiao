@@ -6,11 +6,12 @@
 				<text v-if="item.status == 0" class="tag" style="background-color: #2DA016;">可用</text>
 				<text v-if="item.status == 1" class="tag" style="background-color: #868686;">锁定</text>
 				<text v-if="item.status == 2" class="tag" style="background-color: #0F58FB;">租赁中</text>
-				<text class="u-m-l-5 u-font-28 text-bold u-line-1">{{item.tower_name}}({{item.tower_type}})</text>
+				<text class="u-m-l-5 u-font-28 text-bold u-line-1">{{item.tower_name}}</text>
 			</view>
 			<view class="u-font-32 text-bold u-p-l-6 u-m-b-10" style="color: #F95435;line-height: 1;">￥{{item.month_rent}}/月</view>
 			<view class="u-p-l-10 u-p-r-6">
-				<view class="u-font-26 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码：{{item.serial_num}}</view>
+				<view class="u-font-26 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码：</view>
+				<view style="color: #666666;line-height: 1.5;">{{item.serial_num}}</view>
 				<view class="u-font-26 u-p-l-6" style="color: #666666;line-height: 1.5;">品牌：{{item.brand_name}}</view>
 				<slot name="footer">
 					<view class="u-font-26 u-p-l-6" style="color: #666666;line-height: 1.5;">年限：{{item.age_limit}}</view>

@@ -160,27 +160,18 @@
 			},
 			//地图定位
 			chooseLocation(){
-				uni.navigateTo({
-					url: 'map',
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
-				});
-				/* uni.chooseLocation({
-				    success: function (res) {
-				        console.log('位置名称：' + res.name);
-				        console.log('详细地址：' + res.address);
-				        console.log('纬度：' + res.latitude);
-				        console.log('经度：' + res.longitude);
-				    }
-				}); */
+				// /* uni.navigateTo({url: 'map'}); */
+				uni.navigateTo({url: 'getaddrss'});
+				/* let projectData = this.project_id?`?project_id=${this.project_id}`:''
+				let backurl = this.http.addressUrl()+'/user/#/pages/mine/projectClues/createNew/createNew'+projectData
+				window.location.href = `https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=${backurl}&key=${this.http.addressKey()}&referer=didiTower` */
 			},
 			//增加塔机机型
 			addNewEquipment(){
 				this.model.list.push({
-						type:'',
-						count:''
-					})
+					type:'',
+					count:''
+				})
 			},
 			//删除机型
 			deleteEquipment(j){

@@ -8,7 +8,7 @@
 			<view class="u-flex u-m-t-20" slot="content">
 				<u-image :src="http.resourceUrl() + equipment.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 				<view class="u-p-l-10 u-p-r-12">
-					<view class="u-font-26 text-bold text-black">{{equipment.tower_name}}({{equipment.tower_type_name}})</view>
+					<view class="u-font-26 text-bold text-black">{{equipment.tower_name}}</view>
 					<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{equipment.serial_num}}
 					</view>
 					<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备备案编号:{{equipment.record_num}}
@@ -55,7 +55,7 @@
 						</u-time-line>
 					</view>
 				</scroll-view>
-				<view class="u-flex u-row-center">
+				<view class="u-flex u-row-center" v-if="show_fix_care_btn">
 					<u-button type="primary" size="medium" :plain="true" @click="toMaintain">添加保养记录</u-button>
 				</view>
 			</view>
@@ -91,7 +91,7 @@
 						</u-time-line>
 					</view>
 				</scroll-view>
-				<view class="u-flex u-row-center">
+				<view class="u-flex u-row-center" v-if="show_fix_care_btn">
 					<u-button type="primary" size="medium" :plain="true" @click="toRepair">添加维修记录</u-button>
 				</view>
 			</view>
@@ -141,6 +141,7 @@
 			proCard
 		},
 		onLoad(e) {
+			this.order_id = e.order_id;
 			this.tower_id = e.tower_id;
 			this.getFixerForFix()
 		},
@@ -207,6 +208,8 @@
 						]
 					}
 				],
+				//控制保养和维修按钮
+				show_fix_care_btn:true,
 				/* 保养记录 */
 				maintainList:'',
 				/* 维修记录 */
@@ -226,7 +229,8 @@
 		methods: {
 			getInfo() {
 				this.http.get('FixCare/getTowerTrackDetail', {
-					tower_id: this.tower_id
+					tower_id:this.tower_id,
+					order_id:this.order_id
 				}).then(res => {
 					this.project_name = res.data.project_name
 					this.equipment = res.data.tower_info;
@@ -246,6 +250,8 @@
 					this.list[2].list[1].value = res.data.lease_end_at;
 					
 					this.show_transfer_button = res.data.show_transfer_button;
+					
+					this.show_fix_care_btn = res.data.show_fix_care_btn;
 					
 					this.order_id = res.data.order_id;
 					this.towerCares();

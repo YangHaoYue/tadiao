@@ -51,6 +51,10 @@
 				</view>
 			</view>
 		</view>
+		<view class="u-flex u-row-right bg-white u-p-t-10 u-p-b-20">
+			<u-button class="u-m-10" type="primary" plain @click="clearData" size="medium">重置</u-button>
+			<u-button class="u-m-10" type="primary" @click="change" size="medium">确定</u-button>
+		</view>
 	</view>
 </template>
 
@@ -102,13 +106,13 @@
 			return {
 				cityValue: "",
 				isChooseP: false, //是否已经选择了省
-				province: 0, //省级下标
+				province: '', //省级下标
 				provinces: provinces,
 				isChooseC: false, //是否已经选择了市
-				city: 0, //市级下标
+				city: '', //市级下标
 				citys: citys[0],
 				isChooseA: false, //是否已经选择了区
-				area: 0, //区级下标
+				area: '', //区级下标
 				areas: areas[0][0],
 				tabsIndex: 0,
 				titleStyle:{
@@ -207,10 +211,22 @@
 			areaChange(index) {
 				this.isChooseA = true;
 				this.area = index;
+				this.change();
+			},
+			clearData() {
+				this.province = '';
+				this.city = '';
+				this.area = '';
+				this.isChooseP = false;				this.isChooseC = false;				this.isChooseA = false;
+				this.$emit('clearData', true);
+				this.close();
+			},
+			change(){
+				if(!this.province) return;
 				let result = {};
 				result.province = this.provinces[this.province];
-				result.city = this.citys[this.city];
-				result.area = this.areas[this.area];
+				result.city = this.citys[this.city] || '';
+				result.area = this.areas[this.area] || '';
 				this.$emit('city-change', result);
 				this.close();
 			}

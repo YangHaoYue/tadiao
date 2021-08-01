@@ -33,20 +33,19 @@
 				</u-card>
 				<!-- 公海池 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
-				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
 				 @click="toDetail(item.id)" v-else-if="current == 1">
 					<view class="u-flex u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
 						<u-icon name="map" size="33" :label="item.address" label-color="#666666" label-size="24"></u-icon>
-						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply">申请认领</u-button>
+						<!-- <u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply">申请认领</u-button> -->
 					</view>
 				</u-card>
 				<!-- 公司线索/别人的线索 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
-				 @click="toDetail()" v-else>
+				 @click="toDetail(item.id)" v-else>
 				 <view slot="head" class="u-flex u-font-24" style="color: #666666;">合同协调人：
 				 <u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}</view>
 					<view class="u-flex u-row-between" slot="body">
@@ -163,7 +162,8 @@
 				})
 			},
 			_format(e){
-				//0=>审核中,1=>待跟进,2=>跟进中,3=>已成交,4=>已付款,5=>已拒绝,6=>已结束,10=>空闲中,11=>本人申请中,12本人申请被拒,13=>已被预约
+				//0=>审核中,1=>待跟进,2=>跟进中,5=>未通过,6=>已结束，10=>空闲中,11=>本人申请中,12本人申请被拒,13=>已被预约
+				let data = e;
 				let subTitle = '';
 				let subTitleColor = '';
 				switch(e.status){
@@ -177,14 +177,6 @@
 						break;
 					case 2:
 						subTitle = '跟进中';
-						subTitleColor = '#2DA016';
-						break;
-					case 3:
-						subTitle = '已成交';
-						subTitleColor = '#2DA016';
-						break;
-					case 4:
-						subTitle = '已付款';
 						subTitleColor = '#2DA016';
 						break;
 					case 5:
@@ -212,21 +204,10 @@
 						subTitleColor = '#FE5E10';
 						break;
 				}
-				return{
-					id:e.id,
-					subTitle:subTitle,
-					subTitleColor:subTitleColor,
-					project_name:e.project_name,
-					title:"创建时间：" + e.created_at,
-					address:e.address,
-					provider_data:e.provider_data,
-					handler_data:e.handler_data,
-					show_follow_button:e.show_follow_button,
-					show_edit_button:e.show_edit_button,
-					show_order_button:e.show_order_button,
-					show_apply_button:e.show_apply_button,
-					lock_arr:e.lock_arr,
-				}
+				this.$set(data,'subTitle',subTitle)
+				this.$set(data,'subTitleColor',subTitleColor)
+				this.$set(data,'title',"创建时间：" + e.created_at)
+				return data
 			},
 			clearData(){
 				this.page = 1;

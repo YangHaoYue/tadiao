@@ -40,7 +40,7 @@
 					<u-icon name="arrow-right" size="32rpx" color="#999999"></u-icon>
 				</view>
 			</view>
-			<u-select v-model="showList" confirmColor="#0F58FB" mode="single-column" :list="item.list" @confirm="choosePay"></u-select>
+			<u-select v-model="showList" confirmColor="#0F58FB" mode="single-column" :list="item.list" value-name="id" label-name="val"  @confirm="choose"></u-select>
 		</block>
 		<block v-else-if="item.type=='switch'">
 			<view :class="formPadding" class="bg-white u-flex u-row-between solid-bottom">

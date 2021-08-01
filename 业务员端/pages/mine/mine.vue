@@ -449,7 +449,7 @@
 				this.getUserInfo();
 			},
 			toTrakdetail(order_id,id){
-				uni.navigateTo({url: 'equipmentList/detail/detail?tower_id='+id});
+				uni.navigateTo({url: 'equipmentList/detail/detail?tower_id='+id+'&order_id='+order_id});
 			}
 		}
 	}

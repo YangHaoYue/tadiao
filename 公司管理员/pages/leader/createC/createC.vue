@@ -93,6 +93,8 @@
 					avatar:'',
 					head:''
 				},
+				//能否编辑分公司负责人
+				can_edit_mng:true,
 				
 				typeShow:false,
 				page:1,
@@ -119,6 +121,8 @@
 						this.model.head = res.data.mng_data.name;
 						this.model.avatar = res.data.mng_data.avatar;
 						this.model.mng_id = res.data.mng_data.id;
+						
+						this.can_edit_mng = res.data.can_edit_mng;
 					}
 				})
 			},
@@ -150,7 +154,7 @@
 			},
 			//地图定位
 			chooseLocation(){
-				uni.navigateTo({url: '/pages/mine/projectClues/createNew/map'});
+				uni.navigateTo({url: '/pages/mine/projectClues/createNew/getaddress'});
 			},
 			addProject(){
 				this.http.post('Manager/addBranch',{
@@ -204,6 +208,7 @@
 				});
 			},
 			toChoice(){
+				if(!this.can_edit_mng) return;
 				uni.navigateTo({url: 'chooseLeader'});
 			},
 		}

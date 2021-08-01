@@ -3,7 +3,8 @@
 		<u-dropdown ref="uDropdown" activeColor="#0F58FB">
 			
 			<u-dropdown-item :title="areaName">
-				<city-select  @city-change="cityChange"></city-select>
+				<city-select  @city-change="cityChange" @clearData="clearArea"></city-select>
+				
 			</u-dropdown-item>
 			
 			<u-dropdown-item @change="statusChange" v-model="listStatus" title="状态" :options="statusList"></u-dropdown-item>
@@ -49,7 +50,7 @@
 				<u-image width="365" height="365" src="@/static/mine/empty.png"></u-image>
 				<view class="u-font-28 text-gray u-m-t-40 u-text-center">空空如也~</view>
 			</view>
-			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index" @click="setPhone(item.media_tel_num)">
+			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index" @click="setPhone(item)">
 				<equipmentItem :item="item" :index="index"></equipmentItem>
 			</u-col>
 		</u-row>
@@ -133,11 +134,15 @@
 				
 				//客服电话
 				tips: {
-					text: '19274874583',
+					text: '联系人姓名',
 					color: '#333333',
 					fontSize: 28
 				},
 				phone: [{
+					text: '19274874583',
+					color: '#333333',
+					fontSize: 28
+				},{
 					text: '呼叫',
 					color: '#333333',
 					fontSize: 28
@@ -150,7 +155,8 @@
 				let data = {
 					status:this.listStatus,
 					price_max:this.max,
-					price_min:this.min
+					price_min:this.min,
+					page:this.page
 				}
 				if(this.brand_id){
 					this.$set(data,'brand_id',this.brand_id)
@@ -158,8 +164,8 @@
 				if(this.area_id){
 					this.$set(data,'area_id',this.area_id)
 				}
-				if(this.type_id){
-					this.$set(data,'type_id',this.type_id)
+				if(this.type){
+					this.$set(data,'type_id',this.type)
 				}
 				/* if(this.max&&this.min){
 					this.$set(data,'price_max',this.max)
@@ -245,17 +251,24 @@
 			//城市选择
 			cityChange(e) {
 				console.log(e);
-				this.areaName = e.area.label;
-				this.area_id = e.area.value;
+				this.areaName = e.area.label || e.city.label || e.province.label;
+				this.area_id = e.area.value || e.city.value || e.province.value;
 				this.clearList();
 			},
+			clearArea(){
+				this.areaName = '地区';
+				this.area_id = '';
+				this.clearList();
+			},
+			//状态选择
 			statusChange(index) {
 				console.log(index);
 				this.listStatus = index;
 				this.clearList();
 			},
-			typeChange(index){
-				this.type = this.typeList[index].value;
+			//机型选择
+			typeChange(value){
+				this.type = value;
 				this.clearList();
 			},
 			//关闭
@@ -286,13 +299,14 @@
 				this.list=[];
 				this.getInfo();
 			},
-			setPhone(number){
-				this.tips.text = number;
+			setPhone(item){
+				this.phone[0].text = item.media_tel_num;
+				this.tips.text = item.media_name;
 				this.show = true;
 			},
-			makePhoneCall(){
+			makePhoneCall(e){
 				uni.makePhoneCall({
-					phoneNumber:this.tips.text
+					phoneNumber:this.phone[0].text
 				})
 			}
 		}
@@ -302,7 +316,7 @@
 <style lang="scss" scoped>
 	.wrap{
 		background: -webkit-linear-gradient(top,#FBFBFD,#F5F6FA);
-		height: 100vh;
+		min-height: 100vh;
 	}
 	.slot-content {
 		background-color: #FFFFFF;

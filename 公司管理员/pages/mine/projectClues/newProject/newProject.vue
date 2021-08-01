@@ -135,6 +135,9 @@
 				}).then(res=>{
 					if(res.code == 1000){
 						this.formList[1].list = res.data.type_pay;
+						this.customerList[0].value = res.data.office_name;
+						this.customerList[1].value = res.data.cus_name;
+						this.customerList[2].value = res.data.cus_tel_num;
 					}
 				})
 			},

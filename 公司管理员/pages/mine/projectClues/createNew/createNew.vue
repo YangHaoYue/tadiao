@@ -160,20 +160,7 @@
 			},
 			//地图定位
 			chooseLocation(){
-				uni.navigateTo({
-					url: 'map',
-					success: res => {},
-					fail: () => {},
-					complete: () => {}
-				});
-				/* uni.chooseLocation({
-				    success: function (res) {
-				        console.log('位置名称：' + res.name);
-				        console.log('详细地址：' + res.address);
-				        console.log('纬度：' + res.latitude);
-				        console.log('经度：' + res.longitude);
-				    }
-				}); */
+				uni.navigateTo({url: 'getaddress'});
 			},
 			//增加塔机机型
 			addNewEquipment(){

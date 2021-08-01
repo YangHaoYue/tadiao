@@ -145,7 +145,8 @@
 				this.projectLists();
 			},
 			_format(e){
-				//-1=>全部,0=>审核中,1=>已通过,2=>跟进中,3=>已成交,4=>已付款,5=>未通过,6=>已结束
+				//0=>审核中,1=>待跟进,2=>跟进中,5=>未通过,6=>已结束
+				let data = e;
 				let subTitle = '';
 				let subTitleColor = '';
 				switch(e.status){
@@ -154,23 +155,15 @@
 						subTitleColor = '#105CFB';
 						break;
 					case 1:
-						subTitle = '已通过';
+						subTitle = '待跟进';
 						subTitleColor = '#2DA016';
 						break;
 					case 2:
 						subTitle = '跟进中';
 						subTitleColor = '#2DA016';
 						break;
-					case 3:
-						subTitle = '已成交';
-						subTitleColor = '#2DA016';
-						break;
-					case 4:
-						subTitle = '已付款';
-						subTitleColor = '#2DA016';
-						break;
 					case 5:
-						subTitle = '已拒绝';
+						subTitle = '未通过';
 						subTitleColor = '#FE5E10';
 						break;
 					case 6:
@@ -178,19 +171,10 @@
 						subTitleColor = '#FE5E10';
 						break;
 				}
-				return{
-					id:e.id,
-					subTitle:subTitle,
-					subTitleColor:subTitleColor,
-					status:e.status,
-					project_name:e.project_name,
-					title:"创建时间：" + e.created_at,
-					address:e.address,
-					refused_reason:e.refused_reason,
-					handler_data:e.handler_data,
-					show_del_button:e.show_del_button,
-					show_edit_button:e.show_edit_button
-				}
+				this.$set(data,'subTitle',subTitle)
+				this.$set(data,'subTitleColor',subTitleColor)
+				this.$set(data,'title',"创建时间：" + e.created_at)
+				return data
 			},
 			change(index) {
 				console.log(index);

@@ -12,6 +12,14 @@ const tui = {
 	resourceUrl:function(){
 		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
 	},
+	//地图地址
+	addressUrl :function(){
+		return 'http://tower.0831.run/html/'
+	},
+	//地图key
+	addressKey :function(){
+		return 'NW7BZ-BVXC2-AFYUX-C57BF-PZED6-WTBY4'
+	},
 	toast: function(text, duration, success) {
 		uni.showToast({
 			title: text || "出错啦~",
@@ -201,7 +209,7 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token")|| 'fa85df57d5dc143cd049d3a59881cb7a'
+		return uni.getStorageSync("thorui_token") || '43bd01b42f09c951b74b13d6f9cdc03e'
 	},
 	//判断是否登录
 	isLogin: function() {

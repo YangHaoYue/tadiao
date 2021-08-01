@@ -143,7 +143,7 @@
 			<view class="u-font-28 text-bold">订单总金额:<text style="color: #FE5E10;">￥{{totalPrice}}</text></view>
 		</view>
 		<!-- 结束 -->
-		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_comment_button">
+		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_close_button">
 			<u-button type="primary" style="margin-right: 0;" size="medium" @click="end" >结束</u-button>
 		</view>
 		<!-- modal弹窗 -->
@@ -236,8 +236,8 @@
 				totalPrice:'489832.00',
 				showModal:false,
 				
-				//点评
-				show_comment_button:''
+				//关闭
+				show_close_button:''
 			}
 		},
 		methods: {
@@ -281,7 +281,7 @@
 						this.fix_comment = res.data.fix_comment;
 						this.tower_comment = res.data.tower_comment;
 						
-						this.show_comment_button = res.data.show_comment_button;
+						this.show_close_button = res.data.show_close_button;
 						
 						this.orderList[0].value = res.data.order_no;
 						this.orderList[1].value = res.data.created_at;

@@ -1,24 +1,27 @@
 <template>
 	<view class="wrap">
 		<!-- 搜索 -->
-		<u-search class="u-p-30 u-p-t-20" style="padding-bottom: 0 !important;" bg-color="#ffffff" placeholder="搜索关键字" 
+		<u-search class="u-p-30 u-p-t-20 bg-white u-m-b-20" style="padding-bottom: 0 !important;" bg-color="#ffffff" placeholder="搜索关键字" 
 		input-align="left" :focus="true" v-model="keyward" :action-style="{fontWeight:'bold'}" @custom="claerData"></u-search>
+		
+		<!-- 顶部选项卡 -->
+		<u-tabs :list="tabList" :is-scroll="false" :current="current" active-color="#0F58FB" @change="change" ></u-tabs>
 		
 		<!-- 列表 -->
 		<block v-for="(item,index) in list" :key="index">
-			<view class="u-m-25 u-p-15 bg-white"  @click="toDetail(item.id)">
+			<view class="u-m-25 u-p-15 bg-white"  @click="toDetail(item.id,item.order_id)">
 				<view class="u-border-bottom u-p-t-14 u-font-24 u-p-b-20" style="color: #666666;">合同时间:{{item.fix_contract_at}}</view>
 				<view class="u-flex u-p-t-20">
 					<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 					<view class="u-p-l-10 u-p-r-12">
-						<view class="u-font-26 text-bold text-black">{{item.tower_name}}({{item.tower_type}})</view>
+						<view class="u-font-26 text-bold text-black">{{item.tower_name}}</view>
 						<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{item.serial_num}}</view>
 						<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">负责人:{{item.media_name}}</view>
 						<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">联系方式:{{item.media_tel_num}}</view>
 						<view class="u-font-22 u-p-l-6 u-line-1" style="color: #666666;line-height: 1.5;">地区:{{item.address_arr.province}} {{item.address_arr.city}} {{item.address_arr.district}}</view>
 					</view>
 				</view>
-				<view class="u-border-top u-p-t-14 u-m-t-15 u-font-24 u-flex u-row-between">
+				<view class="u-border-top u-p-t-14 u-m-t-15 u-font-24 u-flex u-row-between" v-if="current == 0">
 					<view  style="color: #666666;">下次维保时间:{{item.next_care_at}}</view>
 					<u-button type="primary" size="mini" style="margin-right: 0;" @click="transfer(item.id)" v-if="item.show_transfer_button">保养任务转移</u-button>
 				</view>
@@ -81,6 +84,15 @@
 		data() {
 			return {
 				keyward:'',
+				current:0,//页面类型(0=>维护中设备，1=>历史设备)
+				tabList: [{
+					name: '维护中设备',
+					value:0
+				}, {
+					name: '历史设备',
+					value:1
+				}],
+				
 				
 				people:'',
 				selected:'',
@@ -106,9 +118,14 @@
 			}
 		},
 		methods: {
+			change(index) {
+				this.current = index;
+				this.claerData()
+			},
 			getInfo(){
 				this.http.get('FixCare/getTowersForFixer',{
 					keyword:this.keyward,
+					type:this.tabList[this.current].value,
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){
@@ -188,8 +205,8 @@
 					}
 				})
 			},
-			toDetail(id){
-				uni.navigateTo({url: 'detail/detail?tower_id=' + id});
+			toDetail(tower_id,order_id){
+				uni.navigateTo({url: 'detail/detail?tower_id=' + tower_id +'&order_id=' +order_id});
 			}
 		}
 	}
