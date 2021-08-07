@@ -1,8 +1,8 @@
 <template>
 	<view class="wrap">
 		<!-- 搜索 -->
-		<u-search class="u-p-30 u-p-t-20 bg-white u-m-b-20" style="padding-bottom: 0 !important;" bg-color="#ffffff" placeholder="搜索关键字" 
-		input-align="left" :focus="true" v-model="keyward" :action-style="{fontWeight:'bold'}" @custom="claerData"></u-search>
+		<u-search class="u-p-30 u-p-t-20 bg-white u-border-bottom u-m-b-20" style="padding-bottom: 0 !important;" bg-color="#ffffff" placeholder="请输入用户名" 
+		input-align="left" :focus="true" v-model="keyward" :action-style="{fontWeight:'bold'}" @custom="claerData" @search="claerData"></u-search>
 		
 		<!-- 顶部选项卡 -->
 		<u-tabs :list="tabList" :is-scroll="false" :current="current" active-color="#0F58FB" @change="change" ></u-tabs>

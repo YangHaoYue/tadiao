@@ -97,7 +97,7 @@
 		<u-row gutter="10" justify="between">
 			<u-col span="3"  v-for="(item,i) in staff" :key="i">
 				<navigator open-type="navigate" :url="item.url" hover-class="none"
-				class="u-flex u-row-center u-col-center" style="flex-direction: column;">
+				class="u-flex u-row-center u-col-center u-m-t-20" style="flex-direction: column;">
 					<u-image :src="item.img" width="80" height="80"></u-image>
 					<view class="u-font-28" style="color: #404E60;">{{item.name}}</view>
 				</navigator>

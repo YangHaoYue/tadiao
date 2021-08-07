@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<block v-for="(item,index) in list" :key="index">
-			<u-card :title="'创建时间：'+item.created_at" title-size="24" title-color="#666666" :border="false" @click="toDetail()">
+			<u-card :title="'创建时间：'+item.created_at" title-size="24" title-color="#666666" :border="false" @click="toDetail(item.order_id)">
 				<view class="" slot="body">
 					<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					<view class="u-flex u-row-right">
@@ -78,8 +78,8 @@
 				this.status = "loading"
 				this.getInfo();
 			},
-			toDetail(){
-				uni.navigateTo({url: 'detail/detail'});
+			toDetail(order_id){
+				uni.navigateTo({url: '/pages/mine/projectManagement/detail/detail?order_id='+order_id});
 			},
 		}
 	}

@@ -11,7 +11,7 @@
 		</block>
 		<!-- 塔吊信息 -->
 		<block v-for="(item,m) in equipList.tower_data" :key="'m'+m">
-			<pro-card :title="'塔吊信息'+m+':'">
+			<pro-card :title="'塔吊信息'+m+1+':'">
 				<view slot="content" class="">
 					<view class="u-flex u-m-t-30">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>

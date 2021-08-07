@@ -1,11 +1,18 @@
 <template>
 	<view class="wrap">
-		<u-search class="u-p-10 u-p-b-20" placeholder="搜索关键字" input-align="left" :focus="true" v-model="keyword" :action-style="{fontWeight:'bold'}" @custom="clearData"></u-search>
+		<view>
+			<!-- 搜索 -->
+			<u-sticky :enable="sticky" :h5-nav-height="0">
+				<u-search class="u-p-10 u-p-b-20 bg-white" placeholder="搜索关键字" input-align="left" :focus="true" v-model="keyword" :action-style="{fontWeight:'bold'}" @custom="clearData" @search="clearData"></u-search>
+			</u-sticky>
+		</view>
 		<u-row class="u-m-t-30" gutter="20" justify="space-between">
-			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index">
+			<u-col span="6" class="u-m-b-20" v-for="(item,index) in list" :key="index" @click="setPhone(item)">
 				<equipmentItem :item="item" :index="index"></equipmentItem>
 			</u-col>
 		</u-row>
+		<!-- 客服电话 -->
+		<u-action-sheet :list="phone" v-model="show" :tips="tips" :cancel-btn="true" @click="makePhoneCall"></u-action-sheet>
 		<!-- 加载更多 -->
 		<view class="u-m-t-20 u-m-b-20" >
 			<u-loadmore :status="status"/>
@@ -26,8 +33,24 @@
 				this.getInfo();
 			}, 50)
 		},
+		onPageScroll(e) {
+			this.scrollTop = e.scrollTop
+		},
+		watch: {
+			scrollTop(newValue, oldValue) {
+				if(newValue>20){
+					this.sticky = true
+				}else{
+					this.sticky = false
+				}
+			}
+		},
 		data() {
 			return {
+				scrollTop:0,
+				sticky:false,
+				
+				
 				keyword:'',
 				page:1,
 				last_page:1,
@@ -40,6 +63,23 @@
 					loading: '努力加载中',
 					nomore: '实在没有了'
 				},
+				
+				//客服电话
+				tips: {
+					text: '联系人姓名',
+					color: '#333333',
+					fontSize: 28
+				},
+				phone: [{
+					text: '19274874583',
+					color: '#333333',
+					fontSize: 28
+				},{
+					text: '呼叫客服',
+					color: '#333333',
+					fontSize: 28
+				}],
+				show: false
 			}
 		},
 		methods: {
@@ -57,6 +97,9 @@
 								this.list.push(v)
 							})
 						}
+						
+						if(this.page >= this.last_page) this.status = 'nomore';
+						else this.status = 'loadmore';
 					}
 				})
 			},
@@ -66,6 +109,16 @@
 				this.status = "loading";
 				this.list = [];
 				this.getInfo();
+			},
+			setPhone(item){
+				this.phone[0].text = item.media_tel_num;
+				this.tips.text = item.media_name;
+				this.show = true;
+			},
+			makePhoneCall(e){
+				uni.makePhoneCall({
+					phoneNumber:this.phone[0].text
+				})
 			}
 		}
 	}
@@ -74,5 +127,6 @@
 <style scoped>
 	page{
 		background: -webkit-linear-gradient(top,#FBFBFD,#F5F6FA);
+		min-height: 100vh;
 	}
 </style>

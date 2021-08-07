@@ -7,7 +7,7 @@
 				
 			</u-dropdown-item>
 			
-			<u-dropdown-item @change="statusChange" v-model="listStatus" title="状态" :options="statusList"></u-dropdown-item>
+			<u-dropdown-item @change="statusChange" v-model="listStatus" :title="statusTitle" :options="statusList"></u-dropdown-item>
 			
 			<u-dropdown-item title="价格区间">
 				<view class="slot-content">
@@ -24,7 +24,7 @@
 				</view>
 			</u-dropdown-item>
 			
-			<u-dropdown-item @change="typeChange" v-model="type" title="机型" :options="typeList" height="400rpx" @onReachBottom="typeOnReachBottom"></u-dropdown-item>
+			<u-dropdown-item @change="typeChange" v-model="type" :title="typeTitle" :options="typeList" height="400rpx" @onReachBottom="typeOnReachBottom"></u-dropdown-item>
 			
 			<u-dropdown-item :title="brand" style="z-index: 9999;">
 				<view class="slot-content">
@@ -83,10 +83,12 @@
 				areaName:'地区',
 				area_id:'',
 				listStatus: -1,
+				statusTitle:'状态',
 				//价格区间
 				min:0,
 				max:0,
 				type: '',
+				typeTitle:'机型',
 				//品牌
 				brand:'品牌',
 				brand_id:'',
@@ -143,7 +145,7 @@
 					color: '#333333',
 					fontSize: 28
 				},{
-					text: '呼叫',
+					text: '呼叫客服',
 					color: '#333333',
 					fontSize: 28
 				}],
@@ -264,11 +266,21 @@
 			statusChange(index) {
 				console.log(index);
 				this.listStatus = index;
+				this.statusList.map(v=>{
+					if(v.value === index){
+						this.statusTitle = v.label;
+					}
+				})
 				this.clearList();
 			},
 			//机型选择
 			typeChange(value){
 				this.type = value;
+				this.typeList.map(v=>{
+					if(v.value === value){
+						this.typeTitle = v.label;
+					}
+				})
 				this.clearList();
 			},
 			//关闭

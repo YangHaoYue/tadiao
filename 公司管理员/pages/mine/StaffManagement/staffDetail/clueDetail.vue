@@ -3,7 +3,7 @@
 		<block v-for="(item,index) in list" :key="index">
 			<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 			 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
-			 @click="toDetail()">
+			 @click="toDetail(item.id)">
 				<view class="u-flex u-row-between" slot="body">
 					<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 				</view>
@@ -119,8 +119,8 @@
 					lock_arr:e.lock_arr,
 				}
 			},
-			toDetail(){
-				uni.navigateTo({url: 'detail/detail'});
+			toDetail(project_id){
+				uni.navigateTo({url: '/pages/mine/projectClues/detail/detail?project_id='+project_id});
 			},
 		}
 	}

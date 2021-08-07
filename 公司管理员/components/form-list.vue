@@ -30,7 +30,7 @@
 					<u-icon name="arrow-right" size="32rpx" color="#999999"></u-icon>
 				</view>
 			</view>
-			<u-calendar v-model="showDate" btn-type="warning" active-bg-color="#0F58FB" mode="date" @change="dateChange" :min-date="toDay" max-date="2050-12-31"></u-calendar>
+			<u-calendar v-model="showDate" active-bg-color="#0F58FB" mode="date" @change="dateChange" :min-date="toDay" max-date="2050-12-31"></u-calendar>
 		</block>
 		<block v-else-if="item.type=='picker'">
 			<view :class="formPadding" class="bg-white u-flex u-row-between solid-bottom" @click="showList=true">

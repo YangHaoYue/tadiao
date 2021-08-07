@@ -11,7 +11,7 @@
 		</block>
 		<!-- 塔吊信息 -->
 		<block v-for="(item,m) in equipList.tower_data" :key="'m'+m">
-			<pro-card :title="'塔吊信息'+m+':'">
+			<pro-card :title="'塔吊信息'+m+1+':'">
 				<view slot="content" class="">
 					<view class="u-flex u-m-t-30">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
@@ -26,65 +26,69 @@
 					
 					<!-- 保养记录 -->
 					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">保养记录</view>
-					<view class="u-m-t-40 u-p-l-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
+					<view class="u-m-t-40" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerCares(item.id,item)" style="height: 500rpx;">
-							<u-time-line>
-								<u-time-line-item v-for="(son,j) in item.maintainList.cares_data" :key="'j'+j">
-									<!-- 此处自定义了左边内容，用一个图标替代 -->
-									<template v-slot:node>
-										<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-											<!-- 此处为uView的icon组件 -->
-											<u-icon name="file-text" color="#fff" size="24"></u-icon>
-										</view>
-									</template>
-									<template v-slot:content>
-										<view @click="toMDetail(son.id)">
-											<view class="u-flex u-row-between u-font-28 u-m-t-10">
-												<view class="text-black">{{son.cares_name}}</view>
-												<view class="text-black">{{son.carer.name}}</view>
+							<view class="u-p-l-20">
+								<u-time-line>
+									<u-time-line-item v-for="(son,j) in item.maintainList.cares_data" :key="'j'+j">
+										<!-- 此处自定义了左边内容，用一个图标替代 -->
+										<template v-slot:node>
+											<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+												<!-- 此处为uView的icon组件 -->
+												<u-icon name="file-text" color="#fff" size="24"></u-icon>
 											</view>
-											<!-- <view class="u-flex u-flex-wrap">
-												<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-													<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-												</block>
-											</view> -->
-											<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-										</view>
-									</template>
-								</u-time-line-item>
-							</u-time-line>
+										</template>
+										<template v-slot:content>
+											<view @click="toMDetail(son.id)">
+												<view class="u-flex u-row-between u-font-28 u-m-t-10">
+													<view class="text-black">{{son.cares_name}}</view>
+													<view class="text-black">{{son.carer.name}}</view>
+												</view>
+												<!-- <view class="u-flex u-flex-wrap">
+													<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+														<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+													</block>
+												</view> -->
+												<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+											</view>
+										</template>
+									</u-time-line-item>
+								</u-time-line>
+							</view>
 						</scroll-view>
 					</view>
 					
 					<!-- 维修记录 -->
 					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">维修记录</view>
-					<view class="u-m-t-40 u-p-l-20" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">
+					<view class="u-m-t-40" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerFixes(item.id,item)" style="height: 500rpx;">
-							<u-time-line>
-								<u-time-line-item v-for="(son,o) in item.repairList.fixes_data" :key="'o'+o">
-									<!-- 此处自定义了左边内容，用一个图标替代 -->
-									<template v-slot:node>
-										<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-											<!-- 此处为uView的icon组件 -->
-											<u-icon name="file-text" color="#fff" size="24"></u-icon>
-										</view>
-									</template>
-									<template v-slot:content>
-										<view @click="toRDetail(son.id)">
-											<view class="u-flex u-row-between u-font-28 u-m-t-10">
-												<view class="text-black">{{son.fixes_name}}</view>
-												<view class="text-black">{{son.fixer.name}}</view>
+							<view class="u-p-l-20">
+								<u-time-line>
+									<u-time-line-item v-for="(son,o) in item.repairList.fixes_data" :key="'o'+o">
+										<!-- 此处自定义了左边内容，用一个图标替代 -->
+										<template v-slot:node>
+											<view class="u-node u-flex u-row-center"  :style="o===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+												<!-- 此处为uView的icon组件 -->
+												<u-icon name="file-text" color="#fff" size="24"></u-icon>
 											</view>
-											<!-- <view class="u-flex u-flex-wrap">
-												<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-													<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-												</block>
-											</view> -->
-											<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-										</view>
-									</template>
-								</u-time-line-item>
-							</u-time-line>
+										</template>
+										<template v-slot:content>
+											<view @click="toRDetail(son.id)">
+												<view class="u-flex u-row-between u-font-28 u-m-t-10">
+													<view class="text-black">{{son.fixes_name}}</view>
+													<view class="text-black">{{son.fixer.name}}</view>
+												</view>
+												<!-- <view class="u-flex u-flex-wrap">
+													<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+														<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+													</block>
+												</view> -->
+												<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+											</view>
+										</template>
+									</u-time-line-item>
+								</u-time-line>
+							</view>
 						</scroll-view>
 					</view>
 				</view>

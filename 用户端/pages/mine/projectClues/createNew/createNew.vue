@@ -24,12 +24,12 @@
 							<view class="u-flex u-m-t-10 u-m-b-10">
 								<view class="u-flex" style="border: 1rpx solid #DDDDDD;border-radius: 10rpx;line-height: 1;">
 									<view class="u-p-10 u-p-l-15">塔机型号</view>
-									<u-input class="u-border-right u-border-left u-p-l-10" v-model="item.type" placeholder="请输入塔机型号"/>
-									<view class="u-p-10 u-p-l-15">数量</view>
-									<u-input class="u-border-right u-p-l-10" v-model="item.count" placeholder="请输入数量"/>
+									<u-input class="u-border-right u-border-left u-p-l-10" style="width: 249rpx;" v-model="item.type" placeholder="请输入塔机型号"/>
+									<view class="u-p-10 u-font-26">数量</view>
+									<u-input class="u-border-left u-border-right u-p-l-10" style="width: 193rpx;" v-model="item.count" placeholder="请输入数量"/>
 								</view>
-								<u-icon v-if="j != 0" class="u-m-l-10" name="minus-circle" color="#0F58FB" size="52rpx" @click="deleteEquipment(j)"></u-icon>
-								<view v-else class="bg-white u-m-l-24" style="height: 52rpx;width: 52rpx;"></view>
+								<u-icon v-if="j != 0" class="u-m-l-10" name="minus-circle" color="#0F58FB" size="37rpx" @click="deleteEquipment(j)"></u-icon>
+								<view v-else class="bg-white u-m-l-10" style="height: 37rpx;width: 37rpx;"></view>
 							</view>
 						</block>
 						<view class="u-flex u-font-24 add u-row-center" @click="addNewEquipment">
@@ -75,9 +75,9 @@
 		<u-gap height="60" bg-color="#F8F8F8"></u-gap>
 		<!-- modal弹窗 -->
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="530">
-			<view class="u-p-60 u-p-b-40 u-flex" style="flex-direction: column;">
+			<view class="u-p-40 u-flex" style="flex-direction: column;">
 				<u-icon name="checkmark-circle-fill" size="100" color="#0F58FB" label="等待审核" label-color="#333333" label-size="30" label-pos="bottom" margin-top="20"></u-icon>
-				<view class="u-m-t-40 u-font-24 text-gray">预计1-3个工作日，如经审核认定您为本项目的第一位信息提供者，则将有业务员联系您，并确认您为本项目的信息员。</view>
+				<view class="u-m-t-40 u-font-24 text-gray">预计1-3个工作日完成审核，如经审核认定您为本项目的第一位信息提供者，则将有业务员联系您，并确认您为本项目的信息员。</view>
 				<u-button class="u-m-t-50" style="width: 100%;" size="medium" type="primary" @click="back">关闭</u-button>
 			</view>
 		</u-popup>
@@ -88,19 +88,22 @@
 	export default {
 		onLoad(e) {
 			if(e.project_id){
+				uni.setNavigationBarTitle({
+					title:'编辑线索'
+				})
 				this.project_id = e.project_id;
 				this.getProjectEditInfo()
 			}
 		},
 		onShow() {
 			uni.$on('address',(data)=>{
-				console.log(data);
+				console.log('data'+data);
 				this.model.latitude = data.latitude;
 				this.model.longitude = data.longitude;
 				this.model.address = /* data.address + */data.location;
 				this.model.area_code = data.area_code;
 				this.model.location = data.location;
-				uni.$off('addresss')
+				uni.$off('address')
 			})
 		},
 		data() {

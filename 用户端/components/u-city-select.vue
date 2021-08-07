@@ -121,7 +121,7 @@
 			}
 		},
 		mounted() {
-			this.init();
+			/* this.init(); */
 		},
 		computed: {
 			isChange() {
@@ -222,7 +222,7 @@
 				this.close();
 			},
 			change(){
-				if(!this.province) return;
+				if(this.province != '') return;
 				let result = {};
 				result.province = this.provinces[this.province];
 				result.city = this.citys[this.city] || '';

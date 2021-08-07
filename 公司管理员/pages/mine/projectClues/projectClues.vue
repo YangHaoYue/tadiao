@@ -259,7 +259,7 @@
 			},
 			//修改线索
 			toEdit(id){
-				uni.navigateTo({url: 'newProject/newProject?project_id=' + id});
+				uni.navigateTo({url: 'createNew/createNew?project_id=' + id});
 			},
 			/* 新建项目 */
 			toCreate(id){

@@ -130,11 +130,11 @@
 				//选择所属公司
 				selectShow: false,
 				//公司列表
-				selectList: [],
+				selectList: [{branch_name:'无',id:''}],
 				//选择岗位
 				typeShow: false,
 				//岗位列表
-				typeList: [],
+				typeList: [{val:'无',id:''}],
 				isChecked: false
 			}
 		},
@@ -185,7 +185,9 @@
 			getBranches(){
 				this.http.get('auth/getBranches',{},true).then(res=>{
 					if(this.selectList.length == 0){
-						this.selectList = res.branch_data;
+						res.branch_data.map(v=>{
+							this.selectList.push(v)
+						})
 						this.last_page = res.last_page
 					}else{
 						res.branch_data.map(v=>{
@@ -202,7 +204,10 @@
 			//获取工作岗位列表
 			getRegisterInfo(){
 				this.http.get('auth/getRegisterInfo',{},true).then(res=>{
-					this.typeList = res.data.identity_option;
+					res.data.identity_option.map(v=>{
+						this.typeList.push(v)
+					})
+					// this.typeList = res.data.identity_option;
 				})
 			},
 			//选择工作岗位回调

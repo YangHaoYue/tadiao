@@ -15,15 +15,15 @@
 				</u-grid-item>
 				<u-grid-item class="u-border-right u-p-l-30 u-border-bottom">
 					<view class="grid-text" style="margin-right: auto;">分公司数(个)</view>
-					<view class="u-flex u-row-between u-m-t-10 u-m-b-10" style="width: 100%;margin-right: 20rpx;">
+					<view class="u-flex u-row-between u-m-t-10 u-m-b-10" style="width: 90%;margin-right: 20rpx;">
 						<view class="value" style="margin-right: auto;">{{business_data.branch_count}}</view>
-						<view class="u-font-24" style="color: #0F58FB;" @click="todetail">查看详情</view>
+						<view class="u-font-24 u-m-r-10" style="color: #0F58FB;" @click="todetail">查看详情</view>
 					</view>
 					<u-button type="primary" size="mini" style="margin-left: 0;" @click="toNew">新增分公司</u-button>
 				</u-grid-item>
 				<u-grid-item class="u-border-bottom" style="padding-left: 20rpx;">
-					<view class="grid-text u-font-28" style="margin-right: auto;">当月订单月租金总金额(元)</view>
-					<view class="value u-m-t-20" style="margin-right: auto;">￥{{business_data.month_total_amount}}</view>
+					<view class="grid-text u-font-28 u-line-1" style="margin-right: auto;">当月订单月租金总金额(元)</view>
+					<view class="value u-m-t-20" style="margin-right: auto;">{{business_data.month_total_amount}}</view>
 				</u-grid-item>
 				<u-grid-item class="u-border-right u-border-bottom u-p-l-30">
 					<view class="grid-text" style="margin-right: auto;">当月收款总额(元)</view>

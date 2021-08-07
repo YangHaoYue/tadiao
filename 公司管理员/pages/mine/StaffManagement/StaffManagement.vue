@@ -31,7 +31,7 @@
 						<view class="u-font-26" style="color: #999999;">应收款</view>
 					</view>
 					<view class="u-flex u-row-center u-flex-1" style="flex-direction: column;">
-						<view class="u-font-36 text-bold u-m-b-10" style="color: #333333;">￥{{item.order_amount}}</view>
+						<view class="u-font-36 text-bold u-m-b-10" style="color: #333333;">{{item.order_amount}}</view>
 						<view class="u-font-26" style="color: #999999;">订单金额</view>
 					</view>
 				</view>

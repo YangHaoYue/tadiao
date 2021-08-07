@@ -95,10 +95,10 @@
 		<block v-else>
 			<view class="cardTwo" style="padding-bottom: 59rpx;">
 				<view class="u-font-32 text-bold u-m-b-30" style="color: #404E60;">设备管理</view>
-				<view class="subsection u-flex u-line-1" style="width: 322rpx;">
-					<view class="border-right" :class="curNow == 0?'selected':'nomal'" @click="changeCur(0)" style="border-radius: 8rpx 0 0 8rpx;">3日内</view>
-					<view class="border-right" :class="curNow == 1?'selected':'nomal'" @click="changeCur(1)">7日内</view>
-					<view :class="curNow == 2?'selected':'nomal'" @click="changeCur(2)" style="border-radius: 0 8rpx 8rpx 0;">1个月内</view>
+				<view class="subsection u-flex u-line-1" style="width: 342rpx;">
+					<view class="border-right u-flex-1" :class="curNow == 0?'selected':'nomal'" @click="changeCur(0)" style="border-radius: 8rpx 0 0 8rpx;">3日内</view>
+					<view class="border-right u-flex-1" :class="curNow == 1?'selected':'nomal'" @click="changeCur(1)">7日内</view>
+					<view class="u-flex-1" :class="curNow == 2?'selected':'nomal'" @click="changeCur(2)" style="border-radius: 0 8rpx 8rpx 0;">1个月内</view>
 				</view>
 				<view class="u-font-28 u-m-t-42" style="color: #838383;">管理设备数</view>
 				<view class="u-flex u-row-between u-m-t-10">
