@@ -6,13 +6,13 @@
 		</view>
 		<view class="bg-white" style="border-radius: 53rpx 53rpx 0 0 ;padding: 37rpx 57rpx 0 35rpx;transform: translateY(-50rpx);">
 			<u-form>
-				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150" :border-bottom="false">
+				<!-- <u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150" :border-bottom="false">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" @on-list-change="onQualificationChange" :max-count="9" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 								<u-icon name="plus" size="60" :color="$u.color['lightColor']"></u-icon>
 							</view>
 					</u-upload>
-				</u-form-item>
+				</u-form-item> -->
 				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传身份证正反面" label-width="150" :border-bottom="false">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" upload-text="身份证正面" @on-list-change="onPositiveChange" :max-count="1" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
@@ -124,7 +124,7 @@
 				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
 				
 				this.http.post('UserCenter/realInfo',{
-					staff_img:img,
+					// staff_img:img,
 					id_card_img:scimg,
 				}).then(res=>{
 					this.$u.toast(res.msg)

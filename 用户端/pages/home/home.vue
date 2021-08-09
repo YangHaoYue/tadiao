@@ -138,5 +138,6 @@
 <style>
 	.wrap{
 		background: -webkit-linear-gradient(top,#FBFBFD,#F5F6FA);
+		min-height: 100vh;
 	}
 </style>

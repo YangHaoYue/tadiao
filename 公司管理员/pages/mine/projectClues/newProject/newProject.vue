@@ -83,7 +83,9 @@
 		},
 		onShow() {
 			uni.$on('townList',(data)=>{
-				this.equipmentList = data.data
+				data.data.map(v=>{
+					this.equipmentList.push(v)
+				})
 				uni.$off('townList')
 			})
 		},

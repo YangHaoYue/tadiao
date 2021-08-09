@@ -4,7 +4,6 @@
 			
 			<u-dropdown-item :title="areaName">
 				<city-select  @city-change="cityChange" @clearData="clearArea"></city-select>
-				
 			</u-dropdown-item>
 			
 			<u-dropdown-item @change="statusChange" v-model="listStatus" :title="statusTitle" :options="statusList"></u-dropdown-item>
@@ -24,7 +23,11 @@
 				</view>
 			</u-dropdown-item>
 			
-			<u-dropdown-item @change="typeChange" v-model="type" :title="typeTitle" :options="typeList" height="400rpx" @onReachBottom="typeOnReachBottom"></u-dropdown-item>
+			<u-dropdown-item @change="typeChange" v-model="type" :title="typeTitle" :options="typeList"
+			 :showReset="true" @reset="typeReset"
+			  height="400rpx" @onReachBottom="typeOnReachBottom">
+				
+			</u-dropdown-item>
 			
 			<u-dropdown-item :title="brand" style="z-index: 9999;">
 				<view class="slot-content">
@@ -252,7 +255,6 @@
 			},
 			//城市选择
 			cityChange(e) {
-				console.log(e);
 				this.areaName = e.area.label || e.city.label || e.province.label;
 				this.area_id = e.area.value || e.city.value || e.province.value;
 				this.clearList();
@@ -264,7 +266,6 @@
 			},
 			//状态选择
 			statusChange(index) {
-				console.log(index);
 				this.listStatus = index;
 				this.statusList.map(v=>{
 					if(v.value === index){
@@ -281,6 +282,12 @@
 						this.typeTitle = v.label;
 					}
 				})
+				this.clearList();
+			},
+			//机型重置
+			typeReset(){
+				this.typeTitle = '机型'
+				this.type = ''
 				this.clearList();
 			},
 			//关闭

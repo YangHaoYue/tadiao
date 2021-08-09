@@ -26,7 +26,7 @@
 									<view class="u-p-10 u-p-l-15">塔机型号</view>
 									<u-input class="u-border-right u-border-left u-p-l-10" style="width: 249rpx;" v-model="item.type" placeholder="请输入塔机型号"/>
 									<view class="u-p-10 u-font-26">数量</view>
-									<u-input class="u-border-left u-border-right u-p-l-10" style="width: 193rpx;" v-model="item.count" placeholder="请输入数量"/>
+									<u-input class="u-border-left u-border-right u-p-l-10" type="number" style="width: 193rpx;" v-model="item.count" placeholder="请输入数量"/>
 								</view>
 								<u-icon v-if="j != 0" class="u-m-l-10" name="minus-circle" color="#0F58FB" size="37rpx" @click="deleteEquipment(j)"></u-icon>
 								<view v-else class="bg-white u-m-l-10" style="height: 37rpx;width: 37rpx;"></view>

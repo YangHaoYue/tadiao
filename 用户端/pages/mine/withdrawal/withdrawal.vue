@@ -28,7 +28,7 @@
 				<!-- 支付宝 -->
 				<block v-if="model.wayId == 1">
 					<u-form-item :label-style="labelStyle" label-width="200" :label-position="labelPosition" label="账号">
-						<u-input :border="border" placeholder="请输入支付宝账号" v-model="model.zfb.acount" type="text"></u-input>
+						<u-input :border="border" placeholder="请输入支付宝账号" v-model="model.zfb.acount" type="number"></u-input>
 					</u-form-item>
 					<u-form-item :label-style="labelStyle" label-width="200" :label-position="labelPosition" label="姓名">
 						<u-input :border="border" type="text" v-model="model.zfb.name" placeholder="请输入姓名"></u-input>
@@ -40,7 +40,7 @@
 						<u-input :border="border" :disabled="true" v-model="model.band.bandName" placeholder="请选择银行" @click="toManagment" disabled></u-input>
 					</u-form-item>
 					<u-form-item :label-style="labelStyle" label-width="200" :label-position="labelPosition" label="银行卡号">
-						<u-input :border="border" type="text" v-model="model.band.code" placeholder="请输入银行卡号" disabled @click="toManagment"></u-input>
+						<u-input :border="border" type="number" v-model="model.band.code" placeholder="请输入银行卡号" disabled @click="toManagment"></u-input>
 					</u-form-item>
 				</block>
 			</u-form>

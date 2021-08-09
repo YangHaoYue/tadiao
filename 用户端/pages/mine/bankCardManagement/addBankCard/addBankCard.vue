@@ -8,10 +8,10 @@
 				<u-input :border="border" type="text" v-model="model.brankName" placeholder="请输入银行名称"></u-input>
 			</u-form-item>
 			<u-form-item :label-style="labelStyle" :label-width="200" :label-position="labelPosition" label="银行卡号" prop="code1">
-				<u-input :border="border" type="text" v-model="model.code1" placeholder="请输入银行卡号"></u-input>
+				<u-input :border="border" type="number" v-model="model.code1" placeholder="请输入银行卡号"></u-input>
 			</u-form-item>
 			<u-form-item :label-style="labelStyle" :label-width="200" :label-position="labelPosition" label="确认卡号" prop="code2">
-				<u-input :border="border" type="text" v-model="model.code2" placeholder="请再次确认卡号"></u-input>
+				<u-input :border="border" type="number" v-model="model.code2" placeholder="请再次确认卡号"></u-input>
 			</u-form-item>
 		</u-form>
 		<u-button class="u-m-30 u-m-t-30" type="primary" :disabled="disabled" @click="submit">确认</u-button>

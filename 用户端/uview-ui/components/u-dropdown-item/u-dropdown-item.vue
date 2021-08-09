@@ -15,6 +15,9 @@
 					</u-cell-group>
 				</view>
 			</scroll-view>
+			<view class="u-flex u-row-right bg-white u-border-top" v-if="showReset">
+				<u-button class="u-m-10" type="primary" plain @click="reset" size="medium">重置</u-button>
+			</view>
 		</block>
 		<slot v-else />
 	</view>
@@ -63,6 +66,11 @@
 				type: [Number, String],
 				default: 'auto'
 			},
+			//是否显示重置按钮
+			showReset:{
+				type:Boolean,
+				default:false
+			}
 		},
 		data() {
 			return {
@@ -123,6 +131,13 @@
 			toBottom(){
 				//滑动达到底部
 				this.$emit('onReachBottom',true)
+			},
+			//重置
+			reset(){
+				// 通知父组件(u-dropdown)收起菜单
+				this.parent.close();
+				// 发出事件
+				this.$emit('reset',true)
 			}
 		},
 		mounted() {

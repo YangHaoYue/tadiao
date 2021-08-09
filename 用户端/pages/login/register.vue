@@ -9,11 +9,11 @@
 			</u-form-item>
 			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="手机"
 				prop="phone">
-				<u-input :border="border" type="text" v-model="model.phone" placeholder="请输入手机号"></u-input>
+				<u-input :border="border" type="number" v-model="model.phone" placeholder="请输入手机号"></u-input>
 			</u-form-item>
 			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="验证码"
 				prop="code" label-width="150">
-				<u-input :border="border" placeholder="请输入验证码" v-model="model.code" type="text"></u-input>
+				<u-input :border="border" placeholder="请输入验证码" v-model="model.code" type="number"></u-input>
 				<u-button slot="right" type="primary" plain size="medium" @click="getCode">{{codeTips}}</u-button>
 				<!-- <view class="codeType" slot="right" @click="getCode">{{codeTips}}</view> -->
 			</u-form-item>

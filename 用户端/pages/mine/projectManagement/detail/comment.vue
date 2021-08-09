@@ -10,7 +10,7 @@
 				<u-input type="textarea" v-model="tower_comment" height="319" placeholder="请输入对设备的评价"></u-input>
 			</view>
 		</view>
-		<u-button class="u-m-25" type="primary" style="position: fixed;bottom: 78rpx;right: 0;left: 0;" @click="followUp">提交评价</u-button>
+		<u-button class="u-m-25" type="primary" style="position: fixed;bottom: 78rpx;right: 0;left: 0;" @click="commentOrder">提交评价</u-button>
 	</view>
 </template>
 

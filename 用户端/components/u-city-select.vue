@@ -27,14 +27,15 @@
 								 :border-bottom="false" :title="item.label" :arrow="false" :index="index"
 								 :title-style="isChooseC&&city===index?{color:'#0F58FB','fontsize':'28rpx'}:{'fontsize':'28rpx'}"
 								 @click="cityChange" :size="true">
-									<u-icon v-if="isChooseC&&city===index" color="blue" slot="right-icon" size="34" name="arrow-right"></u-icon>
+									<u-icon v-if="isChooseC&&city===index" color="blue" slot="right-icon" size="34" name="checkbox-mark"></u-icon>
+									<!-- <u-icon v-if="isChooseC&&city===index" color="blue" slot="right-icon" size="34" name="arrow-right"></u-icon> -->
 								</u-cell-item>
 							</u-cell-group>
 						</scroll-view>
 					</view>
 				</view>
 		
-				<view class="area-item u-flex-1">
+				<!-- <view class="area-item u-flex-1">
 					<view class="u-bg-gray" style="height: 100%;">
 						<view class="topTitle">区域</view>
 						<scroll-view :scroll-y="true" style="height: 100%">
@@ -48,7 +49,7 @@
 							</u-cell-group>
 						</scroll-view>
 					</view>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="u-flex u-row-right bg-white u-p-t-10 u-p-b-20">
@@ -198,6 +199,8 @@
 				this.isChooseC = false;
 				this.isChooseA = false;
 				this.province = index;
+				this.claerCity();
+				this.clearArea();
 				this.citys = citys[index];
 				this.tabsIndex = 1;
 			},
@@ -205,6 +208,7 @@
 				this.isChooseC = true;
 				this.isChooseA = false;
 				this.city = index;
+				this.clearArea();
 				this.areas = areas[this.province][index];
 				this.tabsIndex = 2;
 			},
@@ -213,16 +217,23 @@
 				this.area = index;
 				this.change();
 			},
+			claerCity(){
+				this.city = '';
+				this.isChooseC = false;
+			},
+			clearArea(){
+				this.area = '';
+				this.isChooseA = false;
+			},
 			clearData() {
 				this.province = '';
-				this.city = '';
-				this.area = '';
-				this.isChooseP = false;				this.isChooseC = false;				this.isChooseA = false;
-				this.$emit('clearData', true);
+				this.isChooseP = false;
+				this.clearArea();
+				this.claerCity();				this.$emit('clearData', true);
 				this.close();
 			},
 			change(){
-				if(this.province != '') return;
+				if(this.province === '') return;
 				let result = {};
 				result.province = this.provinces[this.province];
 				result.city = this.citys[this.city] || '';

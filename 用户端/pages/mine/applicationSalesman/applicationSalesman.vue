@@ -16,7 +16,7 @@
 							</view>
 					</u-upload>
 				</u-form-item>
-				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传身份证正反面" label-width="150"  :border-bottom="false">
+				<u-form-item :label-style="labelStyle" :required="true" label-position="top" label="上传身份证正反面" label-width="150"  :border-bottom="false">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" upload-text="身份证正面" @on-list-change="onPositiveChange" :max-count="1" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 							<u-image src="@/static/on.png" width="80" height="60"></u-image>
