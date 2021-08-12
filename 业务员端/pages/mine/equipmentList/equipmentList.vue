@@ -12,7 +12,7 @@
 			<view class="u-m-25 u-p-15 bg-white"  @click="toDetail(item.id,item.order_id)">
 				<view class="u-flex u-row-between u-border-bottom u-p-t-14 u-font-24 u-p-b-20">
 					<view class="" style="color: #666666;">合同时间:{{item.fix_contract_at}}</view>
-					<view class="" style="color: #666666;" v-if="item.acceptor_str">待转移给:{{item.acceptor_str}}</view>
+					<view class="" style="color: #666666;" v-if="item.acceptor_str">{{item.acceptor_str}}</view>
 				</view>
 				<view class="u-flex u-p-t-20">
 					<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>

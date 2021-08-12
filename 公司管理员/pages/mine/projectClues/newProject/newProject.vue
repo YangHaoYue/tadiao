@@ -86,8 +86,12 @@
 		},
 		onShow() {
 			uni.$on('townList',(data)=>{
+				// console.log(data.data);
 				data.data.map(v=>{
-					this.equipmentList.push(v)
+					let d = this.equipmentList.findIndex(k=>v.id === k.id)
+					console.log(d);
+					if(d == -1) this.equipmentList.push(v)
+					
 				})
 				uni.$off('townList')
 			})

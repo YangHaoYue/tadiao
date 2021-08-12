@@ -89,11 +89,14 @@
 		},
 		onShow() {
 			uni.$on('townList',(data)=>{
+				// console.log(data.data);
 				data.data.map(v=>{
-					console.log(data.data);
-					this.equipmentList.push(v)
-					uni.$off('townList')
+					let d = this.equipmentList.findIndex(k=>v.id === k.id)
+					console.log(d);
+					if(d == -1) this.equipmentList.push(v)
+					
 				})
+				uni.$off('townList')
 			})
 		},
 		components:{

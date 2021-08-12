@@ -1,10 +1,10 @@
 <template>
 	<view>
 		<!-- 头像 -->
-		<view class="u-flex u-col-top u-p-t-20 u-p-l-46 u-p-b-10 u-p-r-30" style="background-color: #F8F8F8;">
-			<view class="u-flex u-col-center" style="margin-right: auto;" @click="toSetting">
+		<view class="u-flex u-col-top u-p-t-20 u-p-l-26 u-p-b-10 u-p-r-20" style="background-color: #F8F8F8;">
+			<view class="u-flex u-col-center u-flex-1" style="margin-right: auto;" @click="toSetting">
 				<u-avatar :src="http.resourceUrl() +user_data.avatar" size="120"></u-avatar>
-				<view class="u-m-l-30">
+				<view class="u-m-l-20" style="width: 240rpx;">
 					<view class="u-font-28 text-bold u-line-1">{{user_data.name}}</view>
 					<view class="u-font-24 u-line-1" style="color: #999999;">{{user_data.branch_name}}</view>
 				</view>
