@@ -1,6 +1,8 @@
 <template>
 	<view>
-		<u-image :src="contract_img" mode="widthFix" width="750rpx"></u-image>
+		<block v-for="(item,index) in contract_imgs" :key="index">
+			<u-image :src="http.resourceUrl()+item" mode="widthFix" width="750rpx"></u-image>
+		</block>
 	</view>
 </template>
 
@@ -13,7 +15,7 @@
 		data() {
 			return {
 				order_id:'',
-				contract_img:''
+				contract_imgs:''
 			}
 		},
 		methods: {
@@ -21,7 +23,7 @@
 				this.http.get('Order/getContract',{
 					order_id:this.order_id
 				}).then(res=>{
-					this.contract_img = this.http.resourceUrl() + res.data.contract_img;
+					this.contract_imgs = res.data.contract_imgs;
 				})
 			}
 		}

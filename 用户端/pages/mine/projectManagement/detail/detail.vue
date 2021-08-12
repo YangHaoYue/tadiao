@@ -1,8 +1,10 @@
 <template>
 	<view>
 		<pro-card title="合同信息">
-			<view class="u-flex u-m-t-20" slot="content">
-				<u-image :src="http.resourceUrl() + contract.contract_img" width="128" height="181" :fade="false" class="u-m-r-36 u-m-l-10"></u-image>
+			<view class="u-flex u-m-t-20 u-p-l-36" slot="content">
+				<block v-for="(item,index) in contract.contract_imgs" :key="'img'+index">
+					<u-image :src="http.resourceUrl() + item" width="128" height="181" :fade="false" class="u-m-l-10"></u-image>
+				</block>
 				<view class="text-bold u-font-28 text-black">合同编号:{{contract.contract_num}}</view>
 			</view>
 		</pro-card>
@@ -11,7 +13,7 @@
 		</block>
 		<!-- 塔吊信息 -->
 		<block v-for="(item,m) in equipList.tower_data" :key="'m'+m">
-			<pro-card :title="'塔吊信息'+m+1+':'">
+			<pro-card :title="`塔吊信息${Number(m)+1}:`">
 				<view slot="content" class="">
 					<view class="u-flex u-m-t-30">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
@@ -26,65 +28,69 @@
 					
 					<!-- 保养记录 -->
 					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">保养记录</view>
-					<view class="u-m-t-40 u-p-l-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
+					<view class="u-m-t-40 " v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerCares(item.id,item)" style="height: 500rpx;">
-							<u-time-line>
-								<u-time-line-item v-for="(son,j) in item.maintainList.cares_data" :key="'j'+j">
-									<!-- 此处自定义了左边内容，用一个图标替代 -->
-									<template v-slot:node>
-										<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-											<!-- 此处为uView的icon组件 -->
-											<u-icon name="file-text" color="#fff" size="24"></u-icon>
-										</view>
-									</template>
-									<template v-slot:content>
-										<view @click="toMDetail(son.id)">
-											<view class="u-flex u-row-between u-font-28 u-m-t-10">
-												<view class="text-black">{{son.cares_name}}</view>
-												<view class="text-black">{{son.carer.name}}</view>
+							<view class="u-p-l-20">
+								<u-time-line>
+									<u-time-line-item v-for="(son,j) in item.maintainList.cares_data" :key="'j'+j">
+										<!-- 此处自定义了左边内容，用一个图标替代 -->
+										<template v-slot:node>
+											<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+												<!-- 此处为uView的icon组件 -->
+												<u-icon name="file-text" color="#fff" size="24"></u-icon>
 											</view>
-											<!-- <view class="u-flex u-flex-wrap">
-												<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-													<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-												</block>
-											</view> -->
-											<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-										</view>
-									</template>
-								</u-time-line-item>
-							</u-time-line>
+										</template>
+										<template v-slot:content>
+											<view @click="toMDetail(son.id)">
+												<view class="u-flex u-row-between u-font-28 u-m-t-10">
+													<view class="text-black">{{son.cares_name}}</view>
+													<view class="text-black">{{son.carer.name}}</view>
+												</view>
+												<!-- <view class="u-flex u-flex-wrap">
+													<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+														<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+													</block>
+												</view> -->
+												<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+											</view>
+										</template>
+									</u-time-line-item>
+								</u-time-line>
+							</view>
 						</scroll-view>
 					</view>
 					
 					<!-- 维修记录 -->
 					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">维修记录</view>
-					<view class="u-m-t-40 u-p-l-20" v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">
+					<view class="u-m-t-40 " v-if="item.repairList.fixes_data&&item.repairList.fixes_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerFixes(item.id,item)" style="height: 500rpx;">
-							<u-time-line>
-								<u-time-line-item v-for="(son,o) in item.repairList.fixes_data" :key="'o'+o">
-									<!-- 此处自定义了左边内容，用一个图标替代 -->
-									<template v-slot:node>
-										<view class="u-node u-flex u-row-center"  :style="j===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
-											<!-- 此处为uView的icon组件 -->
-											<u-icon name="file-text" color="#fff" size="24"></u-icon>
-										</view>
-									</template>
-									<template v-slot:content>
-										<view @click="toRDetail(son.id)">
-											<view class="u-flex u-row-between u-font-28 u-m-t-10">
-												<view class="text-black">{{son.fixes_name}}</view>
-												<view class="text-black">{{son.fixer.name}}</view>
+							<view class="u-p-l-20">
+								<u-time-line>
+									<u-time-line-item v-for="(son,o) in item.repairList.fixes_data" :key="'o'+o">
+										<!-- 此处自定义了左边内容，用一个图标替代 -->
+										<template v-slot:node>
+											<view class="u-node u-flex u-row-center"  :style="o===0?'background: #0F58FB;':'background: #D8D8D8;'" style="border-radius: 100%;width: 40rpx;height: 40rpx;">
+												<!-- 此处为uView的icon组件 -->
+												<u-icon name="file-text" color="#fff" size="24"></u-icon>
 											</view>
-											<!-- <view class="u-flex u-flex-wrap">
-												<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
-													<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
-												</block>
-											</view> -->
-											<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
-										</view>
-									</template>
-								</u-time-line-item>
-							</u-time-line>
+										</template>
+										<template v-slot:content>
+											<view @click="toRDetail(son.id)">
+												<view class="u-flex u-row-between u-font-28 u-m-t-10">
+													<view class="text-black">{{son.fixes_name}}</view>
+													<view class="text-black">{{son.fixer.name}}</view>
+												</view>
+												<!-- <view class="u-flex u-flex-wrap">
+													<block class="u-p-10" v-for="(kid,k) in son.imgList" :key="k">
+														<u-image :src="kid" width="115" height="115" :fade="false" class="u-m-r-10 u-m-b-10"></u-image>
+													</block>
+												</view> -->
+												<view class="u-order-desc text-gray u-m-t-10 u-font-24">{{son.created_at}}</view>
+											</view>
+										</template>
+									</u-time-line-item>
+								</u-time-line>
+							</view>
 						</scroll-view>
 					</view>
 				</view>
@@ -102,8 +108,10 @@
 						</view>
 						<view class="u-flex u-row-between u-font-28 u-m-t-10"><!-- 0=>显示收款按钮,1=>显示已支付 -->
 							<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
-							<view class="text-black" v-if="item.status == 1">已支付</view>
-							<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
+							<view class="text-black" v-if="item.status == 0">未付款</view>
+							<view class="text-black" v-if="item.status == 1">审核中</view>
+							<view class="text-black" v-if="item.status == 2">已支付</view>
+							<!-- <u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button> -->
 						</view>
 					</view>
 				</scroll-view>
@@ -164,14 +172,18 @@
 		},
 		onLoad(e) {
 			this.order_id = e.order_id;
+		},
+		onShow() {
 			this.getInfo();
+			this.payList = [];
+			this.orderPays();
 		},
 		data() {
 			return {
 				order_id:'',
 				contract:{
 					contract_num:'',
-					contract_img:''
+					contract_imgs:''
 				},
 				list:[
 					{
@@ -241,7 +253,7 @@
 					order_id:this.order_id
 				}).then(res=>{
 					if(res.code == 1000){
-						this.contract.contract_img = res.data.contract_img;
+						this.contract.contract_imgs = res.data.contract_imgs;
 						this.contract.contract_num = res.data.contract_num;
 						
 						this.list[0].list[0].value = res.data.cus.name;
@@ -327,7 +339,9 @@
 				if(this.payList.current_page > this.payList.last_page) return ;
 				this.http.get('Order/orderPays',{
 					order_id:this.order_id,
-					page:this.payList.current_page||1},true).then(res=>{
+					page:this.payList.current_page||1
+				},true).then(res=>{
+						//0=>显示’未付款’,1=>显示’审核中’,2=>显示’已支付’
 						if(!this.payList.order_pays_data){
 							this.$set(this,'payList',res.data)
 						}else{

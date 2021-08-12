@@ -55,7 +55,7 @@
 						return{
 							title:v.TITLE,
 							answers:v.ANSWERS,
-							value:v.ANSWERS[0].text
+							value:''
 						}
 					});
 					console.log(this.questionList);
@@ -101,7 +101,7 @@
 			//上传保养照片
 			onChange(lists){
 				console.log('onListChange', lists[0]);
-				this.lists=lists
+				this.lists = lists
 			},
 			// 选中某个单选框时，由radio时触发
 			radioChange(e) {

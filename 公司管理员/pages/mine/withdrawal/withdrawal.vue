@@ -189,6 +189,11 @@
 						this.showModal = true
 					}else{
 						this.$u.toast(res.msg);
+						if(!res.data.is_real){
+							setTimeout(()=>{
+								uni.navigateTo({url: '/pages/mine/perfection/perfection'});
+							},1000)
+						}
 					}
 				})
 			}

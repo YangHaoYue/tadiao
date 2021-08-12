@@ -19,7 +19,7 @@
 			<u-loadmore :status="status"/>
 		</view>
 		<u-gap height="40" bg-color="#F8F8F8"></u-gap>
-		<!-- <u-button class="u-m-30" type="primary" @click="toConnect">继续关联</u-button> -->
+		<u-button class="u-m-30" type="primary" @click="toConnect" v-if="show_btn">继续关联</u-button>
 		
 	</view>
 </template>
@@ -28,6 +28,7 @@
 	export default {
 		onLoad(e) {
 			this.project_id = e.project_id;
+			this.show_btn = e.show_btn == 1
 		},
 		onShow() {
 			this.clearData()
@@ -43,6 +44,9 @@
 		data() {
 			return {
 				project_id:'',
+				show_btn:false,
+				
+				
 				page:1,
 				last_page:1,
 				list:[],
@@ -96,7 +100,7 @@
 				this.getInfo();
 			},
 			toConnect(id){
-				uni.navigateTo({url: 'relation?project_id=' + this.project_id});
+				uni.redirectTo({url: 'relation?project_id=' + this.project_id});
 			}
 		}
 	}

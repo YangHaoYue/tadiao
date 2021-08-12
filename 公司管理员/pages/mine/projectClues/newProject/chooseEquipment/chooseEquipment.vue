@@ -119,6 +119,7 @@
 							})
 							this.tabList[this.current].last_page = res.data.last_page;
 						}else{
+							if(this.tabList[this.current].page >= this.tabList[this.current].last_page) return
 							let list = res.data.tower_data.forEach(v=>{
 								this.$set(v,'checked',false)
 							})

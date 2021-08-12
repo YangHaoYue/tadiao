@@ -61,7 +61,7 @@
 			<!-- 宫格 -->
 			<view class="u-p-30" style="padding-top: 0 !important;">
 				<u-grid :col="2" :border="false" align="left">
-					<u-grid-item class="u-border-right u-border-bottom u-p-l-30">
+					<u-grid-item class="u-border-right u-border-bottom u-p-l-30" @click="toProjectClues">
 						<view class="grid-text" style="margin-right: auto;">线索量</view>
 						<view class="value u-m-t-20" style="margin-right: auto;">{{business_data.project_count}}</view>
 					</u-grid-item>
@@ -195,13 +195,15 @@
 			this.day = this.http.getToday();
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
-			this.getUserInfo();
-			this.getInviteCode();
 			let identity = uni.getStorageSync('identity');
 			if(identity == 3){
 				this.fixerMain();
 				this.change();
 			}
+		},
+		onShow() {
+			this.getUserInfo();
+			this.getInviteCode();
 		},
 		onPullDownRefresh() {
 			setTimeout(()=>{
@@ -450,6 +452,10 @@
 			},
 			toTrakdetail(order_id,id){
 				uni.navigateTo({url: 'equipmentList/detail/detail?tower_id='+id+'&order_id='+order_id});
+			},
+			//跳转线索列表
+			toProjectClues(){
+				uni.navigateTo({url: '/pages/mine/projectClues/projectClues'});
 			}
 		}
 	}

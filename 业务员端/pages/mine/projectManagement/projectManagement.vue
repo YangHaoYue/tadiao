@@ -65,7 +65,8 @@
 <script>
 	export default {
 		onLoad() {
-			this.start = this.http.getToday();
+			let now = new Date();
+			this.start = `${now.getFullYear()-1}-${now.getMonth() + 1}-${now.getDate()}`;
 			this.end = this.http.getToday();
 		},
 		onShow() {

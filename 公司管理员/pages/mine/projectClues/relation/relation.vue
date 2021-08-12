@@ -153,9 +153,7 @@
 					this.$u.toast(res.msg);
 					if(res.code == 1000){
 						setTimeout(()=>{
-							uni.navigateBack({
-								delete:1
-							})
+							uni.redirectTo({url: 'associated?show_btn=1&project_id='+this.project_id});
 						},1500)
 					}
 				})

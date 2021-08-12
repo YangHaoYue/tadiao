@@ -46,6 +46,12 @@
 			/* this.getInfo(); */
 		},
 		onShow() {
+			uni.removeStorage({
+				key:'branch_id',
+				success(res) {
+					console.log(res);
+				}
+			})
 			this.claerData();
 		},
 		onReachBottom() {
@@ -74,7 +80,7 @@
 		methods: {
 			getInfo(){
 				this.http.get('Manager/branches',{
-					branch_id:uni.getStorageSync('branch_id'),
+					// branch_id:uni.getStorageSync('branch_id'),
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){

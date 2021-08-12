@@ -5,7 +5,10 @@
 				<view class="u-flex u-row-between" style="padding: 13rpx 30rpx;">
 					<view class="u-flex">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="116" height="116" :fade="false"></u-image>
-						<view class="u-font-28 text-bold text-bold u-m-l-15">{{item.tower_name}}</view>
+						<view class="u-m-l-15 u-font-28 text-bold">
+							<view class="">{{item.tower_name}}</view>
+							<view class="u-m-t-10">设备出厂编号:{{item.serial_num}}</view>
+						</view>
 					</view>
 					<u-image src="../../../../static/shanchu@2x.png" width="35" height="35" :fade="false" @click="del(index)"></u-image>
 				</view>
@@ -58,12 +61,12 @@
 				<u-input v-model="code" type="text" input-align="right" placeholder="请输入合同编号" placeholder-style="color:#999999;font-size:28rpx;"/>
 			</view>
 			<view class="u-m-t-20 u-m-l-30">
-				<u-upload width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :file-list="contract" :max-count="1" @on-list-change="onPayChange"></u-upload>
+				<u-upload width="160" height="160" :action="http.interfaceUrl()+action" :header="header" :file-list="contract" :max-count="99" @on-list-change="onPayChange"></u-upload>
 			</view>
 		</view>
 		
-		<u-button type="primary" class="u-m-30" @click="addOrder">立即提交</u-button>
 		<u-button type="primary" class="u-m-30" @click="editOrder" v-if="order_id&&show_submit_button">提交修改</u-button>
+		<u-button type="primary" class="u-m-30" @click="addOrder" v-else>立即提交</u-button>
 		<u-gap bg-color="F8F8F8" height="50"></u-gap>
 	</view>
 </template>
@@ -140,6 +143,7 @@
 						this.customerList[0].value = res.data.office_name;
 						this.customerList[1].value = res.data.cus_name;
 						this.customerList[2].value = res.data.cus_tel_num;
+						this.getTowersByTowerIds(res.data.tower_ids);
 					}
 				})
 			},
@@ -148,6 +152,7 @@
 					order_id:this.order_id
 				}).then(res=>{
 					if(res.code == 1000){
+						this.money = res.data.month_rent;
 						this.formList[1].list = res.data.type_pay;
 						this.formList[1].list.map(v=>{
 							if(v.id == res.data.id){
@@ -156,13 +161,17 @@
 							}
 						})
 						this.formList[0].value = res.data.in_out_cost;
+						this.formList[1].value = res.data.type_pay_id == 1?'季结':'月结';
+						this.formList[1].id = res.data.type_pay_id;
 						this.formList[2].value = res.data.lease_start_at;
 						this.formList[3].value = res.data.lease_end_at;
 						
+						this.firstPayList[0].id = res.data.first_id;
 						this.firstPayList[0].value = res.data.first_start_at;
 						this.firstPayList[1].value = res.data.first_amount;
 						this.firstPayList[2].value = res.data.first_remark;
 						
+						this.lastPayList[0].id = res.data.next_id;
 						this.lastPayList[0].value = res.data.next_start_at;
 						this.lastPayList[1].value = res.data.next_amount;
 						this.lastPayList[2].value = res.data.next_remark;
@@ -174,8 +183,10 @@
 						this.show_submit_button = res.data.show_submit_button;
 						
 						this.code = res.data.contract_num;
-						this.contract.push({
-							url:this.http.resourceUrl()+res.data.contract_img
+						res.data.contract_imgs.map(v=>{
+							this.contract.push({
+								url:this.http.resourceUrl()+v
+							})
 						})
 						this.getTowersByTowerIds(res.data.tower_ids);
 					}
@@ -188,9 +199,9 @@
 				let img=[]
 				this.contract.map(item=>{
 					if(item.response&&item.response.code==1000){
-						img =item.response.data.path;
+						img.push(item.response.data.path)
 					}else if(!item.error&&item.progress==100){
-						img = item.url;
+						img.push(item.url)
 					}
 				});
 				this.http.post('Order/addOrder',{
@@ -215,7 +226,7 @@
 					cus_tel_num:this.customerList[2].value,
 					
 					contract_num:this.code,
-					contract_img:img
+					contract_imgs:img
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
@@ -234,9 +245,9 @@
 				let img=[]
 				this.contract.map(item=>{
 					if(item.response&&item.response.code==1000){
-						img =item.response.data.path;
+						img.push(item.response.data.path)
 					}else if(!item.error&&item.progress==100){
-						img = item.url;
+						img.push(item.url)
 					}
 				});
 				this.http.post('Order/editOrder',{
@@ -248,10 +259,12 @@
 					lease_start_at:this.formList[2].value,
 					lease_end_at:this.formList[3].value,
 					
+					first_id:this.firstPayList[0].id,
 					first_start_at:this.firstPayList[0].value,
 					first_amount:this.firstPayList[1].value,
 					first_remark:this.firstPayList[2].value,
 					
+					next_id:this.lastPayList[0].id,
 					next_start_at:this.lastPayList[0].value,
 					next_amount:this.lastPayList[1].value,
 					next_remark:this.lastPayList[2].value,
@@ -261,7 +274,7 @@
 					cus_tel_num:this.customerList[2].value,
 					
 					contract_num:this.code,
-					contract_img:img
+					contract_imgs:img
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
@@ -274,11 +287,13 @@
 				})
 			},
 			getTowersByTowerIds(tower_ids){
-				this.http.get('Order/getTowersByTowerIds',{
+				this.http.post('Order/getTowersByTowerIds',{
 					tower_ids:tower_ids
 				}).then(res=>{
 					if(res.code == 1000){
-						this.equipmentList = res.data;
+						res.data.map(v=>{
+							this.equipmentList.push(v)
+						})
 					}
 				})
 			},

@@ -1,8 +1,10 @@
 <template>
 	<view>
 		<pro-card title="合同信息">
-			<view class="u-flex u-m-t-20" slot="content">
-				<u-image :src="http.resourceUrl() + contract.contract_img" width="128" height="181" :fade="false" class="u-m-r-36 u-m-l-10"></u-image>
+			<view class="u-flex u-m-t-20 u-p-l-36" slot="content">
+				<block v-for="(item,index) in contract.contract_imgs" :key="'img'+index">
+					<u-image :src="http.resourceUrl() + item" width="128" height="181" :fade="false" class="u-m-l-10"></u-image>
+				</block>
 				<view class="text-bold u-font-28 text-black">合同编号:{{contract.contract_num}}</view>
 			</view>
 		</pro-card>
@@ -11,7 +13,7 @@
 		</block>
 		<!-- 塔吊信息 -->
 		<block v-for="(item,m) in equipList.tower_data" :key="'m'+m">
-			<pro-card :title="'塔吊信息'+m+1+':'">
+			<pro-card :title="`塔吊信息${Number(m)+1}:`">
 				<view slot="content" class="">
 					<view class="u-flex u-m-t-30">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
@@ -26,7 +28,7 @@
 					
 					<!-- 保养记录 -->
 					<view class="u-font-28 text-bold text-black u-m-t-20" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">保养记录</view>
-					<view class="u-m-t-40 " v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
+					<view class="u-m-t-40" v-if="item.maintainList.cares_data&&item.maintainList.cares_data.length != 0">
 						<scroll-view scroll-y @scrolltolower="towerCares(item.id,item)" style="height: 500rpx;">
 							<view class="u-p-l-20">
 								<u-time-line>
@@ -101,7 +103,8 @@
 						</view>
 						<view class="u-flex u-row-between u-font-28 u-m-t-10"><!-- 0=>显示收款按钮,1=>显示已支付 -->
 							<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
-							<view class="text-black" v-if="item.status == 1">已支付</view>
+							<view class="text-black" v-if="item.status == 1">审核中</view>
+							<view class="text-black" v-else-if="item.status == 2">已支付</view>
 							<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
 						</view>
 					</view>
@@ -179,7 +182,7 @@
 				order_id:'',
 				contract:{
 					contract_num:'',
-					contract_img:''
+					contract_imgs:''
 				},
 				list:[
 					{
@@ -245,7 +248,7 @@
 					order_id:this.order_id
 				}).then(res=>{
 					if(res.code == 1000){
-						this.contract.contract_img = res.data.contract_img;
+						this.contract.contract_imgs = res.data.contract_imgs;
 						this.contract.contract_num = res.data.contract_num;
 						
 						this.list[0].list[0].value = res.data.cus.name;

@@ -49,7 +49,7 @@
 		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="478">
 			<view class="u-p-l-60 u-p-r-60 u-p-b-30 u-p-t-30 u-flex" style="flex-direction: column;">
 				<view class="u-font-34 text-bold" style="color: #0F58FB;">恭喜您!</view>
-				<view class="u-font-30 text-gray u-m-b-10">成为{{project_name}}项目信息员</view>
+				<view class="u-font-30 text-gray u-m-b-10">恭喜您，成为{{project_name}}项目信息员。如该项目签约成功，您可获得该项目的信息员奖励</view>
 				<u-image src="@/static/successicon@2x.png" width="220" height="191"></u-image>
 				<u-button class="u-m-t-50" style="width: 100%;" size="medium" type="primary" @click="showModal = false">我知道了</u-button>
 			</view>
@@ -225,7 +225,7 @@
 		flex-direction: column;
 		
 		position: fixed;
-		bottom: 80rpx;
+		bottom: 160rpx;
 		right: 38rpx;
 		z-index: 9;
 		

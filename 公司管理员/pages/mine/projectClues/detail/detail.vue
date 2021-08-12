@@ -71,6 +71,8 @@
 	export default {
 		onLoad(e) {
 			this.project_id = e.project_id
+		},
+		onShow() {
 			this.getInfo()
 		},
 		data() {
@@ -89,7 +91,7 @@
 					{name:'线索信息员',value:'李四'},
 					{name:'合同协调员',value:'张三'},
 					{name:'创建时间',value:'2021-04-21 13:00:00'},
-					{name:'审核通过时间',value:'2021-04-21 13:00:00'},
+					{name:'审核时间',value:'2021-04-21 13:00:00'},
 				],
 				
 				maintainList:[],

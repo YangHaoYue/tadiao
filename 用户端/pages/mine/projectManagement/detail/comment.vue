@@ -29,7 +29,7 @@
 		methods: {
 			//评价
 			commentOrder(){
-				this.http.get('Order/commentOrder',{
+				this.http.post('Order/commentOrder',{
 					order_id:this.order_id,
 					fix_comment:this.fix_comment,
 					tower_comment:this.tower_comment

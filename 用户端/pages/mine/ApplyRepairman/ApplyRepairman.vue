@@ -9,7 +9,7 @@
 				<u-form-item :label-style="labelStyle" :required="true" right-icon="arrow-right" label-position="top" label="所属公司" label-width="150">
 					<u-input :border="border" :disabled="true" v-model="model.companie" placeholder="请选择公司" @click="selectShow = true"></u-input>
 				</u-form-item>
-				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150"  :border-bottom="false">
+				<u-form-item :label-style="labelStyle" :required="true" label-position="top" label="上传资格证书" label-width="150"  :border-bottom="false">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" @on-list-change="onQualificationChange" :max-count="3" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 								<u-icon name="plus" size="60" :color="$u.color['lightColor']"></u-icon>
