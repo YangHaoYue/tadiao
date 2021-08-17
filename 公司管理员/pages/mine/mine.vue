@@ -40,7 +40,7 @@
 					<view :class="current?'nomal':'selected'" style="border-radius: 0 8rpx 8rpx 0;">自定义</view>
 				</view>
 				<view class="u-p-10 u-flex u-row-between u-border" style="border-radius: 4rpx;" @click="showCalender = true" v-if="current">
-					<view>{{day}}</view>
+					<view>{{month}}</view>
 					<u-icon name="calendar" class="u-m-l-35" size="28" color="#999999"></u-icon>
 				</view>
 				<view class="u-flex u-font-28" @click="show = true" v-else>
@@ -107,7 +107,8 @@
 		
 		
 		<!-- 日历/月 -->
-		<u-calendar v-model="showCalender" @change="chooseDay" :safe-area-inset-bottom="true"></u-calendar>
+		<!-- <u-calendar v-model="showCalender" @change="chooseMonth" :safe-area-inset-bottom="true"></u-calendar> -->
+		<u-picker mode="time" v-model="showCalender" :params="params" @confirm="chooseMonth"></u-picker>
 		<!-- 日历/自定义 -->
 		<u-calendar v-model="show" mode="range" @change="chooseDayRange" :safe-area-inset-bottom="true"></u-calendar>
 		<!-- 二维码弹窗 -->
@@ -124,13 +125,15 @@
 <script>
 	export default {
 		onLoad() {
+			let now = new Date();
+			this.month = `${now.getFullYear()}-${now.getMonth() + 1}`;
+			this.start = this.http.getToday();
+			this.end = this.http.getToday();
+			
 			this.branch_id = uni.getStorageSync('branch_id')
 			if(!this.branch_id){
 				this.staff.push({img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'})
 			}
-			this.day = this.http.getToday();
-			this.start = this.http.getToday();
-			this.end = this.http.getToday();
 		},
 		onShow() {
 			this.getUserInfo();
@@ -165,7 +168,7 @@
 				//分段器
 				current:true,
 				//月
-				day:'2020-11-22',
+				month:'2020-11-22',
 				showCalender:false,
 				//自定义
 				show:false,
@@ -204,6 +207,7 @@
 					}
 				}else{
 					data = {
+						month:this.month,
 						branch_id:uni.getStorageSync('branch_id')
 					}
 				}
@@ -234,9 +238,9 @@
 			changeSub(){
 				this.current = !this.current;
 			},
-			chooseDay(e){
+			chooseMonth(e){
 				console.log(e);
-				this.day = e.result;
+				this.month = `${e.year}-${e.month}`;
 				this.getUserInfo();
 			},
 			chooseDayRange(e){

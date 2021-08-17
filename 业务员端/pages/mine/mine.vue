@@ -42,7 +42,7 @@
 						<view :class="current?'nomal':'selected'" style="border-radius: 0 8rpx 8rpx 0;">自定义</view>
 					</view>
 					<view class="u-p-10 u-flex u-row-between u-border" style="border-radius: 4rpx;" @click="showCalender = true" v-if="current">
-						<view>{{day}}</view>
+						<view>{{month}}</view>
 						<u-icon name="calendar" class="u-m-l-35" size="28" color="#999999"></u-icon>
 					</view>
 					<view class="u-flex u-font-28" @click="show = true" v-else>
@@ -175,7 +175,8 @@
 		<u-modal v-model="modal" content="是否同意接受该维保单" :show-title="false" :show-cancel-button="true"
 			confirm-text="同意" cancel-text="不同意" @confirm="handleTransfer(1)" @cancel="handleTransfer(2)"></u-modal>
 		<!-- 日历/月 -->
-		<u-calendar v-model="showCalender" @change="chooseDay" :safe-area-inset-bottom="true"></u-calendar>
+		<!-- <u-calendar v-model="showCalender" @change="chooseMonth" :safe-area-inset-bottom="true"></u-calendar> -->
+		<u-picker mode="time" v-model="showCalender" :params="params" @confirm="chooseMonth"></u-picker>
 		<!-- 日历/自定义 -->
 		<u-calendar v-model="show" mode="range" @change="chooseDayRange" :safe-area-inset-bottom="true"></u-calendar>
 		<!-- 二维码弹窗 -->
@@ -192,7 +193,8 @@
 <script>
 	export default {
 		onLoad() {
-			this.day = this.http.getToday();
+			let now = new Date();
+			this.month = `${now.getFullYear()}-${now.getMonth() + 1}`;
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
 			let identity = uni.getStorageSync('identity');
@@ -246,8 +248,16 @@
 				//分段器
 				current:true,
 				//月
-				day:'2020-11-22',
+				month:'2020-11',
 				showCalender:false,
+				params: {
+					year: true,
+					month: true,
+					day: false,
+					hour: false,
+					minute: false,
+					second: false
+				},
 				//自定义
 				show:false,
 				start:'2020-11-22',
@@ -293,6 +303,10 @@
 					data = {
 						start_at:this.start,
 						end_at:this.end
+					}
+				}else{
+					data = {
+						month:this.month
 					}
 				}
 				this.http.get('UserCenter/staff',data).then(res=>{
@@ -439,9 +453,9 @@
 			changeSub(){
 				this.current = !this.current;
 			},
-			chooseDay(e){
+			chooseMonth(e){
 				console.log(e);
-				this.day = e.result;
+				this.month = `${e.year}-${e.month}`;
 				this.getUserInfo();
 			},
 			chooseDayRange(e){

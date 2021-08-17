@@ -33,7 +33,8 @@
 				<view class="slot-content">
 					<scroll-view scroll-y="true" style="height: 200rpx;" @scrolltolower="brandOnReachBottom" lower-threshold="50">
 						<view class="item-box">
-							<view class="item" :class="[item.value == brand_id ? 'active' : '']" @tap="tagClick(item)" v-for="(item, index) in brandList" :key="index">
+							<view class="item" :class="[item.value == brand_id ? 'active' : '']"
+							 @tap="tagClick(item)" v-for="(item, index) in brandList" :key="index">
 								{{item.label}}
 							</view>
 						</view>
@@ -49,7 +50,11 @@
 		
 		<!-- 列表 -->
 		<u-row class="u-p-20 u-m-t-26" gutter="20" justify="space-between">
-			<view class="u-flex u-row-center" style="margin: 139rpx 192rpx;flex-direction: column;" v-if="list.length === 0">
+			<view 
+				class="u-flex u-row-center" 
+				style="margin: 139rpx 192rpx;flex-direction: column;" 
+				v-if="list.length === 0"
+			>
 				<u-image width="365" height="365" src="@/static/mine/empty.png"></u-image>
 				<view class="u-font-28 text-gray u-m-t-40 u-text-center">空空如也~</view>
 			</view>
@@ -294,13 +299,14 @@
 			closeDropdown() {
 				this.$refs.uDropdown.close();
 			},
+			//品牌选择
 			tagClick(item) {
 				this.brand = item.label;
 				this.brand_id = item.value;
 			},
-			//重置
+			//品牌重置
 			reset(){
-				this.brand = '';
+				this.brand = '品牌';
 				this.brand_id = '';
 				this.clearList();
 			},
