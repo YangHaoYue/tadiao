@@ -62,6 +62,7 @@
 				name:'',
 				total_reward:'0',
 				id_certified:'',
+				refused_reason:'',
 				cellList1:[{
 					name:'项目线索',
 					img:'../../static/mine/shezhi-2@2x.png',
@@ -100,6 +101,7 @@
 						this.avaterSrc = this.http.resourceUrl() + res.data.user_data.avatar;
 						//用户是否实名认证
 						this.id_certified = res.data.id_certified;
+						this.refused_reason = res.data.refused_reason;
 					}
 				})
 			},
@@ -161,21 +163,22 @@
 			},
 			//提现
 			toWithdrawal(url){
-				if(this.id_certified == 0){
-					this.http.modal("","请先实名认证！", false, () => {
-						uni.navigateTo({
-							url:'materialApply/materialApply'
-						})
-					})
-				}else if(this.id_certified == 1){
-					this.http.modal("","审核未通过，请重新提交！", false, () => {
-						uni.navigateTo({
-							url:'materialApply/materialApply'
-						})
-					})
-				}else{
-					this.navgate(url)
+				if(this.id_certified == 2) return this.navgate(url);
+				let modalTitle = '';
+				switch(this.id_certified){
+					case 0: modalTitle = '请先实名认证!'
+							break;
+					case 1: modalTitle = '审核中！'
+							break;
+					case 3: modalTitle = this.refused_reason
+							break;
 				}
+				this.http.modal("",modalTitle, false, () => {
+					if(this.id_certified == 1) return
+					uni.navigateTo({
+						url:'materialApply/materialApply'
+					})
+				})
 			},
 			//退出登录
 			exit(){

@@ -237,14 +237,15 @@
 							branch_id:this.model.branch_id||0,//注册页面设置分公司id的默认值为0和职位id的默认值为1,或者默认不提交也行.
 							identity:this.model.identity||1
 						}).then((res)=>{
-							if(res.code == 1000 && res.is_login){
+							if(res.code == 1000 && res.data.is_login){
+								this.http.setUserInfo(res.data.token);
 								this.$refs.uToast.show({
 									title:res.msg,
 									type:"success",
 									isTab:true,
 									url:'/pages/home/home'
 								})
-							}else if(res.code == 1000 && !res.is_login){
+							}else if(res.code == 1000 && !res.data.is_login){
 								this.$refs.uToast.show({
 									title:res.msg,
 									type:"success",

@@ -52,7 +52,6 @@
 			}else{
 				this.openid = code
 				uni.setStorageSync('openid',code)
-				console.log('33');
 			}
 		},
 		data() {

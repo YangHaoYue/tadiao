@@ -94,8 +94,6 @@
 				this.project_id = e.project_id;
 				this.getProjectEditInfo()
 			}
-		},
-		onShow() {
 			uni.$on('address',(data)=>{
 				console.log('data'+data);
 				this.model.latitude = data.latitude;
@@ -103,8 +101,10 @@
 				this.model.address = /* data.address + */data.location;
 				this.model.area_code = data.area_code;
 				this.model.location = data.location;
-				uni.$off('address')
 			})
+		},
+		onUnload() {
+			uni.$off('address')
 		},
 		data() {
 			return {

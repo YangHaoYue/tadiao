@@ -46,7 +46,7 @@
 		 :show-cancel-button="true" :show-title="false" :content-style="{margin: '30rpx 0'}" width="500"></u-modal>
 		
 		<!-- modal弹窗 -->
-		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="478">
+		<u-popup v-model="showModal" mode="center" :mask-close-able="false" border-radius="8" :closeable="false" width="546" height="548">
 			<view class="u-p-l-60 u-p-r-60 u-p-b-30 u-p-t-30 u-flex" style="flex-direction: column;">
 				<view class="u-font-34 text-bold" style="color: #0F58FB;">恭喜您!</view>
 				<view class="u-font-30 text-gray u-m-b-10">恭喜您，成为{{project_name}}项目信息员。如该项目签约成功，您可获得该项目的信息员奖励</view>
