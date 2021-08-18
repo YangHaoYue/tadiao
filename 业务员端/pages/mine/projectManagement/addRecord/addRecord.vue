@@ -11,7 +11,7 @@
 			<view class="u-flex u-font-28 u-m-r-20 text-black" style="width: 150rpx;">金额</view>
 			<view class="u-flex">
 				<text class="text-black u-font-28 u-m-r-20">￥</text>
-				<u-input v-model="price" type="text" :auto-height="true"  placeholder="请输入金额" placeholder-style="color:#999999;font-size:28rpx;"/>
+				<u-input v-model="price" type="number" :auto-height="true"  placeholder="请输入金额" placeholder-style="color:#999999;font-size:28rpx;"/>
 			</view>
 		</view>
 		<view class="bg-white solid-bottom u-p-30 u-flex u-col-top">

@@ -167,6 +167,12 @@
 							url:'materialApply/materialApply'
 						})
 					})
+				}else if(this.id_certified == 1){
+					this.http.modal("","审核未通过，请重新提交！", false, () => {
+						uni.navigateTo({
+							url:'materialApply/materialApply'
+						})
+					})
 				}else{
 					this.navgate(url)
 				}

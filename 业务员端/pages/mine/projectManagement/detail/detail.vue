@@ -1,11 +1,13 @@
 <template>
 	<view>
 		<pro-card title="合同信息">
-			<view class="u-flex u-m-t-20 u-p-l-36" slot="content">
-				<block v-for="(item,index) in contract.contract_imgs" :key="'img'+index">
-					<u-image :src="http.resourceUrl() + item" width="128" height="181" :fade="false" class="u-m-l-10"></u-image>
-				</block>
+			<view class="u-m-t-20 u-p-l-36" slot="content">
 				<view class="text-bold u-font-28 text-black">合同编号:{{contract.contract_num}}</view>
+				<view class="u-flex ">
+					<block v-for="(item,index) in contract.contract_imgs" :key="'img'+index">
+						<u-image :src="http.resourceUrl() + item" width="128" height="181" :fade="false" class="u-m-l-10"></u-image>
+					</block>
+				</view>
 			</view>
 		</pro-card>
 		<block v-for="(item,i) in list" :key="'i'+i">
