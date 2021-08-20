@@ -28,7 +28,7 @@
 							<u-button type="primary" size="mini" :plain="true" class="u-m-r-10" @click="toAssociated(item.id)" v-if="item.lock_arr.show_lock_button&&item.lock_arr.has_lock">已关联塔吊</u-button>
 							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toCreate(item.id)" v-if="item.show_order_button">创建项目</u-button>
 							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toEdit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
-							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toExit(item.id)" v-if="item.show_re_sub_button">重新提交</u-button>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toEdit(item.id)" v-if="item.show_re_sub_button">重新提交</u-button>
 						</view>
 					</view>
 				</u-card>

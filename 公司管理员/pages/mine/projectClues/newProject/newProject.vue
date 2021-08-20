@@ -80,6 +80,9 @@
 				this.project_id = e.project_id;
 				this.getOrderAddData()
 			}else if(e.order_id){
+				uni.setNavigationBarTitle({
+					title:'编辑线索'
+				})
 				this.order_id = e.order_id;
 				this.getOrderEditData()
 			}

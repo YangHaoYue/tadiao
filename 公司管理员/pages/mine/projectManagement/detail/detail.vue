@@ -18,10 +18,7 @@
 					<view class="u-flex u-m-t-30">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 						<view class="u-p-l-10 u-p-r-12">
-							<view class="u-flex u-row-between">
-								<view class="u-font-26 text-bold text-black u-line-1">{{item.tower_name}}</view>
-								<u-button v-if="show_order_pay_button" type="primary" size="mini" @click="toAddRecord(item.order_id)">增加付款时间</u-button>
-							</view>
+							<view class="u-font-26 text-bold text-black u-line-1">{{item.tower_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">维修师傅:{{item.fixer_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">品牌:{{item.brand_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{item.serial_num}}</view>
@@ -102,25 +99,26 @@
 		</block>
 		
 		<!-- 付款记录 -->
-		<pro-card title="付款记录">
-			<template v-slot:content >
-				<scroll-view scroll-y @scrolltolower="orderPays" style="height: 300rpx;">
-					<view v-for="(item,v) in payList.order_pays_data" :key="'v'+v">
-						<view class="u-flex u-row-between u-font-28 u-m-t-10">
-							<view class="text-black">{{item.order_pays_name}}</view>
-							<view class="text-black"   style="color: #FE5E10;">￥{{item.amount}}</view>
-						</view>
-						<view class="u-flex u-row-between u-font-28 u-m-t-10"><!-- 0=>显示收款按钮,1=>显示已支付 -->
-							<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
-							<view class="text-black" v-if="item.status == 1">审核中</view>
-							<view class="text-black" v-else-if="item.status == 2">已支付</view>
-							<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
-						</view>
+		<view class="bg-white u-m-t-20 u-p-25 u-p-t-15 u-p-b-15" style="border-radius: 10rpx;">
+			<view class="u-flex u-row-between">
+				<view class="text-bold u-font-28 u-p-10 text-black u-border-bottom">付款记录</view>
+				<u-button v-if="show_order_pay_button" style="margin-right: 0;" type="primary" size="mini" @click="toAddRecord">增加付款时间</u-button>
+			</view>
+			<scroll-view scroll-y @scrolltolower="orderPays" style="height: 300rpx;">
+				<view v-for="(item,v) in payList.order_pays_data" :key="'v'+v">
+					<view class="u-flex u-row-between u-font-28 u-m-t-10">
+						<view class="text-black">{{item.order_pays_name}}</view>
+						<view class="text-black"   style="color: #FE5E10;">￥{{item.amount}}</view>
 					</view>
-				</scroll-view>
-				
-			</template>
-		</pro-card>
+					<view class="u-flex u-row-between u-font-28 u-m-t-10"><!-- 0=>显示收款按钮,1=>显示已支付 -->
+						<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
+						<view class="text-black" v-if="item.status == 1">审核中</view>
+						<view class="text-black" v-else-if="item.status == 2">已支付</view>
+						<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
 		
 		<!-- 评价 -->
 		<pro-card title="评价">
@@ -397,8 +395,8 @@
 			toRDetail(fix_id){
 				uni.navigateTo({url: '/pages/mine/projectManagement/detail/repairDetail?fix_id=' + fix_id});
 			},
-			toAddRecord(id){
-				uni.navigateTo({url: '../addRecord/addRecord?order_id=' + id});
+			toAddRecord(){
+				uni.navigateTo({url: `../addRecord/addRecord?order_id=${this.order_id}`});
 			}
 		}
 	}

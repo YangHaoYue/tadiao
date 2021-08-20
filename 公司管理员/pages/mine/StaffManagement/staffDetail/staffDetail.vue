@@ -2,7 +2,7 @@
 	<view>
 		<block v-for="(item,index) in list" :key="index">
 			<u-card :title="item.order_pays_name" title-size="24" title-color="#666666" :border="false" @click="toDetail(item.id)">
-				<view class="u-flex u-row-between" slot="body">
+				<view slot="body">
 					<view class="text-bold u-font-28 u-m-b-10">所属项目:{{item.project_name}}</view>
 					<view class="text-bold u-font-28">应收款时间:{{item.start_at}}</view>
 				</view>
@@ -52,8 +52,8 @@
 		},
 		methods: {
 			getInfo(){
-				this.http.get('Manager/staffProjectList',{
-					staff_id:this.staff_id,
+				this.http.get('Manager/orderPayLists',{
+					user_id:this.staff_id,
 					page:this.page
 				}).then(res=>{
 					if(res.code == 1000){

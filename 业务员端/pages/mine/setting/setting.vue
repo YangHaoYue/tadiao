@@ -8,7 +8,7 @@
 		<!-- 个人信息 -->
 		<view>
 			<view class="u-flex u-row-between u-p-30 u-border-bottom">
-				<view>姓名</view>
+				<view class="u-m-r-20">姓名</view>
 				<u-input type="text" v-model="real_name" placeholder="请输入姓名"></u-input>
 				<!-- <view>{{real_name}}</view> -->
 			</view>
