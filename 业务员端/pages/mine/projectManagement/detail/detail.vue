@@ -22,7 +22,7 @@
 						<view class="u-p-l-10 u-p-r-12">
 							<view class="u-flex u-row-between">
 								<view class="u-font-26 text-bold text-black u-line-1">{{item.tower_name}}</view>
-								<u-button v-if="item.show_order_pay_button" type="primary" size="mini" @click="toAddRecord(item.order_id)">增加付款时间</u-button>
+								<u-button v-if="show_order_pay_button" type="primary" size="mini" @click="toAddRecord(item.order_id)">增加付款时间</u-button>
 							</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">维修师傅:{{item.fixer_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">品牌:{{item.brand_name}}</view>
@@ -245,7 +245,9 @@
 				showModal:false,
 				
 				//关闭
-				show_close_button :''
+				show_close_button :'',
+				//控制增加付款时间
+				show_order_pay_button:false
 			}
 		},
 		methods: {
@@ -289,7 +291,8 @@
 						this.fix_comment = res.data.fix_comment;
 						this.tower_comment = res.data.tower_comment;
 						
-						this.show_close_button  = res.data.show_close_button ;
+						this.show_close_button  = res.data.show_close_button;
+						this.show_order_pay_button  = res.data.show_order_pay_button;
 						
 						this.orderList[0].value = res.data.order_no;
 						this.orderList[1].value = res.data.created_at;

@@ -81,6 +81,14 @@
 				//月
 				month:'',
 				showCalender:false,
+				params: {
+					year: true,
+					month: true,
+					day: false,
+					hour: false,
+					minute: false,
+					second: false
+				},
 				//自定义
 				show:false,
 				start:'',
@@ -97,14 +105,14 @@
 				if(!this.current){
 					data = {
 						branch_id:uni.getStorageSync('branch_id'),
-						month:this.month,
+						start_at:this.start,
+						end_at:this.end,
 						page:this.page
 					}
 				}else{
 					data = {
 						branch_id:uni.getStorageSync('branch_id'),
-						start_at:this.start,
-						end_at:this.end,
+						month:this.month,
 						page:this.page
 					}
 				}

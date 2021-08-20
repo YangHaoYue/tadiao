@@ -3,7 +3,7 @@
 		<block v-for="(item,index) in list" :key="index">
 			<u-card :title="item.order_pays_name" title-size="24" title-color="#666666" :border="false" @click="toDetail(item.id)">
 				<view class="u-flex u-row-between" slot="body">
-					<view class="text-bold u-font-28 u-m-b-10">所属项目:{{item.project_name}}</view
+					<view class="text-bold u-font-28 u-m-b-10">所属项目:{{item.project_name}}</view>
 					<view class="text-bold u-font-28">应收款时间:{{item.start_at}}</view>
 				</view>
 				<view class="u-flex u-row-between" slot="foot">
@@ -58,13 +58,11 @@
 				}).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
-							this.list = res.data.project_data.map(v=>{
-								return this._format(v)
-							});
+							this.list = res.data.order_pays_data
 							this.last_page = res.data.last_page;
 						}else{
-							res.data.project_data.forEach(v=>{
-								this.list.push(this._format(v))
+							res.data.order_pays_data.forEach(v=>{
+								this.list.push(v)
 							})
 						}
 						
@@ -79,44 +77,6 @@
 				this.list = [];
 				this.status = "loading"
 				this.getInfo();
-			},
-			_format(e){
-				//1=>待跟进,2=>跟进中,3=>已成交,6=>已结束.
-				let subTitle = '';
-				let subTitleColor = '';
-				switch(e.status){
-					case 0:
-						subTitle = '审核中';
-						subTitleColor = '#105CFB';
-						break;
-					case 1:
-						subTitle = '待跟进';
-						subTitleColor = '#FE5E10';
-						break;
-					case 2:
-						subTitle = '跟进中';
-						subTitleColor = '#2DA016';
-						break;
-					case 3:
-						subTitle = '已成交';
-						subTitleColor = '#2DA016';
-						break;
-					case 6:
-						subTitle = '已结束';
-						subTitleColor = '#FE5E10';
-						break;
-				}
-				return{
-					id:e.id,
-					subTitle:subTitle,
-					subTitleColor:subTitleColor,
-					project_name:e.project_name,
-					title:"创建时间：" + e.created_at,
-					address:e.address,
-					provider_data:e.provider_data,
-					handler_data:e.handler_data,
-					lock_arr:e.lock_arr,
-				}
 			},
 			toDetail(project_id){
 				uni.navigateTo({url: '/pages/mine/projectClues/detail/detail?project_id='+project_id});

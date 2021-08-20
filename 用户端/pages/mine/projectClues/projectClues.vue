@@ -26,14 +26,14 @@
 							<view class="u-font-26" style="color: #FE5E10;">否决原因：</view>
 							<view class="u-font-26 u-m-t-20" style="color: #666666;">{{item.refused_reason}}</view>
 							<view class="u-flex u-row-right" v-if="item.show_re_sub_button">
-								<u-button type="primary" size="mini" style="margin-right: 0;" @click="toExit(item.id)" >重新提交</u-button>
+								<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_re_sub_button" @tap.stop="toExit(item.id)">重新提交</u-button>
 							</view>
 						</view>
 						<view class="u-flex u-row-between" v-else>
 							<view class="u-flex u-font-24" style="color: #666666;" v-show="item.handler_data.name != ''">
 								合同协调人：<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}
 							</view>
-							<u-button type="primary" size="mini" style="margin-right: 0;" @click="toExit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
+							<u-button type="primary" size="mini" style="margin-right: 0;" @tap.stop="toExit(item.id)" v-if="item.show_edit_button">修改线索</u-button>
 						</view>
 					</view>
 				</u-card>

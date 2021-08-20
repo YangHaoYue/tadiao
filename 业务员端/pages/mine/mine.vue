@@ -248,7 +248,7 @@
 				//分段器
 				current:true,
 				//月
-				month:'2020-11',
+				month:'',
 				showCalender:false,
 				params: {
 					year: true,
@@ -260,8 +260,8 @@
 				},
 				//自定义
 				show:false,
-				start:'2020-11-22',
-				end:'2020-11-22',
+				start:'',
+				end:'',
 				
 				business_data:{
 					project_count:0,

@@ -9,7 +9,8 @@
 		<view>
 			<view class="u-flex u-row-between u-p-30 u-border-bottom">
 				<view>姓名</view>
-				<view>{{real_name}}</view>
+				<u-input type="text" v-model="real_name" placeholder="请输入姓名"></u-input>
+				<!-- <view>{{real_name}}</view> -->
 			</view>
 			<view class="u-flex u-row-between u-p-30">
 				<view>所属分公司</view>

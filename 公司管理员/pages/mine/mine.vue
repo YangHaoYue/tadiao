@@ -37,7 +37,7 @@
 			<view class="u-flex u-row-between">
 				<view class="subsection u-flex" @click="changeSub">
 					<view :class="current?'selected':'nomal'" style="border-radius: 8rpx 0 0 8rpx;">月</view>
-					<view :class="current?'nomal':'selected'" style="border-radius: 0 8rpx 8rpx 0;">自定义</view>
+					<view :class="!current?'selected':'nomal'" style="border-radius: 0 8rpx 8rpx 0;">自定义</view>
 				</view>
 				<view class="u-p-10 u-flex u-row-between u-border" style="border-radius: 4rpx;" @click="showCalender = true" v-if="current">
 					<view>{{month}}</view>
@@ -168,12 +168,20 @@
 				//分段器
 				current:true,
 				//月
-				month:'2020-11-22',
+				month:'',
 				showCalender:false,
+				params: {
+					year: true,
+					month: true,
+					day: false,
+					hour: false,
+					minute: false,
+					second: false
+				},
 				//自定义
 				show:false,
-				start:'2020-11-22',
-				end:'2020-11-22',
+				start:'',
+				end:'',
 				
 				business_data:{
 					project_count:0,
