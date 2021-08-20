@@ -13,7 +13,7 @@
 					<view :class="current?'nomal':'selected'" style="border-radius: 0 8rpx 8rpx 0;">自定义</view>
 				</view>
 				<view class="u-p-10 u-flex u-row-between u-border text-white" style="border-radius: 10rpx;" @click="showCalender = true" v-if="current">
-					<view>{{day}}</view>
+					<view>{{month}}</view>
 					<u-icon name="calendar" class="u-m-l-10" size="28" color="#FFFFFF"></u-icon>
 				</view>
 				<view class="u-flex u-font-28 text-white" @click="show = true" v-else>
@@ -56,7 +56,8 @@
 			
 			
 			<!-- 日历/月 -->
-			<u-calendar v-model="showCalender" @change="chooseDay" :safe-area-inset-bottom="true"></u-calendar>
+			<!-- <u-calendar v-model="showCalender" @change="chooseMonth" :safe-area-inset-bottom="true"></u-calendar> -->
+			<u-picker mode="time" v-model="showCalender" :params="params" @confirm="chooseMonth"></u-picker>
 			<!-- 日历/自定义 -->
 			<u-calendar v-model="show" mode="range" @change="chooseDayRange" :safe-area-inset-bottom="true"></u-calendar>
 		</view>
@@ -70,7 +71,7 @@
 				//分段器
 				current:true,
 				//月
-				day:'2020-11-22',
+				month:'2020-11-22',
 				showCalender:false,
 				//自定义
 				show:false,

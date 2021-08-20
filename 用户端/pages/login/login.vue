@@ -164,7 +164,7 @@
 							msg_code:this.model.code,
 						}).then((res)=>{
 							if(res.code==1000){
-								this.http.setUserInfo(res.data.token,res.data.identity);
+								this.http.setUserInfo(res.data.token,res.data.identity,'',this.model.phone);
 								//	1=>普通用户,2=>业务员,3=>维修师傅,4=>分公司副经理,5=>分公司经理,6=>总公司经理
 								if(res.data.identity == 1){
 									this.$refs.uToast.show({

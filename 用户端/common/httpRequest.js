@@ -204,7 +204,7 @@ const tui = {
 	//设置用户信息
 	setUserInfo: function(token,identity,nickName,mobile) {
 		uni.setStorageSync("thorui_token", token)
-		uni.setStorageSync("thorui_mobile", mobile);
+		uni.setStorageSync("mobile", mobile);
 		//身份id
 		uni.setStorageSync('identity',identity);
 		uni.setStorageSync('nickName',nickName);

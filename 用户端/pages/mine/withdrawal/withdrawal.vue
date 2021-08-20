@@ -97,7 +97,7 @@
 						name:''
 					},
 					zfb:{
-						acount:'',
+						acount:uni.getStorageSync('mobile'),
 						name:''
 					},
 					band:{

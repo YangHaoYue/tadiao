@@ -20,7 +20,11 @@
 					<view class="u-flex u-m-t-30">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="158" height="158" :fade="false" mode="scaleToFill"></u-image>
 						<view class="u-p-l-10 u-p-r-12">
-							<view class="u-font-26 text-bold text-black u-line-1">{{item.tower_name}}</view>
+							<view class="u-flex u-row-between">
+								<view class="u-font-26 text-bold text-black u-line-1">{{item.tower_name}}</view>
+								<u-button v-if="item.show_order_pay_button" type="primary" size="mini" @click="toAddRecord(item.order_id)">增加付款时间</u-button>
+							</view>
+							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">维修师傅:{{item.fixer_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">品牌:{{item.brand_name}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备出厂编码:{{item.serial_num}}</view>
 							<view class="u-font-22 u-p-l-6" style="color: #666666;line-height: 1.5;">设备备案编号:{{item.address_info}}</view>
@@ -386,6 +390,9 @@
 			},
 			toRDetail(fix_id){
 				uni.navigateTo({url: '/pages/mine/equipmentList/detail/repairDetail?fix_id=' + fix_id});
+			},
+			toAddRecord(id){
+				uni.navigateTo({url: '../addRecord/addRecord?order_id=' + id});
 			}
 		}
 	}

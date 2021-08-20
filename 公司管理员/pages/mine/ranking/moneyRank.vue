@@ -12,7 +12,7 @@
 					<view :class="current?'nomal':'selected'" style="border-radius: 0 8rpx 8rpx 0;">自定义</view>
 				</view>
 				<view class="u-p-10 u-flex u-row-between u-border text-white" style="border-radius: 10rpx;" @click="showCalender = true" v-if="current">
-					<view>{{day}}</view>
+					<view>{{month}}</view>
 					<u-icon name="calendar" class="u-m-l-10" size="28" color="#FFFFFF"></u-icon>
 				</view>
 				<view class="u-flex u-font-28 text-white" @click="show = true" v-else>
@@ -57,7 +57,8 @@
 			
 			
 			<!-- 日历/月 -->
-			<u-calendar v-model="showCalender" @change="chooseDay" :safe-area-inset-bottom="true"></u-calendar>
+			<!-- <u-calendar v-model="showCalender" @change="chooseMonth" :safe-area-inset-bottom="true"></u-calendar> -->
+			<u-picker mode="time" v-model="showCalender" :params="params" @confirm="chooseMonth"></u-picker>
 			<!-- 日历/自定义 -->
 			<u-calendar v-model="show" mode="range" @change="chooseDayRange" :safe-area-inset-bottom="true"></u-calendar>
 		</view>
@@ -68,7 +69,8 @@
 	export default {
 		onLoad() {
 			this.getInfo();
-			this.day = this.http.getToday();
+			let now = new Date();
+			this.month = `${now.getFullYear()}-${now.getMonth() + 1}`;
 			this.start = this.http.getToday();
 			this.end = this.http.getToday();
 		},
@@ -77,7 +79,7 @@
 				//分段器
 				current:true,
 				//月
-				day:'',
+				month:'',
 				showCalender:false,
 				//自定义
 				show:false,
@@ -95,6 +97,7 @@
 				if(!this.current){
 					data = {
 						branch_id:uni.getStorageSync('branch_id'),
+						month:this.month,
 						page:this.page
 					}
 				}else{
@@ -135,7 +138,9 @@
 				this.list = [];
 				this.getInfo();
 			},
-			chooseDay(e){
+			chooseMonth(e){
+				console.log(e);
+				this.month = `${e.year}-${e.month}`;
 				this.clearData();
 			},
 			chooseDayRange(e){

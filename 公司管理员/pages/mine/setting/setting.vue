@@ -90,7 +90,8 @@
 			},
 			submit(){
 				this.http.post('UserCenter/editAvatar',{
-					avatar:this.tempFilePath
+					avatar:this.tempFilePath,
+					real_name:this.real_name
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){

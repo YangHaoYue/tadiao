@@ -26,10 +26,11 @@
 						<view class="u-font-36 text-bold u-m-b-10" style="color: #0F58FB;">{{item.project_count}}</view>
 						<view class="u-font-26" style="color: #999999;">线索数</view>
 					</navigator>
-					<view class="u-flex u-row-center u-flex-1" style="flex-direction: column;">
-						<view class="u-font-36 text-bold u-m-b-10" style="color: #333333;">{{item.order_pay_amount}}</view>
+					<navigator open-type="navigate" :url="'staffDetail/staffDetail?staff_id='+item.id" hover-class="none"
+					 class="u-flex u-row-center u-flex-1" style="flex-direction: column;">
+						<view class="u-font-36 text-bold u-m-b-10" style="color: #0F58FB;">{{item.order_pay_amount}}</view>
 						<view class="u-font-26" style="color: #999999;">应收款</view>
-					</view>
+					</navigator>
 					<view class="u-flex u-row-center u-flex-1" style="flex-direction: column;">
 						<view class="u-font-36 text-bold u-m-b-10" style="color: #333333;">{{item.order_amount}}</view>
 						<view class="u-font-26" style="color: #999999;">订单金额</view>

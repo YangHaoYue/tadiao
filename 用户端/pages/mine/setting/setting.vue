@@ -9,7 +9,8 @@
 		<view>
 			<view class="u-flex u-row-between u-p-30 u-border-bottom">
 				<view>姓名</view>
-				<view>{{real_name}}</view>
+				<u-input type="text" v-model="real_name" placeholder="请输入姓名"></u-input>
+				<!-- <view>{{real_name}}</view> -->
 			</view>
 			<!-- <view class="u-flex u-row-between u-p-30">
 				<view>所属分公司</view>
@@ -35,10 +36,10 @@
 			return {
 				avatarSrc:'',
 				tempFilePath:'',
-				identity:'业务员',
-				real_name:'李四',
-				branch_name:'江西分公司',
-				tel_num:'15168308762',
+				identity:'',
+				real_name:'',
+				branch_name:'',
+				tel_num:'',
 				staff_img:[],
 				id_card_img:[]
 			}
@@ -71,7 +72,8 @@
 			},
 			submit(){
 				this.http.post('UserCenter/editAvatar',{
-					avatar:this.tempFilePath
+					avatar:this.tempFilePath,
+					real_name:this.real_name
 				}).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){

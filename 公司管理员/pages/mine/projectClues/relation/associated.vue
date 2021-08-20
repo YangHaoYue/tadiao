@@ -5,7 +5,10 @@
 				<view class="u-flex">
 					<u-image :src="http.resourceUrl()+item.tower_img" width="153" height="153" mode="scaleToFill" :fade="false"></u-image>
 					<view class="u-m-l-12">
-						<view class="u-font-26 text-bold u-m-b-20">{{item.tower_name}}({{item.tower_type}})</view>
+						<view class="u-flex u-row-between">
+							<view class="u-font-26 text-bold u-m-b-20">{{item.tower_name}}</view>
+							<u-button v-if="item.show_del_btn" type="primary" size="mini" @click="unConnect(item.id)">解除关联</u-button>
+						</view>
 						<view class="text-gray u-font-22">设备出厂编号:{{item.code}}</view>
 						<view class="text-gray u-font-22">品牌:{{item.brand_name}}</view>
 						<view class="text-gray u-font-22">年限:{{item.age_limit}}</view>
@@ -101,6 +104,19 @@
 			},
 			toConnect(id){
 				uni.redirectTo({url: 'relation?project_id=' + this.project_id});
+			},
+			//解除关联
+			unConnect(id){
+				this.http.post('project/cancelLock',{
+					conn_id:id
+				}).then(res=>{
+					this.$u.toast(res.msg)
+					if(res.code == 1000){
+						setTimeout(()=>{
+							this.clearData()
+						},1500)
+					}
+				})
 			}
 		}
 	}
