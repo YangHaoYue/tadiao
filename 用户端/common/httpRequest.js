@@ -204,14 +204,14 @@ const tui = {
 	//设置用户信息
 	setUserInfo: function(token,identity,nickName,mobile) {
 		uni.setStorageSync("thorui_token", token)
-		uni.setStorageSync("mobile", mobile);
+		uni.setStorageSync("thorui_mobile", mobile);
 		//身份id
 		uni.setStorageSync('identity',identity);
 		uni.setStorageSync('nickName',nickName);
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token") || ''
+		return uni.getStorageSync("thorui_token") || '6f90382d973902236c8467e952ddf78b'
 	},
 	//判断是否登录
 	isLogin: function() {
