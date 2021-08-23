@@ -48,7 +48,7 @@
 			this.scrollTop = e.scrollTop
 		},
 		watch: {
-			scrollTop(newValue, oldValue) {
+			scrollTop(newValue) {
 				if(newValue>20){
 					this.sticky = true
 				}else{

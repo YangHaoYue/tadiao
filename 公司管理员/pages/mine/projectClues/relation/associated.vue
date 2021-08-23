@@ -4,12 +4,12 @@
 			<view class="u-m-25 bg-white" style="padding: 37rpx 0 10rpx 22rpx;border-radius: 10rpx;">
 				<view class="u-flex">
 					<u-image :src="http.resourceUrl()+item.tower_img" width="153" height="153" mode="scaleToFill" :fade="false"></u-image>
-					<view class="u-m-l-12">
+					<view class="u-m-l-12 u-flex-1">
 						<view class="u-flex u-row-between">
-							<view class="u-font-26 text-bold u-m-b-20">{{item.tower_name}}</view>
-							<u-button v-if="item.show_del_btn" type="primary" size="mini" @click="unConnect(item.id)">解除关联</u-button>
+							<view class="u-font-26 text-bold">{{item.tower_name}}</view>
+							<u-button style="margin-right: 0;" v-if="item.show_del_btn" type="primary" size="mini" @click="unConnect(item.id)">解除关联</u-button>
 						</view>
-						<view class="text-gray u-font-22">设备出厂编号:{{item.code}}</view>
+						<view class="text-gray u-font-22">设备出厂编号:{{item.serial_num}}</view>
 						<view class="text-gray u-font-22">品牌:{{item.brand_name}}</view>
 						<view class="text-gray u-font-22">年限:{{item.age_limit}}</view>
 					</view>

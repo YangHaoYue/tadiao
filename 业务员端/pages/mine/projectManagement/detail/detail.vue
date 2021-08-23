@@ -5,7 +5,7 @@
 				<view class="text-bold u-font-28 text-black">合同编号:{{contract.contract_num}}</view>
 				<view class="u-flex ">
 					<block v-for="(item,index) in contract.contract_imgs" :key="'img'+index">
-						<u-image :src="http.resourceUrl() + item" width="128" height="181" :fade="false" class="u-m-l-10"></u-image>
+						<u-image :src="item" width="128" height="181" :fade="false" class="u-m-l-10" @click="showImg(index)"></u-image>
 					</block>
 				</view>
 			</view>
@@ -171,8 +171,16 @@
 		},
 		onLoad(e) {
 			this.order_id = e.order_id;
-			this.getInfo();
 			this.orderPays();
+			this.getInfo();
+			uni.$on('addRecordback',res=>{
+				this.payList.order_pays_data = [];
+				this.payList.current_page = 1;
+				this.orderPays();
+			});
+		},
+		onUnload() {
+			uni.$off('addRecordback')
 		},
 		/* onReachBottom() {
 			if(this.page >= this.last_page) return ;
@@ -255,7 +263,9 @@
 					order_id:this.order_id
 				}).then(res=>{
 					if(res.code == 1000){
-						this.contract.contract_imgs = res.data.contract_imgs;
+						this.contract.contract_imgs = res.data.contract_imgs.map(v=>{
+							return this.http.resourceUrl() + v
+						});
 						this.contract.contract_num = res.data.contract_num;
 						
 						this.list[0].list[0].value = res.data.cus.name;
@@ -395,6 +405,13 @@
 			},
 			toAddRecord(id){
 				uni.navigateTo({url: `../addRecord/addRecord?order_id=${this.order_id}`});
+			},
+			//预览图片
+			showImg(index){
+				uni.previewImage({
+					current:index,
+					urls:this.contract.contract_imgs
+				})
 			}
 		}
 	}

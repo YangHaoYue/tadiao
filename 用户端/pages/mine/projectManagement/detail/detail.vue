@@ -3,7 +3,7 @@
 		<pro-card title="合同信息">
 			<view class="u-flex u-m-t-20 u-p-l-36" slot="content">
 				<block v-for="(item,index) in contract.contract_imgs" :key="'img'+index">
-					<u-image :src="http.resourceUrl() + item" width="128" height="181" :fade="false" class="u-m-l-10"></u-image>
+					<u-image :src="item" width="128" height="181" :fade="false" class="u-m-l-10" @click="showImg(index)"></u-image>
 				</block>
 				<view class="text-bold u-font-28 text-black">合同编号:{{contract.contract_num}}</view>
 			</view>
@@ -112,9 +112,11 @@
 					</view>
 					<view class="u-flex u-row-between u-font-28 u-m-t-10"><!-- 0=>显示收款按钮,1=>显示已支付 -->
 						<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
+						
 						<view class="text-black" v-if="item.status == 1">审核中</view>
 						<view class="text-black" v-else-if="item.status == 2">已支付</view>
-						<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
+						<view class="text-black" v-else>未付款</view>
+						<!-- <u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button> -->
 					</view>
 				</view>
 			</scroll-view>
@@ -136,7 +138,7 @@
 		</pro-card>
 		
 		<!-- 订单信息 -->
-		<pro-card title="订单信息">
+		<!-- <pro-card title="订单信息">
 			<template v-slot:content >
 				<block v-for="(item,k) in orderList" :key="'k'+k">
 					<view class="u-flex u-p-15">
@@ -145,12 +147,12 @@
 					</view>
 				</block>
 			</template>
-		</pro-card>
+		</pro-card> -->
 		
 		<!-- 总金额 -->
-		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white">
+		<!-- <view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white">
 			<view class="u-font-28 text-bold">订单总金额:<text style="color: #FE5E10;">￥{{totalPrice}}</text></view>
-		</view>
+		</view> -->
 		<!-- 结束 -->
 		<view class="u-flex u-m-t-30 u-m-b-30 u-row-right u-p-30 u-p-r-15 bg-white" v-if="show_comment_button">
 			<u-button type="primary" style="margin-right: 0;" size="medium" @click="comment" >评价</u-button>
@@ -204,22 +206,22 @@
 							{title:'手机方式',value:'17283782323'}
 						]
 					},
-					{
-						title:'合同协调人',
-						list:[
-							{title:'昵称',value:'顾家',avatar:'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg'},
-							{title:'姓名',value:'张三'},
-							{title:'手机方式',value:'17283782323'}
-						]
-					},
-					{
-						title:'信息员',
-						list:[
-							{title:'昵称',value:'顾家',avatar:'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg'},
-							{title:'姓名',value:'张三'},
-							{title:'手机方式',value:'17283782323'}
-						]
-					}
+					// {
+					// 	title:'合同协调人',
+					// 	list:[
+					// 		{title:'昵称',value:'顾家',avatar:'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg'},
+					// 		{title:'姓名',value:'张三'},
+					// 		{title:'手机方式',value:'17283782323'}
+					// 	]
+					// },
+					// {
+					// 	title:'信息员',
+					// 	list:[
+					// 		{title:'昵称',value:'顾家',avatar:'http://pic2.sc.chinaz.com/Files/pic/pic9/202002/hpic2119_s.jpg'},
+					// 		{title:'姓名',value:'张三'},
+					// 		{title:'手机方式',value:'17283782323'}
+					// 	]
+					// }
 				],
 				/* 塔吊列表 */
 				equipList:[],
@@ -256,7 +258,9 @@
 					order_id:this.order_id
 				}).then(res=>{
 					if(res.code == 1000){
-						this.contract.contract_imgs = res.data.contract_imgs;
+						this.contract.contract_imgs = res.data.contract_imgs.map(v=>{
+							return this.http.resourceUrl() + v
+						});
 						this.contract.contract_num = res.data.contract_num;
 						
 						this.list[0].list[0].value = res.data.cus.name;
@@ -270,15 +274,15 @@
 						this.list[1].list[1].value = res.data.executor.real_name;
 						this.list[1].list[2].value = res.data.executor.tel_num;
 						
-						this.list[2].list[0].value = res.data.handler.name;
-						this.list[2].list[0].avatar = this.http.resourceUrl() + res.data.handler.avatar;
-						this.list[2].list[1].value = res.data.handler.real_name;
-						this.list[2].list[2].value = res.data.handler.tel_num;
+						// this.list[2].list[0].value = res.data.handler.name;
+						// this.list[2].list[0].avatar = this.http.resourceUrl() + res.data.handler.avatar;
+						// this.list[2].list[1].value = res.data.handler.real_name;
+						// this.list[2].list[2].value = res.data.handler.tel_num;
 						
-						this.list[3].list[0].value = res.data.provider.name;
-						this.list[3].list[0].avatar = this.http.resourceUrl() + res.data.provider.avatar;
-						this.list[3].list[1].value = res.data.provider.real_name;
-						this.list[3].list[2].value = res.data.provider.tel_num;
+						// this.list[3].list[0].value = res.data.provider.name;
+						// this.list[3].list[0].avatar = this.http.resourceUrl() + res.data.provider.avatar;
+						// this.list[3].list[1].value = res.data.provider.real_name;
+						// this.list[3].list[2].value = res.data.provider.tel_num;
 						
 						this.equipList = res.data.towers;
 						this.equipList.tower_data.forEach(v=>{
@@ -383,6 +387,13 @@
 			},
 			toAddRecord(id){
 				uni.navigateTo({url: '../addRecord/addRecord?order_id=' + this.order_id});
+			},
+			//预览图片
+			showImg(index){
+				uni.previewImage({
+					current:index,
+					urls:this.contract.contract_imgs
+				})
 			}
 		}
 	}

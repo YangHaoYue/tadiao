@@ -52,6 +52,7 @@
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{
+							uni.$emit('addRecordback')
 							uni.navigateBack({
 								delta: 1
 							});

@@ -178,6 +178,14 @@
 						subTitle = '跟进中';
 						subTitleColor = '#2DA016';
 						break;
+					case 3:
+						subTitle = '已成交';
+						subTitleColor = '#2DA016';
+						break;
+					case 4:
+						subTitle = '已付款';
+						subTitleColor = '#2DA016';
+						break;
 					case 5:
 						subTitle = '已拒绝';
 						subTitleColor = '#FE5E10';
