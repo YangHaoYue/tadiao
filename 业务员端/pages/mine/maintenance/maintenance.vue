@@ -7,9 +7,12 @@
 		<!-- 列表 -->
 		<view class="u-p-b-20">
 			<!-- 型号 -->
-			<scroll-view scroll-x @scrolltolower="loadmore" style="height: 100rpx;" v-if="current == 1">
-				<view class="u-flex u-p-l-20 u-p-r-20">
-					<view class="idot u-line-1" v-for="(item,i) in idotList" :class="idot == item.value?'selected':'nomal'" :key="i" @click="chooseIdot(item)">
+			<scroll-view scroll-y @scrolltolower="loadmore" style="height: 200rpx;" v-if="current == 1" lower-threshold="50">
+				<view class="item-box u-row-center">
+					<view class="idot u-line-1"
+					 v-for="(item,i) in idotList" :key="i"
+					 :class="idot == item.value?'selected':'nomal'"
+					   @click="chooseIdot(item)">
 						{{item.title}}
 					</view>
 				</view>
@@ -250,6 +253,11 @@
 		right: 38rpx;
 		z-index: 9;
 		
+	}
+	.item-box {
+		margin-bottom: 50rpx;
+		display: flex;
+		flex-wrap: wrap;
 	}
 	.idot{
 		padding: 8rpx 16rpx;
