@@ -416,7 +416,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/mine/recList/recList",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "应收款列表",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

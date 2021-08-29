@@ -67,7 +67,7 @@
 					<view class="grid-text" style="margin-right: auto;">订单量</view>
 					<view class="value u-m-t-20" style="margin-right: auto;">{{business_data.order_count}}</view>
 				</u-grid-item>
-				<u-grid-item class="u-border-right u-p-l-30">
+				<u-grid-item class="u-border-right u-p-l-30" @click="toRecList">
 					<view class="grid-text" style="margin-right: auto;">应收款</view>
 					<view class="value u-m-t-20" style="margin-right: auto;">￥{{business_data.order_pay_amount}}</view>
 				</u-grid-item>
@@ -263,6 +263,10 @@
 			//跳转线索列表
 			toProjectClues(){
 				uni.navigateTo({url: '/pages/mine/projectClues/projectClues'});
+			},
+			//应收款列表
+			toRecList(){
+				uni.navigateTo({url: '/pages/mine/recList/recList'});
 			}
 		}
 	}

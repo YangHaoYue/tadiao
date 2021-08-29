@@ -27,10 +27,15 @@
 <script>
 	export default {
 		onLoad(e) {
+			if(e.isEdit == 1){
+				this.orderPayEditData()
+			}
+			this.isEdit = e.isEdit;
 			this.order_id = e.order_id;
 		},
 		data() {
 			return {
+				isEdit:0,
 				time:'',
 				price:'',
 				remark:'',
@@ -38,12 +43,26 @@
 			}
 		},
 		methods: {
+			orderPayEditData(){
+				this.http.get('Order/orderPayEditData',{
+					order_pay_id:this.order_id
+				}).then(res=>{
+					if(res.code === 1000){
+						this.time = res.data.start_at;
+						this.price = res.data.amount;
+						this.remark = res.data.remark;
+					}
+				})
+			},
 			dateChange(e){
-				console.log(e);
 				this.time = e.result
 			},
 			submit(){
-				this.http.post('Order/addOrderPay',{
+				let url = 'Order/addOrderPay';
+				if(this.isEdit == 1){
+					url = 'Order/editOrderPay'
+				}
+				this.http.post(url,{
 					order_id:this.order_id,
 					start_at:this.time,
 					amount:this.price,
