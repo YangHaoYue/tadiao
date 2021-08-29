@@ -194,6 +194,10 @@
 						subTitle = '已结束';
 						subTitleColor = '#FE5E10';
 						break;
+					case 7:
+						subTitle = '未签约';
+						subTitleColor = '#FE5E10';
+						break;
 					case 10:
 						subTitle = '空闲中';
 						subTitleColor = '#105CFB';

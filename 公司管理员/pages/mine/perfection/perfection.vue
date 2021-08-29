@@ -13,6 +13,9 @@
 							</view>
 					</u-upload>
 				</u-form-item> -->
+				<u-form-item :label-style="labelStyle" :required="true" :leftIconStyle="{color: '#888', fontSize: '32rpx'}" left-icon="account" label-width="150" label="姓名" prop="name">
+					<u-input placeholder="请输入姓名" v-model="model.name" type="text"></u-input>
+				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传身份证正反面" label-width="150" :border-bottom="false">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" upload-text="身份证正面" @on-list-change="onPositiveChange" :max-count="1" :custom-btn="true">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
@@ -56,6 +59,7 @@
 				labelStyle:{fontSize: '28rpx',fontWeight: 'bold'},
 				
 				model:{
+					name:'',
 					qualification:[],
 					positive:'',
 					back:''
@@ -81,11 +85,11 @@
 						this.http.modal("","审核未通过，请重新提交！", false, () => {
 							this.model.qualification = res.data.staff_img.map(v=>{
 								return{
-									url:v
+									url:this.http.resourceUrl() + v
 								}
 							})
-							this.model.positive = [{url:res.data.id_card_img[0]}];
-							this.model.back = [{url:res.data.id_card_img[1]}];
+							this.model.positive = [{url:this.http.resourceUrl() + res.data.id_card_img[0]}];
+							this.model.back = [{url:this.http.resourceUrl() +res.data.id_card_img[1]}];
 						})
 					}else if(res.data.status == 4){
 						this.http.modal("","非法状态,禁止进入页面！", false, () => {
@@ -124,6 +128,7 @@
 				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
 				
 				this.http.post('UserCenter/realInfo',{
+					name:this.model.name,
 					// staff_img:img,
 					id_card_img:scimg,
 				}).then(res=>{

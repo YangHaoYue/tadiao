@@ -40,7 +40,7 @@
 				}else if(identity == 4||identity == 5){
 					window.location.href = 'http://tower.0831.run/html/manager'
 				}else if(identity == 6){
-					window.location.href = 'http://tower.0831.run/html/manager/#/pages/leader/leader'
+					window.location.href = 'http://tower.0831.run/html/manager/#/pages/leader/index'
 				}
 			}
 		},

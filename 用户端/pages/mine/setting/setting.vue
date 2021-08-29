@@ -9,7 +9,7 @@
 		<view>
 			<view class="u-flex u-row-between u-p-30 u-border-bottom">
 				<view class="u-m-r-20">姓名</view>
-				<u-input type="text" v-model="real_name" placeholder="请输入姓名"></u-input>
+				<u-input type="text" v-model="real_name" placeholder="请输入姓名" :disabled="real_name_editable"></u-input>
 				<!-- <view>{{real_name}}</view> -->
 			</view>
 			<!-- <view class="u-flex u-row-between u-p-30">
@@ -37,6 +37,8 @@
 				avatarSrc:'',
 				tempFilePath:'',
 				identity:'',
+				//是否能编辑姓名
+				real_name_editable:false,
 				real_name:'',
 				branch_name:'',
 				tel_num:'',
@@ -54,6 +56,7 @@
 					this.tel_num = res.data.tel_num;
 					this.staff_img = res.data.staff_img;
 					this.id_card_img = res.data.id_card_img;
+					this.real_name_editable = res.data.real_name_editable;
 				})
 			},
 			chooseImg(){

@@ -240,7 +240,7 @@
 			},
 			//完善信息
 			toPerfection(){
-				uni.navigateTo({url: 'perfection/perfection'});
+				uni.navigateTo({url: '/pages/mine/perfection/perfection'});
 			},
 			//分段器
 			changeSub(){

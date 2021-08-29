@@ -40,7 +40,7 @@
 					</view>
 					<view class="u-flex u-row-between" slot="foot">
 						<u-icon name="map" size="33" :label="item.address" label-color="#666666" label-size="24"></u-icon>
-						<!-- <u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply">申请认领</u-button> -->
+						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply(item.id)">申请认领</u-button>
 					</view>
 				</u-card>
 				<!-- 公司线索/别人的线索 -->
@@ -194,6 +194,10 @@
 						break;
 					case 6:
 						subTitle = '已结束';
+						subTitleColor = '#FE5E10';
+						break;
+					case 7:
+						subTitle = '未签约';
 						subTitleColor = '#FE5E10';
 						break;
 					case 10:

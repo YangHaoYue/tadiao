@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="card shadow shadow-lg">
-			<u-image :src="http.resourceUrl()+item.tower_img" width="359" height="305" border-radius="13rpx"></u-image>
+			<u-image :src="http.resourceUrl()+item.tower_img" width="100%" height="305" border-radius="13rpx"></u-image>
 			<view class="u-flex u-p-t-12 u-p-b-12 u-p-l-8">
 				<text v-if="item.status == 0" class="tag" style="background-color: #2DA016;">可用</text>
 				<text v-if="item.status == 1" class="tag" style="background-color: #0F58FB;">租赁中</text>

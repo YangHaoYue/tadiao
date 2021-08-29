@@ -23,7 +23,7 @@
 				</u-grid-item>
 				<u-grid-item class="u-border-bottom" style="padding-left: 20rpx;">
 					<view class="grid-text u-font-28 u-line-1" style="margin-right: auto;">当月订单月租金总金额(元)</view>
-					<view class="value u-m-t-20" style="margin-right: auto;">{{business_data.month_total_amount}}</view>
+					<view class="value u-m-t-20 u-m-b-48" style="margin-right: auto;">{{business_data.month_total_amount}}</view>
 				</u-grid-item>
 				<u-grid-item class="u-border-right u-border-bottom u-p-l-30">
 					<view class="grid-text" style="margin-right: auto;">当月收款总额(元)</view>
@@ -46,12 +46,14 @@
 		<view class="u-m-20">
 			<u-button class="u-m-t-20" type="primary" @click="exit">退出登录</u-button>
 		</view>
+		<!-- 底部导航栏Tabbar -->
+		<view class="cu-tabbar-height"></view>
 	</view>
 </template>
 
 <script>
 	export default {
-		onShow() {
+		mounted() {
 			this.getInfo()
 		},
 		data() {

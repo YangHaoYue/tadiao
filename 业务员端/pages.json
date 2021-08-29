@@ -8,11 +8,20 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "我的",
-                "enablePullDownRefresh": false,
-				"enablePullDownRefresh":true
+                "enablePullDownRefresh": true
             }
             
         }
+		,{
+		    "path" : "pages/home/home",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "首页",
+		        "enablePullDownRefresh": false,
+				"onReachBottomDistance":50
+		    }
+		    
+		}
 		,{
 		    "path" : "pages/mine/projectClues/projectClues",
 		    "style" :                                                                                    
@@ -300,5 +309,22 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"navigationStyle":"custom"
+	},
+	"tabBar": {
+	    "color": "#909399",
+	    "selectedColor": "#0F58FB",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [{
+	        "pagePath": "pages/home/home",
+	        "iconPath": "static/index.png",
+	        "selectedIconPath": "static/index-selected.png",
+	        "text": "首页"
+	    }, {
+	        "pagePath": "pages/mine/mine",
+	        "iconPath": "static/center.png",
+	        "selectedIconPath": "static/center-selected.png",
+	        "text": "我"
+	    }]
 	}
 }
