@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "已关联塔吊",
+  "enablePullDownRefresh": false,
+  "onReachBottomDistance": 50,
+  "usingComponents": {
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore",
+    "u-gap": "/uview-ui/components/u-gap/u-gap"
+  }
+}

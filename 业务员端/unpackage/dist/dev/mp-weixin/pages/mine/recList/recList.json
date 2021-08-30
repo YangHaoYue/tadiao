@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "应收款列表",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-button": "/uview-ui/components/u-button/u-button"
+  }
+}

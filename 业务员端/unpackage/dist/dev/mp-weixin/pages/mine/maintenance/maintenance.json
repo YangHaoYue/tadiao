@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "维修记录",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-tabs": "/uview-ui/components/u-tabs/u-tabs",
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-card": "/uview-ui/components/u-card/u-card",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

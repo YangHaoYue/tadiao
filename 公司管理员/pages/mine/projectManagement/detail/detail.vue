@@ -243,7 +243,6 @@
 				payList:{
 					order_pays_data:[],
 					current_page:1,
-					last_page:1
 				},
 				/* 订单详情 */
 				orderList:[
@@ -362,7 +361,7 @@
 				this.http.get('Order/orderPays',{
 					order_id:this.order_id,
 					page:this.payList.current_page||1},true).then(res=>{
-						if(!this.payList.order_pays_data){
+						if(this.payList.order_pays_data.length === 0){
 							this.$set(this,'payList',res.data)
 						}else{
 							res.data.order_pays_data.map(v=>{

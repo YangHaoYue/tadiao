@@ -1,0 +1,13 @@
+
+page.data-v-86c3d004{
+	background-color: #F8F8F8;
+}
+.add.data-v-86c3d004{
+	border: 1rpx solid #0F58FB;
+	border-radius: 10rpx;
+	line-height: 1;
+	padding: 10rpx 15rpx;
+	width: 180rpx;
+	height: 50rpx;
+}
+

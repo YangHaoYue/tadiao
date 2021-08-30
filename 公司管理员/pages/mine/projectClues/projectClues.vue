@@ -34,7 +34,8 @@
 				</u-card>
 				<!-- 公海池 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
-				 @click="toDetail(item.id)" v-else-if="current == 1">
+				:sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
+				@click="toDetail(item.id)" v-else-if="current == 1">
 					<view class="u-flex u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					</view>

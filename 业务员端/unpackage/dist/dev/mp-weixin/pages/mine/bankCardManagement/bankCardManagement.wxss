@@ -1,0 +1,28 @@
+
+.bankCard.data-v-2bd525e8{
+	padding: 29rpx 29rpx 21rpx 66rpx;
+	border-radius: 17rpx;
+	margin: 20rpx 31rpx;
+}
+.primary.data-v-2bd525e8{
+	background: -webkit-linear-gradient(left,#0F58FB,#1C96FA);
+	-webkit-box-shadow: 0 2px 4px 0 #0F58FB;
+	        box-shadow: 0 2px 4px 0 #0F58FB;
+}
+.red.data-v-2bd525e8{
+	background: -webkit-linear-gradient(left,#F73535,#FA5A31);
+	-webkit-box-shadow: 0 2px 4px 0 #F95331;
+	        box-shadow: 0 2px 4px 0 #F95331;
+}
+.success.data-v-2bd525e8{
+	background: -webkit-linear-gradient(left,#009F90,#0BBDBA);
+	-webkit-box-shadow: 0 2px 4px 0 #09B8B3;
+	        box-shadow: 0 2px 4px 0 #09B8B3;
+}
+.fixed.data-v-2bd525e8{
+	position: absolute;
+	bottom: 30rpx;
+	right: 0;
+	left: 0;
+}
+

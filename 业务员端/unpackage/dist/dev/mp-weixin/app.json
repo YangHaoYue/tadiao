@@ -1,16 +1,18 @@
 {
   "pages": [
-    "pages/register/register",
-    "pages/register/agreement",
     "pages/mine/mine",
+    "pages/home/home",
     "pages/mine/projectClues/projectClues",
     "pages/mine/projectClues/detail/detail",
+    "pages/mine/projectClues/createNew/createNew",
+    "pages/mine/projectClues/createNew/map",
     "pages/mine/setting/setting",
     "pages/mine/projectClues/relation/relation",
     "pages/mine/projectClues/relation/associated",
     "pages/mine/projectManagement/projectManagement",
     "pages/mine/projectManagement/detail/detail",
     "pages/mine/projectClues/newProject/newProject",
+    "pages/mine/projectManagement/addRecord/addRecord",
     "pages/mine/projectClues/newProject/chooseEquipment/chooseEquipment",
     "pages/mine/projectClues/detail/addRecord",
     "pages/mine/maintenance/maintenance",
@@ -23,18 +25,46 @@
     "pages/mine/perfection/perfection",
     "pages/mine/equipmentList/equipmentList",
     "pages/mine/equipmentList/detail/detail",
-    "pages/mine/equipmentList/detail/repair"
+    "pages/mine/equipmentList/detail/repair",
+    "pages/mine/equipmentList/detail/maintain",
+    "pages/mine/projectManagement/detail/contract",
+    "pages/mine/projectManagement/detail/detail",
+    "pages/mine/projectManagement/detail/contract",
+    "pages/mine/equipmentList/detail/miantainDetail",
+    "pages/mine/equipmentList/detail/repairDetail",
+    "pages/mine/projectClues/createNew/getaddress",
+    "pages/mine/recList/recList"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "嗒嗒租赁",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
+  },
+  "tabBar": {
+    "color": "#909399",
+    "selectedColor": "#0F58FB",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "static/index.png",
+        "selectedIconPath": "static/index-selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "iconPath": "static/center.png",
+        "selectedIconPath": "static/center-selected.png",
+        "text": "我"
+      }
+    ]
   },
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom",
     "equipment-item": "/components/equipment-item"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

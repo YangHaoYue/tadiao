@@ -38,7 +38,7 @@
 				tempFilePath:'',
 				identity:'',
 				//是否能编辑姓名
-				real_name_editable:false,
+				real_name_editable:true,
 				real_name:'',
 				branch_name:'',
 				tel_num:'',
@@ -56,7 +56,7 @@
 					this.tel_num = res.data.tel_num;
 					this.staff_img = res.data.staff_img;
 					this.id_card_img = res.data.id_card_img;
-					this.real_name_editable = res.data.real_name_editable;
+					this.real_name_editable = !res.data.real_name_editable;
 				})
 			},
 			chooseImg(){

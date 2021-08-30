@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-line": "/uview-ui/components/u-line/u-line",
+    "u-radio-group": "/uview-ui/components/u-radio-group/u-radio-group",
+    "u-radio": "/uview-ui/components/u-radio/u-radio",
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-input": "/uview-ui/components/u-input/u-input",
+    "u-gap": "/uview-ui/components/u-gap/u-gap"
+  }
+}

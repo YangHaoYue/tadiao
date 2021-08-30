@@ -27,10 +27,12 @@
 <script>
 	export default {
 		onLoad(e) {
-			console.log(e);
 			this.order_id = e.order_id;
 			this.isEdit = e.isEdit;
 			if(e.isEdit == 1){
+				uni.setNavigationBarTitle({
+					title:'修改付款时间'
+				})
 				this.orderPayEditData()
 			}
 		},
@@ -61,15 +63,22 @@
 			},
 			submit(){
 				let url = 'Order/addOrderPay';
-				if(this.isEdit == 1){
-					url = 'Order/editOrderPay'
-				}
-				this.http.post(url,{
+				let data = {
 					order_id:this.order_id,
 					start_at:this.time,
 					amount:this.price,
 					remark:this.remark
-				}).then(res=>{
+				}
+				if(this.isEdit == 1){
+					url = 'Order/editOrderPay'
+					data = {
+						order_pay_id:this.order_id,
+						start_at:this.time,
+						amount:this.price,
+						remark:this.remark
+					}
+				}
+				this.http.post(url,).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{

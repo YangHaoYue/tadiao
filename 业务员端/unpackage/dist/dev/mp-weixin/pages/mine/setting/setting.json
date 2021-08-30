@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "个人资料",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-avatar": "/uview-ui/components/u-avatar/u-avatar",
+    "u-input": "/uview-ui/components/u-input/u-input",
+    "u-image": "/uview-ui/components/u-image/u-image",
+    "u-button": "/uview-ui/components/u-button/u-button",
+    "u-gap": "/uview-ui/components/u-gap/u-gap"
+  }
+}
