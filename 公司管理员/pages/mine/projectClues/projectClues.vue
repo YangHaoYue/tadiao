@@ -32,7 +32,7 @@
 						</view>
 					</view>
 				</u-card>
-				<!-- 公海池 -->
+				<!-- 公司线索 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 				:sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
 				@click="toDetail(item.id)" v-else-if="current == 1">
@@ -44,12 +44,31 @@
 						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply(item.id)">申请认领</u-button>
 					</view>
 				</u-card>
-				<!-- 公司线索/别人的线索 -->
+				<!-- 公海池 -->
 				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
-				 :sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
+				:sub-title="item.subTitle" sub-title-size="28" :sub-title-color="item.subTitleColor" :isBold="true"
+				@click="toDetail(item.id)" v-else-if="current == 2">
+					<view slot="body">
+						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
+						<view class="u-flex u-font-24" style="color: #666666;">
+							合同协调人：
+							<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>
+							{{item.handler_data.name}}
+						</view>
+					</view>
+					<view class="u-flex u-row-between" slot="foot">
+						<u-icon name="map" size="33" :label="item.address" label-color="#666666" label-size="24"></u-icon>
+						<u-button type="primary" size="mini" style="margin-right: 0;" v-if="item.show_apply_button" @click="toApply(item.id)">申请认领</u-button>
+					</view>
+				</u-card>
+				<!-- 别人的线索 -->
+				<u-card :title="item.title" title-size="24" title-color="#666666" :border="false"
 				 @click="toDetail(item.id)" v-else>
-				 <view slot="head" class="u-flex u-font-24" style="color: #666666;">合同协调人：
-				 <u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>{{item.handler_data.name}}</view>
+				 <view slot="head" class="u-flex u-font-24" style="color: #666666;" >
+					合同协调人：
+					<u-image class="u-m-r-10" shape="circle" height="56rpx" width="56rpx" :src="http.resourceUrl()+item.handler_data.avatar"/>
+					{{item.handler_data.name}}
+				 </view>
 					<view class="u-flex u-row-between" slot="body">
 						<view class="text-bold u-font-28 text-black">{{item.project_name}}</view>
 					</view>
@@ -260,7 +279,7 @@
 			},
 			//申请认领
 			toApply(id){
-				this.http.post('project/projectLockTower',{
+				this.http.post('project/applyProject',{
 					project_id:id
 				}).then(res=>{
 					this.$u.toast(res.msg)

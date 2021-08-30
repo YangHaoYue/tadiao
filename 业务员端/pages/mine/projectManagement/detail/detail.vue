@@ -112,7 +112,7 @@
 						<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
 						<view class="text-black" v-if="item.status == 1">审核中</view>
 						<view class="text-black" v-else-if="item.status == 2">已支付</view>
-						<view class="u-flex">
+						<view class="u-flex" v-if="item.status == 0||item.show_edit_btn">
 							<u-button style="margin-right: 10rpx;" v-if="item.show_edit_btn" type="primary" size="mini" @click="edit(item.id)">修改</u-button>
 							<u-button style="margin-right: 0;" v-if="item.status == 0" type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
 						</view>
@@ -238,7 +238,10 @@
 				/* 塔吊列表 */
 				equipList:[],
 				/* 付款记录 */
-				payList:'',
+				payList:{
+					order_pays_data:[],
+					current_page:1,
+				},
 				/* 订单详情 */
 				orderList:[
 					{title:'订单编号',value:''},

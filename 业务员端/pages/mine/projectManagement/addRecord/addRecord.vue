@@ -78,7 +78,7 @@
 						remark:this.remark
 					}
 				}
-				this.http.post(url,).then(res=>{
+				this.http.post(url,data).then(res=>{
 					this.$u.toast(res.msg)
 					if(res.code == 1000){
 						setTimeout(()=>{

@@ -1,6 +1,6 @@
 <template>
 	<view class="u-m-31">
-		<view class="u-flex u-row-between bankCard success"  v-for="(item,index) in list" :key="index" @tap="edit(item.id)">
+		<view class="u-flex u-row-between bankCard" :class="item.color" v-for="(item,index) in list" :key="index" @tap="edit(item.id)">
 			<view class="text-white text-bold">
 				<view class="u-font-28">{{item.bank_name}}</view>
 				<view style="font-size: 42rpx;line-height: 1.5;">{{item.bankcard_num}}</view>
@@ -47,6 +47,9 @@
 			getInfo(){
 				this.http.get('withdraw/bankcardLists',{},true).then(res=>{
 					this.list = res.data;
+					this.list.map(v=>{
+						this.$set(v,'color',this.colorRandom())
+					})
 					/* if(this.list.length == 0){
 						this.last_page = res.data.last_page;
 					}else{
@@ -84,6 +87,24 @@
 						},1000)
 					}
 				})
+			},
+			colorRandom() {
+				let number = this.$u.random(1, 3);
+				let color = ''
+				switch(number){
+					case 1: 
+						color = 'success'
+						break;
+					case 2:
+						color = 'primary'
+						break;
+					case 3:
+						color = 'red'
+						break;
+				}
+				console.log(color);
+				console.log(number);
+				return color
 			}
 		}
 	}
