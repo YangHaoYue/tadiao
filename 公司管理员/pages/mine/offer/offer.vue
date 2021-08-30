@@ -5,10 +5,9 @@
 				<view style="padding: 37rpx 14rpx 10rpx 22rpx;">
 					<view class="u-flex">
 						<u-image :src="http.resourceUrl() + item.tower_img" width="153" height="153" mode="scaleToFill" :fade="false"></u-image>
-						<view class="u-m-l-12 u-flex-1" style="height: 153rpx;">
-							<view class="u-flex u-row-between u-m-b-20 u-font-26 text-bold">
-								<view >{{item.tower_name}}({{item.tower_type}})</view>
-								<view style="color: #FE5E10;">租金:¥{{item.month_rent}}/月</view>
+						<view class="u-m-l-12 u-flex-1 flex" style="height: 153rpx;flex-direction: column;">
+							<view class="u-flex u-row-between u-font-26 text-bold" style="margin-bottom: auto;">
+								<view class="u-line-2" style="line-height: 1.2;">{{item.tower_name}}</view>
 							</view>
 							<view class="text-gray u-font-22">设备出厂编号:{{item.serial_num}}</view>
 							<view class="text-gray u-font-22">品牌:{{item.brand_name}}</view>
@@ -16,7 +15,8 @@
 						</view>
 					</view>
 				</view>
-				<view class="u-border-top u-p-20 u-flex u-row-right">
+				<view class="u-border-top u-p-20 u-flex u-row-between">
+					<view class="u-lien-1 u-font-26 text-bold" style="color: #FE5E10;">租金:¥{{item.month_rent}}/月</view>
 					<u-button type="primary" size="mini" style="margin-right: 0;" @click="modify(item.month_rent,item.id)">修改价格</u-button>
 				</view>
 			</view>
