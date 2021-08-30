@@ -112,7 +112,10 @@
 						<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
 						<view class="text-black" v-if="item.status == 1">审核中</view>
 						<view class="text-black" v-else-if="item.status == 2">已支付</view>
-						<u-button style="margin-right: 0;" v-else type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
+						<view class="u-flex">
+							<u-button style="margin-right: 10rpx;" v-if="item.show_edit_btn" type="primary" size="mini" @click="edit(item.id)">修改</u-button>
+							<u-button style="margin-right: 0;" v-if="item.status == 0" type="primary" size="mini" @click="Collection(item.id)">收款</u-button>
+						</view>
 					</view>
 				</view>
 			</scroll-view>
@@ -378,6 +381,10 @@
 						})
 					}
 				},'#0F58FB')
+			},
+			//修改收款时间
+			edit(id){
+				uni.navigateTo({url: `/pages/mine/projectManagement/addRecord/addRecord?isEdit=1&order_id=${id}`});
 			},
 			end(){
 				this.http.modal('','是否要结束该项目？',true,(res)=>{

@@ -218,7 +218,7 @@
 					this.$set(data,'price_max',this.max)
 					this.$set(data,'price_min',this.min)
 				} */
-				this.http.get('Index/towerList',data).then(res=>{
+				this.http.get('Index/towerList',data,true).then(res=>{
 					if(res.code == 1000){
 						if(this.list.length == 0){
 							this.list = res.data.tower_data;

@@ -3,7 +3,7 @@
 		<view class="u-p-30">
 			<block v-for="(item,index) in list" :key="index">
 				<view class="bg-white u-p-30 u-m-b-20" style="border-radius: 20rpx;">
-					<view class="u-flex">
+					<view class="">
 						<view class="u-flex u-row-between u-font-28 u-m-t-10">
 							<view class="text-black">{{item.order_pays_name}}</view>
 							<view class="text-black" style="color: #FE5E10;">￥{{item.amount}}</view>
@@ -11,7 +11,7 @@
 						<view class="u-font-28 u-m-t-10">所属项目：{{item.project_name}}</view>
 						<view class="u-flex u-row-between u-font-28 u-m-t-10">
 							<view class="u-order-desc text-gray u-m-t-10 u-font-24">应付款时间:{{item.start_at}}</view>
-							<u-button style="margin-right: 0;" v-if="item.show_edit_btn" type="primary" size="mini" @click="Collection(item.id)">修改</u-button>
+							<u-button style="margin-right: 0;" type="primary" size="mini" @click="Collection(item.id)">修改</u-button>
 						</view>
 					</view>
 				</view>
@@ -47,7 +47,7 @@
 				this.http.get('UserCenter/orderPayLists',{
 					page:this.page
 				}).then((res)=>{
-					if(res.code == 200){
+					if(res.code == 1000){
 						if(this.list.length==0){
 							this.list=res.data.order_pays_data;
 							this.last_page=res.data.last_page;
@@ -60,7 +60,7 @@
 				})
 			},
 			Collection(id){
-				uni.navigateTo({url: `/pages/mine/projectManagement/addRecord/addRecord?order_id=${id}&isEdit=1`});
+				uni.navigateTo({url: `/pages/mine/projectManagement/addRecord/addRecord?isEdit=1&order_id=${id}`});
 			}
 		}
 	}

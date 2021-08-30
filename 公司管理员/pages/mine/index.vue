@@ -23,6 +23,9 @@
 
 <script>
 	export default {
+		onShow() {
+			uni.$emit('onShow')
+		},
 		onReachBottom(e) {
 			uni.$emit('onReachBottom')
 		},
@@ -45,6 +48,6 @@
 
 <style>
 page{
-	background-color: #F7F7F7;
+	background-color: #FFFFFF;
 }
 </style>

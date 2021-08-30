@@ -27,15 +27,18 @@
 <script>
 	export default {
 		onLoad(e) {
+			console.log(e);
+			this.order_id = e.order_id;
+			this.isEdit = e.isEdit;
 			if(e.isEdit == 1){
 				this.orderPayEditData()
 			}
-			this.isEdit = e.isEdit;
-			this.order_id = e.order_id;
 		},
 		data() {
 			return {
 				isEdit:0,
+				order_id:'',
+				
 				time:'',
 				price:'',
 				remark:'',

@@ -104,6 +104,8 @@
 			</u-col>
 		</u-row>
 		<u-gap bg-color="#ffffff"></u-gap>
+		<!-- 底部导航栏Tabbar -->
+		<view class="cu-tabbar-height"></view>
 		
 		
 		<!-- 日历/月 -->
@@ -124,7 +126,7 @@
 
 <script>
 	export default {
-		onLoad() {
+		mounted() {
 			let now = new Date();
 			this.month = `${now.getFullYear()}-${now.getMonth() + 1}`;
 			this.start = this.http.getToday();
@@ -134,10 +136,16 @@
 			if(!this.branch_id){
 				this.staff.push({img:'../../static/yinhangkaguanli@2x.png',name:'银行卡管理',url:'/pages/mine/bankCardManagement/bankCardManagement'})
 			}
-		},
-		onShow() {
 			this.getUserInfo();
 			this.getInviteCode();
+			
+			uni.$on('onShow',()=>{
+				this.getUserInfo();
+				this.getInviteCode();
+			})
+		},
+		onShow() {
+			
 		},
 		onPullDownRefresh() {
 			setTimeout(()=>{
@@ -153,9 +161,9 @@
 				
 				user_data:{
 					id:6,
-					name:"维修师傅老王",
-					avatar:"images\/85e29bb4783cf12363a8fce9237df14.png",
-					branch_name:"测试分公司"
+					name:"",
+					avatar:"",
+					branch_name:""
 				},
 				
 				//二维码弹窗
