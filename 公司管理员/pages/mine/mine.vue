@@ -129,7 +129,7 @@
 		mounted() {
 			let now = new Date();
 			this.month = `${now.getFullYear()}-${now.getMonth() + 1}`;
-			this.start = this.http.getToday();
+			this.start = `${now.getFullYear()-1}-${now.getMonth() + 1}-${now.getDate()}`;
 			this.end = this.http.getToday();
 			
 			this.branch_id = uni.getStorageSync('branch_id')
@@ -174,7 +174,7 @@
 				today_reward:'',
 				
 				//分段器
-				current:true,
+				current:false,
 				//月
 				month:'',
 				showCalender:false,

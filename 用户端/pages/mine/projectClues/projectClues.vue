@@ -173,6 +173,10 @@
 						subTitle = '已结束';
 						subTitleColor = '#FE5E10';
 						break;
+					case 7:
+						subTitle = '未签约';
+						subTitleColor = '#FE5E10';
+						break;
 				}
 				this.$set(data,'subTitle',subTitle)
 				this.$set(data,'subTitleColor',subTitleColor)

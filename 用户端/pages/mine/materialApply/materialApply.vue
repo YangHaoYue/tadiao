@@ -14,21 +14,29 @@
 					</u-upload>
 				</u-form-item> -->
 				<u-form-item :label-style="labelStyle" :required="true" :leftIconStyle="{color: '#888', fontSize: '32rpx'}" left-icon="account" label-width="150" label="姓名" prop="name">
-					<u-input placeholder="请输入姓名" v-model="model.name" type="text"></u-input>
+					<u-input placeholder="请输入姓名" v-model="model.name" type="text"  :disabled="status == 1" ></u-input>
 				</u-form-item>
 				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传身份证正反面" label-width="150" :border-bottom="false">
-					<u-upload width="200" height="200" :disabled="status == 1" :action="http.interfaceUrl()+action" upload-text="身份证正面" @on-list-change="onPositiveChange" :max-count="1" :custom-btn="true">
+					<u-upload width="200" height="200" :action="http.interfaceUrl()+action" :file-list="model.positive"
+					 upload-text="身份证正面" @on-list-change="onPositiveChange" :max-count="1" :custom-btn="true"
+					 :disabled="status === 1">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 							<u-image src="@/static/on.png" width="80" height="60"></u-image>
 							<view class="u-font-22 u-m-t-15" style="color: #9FA7BC;line-height: 1;">身份证正面</view>
 						</view>
 					</u-upload>
-					<u-upload class="u-m-l-20" width="200" height="200" :disabled="status == 1"  :action="http.interfaceUrl()+action" upload-text="身份证反面" @on-list-change="onBackChange" :max-count="1" :custom-btn="true">
+					<u-upload class="u-m-l-20" width="200" height="200"  :action="http.interfaceUrl()+action" :file-list="model.back"
+					 upload-text="身份证反面" @on-list-change="onBackChange" :max-count="1" :custom-btn="true"
+					 :disabled="status === 1">
 						<view slot="addBtn" class="slot-btn" hover-class="slot-btn__hover" hover-stay-time="150">
 							<u-image src="@/static/off.png" width="80" height="60"></u-image>
 							<view class="u-font-22 u-m-t-15" style="color: #9FA7BC;line-height: 1;">身份证反面</view>
 						</view>
 					</u-upload>
+					<view class="u-flex" v-if="status === 1">
+						<u-image :src="model.positive[0].url||''" height="200" width="200"></u-image>
+						<u-image :src="model.back[0].url||''" height="200" width="200" class="u-m-l-20"></u-image>
+					</view>
 				</u-form-item>
 			</u-form>
 		</view>
@@ -49,11 +57,14 @@
 					bool = false;
 				}
 				return bool
+			},
+			disabled(){
+				return this.status === 1
 			}
 		},
 		data() {
 			return {
-				stats:'',
+				status:0,
 				border:false,
 				action: 'Common/fileUploader',
 				
@@ -61,26 +72,19 @@
 				
 				model:{
 					name:'',
-					qualification:'',
-					positive:'',
-					back:''
+					qualification:[],
+					positive:[],
+					back:[]
 				}
 			}
 		},
 		methods: {
 			getInfo(){
 				this.http.get('UserCenter/getRealInfoEditPage').then(res=>{
-					this.stats = res.data.status;
-					this.model.positive = [{url:res.data.id_card_img[0]}];
-					this.model.back = [{url:res.data.id_card_img[1]}];
-					if(res.data.status == 1){
-						this.http.modal("","审核成功!", false, () => {
-							uni.navigateBack({
-								delta:1
-							})
-						})
-					}
-					else if(res.data.status == 2){
+					this.status = res.data.status;
+					this.model.positive = [{url:this.http.resourceUrl()+res.data.id_card_img[0]}];
+					this.model.back = [{url:this.http.resourceUrl()+res.data.id_card_img[1]}];
+					if(res.data.status == 2){
 						this.http.modal("","审核中，请耐心等待！", false, () => {
 							uni.navigateBack({
 								delta:1

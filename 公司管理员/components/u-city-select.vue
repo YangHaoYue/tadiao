@@ -27,14 +27,15 @@
 								 :border-bottom="false" :title="item.label" :arrow="false" :index="index"
 								 :title-style="isChooseC&&city===index?{color:'#0F58FB','fontsize':'28rpx'}:{'fontsize':'28rpx'}"
 								 @click="cityChange" :size="true">
-									<u-icon v-if="isChooseC&&city===index" color="blue" slot="right-icon" size="34" name="arrow-right"></u-icon>
+									<u-icon v-if="isChooseC&&city===index" color="blue" slot="right-icon" size="34" name="checkbox-mark"></u-icon>
+									<!-- <u-icon v-if="isChooseC&&city===index" color="blue" slot="right-icon" size="34" name="arrow-right"></u-icon> -->
 								</u-cell-item>
 							</u-cell-group>
 						</scroll-view>
 					</view>
 				</view>
 		
-				<view class="area-item u-flex-1">
+				<!-- <view class="area-item u-flex-1">
 					<view class="u-bg-gray" style="height: 100%;">
 						<view class="topTitle">区域</view>
 						<scroll-view :scroll-y="true" style="height: 100%">
@@ -48,8 +49,12 @@
 							</u-cell-group>
 						</scroll-view>
 					</view>
-				</view>
+				</view> -->
 			</view>
+		</view>
+		<view class="u-flex u-row-right bg-white u-p-t-10 u-p-b-20">
+			<u-button class="u-m-10" type="primary" plain @click="clearData" size="medium">重置</u-button>
+			<u-button class="u-m-10" type="primary" @click="change" size="medium">确定</u-button>
 		</view>
 	</view>
 </template>
@@ -102,13 +107,13 @@
 			return {
 				cityValue: "",
 				isChooseP: false, //是否已经选择了省
-				province: 0, //省级下标
+				province: '', //省级下标
 				provinces: provinces,
 				isChooseC: false, //是否已经选择了市
-				city: 0, //市级下标
+				city: '', //市级下标
 				citys: citys[0],
 				isChooseA: false, //是否已经选择了区
-				area: 0, //区级下标
+				area: '', //区级下标
 				areas: areas[0][0],
 				tabsIndex: 0,
 				titleStyle:{
@@ -117,7 +122,7 @@
 			}
 		},
 		mounted() {
-			this.init();
+			/* this.init(); */
 		},
 		computed: {
 			isChange() {
@@ -194,6 +199,8 @@
 				this.isChooseC = false;
 				this.isChooseA = false;
 				this.province = index;
+				this.claerCity();
+				this.clearArea();
 				this.citys = citys[index];
 				this.tabsIndex = 1;
 			},
@@ -201,16 +208,36 @@
 				this.isChooseC = true;
 				this.isChooseA = false;
 				this.city = index;
+				this.clearArea();
 				this.areas = areas[this.province][index];
 				this.tabsIndex = 2;
 			},
 			areaChange(index) {
 				this.isChooseA = true;
 				this.area = index;
+				this.change();
+			},
+			claerCity(){
+				this.city = '';
+				this.isChooseC = false;
+			},
+			clearArea(){
+				this.area = '';
+				this.isChooseA = false;
+			},
+			clearData() {
+				this.province = '';
+				this.isChooseP = false;
+				this.clearArea();
+				this.claerCity();				this.$emit('clearData', true);
+				this.close();
+			},
+			change(){
+				if(this.province === '') return;
 				let result = {};
 				result.province = this.provinces[this.province];
-				result.city = this.citys[this.city];
-				result.area = this.areas[this.area];
+				result.city = this.citys[this.city] || '';
+				result.area = this.areas[this.area] || '';
 				this.$emit('city-change', result);
 				this.close();
 			}
