@@ -75,8 +75,9 @@
 			getInfo(){
 				this.http.get('UserCenter/getRealInfoEditPage').then(res=>{
 					this.status = res.data.status;
-					this.model.positive = [{url:this.http.resourceUrl()+res.data.id_card_img[0]}];
-					this.model.back = [{url:this.http.resourceUrl()+res.data.id_card_img[1]}];
+					this.model.name = res.data.name;
+					this.model.positive = res.data.id_card_img[0]?[{url:this.http.resourceUrl()+res.data.id_card_img[0]}]:[];
+					this.model.back = res.data.id_card_img[1]?[{url:this.http.resourceUrl()+res.data.id_card_img[1]}]:[];
 					if(res.data.status == 2){
 						this.http.modal("","审核中，请耐心等待！", false, () => {
 							uni.navigateBack({
@@ -90,8 +91,6 @@
 									url:this.http.resourceUrl() + v
 								}
 							})
-							this.model.positive = [{url:this.http.resourceUrl() + res.data.id_card_img[0]}];
-							this.model.back = [{url:this.http.resourceUrl() +res.data.id_card_img[1]}];
 						})
 					}else if(res.data.status == 4){
 						this.http.modal("","非法状态,禁止进入页面！", false, () => {
@@ -127,7 +126,10 @@
 						}
 					});
 				}
-				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
+				let scimg=[
+					this.model.positive[0].response&&this.model.positive[0].response.data.path||this.model.positive[0].url,
+					this.model.back[0].response&&this.model.back[0].response.data.path||this.model.back[0].url
+				]
 				
 				this.http.post('UserCenter/realInfo',{
 					name:this.model.name,

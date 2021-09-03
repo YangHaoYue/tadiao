@@ -9,7 +9,8 @@
 				<u-form-item :label-style="labelStyle" :required="true" :leftIconStyle="{color: '#888', fontSize: '32rpx'}" left-icon="account" label-width="150" label="姓名" prop="name">
 					<u-input placeholder="请输入姓名" v-model="model.name" type="text"  :disabled="status == 1" ></u-input>
 				</u-form-item>
-				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150" :border-bottom="false">
+				<u-form-item :label-style="labelStyle" :required="false" label-position="top" label="上传资格证书" label-width="150" :border-bottom="false"
+				 v-if="showQualification">
 					<u-upload width="200" height="200" :action="http.interfaceUrl()+action"  :file-list="model.qualification"
 					 @on-list-change="onQualificationChange" :max-count="9" :custom-btn="true"
 					 :disabled="status === 1">
@@ -19,7 +20,7 @@
 					</u-upload>
 					<view class="u-flex" v-if="status === 1">
 						<block v-for="(item,index) in model.qualification" :key="index">
-							<u-image :src="item" height="200" width="200" class="u-m-r-20"></u-image>
+							<u-image :src="item.url" height="200" width="200" class="u-m-r-20"></u-image>
 						</block>
 					</view>
 				</u-form-item>
@@ -57,6 +58,15 @@
 		onLoad() {
 			this.getInfo()
 		},
+		computed: {
+			showQualification() {
+				let bool = true;
+				if(this.status === 1&& this.model.qualification.length === 0){
+					bool = false
+				}
+				return bool
+			}
+		},
 		data() {
 			return {
 				status:0,
@@ -77,11 +87,13 @@
 			getInfo(){
 				this.http.get('UserCenter/getRealInfoEditPage').then(res=>{
 					this.status = res.data.status;
-					this.model.positive = [{url:this.http.resourceUrl()+res.data.id_card_img[0]}];
-					this.model.back = [{url:this.http.resourceUrl()+res.data.id_card_img[1]}];
+					this.model.name = res.data.name;
+					this.model.positive = res.data.id_card_img[0]?[{url:this.http.resourceUrl()+res.data.id_card_img[0]}]:[];
+					this.model.back = res.data.id_card_img[1]?[{url:this.http.resourceUrl()+res.data.id_card_img[1]}]:[];
 					res.data.staff_img.map(v=>{
 						this.model.qualification.push({url:this.http.resourceUrl()+v})
 					})
+					console.log(this.model.qualification);
 					if(res.data.status == 2){
 						this.http.modal("","审核中，请耐心等待！", false, () => {
 							uni.navigateBack({
@@ -95,8 +107,6 @@
 									url:this.http.resourceUrl() + v
 								}
 							})
-							this.model.positive = [{url:this.http.resourceUrl() + res.data.id_card_img[0]}];
-							this.model.back = [{url:this.http.resourceUrl() +res.data.id_card_img[1]}];
 						})
 					}else if(res.data.status == 4){
 						this.http.modal("","非法状态,禁止进入页面！", false, () => {
@@ -122,7 +132,7 @@
 				this.model.back=lists
 			},
 			submit(){
-				let img=[]
+				let img = []
 				if(this.model.qualification.length != 0){
 					this.model.qualification.map(item=>{
 						if(item.response&&item.response.code==1000){
@@ -132,7 +142,10 @@
 						}
 					});
 				}
-				let scimg=[this.model.positive[0].response.data.path||this.model.positive[0].url,this.model.back[0].response.data.path||this.model.back[0].url]
+				let scimg=[
+					this.model.positive[0].response&&this.model.positive[0].response.data.path||this.model.positive[0].url,
+					this.model.back[0].response&&this.model.back[0].response.data.path||this.model.back[0].url
+				]
 				
 				this.http.post('UserCenter/realInfo',{
 					name:this.model.name,
