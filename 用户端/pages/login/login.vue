@@ -36,11 +36,11 @@
 						url:'../home/home'
 					})
 				}else if(identity == 2||identity == 3){
-					window.location.href = 'http://tower.0831.run/html/staff'
+					window.location.href = 'https://dadazulin.cn/html/staff'
 				}else if(identity == 4||identity == 5){
-					window.location.href = 'http://tower.0831.run/html/manager'
+					window.location.href = 'https://dadazulin.cn/html/manager'
 				}else if(identity == 6){
-					window.location.href = 'http://tower.0831.run/html/manager/#/pages/leader/index'
+					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index'
 				}
 			}
 		},
@@ -174,11 +174,11 @@
 										url:'/pages/home/home'
 									})
 								}else if(res.data.identity == 2||res.data.identity == 3){
-									window.location.href = 'http://tower.0831.run/html/staff'
+									window.location.href = 'https://dadazulin.cn/html/staff'
 								}else if(res.data.identity == 4||res.data.identity == 5){
-									window.location.href = 'http://tower.0831.run/html/manager'
+									window.location.href = 'https://dadazulin.cn/html/manager'
 								}else if(res.data.identity == 6){
-									window.location.href = 'http://tower.0831.run/html/manager/#/pages/leader/leader'
+									window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index'
 								}
 							}else{
 								this.$refs.uToast.show({

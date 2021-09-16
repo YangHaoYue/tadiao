@@ -109,7 +109,7 @@
 			},
 			exit(){
 				uni.clearStorageSync();
-				window.location.href = 'http://tower.0831.run/html/user'
+				window.location.href = 'https://dadazulin.cn/html/user'
 			}
 		}
 	}

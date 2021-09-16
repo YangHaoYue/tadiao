@@ -6,15 +6,15 @@
 const tui = {
 	//接口地址
 	interfaceUrl: function() {
-		return 'http://tower.0831.run/api/v1/'
+		return 'https://dadazulin.cn/api/v1/'
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
+		return 'https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/'
 	},
 	//地图地址
 	addressUrl :function(){
-		return 'http://tower.0831.run/html/'
+		return 'https://dadazulin.cn/html/'
 	},
 	//地图key
 	addressKey :function(){
@@ -123,7 +123,7 @@ const tui = {
 						uni.clearStorageSync()
 						tui.modal("","登录信息已失效，请重新登录", false, () => {
 							//store.commit("logout") 登录页面执行
-							window.location.href = 'http://tower.0831.run/html/user'
+							window.location.href = 'https://dadazulin.cn/html/user'
 						})
 						return
 					}
@@ -209,11 +209,11 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token") || '47334d9c79ae52c6c9073d63ae7b5024'
+		return uni.getStorageSync("thorui_token") || '4c3d3d44d7642918ac216eb0fe1b7afe'
 	},
 	//判断是否登录
 	isLogin: function() {
-		return uni.getStorageSync("thorui_token") ? true : false
+		return uni.getStorageSync("thorui_token") || '4c3d3d44d7642918ac216eb0fe1b7afe' ? true : false
 	},
 	//跳转页面，校验登录状态
 	href(url, isVerify) {

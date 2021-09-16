@@ -3,7 +3,7 @@
 		<block v-if="!$slots.default && !$slots.$default">
 			<scroll-view scroll-y="true" :style="{
 				height: $u.addUnit(height)
-			}">
+			}" @scrolltolower="toBottom" lower-threshold="50">
 				<view class="u-dropdown-item__options">
 					<u-cell-group>
 						<u-cell-item @click="cellClick(item.value)" :arrow="false" :title="item.label" v-for="(item, index) in options"
@@ -15,6 +15,9 @@
 					</u-cell-group>
 				</view>
 			</scroll-view>
+			<view class="u-flex u-row-right bg-white u-border-top" v-if="showReset">
+				<u-button class="u-m-10" type="primary" plain @click="reset" size="medium">重置</u-button>
+			</view>
 		</block>
 		<slot v-else />
 	</view>
@@ -63,6 +66,11 @@
 				type: [Number, String],
 				default: 'auto'
 			},
+			//是否显示重置按钮
+			showReset:{
+				type:Boolean,
+				default:false
+			}
 		},
 		data() {
 			return {
@@ -119,6 +127,17 @@
 				this.parent.close();
 				// 发出事件，抛出当前勾选项的value
 				this.$emit('change', value);
+			},
+			toBottom(){
+				//滑动达到底部
+				this.$emit('onReachBottom',true)
+			},
+			//重置
+			reset(){
+				// 通知父组件(u-dropdown)收起菜单
+				this.parent.close();
+				// 发出事件
+				this.$emit('reset',true)
 			}
 		},
 		mounted() {

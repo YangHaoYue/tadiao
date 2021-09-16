@@ -128,8 +128,8 @@
 				
 				areaName:'地区',
 				area_id:'',
-				listStatus: -1,
-				statusTitle:'状态',
+				listStatus: 0,
+				statusTitle:'可用',
 				//价格区间
 				min:0,
 				max:0,
