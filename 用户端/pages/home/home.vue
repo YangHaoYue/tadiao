@@ -94,6 +94,19 @@
 			this.getBanner();
 			this.getInfo();
 		},
+		onShow() {
+ 			let token = this.http.isLogin();
+			let identity = Number(uni.getStorageSync('identity'))
+			if(token){
+				if(identity === 2||identity === 3){
+					window.location.href = 'https://dadazulin.cn/html/staff'
+				}else if(identity === 4||identity === 5){
+					window.location.href = 'https://dadazulin.cn/html/manager'
+				}else if(identity === 6){
+					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index?'+this.$u.random(1,100)
+				}
+			}
+		},
 		onReachBottom() {
 			if(this.page >= this.last_page) return ;
 			this.status = 'loading';

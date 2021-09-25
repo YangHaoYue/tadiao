@@ -54,6 +54,17 @@
 <script>
 	export default {
 		onShow() {
+			let token = this.http.getToken();
+			let identity = Number(uni.getStorageSync('identity'))
+			if(token){
+				if(identity === 2||identity === 3){
+					window.location.href = 'https://dadazulin.cn/html/staff/#/pages/mine/mine'
+				}else if(identity === 4||identity === 5){
+					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/mine/index?type=mine'
+				}else if(identity === 6){
+					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index?type=mine&random'+this.$u.random(1,100)
+				}
+			}
 			this.getUserInfo()
 		},
 		data() {

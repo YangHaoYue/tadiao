@@ -2,19 +2,31 @@
  * 常用方法封装 请求，文件上传等
  * @author echo. 
  **/
+ /* 
+	面板地址: http://159.75.100.18:8888/8bd4acf9
+	内网面板地址: http://172.16.0.3:8888/8bd4acf9
+	*以下仅为初始默认账户密码，若无法登录请执行bt命令重置账户/密码登录
+	username: ef8tlgme
+	password: 546be066
+	
+	正式服:https://dadazulin.cn/html/
+	https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/
+	测试服地址：https://tower.0831.run/
+	https://test-1253827710.cos.ap-chengdu.myqcloud.com
+ */
 
 const tui = {
 	//接口地址
 	interfaceUrl: function() {
-		return 'https://dadazulin.cn/api/v1/'
+		return 'https://tower.0831.run/api/v1/'
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/'
+		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
 	},
 	//地图地址
 	addressUrl :function(){
-		return 'https://dadazulin.cn/html/'
+		return 'https://tower.0831.run/html/'
 	},
 	//地图key
 	addressKey :function(){
@@ -202,16 +214,15 @@ const tui = {
 		// #endif
 	},
 	//设置用户信息
-	setUserInfo: function(token,identity,nickName,mobile) {
+	setUserInfo: function(token,nickName,mobile) {
 		uni.setStorageSync("thorui_token", token)
 		uni.setStorageSync("mobile", mobile);
 		//身份id
-		uni.setStorageSync('identity',identity);
 		uni.setStorageSync('nickName',nickName);
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token") || 'ccdf040cd0c67644c1cade43d6102b42'
+		return uni.getStorageSync("thorui_token") || '2ff4be3f89c4a94f9bb5eca2f2e66850'
 	},
 	//判断是否登录
 	isLogin: function() {

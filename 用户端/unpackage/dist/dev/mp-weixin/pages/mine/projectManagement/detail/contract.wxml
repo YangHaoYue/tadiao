@@ -1,0 +1,1 @@
+<view><block wx:for="{{contract_imgs}}" wx:for-item="item" wx:for-index="index" wx:key="index"><block><u-image vue-id="{{'7391a48c-1-'+index}}" src="{{item}}" mode="widthFix" width="750rpx" data-event-opts="{{[['^click',[['showImg',[index]]]]]}}" bind:click="__e" bind:__l="__l"></u-image></block></block></view>

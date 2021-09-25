@@ -87,6 +87,8 @@
 <script>
 	export default {
 		onLoad(e) {
+			let isToken = this.http.isLogin();
+			if(!isToken) uni.$emit('CNew')
 			if(e.project_id){
 				uni.setNavigationBarTitle({
 					title:'编辑线索'
@@ -94,6 +96,8 @@
 				this.project_id = e.project_id;
 				this.getProjectEditInfo()
 			}
+			this.getUserInfo();
+			
 			uni.$on('address',(data)=>{
 				console.log('data'+data);
 				this.model.latitude = data.latitude;
@@ -141,6 +145,9 @@
 			}
 		},
 		methods: {
+			getUserInfo(){
+				this.http.get('UserCenter/user',{},true)
+			},
 			getProjectEditInfo(){
 				this.http.get('project/getProjectEditInfo',{
 					project_id:this.project_id

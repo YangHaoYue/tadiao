@@ -1,0 +1,9 @@
+
+.codeType.data-v-b237504c {
+	/* padding: 20rpx 10rpx; */
+	border: #0F58FB solid 1rpx;
+	border-radius: 5rpx;
+	margin-left: 10rpx;
+	color: #0F58FB;
+}
+

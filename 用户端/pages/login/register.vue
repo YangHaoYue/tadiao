@@ -48,14 +48,19 @@
 <script>
 	export default {
 		onLoad() {
+			uni.$on('CNew',()=>{
+				this.isback = true
+			})
 			this.getBranches()
 			this.getRegisterInfo();
 		},
-		onShow() {
-			
+		destroyed() {
+			uni.$off('CNew')
 		},
 		data() {
 			return {
+				//是否返回到新建线索
+				isback:false,
 				inviter_id:0,
 				
 				border: false,
@@ -106,24 +111,7 @@
 							message: '手机号码不正确',
 							// 触发器可以同时用blur和change，二者之间用英文逗号隔开
 							trigger: ['change', 'blur'],
-						},
-						// 异步验证，用途：比如用户注册时输入完账号，后端检查账号是否已存在
-						// {
-						// 	trigger: ['blur'],
-						// 	// 异步验证需要通过调用callback()，并且在里面抛出new Error()
-						// 	// 抛出的内容为需要提示的信息，和其他方式的message属性的提示一样
-						// 	asyncValidator: (rule, value, callback) => {
-						// 		this.$u.post('/ebapi/public_api/index').then(res => {
-						// 			// 如果验证出错，需要在callback()抛出new Error('错误提示信息')
-						// 			if(res.error) {
-						// 				callback(new Error('姓名重复'));
-						// 			} else {
-						// 				// 如果没有错误，也要执行callback()回调
-						// 				callback();
-						// 			}
-						// 		})
-						// 	},
-						// }
+						}
 					],
 					code: []
 				},
@@ -239,12 +227,19 @@
 						}).then((res)=>{
 							if(res.code == 1000 && res.data.is_login){
 								this.http.setUserInfo(res.data.token);
-								this.$refs.uToast.show({
-									title:res.msg,
-									type:"success",
-									isTab:true,
-									url:'/pages/home/home'
-								})
+								if(this.isback){
+									this.$refs.uToast.show({title:res.msg,type:"success"})
+									setTimeout(()=>{
+										this.$u.route('/pages/mine/projectClues/createNew/createNew')
+									},1500)
+								}else{
+									this.$refs.uToast.show({
+										title:res.msg,
+										type:"success",
+										isTab:true,
+										url:'/pages/home/home'
+									})
+								}
 							}else if(res.code == 1000 && !res.data.is_login){
 								this.$refs.uToast.show({
 									title:res.msg,

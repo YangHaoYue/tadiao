@@ -32,7 +32,7 @@
 				<view class="u-flex u-row-around u-p-b-14">
 					<view class="text-black u-font-26">排行</view>
 					<view class="text-black u-font-26">员工</view>
-					<view class="text-black u-font-26">线索数</view>
+					<view class="text-black u-font-26">金额</view>
 				</view>
 				<scroll-view scroll-y @scrolltolower="loadMore" style="height: 750rpx;"> 
 					<block v-for="(item,index) in list" :key="index">

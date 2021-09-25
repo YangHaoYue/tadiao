@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "搜索",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-sticky": "/uview-ui/components/u-sticky/u-sticky",
+    "u-search": "/uview-ui/components/u-search/u-search",
+    "u-row": "/uview-ui/components/u-row/u-row",
+    "u-col": "/uview-ui/components/u-col/u-col",
+    "u-action-sheet": "/uview-ui/components/u-action-sheet/u-action-sheet",
+    "u-loadmore": "/uview-ui/components/u-loadmore/u-loadmore"
+  }
+}

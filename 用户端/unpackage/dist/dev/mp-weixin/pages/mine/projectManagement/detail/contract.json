@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "合同详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-image": "/uview-ui/components/u-image/u-image"
+  }
+}

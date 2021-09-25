@@ -6,15 +6,15 @@
 const tui = {
 	//接口地址
 	interfaceUrl: function() {
-		return 'https://dadazulin.cn/api/v1/'
+		return 'https://tower.0831.run/api/v1/'
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/'
+		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
 	},
 	//地图地址
 	addressUrl :function(){
-		return 'https://dadazulin.cn/html/'
+		return 'https://tower.0831.run/html/'
 	},
 	//地图key
 	addressKey :function(){
@@ -209,11 +209,11 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token") || '4c3d3d44d7642918ac216eb0fe1b7afe'
+		return uni.getStorageSync("thorui_token")
 	},
 	//判断是否登录
 	isLogin: function() {
-		return uni.getStorageSync("thorui_token") || '4c3d3d44d7642918ac216eb0fe1b7afe' ? true : false
+		return uni.getStorageSync("thorui_token") ? true : false
 	},
 	//跳转页面，校验登录状态
 	href(url, isVerify) {

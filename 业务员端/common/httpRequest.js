@@ -6,15 +6,15 @@
 const tui = {
 	//接口地址
 	interfaceUrl: function() {
-		return 'https://dadazulin.cn/api/v1/'
+		return 'https://tower.0831.run/api/v1/'
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/'
+		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
 	},
 	//地图地址
 	addressUrl :function(){
-		return 'https://dadazulin.cn/html/'
+		return 'https://tower.0831.run/html/'
 	},
 	//地图key
 	addressKey :function(){

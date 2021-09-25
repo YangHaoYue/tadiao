@@ -29,27 +29,33 @@
 	export default {
 		onLoad(e) {
 			let token = this.http.getToken();
-			let identity = uni.getStorageSync('identity');
+			let identity = Number(uni.getStorageSync('identity'))
 			if(token){
-				if(identity == 1){
+				console.log(identity);
+				if(identity === 1){
 					uni.switchTab({
 						url:'../home/home'
 					})
-				}else if(identity == 2||identity == 3){
+				}else if(identity === 2||identity === 3){
 					window.location.href = 'https://dadazulin.cn/html/staff'
-				}else if(identity == 4||identity == 5){
+				}else if(identity === 4||identity === 5){
 					window.location.href = 'https://dadazulin.cn/html/manager'
-				}else if(identity == 6){
-					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index'
+				}else if(identity === 6){
+					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index?'+this.$u.random(1,100)
 				}
 			}
 		},
 		onShow() {
+			uni.showLoading({
+				mask:true,
+				title:"正在加载请稍后..."
+			})
 			let code = this.GetQueryString("openid");
 			let userid = this.GetQueryString('userid')
 			if(code == null){
 				this.getOpenid();
 			}else{
+				uni.hideLoading();
 				this.openid = code
 				uni.setStorageSync('openid',code)
 			}
@@ -163,22 +169,24 @@
 							tel_num:this.model.phone,
 							msg_code:this.model.code,
 						}).then((res)=>{
-							if(res.code==1000){
-								this.http.setUserInfo(res.data.token,res.data.identity,'',this.model.phone);
+							if(res.code===1000){
+								uni.setStorageSync('identity',res.data.identity)
+								this.http.setUserInfo(res.data.token,'',this.model.phone);
 								//	1=>普通用户,2=>业务员,3=>维修师傅,4=>分公司副经理,5=>分公司经理,6=>总公司经理
-								if(res.data.identity == 1){
+								
+								if(res.data.identity === 1){
 									this.$refs.uToast.show({
 										title:res.msg,
 										type:"success",
 										isTab:true,
 										url:'/pages/home/home'
 									})
-								}else if(res.data.identity == 2||res.data.identity == 3){
+								}else if(res.data.identity === 2||res.data.identity === 3){
 									window.location.href = 'https://dadazulin.cn/html/staff'
-								}else if(res.data.identity == 4||res.data.identity == 5){
+								}else if(res.data.identity === 4||res.data.identity === 5){
 									window.location.href = 'https://dadazulin.cn/html/manager'
-								}else if(res.data.identity == 6){
-									window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index'
+								}else if(res.data.identity === 6){
+									window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index?'+this.$u.random(1,100)
 								}
 							}else{
 								this.$refs.uToast.show({

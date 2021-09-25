@@ -23,6 +23,9 @@
 
 <script>
 	export default {
+		onLoad(e) {
+			this.PageCur = e.type||'home'
+		},
 		onReachBottom(e) {
 			uni.$emit('onReachBottom')
 		},

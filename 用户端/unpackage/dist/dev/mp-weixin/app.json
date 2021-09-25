@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/login/register",
     "pages/login/agreement",
     "pages/home/home",
@@ -12,20 +13,27 @@
     "pages/mine/bankCardManagement/bankCardManagement",
     "pages/mine/projectClues/createNew/map",
     "pages/mine/projectClues/detail/detail",
-    "pages/mine/projectManagement/detail/detail",
+    "pages/mine/projectManagement/detail/contract",
     "pages/mine/bankCardManagement/addBankCard/addBankCard",
     "pages/mine/withdrawal/withdrawal",
     "pages/mine/withdrawal/detailed",
     "pages/mine/applicationSalesman/applicationSalesman",
     "pages/mine/ApplyRepairman/ApplyRepairman",
-    "pages/login/login"
+    "pages/mine/materialApply/materialApply",
+    "pages/mine/setting/setting",
+    "pages/mine/projectManagement/detail/detail",
+    "pages/mine/projectManagement/detail/comment",
+    "pages/mine/projectManagement/detail/miantainDetail",
+    "pages/mine/projectManagement/detail/repairDetail",
+    "pages/mine/projectClues/createNew/getaddrss"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "嗒嗒租赁",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F8F8F8",
+    "navigationStyle": "custom"
   },
   "tabBar": {
     "color": "#909399",
@@ -50,6 +58,5 @@
   "usingComponents": {
     "cu-custom": "/colorui/components/cu-custom",
     "equipment-item": "/components/equipment-item"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }
