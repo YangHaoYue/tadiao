@@ -14,9 +14,9 @@
 				<!-- <view class="codeType" slot="right" @click="getCode">{{codeTips}}</view> -->
 			</u-form-item>
 		</u-form>
-		<navigator open-type="navigate" url="register" hover-class="none" class="u-m-b-60 u-text-center u-m-t-60 u-text-right">还没有账号?
+		<!-- <navigator open-type="navigate" url="register" hover-class="none" class="u-m-b-60 u-text-center u-m-t-60 u-text-right">还没有账号?
 			<text class="u-m-l-10" style="color: #0F58FB;">前去注册</text>
-		</navigator>
+		</navigator> -->
 
 		<u-button class="u-m-t-30" type="primary" :disabled="disabled" @click="submit">登录</u-button>
 
@@ -37,11 +37,11 @@
 						url:'../home/home'
 					})
 				}else if(identity === 2||identity === 3){
-					window.location.href = 'https://dadazulin.cn/html/staff'
+					window.location.href = this.http.navUrl()+'staff'
 				}else if(identity === 4||identity === 5){
-					window.location.href = 'https://dadazulin.cn/html/manager'
+					window.location.href = this.http.navUrl()+'manager'
 				}else if(identity === 6){
-					window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index?'+this.$u.random(1,100)
+					window.location.href = this.http.navUrl()+'manager/#/pages/leader/index?'+this.$u.random(1,100)
 				}
 			}
 		},
@@ -171,7 +171,8 @@
 						}).then((res)=>{
 							if(res.code===1000){
 								uni.setStorageSync('identity',res.data.identity)
-								this.http.setUserInfo(res.data.token,'',this.model.phone);
+								uni.setStorageSync('mobile',this.model.phone)
+								this.http.setUserInfo(res.data.token);
 								//	1=>普通用户,2=>业务员,3=>维修师傅,4=>分公司副经理,5=>分公司经理,6=>总公司经理
 								
 								if(res.data.identity === 1){
@@ -182,13 +183,16 @@
 										url:'/pages/home/home'
 									})
 								}else if(res.data.identity === 2||res.data.identity === 3){
-									window.location.href = 'https://dadazulin.cn/html/staff'
+									window.location.href = this.http.navUrl()+'staff'
 								}else if(res.data.identity === 4||res.data.identity === 5){
-									window.location.href = 'https://dadazulin.cn/html/manager'
+									window.location.href = this.http.navUrl()+'manager'
 								}else if(res.data.identity === 6){
-									window.location.href = 'https://dadazulin.cn/html/manager/#/pages/leader/index?'+this.$u.random(1,100)
+									window.location.href = this.http.navUrl()+'manager/#/pages/leader/index?'+this.$u.random(1,100)
 								}
 							}else{
+								uni.setStorageSync('mobile',this.model.phone)
+								uni.setStorageSync('code',this.model.code)
+								if(res.data.no_reg) return this.$u.route('/pages/login/register')
 								this.$refs.uToast.show({
 									title:res.msg,
 									type:'error'

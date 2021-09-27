@@ -9,15 +9,14 @@
 			</u-form-item>
 			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="手机"
 				prop="phone">
-				<u-input :border="border" type="number" v-model="model.phone" placeholder="请输入手机号"></u-input>
+				<u-input :border="border" type="number" v-model="model.phone" placeholder="请输入手机号" disabled></u-input>
 			</u-form-item>
-			<u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="验证码"
+			<!-- <u-form-item :label-style="labelStyle" :required="true" :label-position="labelPosition" label="验证码"
 				prop="code" label-width="150">
 				<u-input :border="border" placeholder="请输入验证码" v-model="model.code" type="number"></u-input>
 				<u-button slot="right" type="primary" plain size="medium" @click="getCode">{{codeTips}}</u-button>
-				<!-- <view class="codeType" slot="right" @click="getCode">{{codeTips}}</view> -->
-			</u-form-item>
-			<u-form-item :label-style="labelStyle" :required="false" right-icon="arrow-right"
+			</u-form-item> -->
+			<!-- <u-form-item :label-style="labelStyle" :required="false" right-icon="arrow-right"
 				:label-position="labelPosition" label="所属公司(本选项普通用户可不选)" prop="companie" label-width="150">
 				<u-input :border="border" :disabled="true" v-model="model.companie" placeholder="请选择公司"
 					@click="selectShow = true"></u-input>
@@ -26,7 +25,7 @@
 				:label-position="labelPosition" label="所属岗位" label-width="150">
 				<u-input :border="border" :disabled="true" v-model="model.position" placeholder="请选择所属岗位"
 					@click="typeShow = true"></u-input>
-			</u-form-item>
+			</u-form-item> -->
 		</u-form>
 		<u-checkbox class="u-m-t-10 u-m-b-10" @change="checkboxChange" name="ceshi" v-model="isChecked" size="27rpx"
 			label-size="27rpx" active-color="#0F58FB" shape="circle">
@@ -51,6 +50,8 @@
 			uni.$on('CNew',()=>{
 				this.isback = true
 			})
+			this.model.phone = uni.getStorageSync('mobile')
+			this.model.code = uni.getStorageSync('code')
 			this.getBranches()
 			this.getRegisterInfo();
 		},
@@ -139,7 +140,6 @@
 			}
 		},
 		methods: {
-			
 			codeChange(text) {
 				this.codeTips = text;
 			},

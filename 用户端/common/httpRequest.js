@@ -11,22 +11,31 @@
 	
 	正式服:https://dadazulin.cn/html/
 	https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/
-	测试服地址：https://tower.0831.run/
+	测试服:
+	http://1.14.43.69:8888/tencentcloud
+	xneb75es
+	d679443a728e
+	
+	测试服接口地址
+	http://tower.0831.run/
 	https://test-1253827710.cos.ap-chengdu.myqcloud.com
  */
 
 const tui = {
+	navUrl:function(){
+		return 'https://dadazulin.cn/html/'
+	},
 	//接口地址
 	interfaceUrl: function() {
-		return 'https://tower.0831.run/api/v1/'
+		return 'https://dadazulin.cn/api/v1/'
 	},
 	//资源地址
 	resourceUrl:function(){
-		return 'https://test-1253827710.cos.ap-chengdu.myqcloud.com/'
+		return 'https://dadatd-1306235487.cos.ap-guangzhou.myqcloud.com/'
 	},
 	//地图地址
 	addressUrl :function(){
-		return 'https://tower.0831.run/html/'
+		return 'https://dadazulin.cn/html/'
 	},
 	//地图key
 	addressKey :function(){
@@ -133,7 +142,7 @@ const tui = {
 					} */
 					if (res.data.code == 401) {
 						uni.clearStorageSync()
-						tui.modal("","登录信息已失效，请重新登录", false, () => {
+						tui.modal("","请登录后再使用", false, () => {
 							//store.commit("logout") 登录页面执行
 							uni.reLaunch({
 								url:'/pages/login/login'
@@ -222,7 +231,7 @@ const tui = {
 	},
 	//获取token
 	getToken() {
-		return uni.getStorageSync("thorui_token") || '2ff4be3f89c4a94f9bb5eca2f2e66850'
+		return uni.getStorageSync("thorui_token")
 	},
 	//判断是否登录
 	isLogin: function() {
